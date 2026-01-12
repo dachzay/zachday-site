@@ -8,14 +8,14 @@
   <meta name="description" content="Zach's personal site: projects, writing, and experiments." />
   <style>
     :root {
-      --bg: #0b0c10;
-      --panel: #11131a;
+      --bg: #0a0a0a;
+      --panel: #161616;
       --text: #e8eaf0;
-      --muted: #a8b0c2;
-      --border: #24283a;
-      --link: #8ab4ff;
-      --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
-      --radius: 16px;
+      --muted: #999999;
+      --border: #262626;
+      --link: #ffffff;
+      --shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+      --radius: 8px;
     }
 
     * {
@@ -25,48 +25,48 @@
     body {
       margin: 0;
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      background: radial-gradient(1200px 600px at 20% -10%, #1b2150 0%, transparent 55%),
-        radial-gradient(900px 500px at 90% 0%, #2a1244 0%, transparent 50%),
-        var(--bg);
+      background: var(--bg);
       color: var(--text);
       line-height: 1.5;
     }
 
     .container {
-      width: min(1100px, 92vw);
+      width: min(800px, 92vw);
       margin: 0 auto;
-      padding: 28px 0 72px;
+      padding: 48px 0 96px;
     }
 
     header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 14px 0 18px;
+      padding: 24px 0 48px;
     }
 
     .brand {
       display: flex;
-      gap: 10px;
+      gap: 12px;
       align-items: center;
-      font-weight: 700;
-      letter-spacing: 0.2px;
+      font-weight: 600;
+      font-size: 15px;
+      letter-spacing: -0.2px;
+      color: var(--text);
     }
 
     .dot {
-      width: 10px;
-      height: 10px;
+      width: 8px;
+      height: 8px;
       border-radius: 999px;
-      background: #7c5cff;
-      box-shadow: 0 0 0 6px rgba(124, 92, 255, 0.18);
+      background: #10b981;
     }
 
     nav a {
       color: var(--muted);
       text-decoration: none;
-      margin-left: 16px;
-      font-weight: 600;
+      margin-left: 20px;
+      font-weight: 500;
       font-size: 14px;
+      transition: color 0.15s;
     }
 
     nav a:hover {
@@ -74,65 +74,71 @@
     }
 
     .hero {
-      margin-top: 26px;
-      padding: 34px;
-      background: rgba(17, 19, 26, 0.72);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(10px);
+      margin-top: 0;
+      padding: 0;
+      background: transparent;
+      border: none;
+      box-shadow: none;
+      backdrop-filter: none;
     }
 
     .hero h1 {
-      margin: 0 0 10px;
-      font-size: clamp(28px, 4vw, 44px);
+      margin: 0 0 16px;
+      font-size: clamp(32px, 5vw, 48px);
       line-height: 1.1;
-      letter-spacing: -0.6px;
+      letter-spacing: -0.8px;
+      font-weight: 700;
+      color: var(--text);
     }
 
     .hero p {
-      margin: 0 0 18px;
+      margin: 0 0 32px;
       color: var(--muted);
-      font-size: 16px;
-      max-width: 70ch;
+      font-size: 18px;
+      max-width: 60ch;
+      line-height: 1.6;
     }
 
     .cta {
       display: flex;
       flex-wrap: wrap;
-      gap: 12px;
-      margin-top: 18px;
+      gap: 16px;
+      margin-top: 0;
     }
 
     .btn {
       display: inline-flex;
       align-items: center;
-      gap: 10px;
-      padding: 10px 14px;
-      border-radius: 12px;
-      border: 1px solid var(--border);
+      gap: 8px;
+      padding: 10px 18px;
+      border-radius: 6px;
+      border: 1px solid transparent;
       text-decoration: none;
-      font-weight: 700;
+      font-weight: 500;
       font-size: 14px;
+      transition: all 0.15s;
     }
 
     .btn.primary {
-      background: #7c5cff;
-      border-color: #7c5cff;
-      color: #0b0c10;
+      background: #ffffff;
+      color: #000000;
+      border-color: #ffffff;
     }
 
     .btn.primary:hover {
-      filter: brightness(1.07);
+      background: #e5e5e5;
+      border-color: #e5e5e5;
     }
 
     .btn.secondary {
-      background: rgba(255, 255, 255, 0.04);
+      background: transparent;
       color: var(--text);
+      border: 1px solid var(--border);
     }
 
     .btn.secondary:hover {
-      background: rgba(255, 255, 255, 0.07);
+      border-color: var(--muted);
+      background: rgba(255, 255, 255, 0.03);
     }
 
     .section {
@@ -140,72 +146,95 @@
     }
 
     .section h2 {
-      margin: 0 0 12px;
-      font-size: 18px;
-      letter-spacing: -0.2px;
+      margin: 0 0 24px;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 600;
+      color: var(--muted);
     }
 
     .grid {
       display: grid;
       grid-template-columns: repeat(12, 1fr);
-      gap: 14px;
+      gap: 24px;
     }
 
     .card {
       grid-column: span 6;
-      padding: 16px;
-      background: rgba(17, 19, 26, 0.66);
+      padding: 0;
+      background: transparent;
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      box-shadow: var(--shadow);
+      box-shadow: none;
+      /* Optional: keep padding internal if desired, but making it cleaner */
+      padding: 24px;
+      transition: border-color 0.15s;
+    }
+
+    .card:hover {
+      border-color: var(--muted);
     }
 
     .card h3 {
-      margin: 0 0 6px;
+      margin: 0 0 8px;
       font-size: 16px;
+      font-weight: 600;
+      color: var(--text);
     }
 
     .meta {
       color: var(--muted);
-      font-size: 13px;
-      margin: 0 0 10px;
+      font-size: 14px;
+      margin: 0 0 16px;
+      line-height: 1.5;
     }
 
     .pillrow {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
-      margin-top: 10px;
+      margin-top: 24px;
     }
 
     .pill {
       font-size: 12px;
-      color: var(--muted);
+      color: var(--text);
       border: 1px solid var(--border);
-      background: rgba(255, 255, 255, 0.03);
-      padding: 6px 10px;
-      border-radius: 999px;
+      background: transparent;
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-weight: 500;
     }
 
     .card a {
-      color: var(--link);
-      text-decoration: none;
-      font-weight: 700;
-      font-size: 13px;
+      color: var(--text);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+      text-decoration-color: var(--border);
+      font-weight: 500;
+      font-size: 14px;
+      transition: text-decoration-color 0.15s;
     }
 
     .card a:hover {
-      text-decoration: underline;
+      text-decoration-color: var(--text);
     }
 
     footer {
-      margin-top: 36px;
+      margin-top: 64px;
+      border-top: 1px solid var(--border);
+      padding-top: 32px;
       color: var(--muted);
       font-size: 13px;
       display: flex;
       justify-content: space-between;
-      gap: 10px;
+      gap: 16px;
       flex-wrap: wrap;
+    }
+
+    footer span {
+      opacity: 0.7;
     }
 
     @media (max-width: 720px) {
@@ -213,12 +242,16 @@
         grid-column: span 12;
       }
 
+      .container {
+        padding: 24px 0 64px;
+      }
+
       nav a {
-        margin-left: 12px;
+        margin-left: 16px;
       }
 
       .hero {
-        padding: 22px;
+        padding: 0;
       }
     }
   </style>
@@ -241,7 +274,9 @@
 
     <main>
       <section class="hero">
-        <h1>I build practical AI systems for the common man.</h1>
+        <h1>I build practical AI systems for everyday people
+
+        </h1>
         <p>
           This is my home base for projects, experiments, and write-ups—built to make my work tangible,
           explainable, and easy to explore.
@@ -256,9 +291,11 @@
         <h2>Featured projects</h2>
         <div class="grid">
           <article class="card">
-            <h3>Agent Orchestrator (Public Sandbox)</h3>
-            <p class="meta">A lightweight framework for coordinating task-specific agents with clear inputs/outputs.</p>
-            <a href="#">Read the build notes</a>
+            <h3>Martin</h3>
+            <p class="meta">
+              A personal AI system for turning ideas, notes, and signals into clear next actions.
+            </p>
+            <a href="#">Explore the system</a>
             <div class="pillrow">
               <span class="pill">Agents</span>
               <span class="pill">Workflow</span>
