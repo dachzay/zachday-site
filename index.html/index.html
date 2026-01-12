@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Zach — Personal Projects</title>
+  <meta name="description" content="Zach's personal site: projects, writing, and experiments." />
+  <style>
+    :root {
+      --bg: #0b0c10;
+      --panel: #11131a;
+      --text: #e8eaf0;
+      --muted: #a8b0c2;
+      --border: #24283a;
+      --link: #8ab4ff;
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+      --radius: 16px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: radial-gradient(1200px 600px at 20% -10%, #1b2150 0%, transparent 55%),
+        radial-gradient(900px 500px at 90% 0%, #2a1244 0%, transparent 50%),
+        var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    .container {
+      width: min(1100px, 92vw);
+      margin: 0 auto;
+      padding: 28px 0 72px;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 0 18px;
+    }
+
+    .brand {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: #7c5cff;
+      box-shadow: 0 0 0 6px rgba(124, 92, 255, 0.18);
+    }
+
+    nav a {
+      color: var(--muted);
+      text-decoration: none;
+      margin-left: 16px;
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    nav a:hover {
+      color: var(--text);
+    }
+
+    .hero {
+      margin-top: 26px;
+      padding: 34px;
+      background: rgba(17, 19, 26, 0.72);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+    }
+
+    .hero h1 {
+      margin: 0 0 10px;
+      font-size: clamp(28px, 4vw, 44px);
+      line-height: 1.1;
+      letter-spacing: -0.6px;
+    }
+
+    .hero p {
+      margin: 0 0 18px;
+      color: var(--muted);
+      font-size: 16px;
+      max-width: 70ch;
+    }
+
+    .cta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .btn.primary {
+      background: #7c5cff;
+      border-color: #7c5cff;
+      color: #0b0c10;
+    }
+
+    .btn.primary:hover {
+      filter: brightness(1.07);
+    }
+
+    .btn.secondary {
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text);
+    }
+
+    .btn.secondary:hover {
+      background: rgba(255, 255, 255, 0.07);
+    }
+
+    .section {
+      margin-top: 26px;
+    }
+
+    .section h2 {
+      margin: 0 0 12px;
+      font-size: 18px;
+      letter-spacing: -0.2px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 14px;
+    }
+
+    .card {
+      grid-column: span 6;
+      padding: 16px;
+      background: rgba(17, 19, 26, 0.66);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .card h3 {
+      margin: 0 0 6px;
+      font-size: 16px;
+    }
+
+    .meta {
+      color: var(--muted);
+      font-size: 13px;
+      margin: 0 0 10px;
+    }
+
+    .pillrow {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .pill {
+      font-size: 12px;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.03);
+      padding: 6px 10px;
+      border-radius: 999px;
+    }
+
+    .card a {
+      color: var(--link);
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 13px;
+    }
+
+    .card a:hover {
+      text-decoration: underline;
+    }
+
+    footer {
+      margin-top: 36px;
+      color: var(--muted);
+      font-size: 13px;
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 720px) {
+      .card {
+        grid-column: span 12;
+      }
+
+      nav a {
+        margin-left: 12px;
+      }
+
+      .hero {
+        padding: 22px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <div class="brand">
+        <span class="dot"></span>
+        <span>Zach Day</span>
+      </div>
+      <nav>
+        <a href="#projects">Projects</a>
+        <a href="#writing">Writing</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <h1>I build practical AI systems that ship.</h1>
+        <p>
+          This is my home base for projects, experiments, and write-ups—built to make my work tangible,
+          explainable, and easy to explore.
+        </p>
+        <div class="cta">
+          <a class="btn primary" href="#projects">View projects →</a>
+          <a class="btn secondary" href="#contact">Contact</a>
+        </div>
+      </section>
+
+      <section id="projects" class="section">
+        <h2>Featured projects</h2>
+        <div class="grid">
+          <article class="card">
+            <h3>Agent Orchestrator (Public Sandbox)</h3>
+            <p class="meta">A lightweight framework for coordinating task-specific agents with clear inputs/outputs.</p>
+            <a href="#">Read the build notes</a>
+            <div class="pillrow">
+              <span class="pill">Agents</span>
+              <span class="pill">Workflow</span>
+              <span class="pill">RAG</span>
+            </div>
+          </article>
+
+          <article class="card">
+            <h3>Micro-App Factory</h3>
+            <p class="meta">A repeatable template for turning small “plays” into shippable UI tools.</p>
+            <a href="#">See the template</a>
+            <div class="pillrow">
+              <span class="pill">UI</span>
+              <span class="pill">Templates</span>
+              <span class="pill">Shipping</span>
+            </div>
+          </article>
+
+          <article class="card">
+            <h3>Signal Engine (Mock Data)</h3>
+            <p class="meta">A demo pipeline for transforming usage events into customer health signals.</p>
+            <a href="#">Explore the model</a>
+            <div class="pillrow">
+              <span class="pill">Analytics</span>
+              <span class="pill">Scoring</span>
+              <span class="pill">Playbooks</span>
+            </div>
+          </article>
+
+          <article class="card">
+            <h3>Personal OS: Notes → Actions</h3>
+            <p class="meta">My system for turning messy ideas into weekly execution and feedback loops.</p>
+            <a href="#">Read the system</a>
+            <div class="pillrow">
+              <span class="pill">Process</span>
+              <span class="pill">Ops</span>
+              <span class="pill">Leverage</span>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="writing" class="section">
+        <h2>Writing</h2>
+        <div class="grid">
+          <article class="card" style="grid-column: span 12;">
+            <h3>Coming soon</h3>
+            <p class="meta">Short posts on shipping, systems, and building leverage with AI.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="about" class="section">
+        <h2>About</h2>
+        <div class="grid">
+          <article class="card" style="grid-column: span 12;">
+            <p class="meta" style="margin:0;">
+              I’m Zach. I like turning ambiguous problems into small, testable systems—then shipping the simplest
+              version
+              that creates real output. This site is the public trail of that work.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section id="contact" class="section">
+        <h2>Contact</h2>
+        <div class="grid">
+          <article class="card" style="grid-column: span 12;">
+            <p class="meta">Email: <a href="mailto:you@domain.com">you@domain.com</a> · GitHub · LinkedIn</p>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <span>© <span id="year"></span> Zach Day</span>
+      <span>Built from scratch · Iterated in public</span>
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+
+</html>
