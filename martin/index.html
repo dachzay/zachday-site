@@ -3,48 +3,367 @@
 
 <head>
   <meta charset="UTF-8" />
-  <title>Martin</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Zach — Personal Projects</title>
+  <meta name="description" content="Zach's personal site: projects, writing, and experiments." />
+  <style>
+    :root {
+      --bg: #0a0a0a;
+      --panel: #161616;
+      --text: #e8eaf0;
+      --muted: #999999;
+      --border: #262626;
+      --link: #ffffff;
+      --shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+      --radius: 8px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    .container {
+      width: min(800px, 92vw);
+      margin: 0 auto;
+      padding: 48px 0 96px;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 24px 0 48px;
+    }
+
+    .brand {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      font-weight: 600;
+      font-size: 15px;
+      letter-spacing: -0.2px;
+      color: var(--text);
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: #10b981;
+    }
+
+    nav a {
+      color: var(--muted);
+      text-decoration: none;
+      margin-left: 20px;
+      font-weight: 500;
+      font-size: 14px;
+      transition: color 0.15s;
+    }
+
+    nav a:hover {
+      color: var(--text);
+    }
+
+    .hero {
+      margin-top: 0;
+      padding: 0;
+      background: transparent;
+      border: none;
+      box-shadow: none;
+      backdrop-filter: none;
+    }
+
+    .hero h1 {
+      margin: 0 0 16px;
+      font-size: clamp(32px, 5vw, 48px);
+      line-height: 1.1;
+      letter-spacing: -0.8px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .hero p {
+      margin: 0 0 32px;
+      color: var(--muted);
+      font-size: 18px;
+      max-width: 60ch;
+      line-height: 1.6;
+    }
+
+    .cta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-top: 0;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 18px;
+      border-radius: 6px;
+      border: 1px solid transparent;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 14px;
+      transition: all 0.15s;
+    }
+
+    .btn.primary {
+      background: #ffffff;
+      color: #000000;
+      border-color: #ffffff;
+    }
+
+    .btn.primary:hover {
+      background: #e5e5e5;
+      border-color: #e5e5e5;
+    }
+
+    .btn.secondary {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .btn.secondary:hover {
+      border-color: var(--muted);
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .section {
+      margin-top: 26px;
+    }
+
+    .section h2 {
+      margin: 0 0 24px;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 600;
+      color: var(--muted);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 24px;
+    }
+
+    .card {
+      grid-column: span 6;
+      display: block;
+      text-decoration: none;
+      padding: 0;
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: none;
+      padding: 24px;
+      transition: border-color 0.15s;
+    }
+
+    .card:hover {
+      border-color: var(--muted);
+    }
+
+    .card h3 {
+      margin: 0 0 8px;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .meta {
+      color: var(--muted);
+      font-size: 14px;
+      margin: 0 0 16px;
+      line-height: 1.5;
+    }
+
+    .pillrow {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 24px;
+    }
+
+    .pill {
+      font-size: 12px;
+      color: var(--text);
+      border: 1px solid var(--border);
+      background: transparent;
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-weight: 500;
+    }
+
+    .card a,
+    .card .card-cta {
+      color: var(--text);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+      text-decoration-color: var(--border);
+      font-weight: 500;
+      font-size: 14px;
+      transition: text-decoration-color 0.15s;
+    }
+
+    .card a:hover,
+    .card:hover .card-cta {
+      text-decoration-color: var(--text);
+    }
+
+    footer {
+      margin-top: 64px;
+      border-top: 1px solid var(--border);
+      padding-top: 32px;
+      color: var(--muted);
+      font-size: 13px;
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    footer span {
+      opacity: 0.7;
+    }
+
+    @media (max-width: 720px) {
+      .card {
+        grid-column: span 12;
+      }
+
+      .container {
+        padding: 24px 0 64px;
+      }
+
+      nav a {
+        margin-left: 16px;
+      }
+
+      .hero {
+        padding: 0;
+      }
+    }
+  </style>
 </head>
 
 <body>
-  <h1>Martin</h1>
-  <p class="meta">
-    Martin is a personal AI system I built to turn messy inputs—notes, ideas, signals—into clear next actions.
-  </p>
-  <h2>The problem</h2>
-  <p class="meta">
-    Most work breaks down not because of a lack of information, but because context is scattered.
-    Notes live in one place, signals in another, decisions in your head.
-  </p>
-  <p class="meta">
-    Martin exists to reduce that friction—to help me think clearly, prioritize correctly,
-    and move from ambiguity to action faster.
-  </p>
-  <h2>What Martin produces</h2>
-  <p class="meta">
-    Martin doesn’t generate ideas for me. It helps me decide what to do next.
-  </p>
-  <ul>
-    <li>Clear action plans</li>
-    <li>Prioritized next steps</li>
-    <li>Drafts I can actually send</li>
-    <li>Summaries that reduce cognitive load</li>
-  </ul>
-  <h2>How I use it</h2>
-  <p class="meta">
-    Martin is part of my daily workflow. I feed it raw context—notes, tasks, signals—
-    and use its outputs as a thinking partner, not an authority.
-  </p>
-  <p class="meta">
-    It’s designed to support judgment, not replace it.
-  </p>
-  <h2>What’s next</h2>
-  <p class="meta">
-    This page documents Martin at a high level.
-    Over time, I’ll add deeper write-ups on how it works, what it’s made of,
-    and what it’s taught me about building usable AI systems.
-  </p>
+  <div class="container">
+    <header>
+      <a href="../index.html" style="text-decoration: none;">
+        <div class="brand">
+          <span class="dot" title="Currently building"></span>
+          <span>Zach Day</span>
+        </div>
+      </a>
+      <nav>
+        <a href="../index.html#projects">Projects</a>
+        <a href="../index.html#writing">Writing</a>
+        <a href="../index.html#about">About</a>
+        <a href="../index.html#contact">Contact</a>
+      </nav>
+    </header>
 
+    <main>
+      <section class="hero" style="margin-bottom: 48px;">
+        <h1>Martin</h1>
+        <p class="meta" style="font-size: 18px; max-width: 60ch; color: var(--muted); margin-bottom: 32px;">
+          A personal AI system I built to turn messy inputs—notes, ideas, signals—into clear next actions.
+        </p>
+      </section>
+
+      <section class="section">
+        <h2>The problem</h2>
+        <div class="grid">
+          <div style="grid-column: span 12;">
+            <p class="meta" style="font-size: 16px;">
+              Most work breaks down not because of a lack of information, but because context is scattered.
+              Notes live in one place, signals in another, decisions in your head.
+            </p>
+            <p class="meta" style="font-size: 16px;">
+              Martin exists to reduce that friction—to help me think clearly, prioritize correctly,
+              and move from ambiguity to action faster.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>What Martin produces</h2>
+        <div class="grid">
+          <div style="grid-column: span 12;">
+            <p class="meta" style="font-size: 16px;">
+              Martin doesn’t generate ideas for me. It helps me decide what to do next.
+            </p>
+            <ul style="color: var(--muted); line-height: 1.6;">
+              <li>Clear action plans</li>
+              <li>Prioritized next steps</li>
+              <li>Drafts I can actually send</li>
+              <li>Summaries that reduce cognitive load</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>How I use it</h2>
+        <div class="grid">
+          <div style="grid-column: span 12;">
+            <p class="meta" style="font-size: 16px;">
+              Martin is part of my daily workflow. I feed it raw context—notes, tasks, signals—
+              and use its outputs as a thinking partner, not an authority.
+            </p>
+            <p class="meta" style="font-size: 16px;">
+              It’s designed to support judgment, not replace it.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>What’s next</h2>
+        <div class="grid">
+          <div style="grid-column: span 12;">
+            <p class="meta" style="font-size: 16px;">
+              This page documents Martin at a high level.
+              Over time, I’ll add deeper write-ups on how it works, what it’s made of,
+              and what it’s taught me about building usable AI systems.
+            </p>
+            <div class="pillrow">
+              <a href="./system/index.html" class="pill" style="text-decoration:none;">System</a>
+              <a href="./plays/index.html" class="pill" style="text-decoration:none;">Plays</a>
+              <a href="./innovations/index.html" class="pill" style="text-decoration:none;">Innovations</a>
+              <a href="./metrics/index.html" class="pill" style="text-decoration:none;">Metrics</a>
+              <a href="./standards/index.html" class="pill" style="text-decoration:none;">Standards</a>
+              <a href="./roadmap/index.html" class="pill" style="text-decoration:none;">Roadmap</a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <span>© <span id="year"></span> Zach Day</span>
+      <span>Built from scratch · Iterated in public</span>
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
 </body>
 
 </html>
