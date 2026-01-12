@@ -162,12 +162,13 @@
 
     .card {
       grid-column: span 6;
+      display: block;
+      text-decoration: none;
       padding: 0;
       background: transparent;
       border: 1px solid var(--border);
       border-radius: var(--radius);
       box-shadow: none;
-      /* Optional: keep padding internal if desired, but making it cleaner */
       padding: 24px;
       transition: border-color 0.15s;
     }
@@ -207,7 +208,8 @@
       font-weight: 500;
     }
 
-    .card a {
+    .card a,
+    .card .card-cta {
       color: var(--text);
       text-decoration: underline;
       text-underline-offset: 4px;
@@ -217,7 +219,8 @@
       transition: text-decoration-color 0.15s;
     }
 
-    .card a:hover {
+    .card a:hover,
+    .card:hover .card-cta {
       text-decoration-color: var(--text);
     }
 
@@ -261,7 +264,7 @@
   <div class="container">
     <header>
       <div class="brand">
-        <span class="dot"></span>
+        <span class="dot" title="Currently building"></span>
         <span>Zach Day</span>
       </div>
       <nav>
@@ -274,9 +277,7 @@
 
     <main>
       <section class="hero">
-        <h1>I build practical AI systems for everyday people
-
-        </h1>
+        <h1>I build practical AI systems for everyday people.</h1>
         <p>
           This is my home base for projects, experiments, and write-ups—built to make my work tangible,
           explainable, and easy to explore.
@@ -290,51 +291,51 @@
       <section id="projects" class="section">
         <h2>Featured projects</h2>
         <div class="grid">
-          <article class="card">
-            <h3>Martin</h3>
+          <a href="./martin/index.html" class="card">
+            <h3>martin</h3>
             <p class="meta">
               A personal AI system for turning ideas, notes, and signals into clear next actions.
             </p>
-            <a href="#">Explore the system</a>
+            <span class="card-cta">Explore the system</span>
             <div class="pillrow">
               <span class="pill">Agents</span>
               <span class="pill">Workflow</span>
               <span class="pill">RAG</span>
             </div>
-          </article>
+          </a>
 
-          <article class="card">
+          <a href="#" class="card">
             <h3>Micro-App Factory</h3>
             <p class="meta">A repeatable template for turning small “plays” into shippable UI tools.</p>
-            <a href="#">See the template</a>
+            <span class="card-cta">See the template</span>
             <div class="pillrow">
               <span class="pill">UI</span>
               <span class="pill">Templates</span>
               <span class="pill">Shipping</span>
             </div>
-          </article>
+          </a>
 
-          <article class="card">
+          <a href="#" class="card">
             <h3>Signal Engine (Mock Data)</h3>
             <p class="meta">A demo pipeline for transforming usage events into customer health signals.</p>
-            <a href="#">Explore the model</a>
+            <span class="card-cta">Explore the model</span>
             <div class="pillrow">
               <span class="pill">Analytics</span>
               <span class="pill">Scoring</span>
               <span class="pill">Playbooks</span>
             </div>
-          </article>
+          </a>
 
-          <article class="card">
+          <a href="#" class="card">
             <h3>Personal OS: Notes → Actions</h3>
             <p class="meta">My system for turning messy ideas into weekly execution and feedback loops.</p>
-            <a href="#">Read the system</a>
+            <span class="card-cta">Read the system</span>
             <div class="pillrow">
               <span class="pill">Process</span>
               <span class="pill">Ops</span>
               <span class="pill">Leverage</span>
             </div>
-          </article>
+          </a>
         </div>
       </section>
 
