@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Martin — Metrics</title>
+    <meta name="description" content="Martin: Metrics" />
+    <style>
+        :root {
+            --bg: #0a0a0a;
+            --panel: #161616;
+            --text: #e8eaf0;
+            --muted: #999999;
+            --border: #262626;
+            --link: #ffffff;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            --radius: 8px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.5;
+        }
+
+        .container {
+            width: min(800px, 92vw);
+            margin: 0 auto;
+            padding: 48px 0 96px;
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 24px 0 48px;
+        }
+
+        .brand {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            font-weight: 600;
+            font-size: 15px;
+            letter-spacing: -0.2px;
+            color: var(--text);
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 999px;
+            background: #10b981;
+        }
+
+        nav a {
+            color: var(--muted);
+            text-decoration: none;
+            margin-left: 20px;
+            font-weight: 500;
+            font-size: 14px;
+            transition: color 0.15s;
+        }
+
+        nav a:hover {
+            color: var(--text);
+        }
+
+        .hero h1 {
+            margin: 0 0 12px;
+            font-size: clamp(28px, 4vw, 40px);
+            line-height: 1.1;
+            letter-spacing: -0.6px;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .meta {
+            color: var(--muted);
+            font-size: 16px;
+            margin: 0 0 16px;
+            line-height: 1.6;
+            max-width: 65ch;
+        }
+
+        .subnav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 24px;
+        }
+
+        .pill {
+            font-size: 12px;
+            color: var(--text);
+            border: 1px solid var(--border);
+            background: transparent;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-weight: 500;
+            text-decoration: none;
+        }
+
+        .pill:hover {
+            border-color: var(--muted);
+        }
+
+        footer {
+            margin-top: 64px;
+            border-top: 1px solid var(--border);
+            padding-top: 32px;
+            color: var(--muted);
+            font-size: 13px;
+            display: flex;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        footer span {
+            opacity: 0.7;
+        }
+
+        @media (max-width: 720px) {
+            .container {
+                padding: 24px 0 64px;
+            }
+
+            nav a {
+                margin-left: 16px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <a href="../../index.html" style="text-decoration: none;">
+                <div class="brand">
+                    <span class="dot" title="Currently building"></span>
+                    <span>Zach Day</span>
+                </div>
+            </a>
+            <nav>
+                <a href="../../index.html#projects">Projects</a>
+                <a href="../../index.html#writing">Writing</a>
+                <a href="../../index.html#about">About</a>
+                <a href="../../index.html#contact">Contact</a>
+            </nav>
+        </header>
+
+        <main>
+            <section class="hero">
+                <h1>Martin — Metrics</h1>
+                <p class="meta">How I tell if Martin is helping: fewer loops, faster decisions, more shipped work.</p>
+
+                <div class="subnav">
+                    <a class="pill" href="../index.html">Overview</a>
+                    <a class="pill" href="../system/index.html">System</a>
+                    <a class="pill" href="../plays/index.html">Plays</a>
+                    <a class="pill" href="../innovations/index.html">Innovations</a>
+                    <a class="pill" href="../metrics/index.html">Metrics</a>
+                    <a class="pill" href="../standards/index.html">Standards</a>
+                    <a class="pill" href="../roadmap/index.html">Roadmap</a>
+                </div>
+            </section>
+
+            <section style="margin-top: 32px;">
+                <p class="meta"><strong style="color: var(--text);">v1 outline</strong></p>
+                <ul style="color: var(--muted); line-height: 1.7; margin: 0; padding-left: 18px;">
+                    <li><strong style="color: var(--text);">Time-to-next-action</strong> decreases</li>
+                    <li><strong style="color: var(--text);">Fewer reopened decisions</strong></li>
+                    <li><strong style="color: var(--text);">Higher follow-through</strong> on top 3 priorities</li>
+                    <li><strong style="color: var(--text);">Drafts sent</strong> with fewer edits / less procrastination
+                    </li>
+                </ul>
+            </section>
+        </main>
+
+        <footer>
+            <span>© <span id="year"></span> Zach Day</span>
+            <span>Built from scratch · Iterated in public</span>
+        </footer>
+    </div>
+
+    <script>
+        document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+</body>
+
+</html>

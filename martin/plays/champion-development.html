@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Champion Development — Martin</title>
+    <style>
+        :root {
+            --bg: #0a0a0a;
+            --panel: #161616;
+            --text: #e8eaf0;
+            --muted: #999999;
+            --border: #262626;
+            --link: #ffffff;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            --radius: 8px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.5;
+        }
+
+        .container {
+            width: min(800px, 92vw);
+            margin: 0 auto;
+            padding: 48px 0 96px;
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 24px 0 48px;
+        }
+
+        .brand {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            font-weight: 600;
+            font-size: 15px;
+            letter-spacing: -0.2px;
+            color: var(--text);
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 999px;
+            background: #10b981;
+        }
+
+        nav a {
+            color: var(--muted);
+            text-decoration: none;
+            margin-left: 20px;
+            font-weight: 500;
+            font-size: 14px;
+            transition: color 0.15s;
+        }
+
+        nav a:hover {
+            color: var(--text);
+        }
+
+        .hero {
+            margin-top: 0;
+            padding: 0;
+            background: transparent;
+            border: none;
+            box-shadow: none;
+            backdrop-filter: none;
+        }
+
+        .hero h1 {
+            margin: 0 0 16px;
+            font-size: clamp(32px, 5vw, 48px);
+            line-height: 1.1;
+            letter-spacing: -0.8px;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .meta {
+            color: var(--muted);
+            font-size: 18px;
+            max-width: 60ch;
+            line-height: 1.6;
+            margin: 0 0 32px;
+        }
+
+        .section {
+            margin-top: 48px;
+        }
+
+        .section h2 {
+            margin: 0 0 24px;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            color: var(--muted);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 24px;
+        }
+
+        .content-block {
+            grid-column: span 12;
+            font-size: 16px;
+            color: var(--text);
+        }
+
+        ul {
+            color: var(--muted);
+            line-height: 1.6;
+            margin-top: 0;
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        p {
+            margin-top: 0;
+            margin-bottom: 16px;
+        }
+
+        footer {
+            margin-top: 64px;
+            border-top: 1px solid var(--border);
+            padding-top: 32px;
+            color: var(--muted);
+            font-size: 13px;
+            display: flex;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 720px) {
+            .container {
+                padding: 24px 0 64px;
+            }
+
+            nav a {
+                margin-left: 16px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <a href="../../index.html" style="text-decoration: none;">
+                <div class="brand">
+                    <span class="dot" title="Currently building"></span>
+                    <span>Zach Day</span>
+                </div>
+            </a>
+            <nav>
+                <a href="../../index.html#projects">Projects</a>
+                <a href="../../index.html#writing">Writing</a>
+                <a href="../../index.html#about">About</a>
+                <a href="../../index.html#contact">Contact</a>
+            </nav>
+        </header>
+
+        <main>
+            <section class="hero">
+                <a href="./index.html"
+                    style="display: inline-block; margin-bottom: 24px; color: var(--muted); text-decoration: none; font-size: 14px; font-weight: 500;">
+                    ← Back to all plays
+                </a>
+                <h1>Champion Development</h1>
+                <div class="meta">
+                    <p>Who inside this account is actually driving value — and who isn’t?</p>
+                    <p>
+                        I built this play to answer that question. It operates only on adopted or performing accounts,
+                        ignoring the noise to find the signal. This is behavioral signal detection, not contact
+                        scraping.
+                    </p>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>The Problem It Solves</h2>
+                <div class="grid">
+                    <div class="content-block">
+                        <p style="color: var(--muted);">
+                            In most accounts, usage exists but ownership is unclear. Influence is assumed instead of
+                            proven, and risk hides inside ‘active’ accounts.
+                        </p>
+                        <p style="color: var(--muted);">
+                            It addresses common false assumptions:
+                        </p>
+                        <ul>
+                            <li>Logged-in ≠ champion</li>
+                            <li>Title ≠ influence</li>
+                            <li>Adoption ≠ advocacy</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>What the Play Does</h2>
+                <div class="grid">
+                    <div class="content-block">
+                        <ul>
+                            <li>Identifies users driving adoption</li>
+                            <li>Separates leaders from passive participants</li>
+                            <li>Flags missing ownership</li>
+                            <li>Surfaces candidates for enablement, cultivation, or risk mitigation</li>
+                        </ul>
+                        <p style="color: var(--muted); margin-top: 16px;">
+                            The output is a clear map of human leverage inside the account.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>How It Works (High Level)</h2>
+                <div class="grid">
+                    <div class="content-block">
+                        <ol style="color: var(--muted); line-height: 1.6; margin-top: 0; padding-left: 20px;">
+                            <li><strong>Account context is established</strong> (only meaningful activity)</li>
+                            <li><strong>User behavior is analyzed</strong></li>
+                            <li><strong>Influence is inferred from behavior</strong>, not titles</li>
+                            <li><strong>Actionable outputs are generated</strong></li>
+                        </ol>
+                        <p style="color: var(--muted); margin-top: 16px;">
+                            Execution is constrained by system rules and standards.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>What This Enables</h2>
+                <div class="grid">
+                    <div class="content-block">
+                        <ul>
+                            <li>Focus enablement on the right people</li>
+                            <li>Reduce single-threaded risk</li>
+                            <li>Support expansion or renewal conversations</li>
+                            <li>Act before disengagement becomes visible</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>What This Play Is Not</h2>
+                <div class="grid">
+                    <div class="content-block">
+                        <ul>
+                            <li>Guess at influence</li>
+                            <li>Rely on anecdotes</li>
+                            <li>Replace human judgment</li>
+                            <li>Automatically create outreach</li>
+                        </ul>
+                        <p style="color: var(--muted); margin-top: 16px;">
+                            It surfaces signal, not decisions.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>Where It Fits</h2>
+                <div class="grid">
+                    <div class="content-block">
+                        <ul>
+                            <li>Defined in: /plays</li>
+                            <li>Executed by: Martin</li>
+                            <li>Governed by: /system and /standards</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <span>© <span id="year"></span> Zach Day</span>
+            <span>Built from scratch · Iterated in public</span>
+        </footer>
+    </div>
+
+    <script>
+        document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+</body>
+
+</html>

@@ -191,10 +191,10 @@
       line-height: 1.5;
     }
 
-    .pillrow {
+    .subnav {
       display: flex;
       flex-wrap: wrap;
-      gap: 8px;
+      gap: 10px;
       margin-top: 24px;
     }
 
@@ -281,75 +281,81 @@
       <section class="hero" style="margin-bottom: 48px;">
         <h1>Martin</h1>
         <p class="meta" style="font-size: 18px; max-width: 60ch; color: var(--muted); margin-bottom: 32px;">
-          A personal AI system I built to turn messy inputs—notes, ideas, signals—into clear next actions.
+          I built Martin to execute work, not to define it. It explicitly performs actions based on established rules
+          and inputs, without making strategic decisions. It serves as the bridge between intent and outcome.
         </p>
-      </section>
-
-      <section class="section">
-        <h2>The problem</h2>
-        <div class="grid">
-          <div style="grid-column: span 12;">
-            <p class="meta" style="font-size: 16px;">
-              Most work breaks down not because of a lack of information, but because context is scattered.
-              Notes live in one place, signals in another, decisions in your head.
-            </p>
-            <p class="meta" style="font-size: 16px;">
-              Martin exists to reduce that friction—to help me think clearly, prioritize correctly,
-              and move from ambiguity to action faster.
-            </p>
-          </div>
+        <div class="subnav">
+          <a href="./index.html" class="pill" style="text-decoration:none;">Overview</a>
+          <a href="./system/index.html" class="pill" style="text-decoration:none;">System</a>
+          <a href="./plays/index.html" class="pill" style="text-decoration:none;">Plays</a>
+          <a href="./innovations/index.html" class="pill" style="text-decoration:none;">Innovations</a>
+          <a href="./metrics/index.html" class="pill" style="text-decoration:none;">Metrics</a>
+          <a href="./standards/index.html" class="pill" style="text-decoration:none;">Standards</a>
+          <a href="./roadmap/index.html" class="pill" style="text-decoration:none;">Roadmap</a>
         </div>
       </section>
 
       <section class="section">
-        <h2>What Martin produces</h2>
+        <h2>What Martin Does</h2>
         <div class="grid">
           <div style="grid-column: span 12;">
-            <p class="meta" style="font-size: 16px;">
-              Martin doesn’t generate ideas for me. It helps me decide what to do next.
-            </p>
-            <ul style="color: var(--muted); line-height: 1.6;">
-              <li>Clear action plans</li>
-              <li>Prioritized next steps</li>
-              <li>Drafts I can actually send</li>
-              <li>Summaries that reduce cognitive load</li>
+            <ul style="color: var(--muted); line-height: 1.6; margin-top: 0;">
+              <li>Executes predefined plays</li>
+              <li>Applies system-level protocols</li>
+              <li>Enforces standards and validation</li>
+              <li>Orchestrates multi-step workflows</li>
+              <li>Produces outputs and captures learning</li>
             </ul>
           </div>
         </div>
       </section>
 
       <section class="section">
-        <h2>How I use it</h2>
+        <h2>What Martin Does Not Do</h2>
+        <div class="grid">
+          <div style="grid-column: span 12;">
+            <ul style="color: var(--muted); line-height: 1.6; margin-top: 0;">
+              <li>Does not invent strategy</li>
+              <li>Does not define plays</li>
+              <li>Does not override system rules</li>
+              <li>Does not act autonomously</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>How This Folder Structure Works Together</h2>
         <div class="grid">
           <div style="grid-column: span 12;">
             <p class="meta" style="font-size: 16px;">
-              Martin is part of my daily workflow. I feed it raw context—notes, tasks, signals—
-              and use its outputs as a thinking partner, not an authority.
-            </p>
-            <p class="meta" style="font-size: 16px;">
-              It’s designed to support judgment, not replace it.
+              /system defines how execution is allowed to work. /standards defines quality and correctness. /plays
+              defines what can be executed. /metrics measures outcomes. Martin runs everything correctly, in order.
             </p>
           </div>
         </div>
       </section>
 
       <section class="section">
-        <h2>What’s next</h2>
+        <h2>Why Execution Is Separated From Judgment</h2>
         <div class="grid">
           <div style="grid-column: span 12;">
             <p class="meta" style="font-size: 16px;">
-              This page documents Martin at a high level.
-              Over time, I’ll add deeper write-ups on how it works, what it’s made of,
-              and what it’s taught me about building usable AI systems.
+              Separating intent from execution ensures reliability and repeatability. By isolating the execution layer,
+              the system becomes multi-user ready and reduces ambiguity during the work process. It offers no future
+              promises, only current capabilities.
             </p>
-            <div class="pillrow">
-              <a href="./system/index.html" class="pill" style="text-decoration:none;">System</a>
-              <a href="./plays/index.html" class="pill" style="text-decoration:none;">Plays</a>
-              <a href="./innovations/index.html" class="pill" style="text-decoration:none;">Innovations</a>
-              <a href="./metrics/index.html" class="pill" style="text-decoration:none;">Metrics</a>
-              <a href="./standards/index.html" class="pill" style="text-decoration:none;">Standards</a>
-              <a href="./roadmap/index.html" class="pill" style="text-decoration:none;">Roadmap</a>
-            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="grid">
+          <div style="grid-column: span 12;">
+            <p class="meta" style="font-size: 16px;">
+              Martin operates with a narrow role by design. These intentional constraints prevent scope creep and ensure
+              the system remains a tool for execution rather than a source of distraction.
+            </p>
           </div>
         </div>
       </section>
