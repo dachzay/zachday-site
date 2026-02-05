@@ -1,0 +1,9 @@
+{
+  "name": "website",
+  "private": true,
+  "description": "Static site — zachday.xyz",
+  "scripts": {
+    "build": "echo No build step — static HTML/CSS",
+    "deploy": "node scripts/deploy.js"
+  }
+}
