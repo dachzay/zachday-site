@@ -75,8 +75,8 @@
 
     .hero {
       margin-top: 0;
-      padding: 0;
-      background: transparent;
+      padding: 32px 0 48px;
+      background: radial-gradient(ellipse 100% 60% at 50% 0%, rgba(22, 22, 22, 0.5), transparent 70%);
       border: none;
       box-shadow: none;
       backdrop-filter: none;
@@ -110,8 +110,8 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 10px 18px;
-      border-radius: 6px;
+      padding: 12px 20px;
+      border-radius: 8px;
       border: 1px solid transparent;
       text-decoration: none;
       font-weight: 500;
@@ -142,7 +142,7 @@
     }
 
     .section {
-      margin-top: 26px;
+      margin-top: 56px;
     }
 
     .section h2 {
@@ -170,11 +170,12 @@
       border-radius: var(--radius);
       box-shadow: none;
       padding: 24px;
-      transition: border-color 0.15s;
+      transition: border-color 0.15s, background 0.15s;
     }
 
     .card:hover {
       border-color: var(--muted);
+      background: rgba(255, 255, 255, 0.02);
     }
 
     .card h3 {
@@ -254,7 +255,7 @@
       }
 
       .hero {
-        padding: 0;
+        padding: 24px 0 32px;
       }
     }
   </style>
@@ -278,13 +279,9 @@
     <main>
       <section class="hero">
         <h1>I build practical AI systems for everyday people.</h1>
-        <p>
-          This is my home base for projects, experiments, and write-ups—built to make my work tangible,
-          explainable, and easy to explore.
-        </p>
+        <p>Projects, experiments, and write-ups—tangible and easy to explore.</p>
         <div class="cta">
           <a class="btn primary" href="#projects">View projects →</a>
-          <a class="btn secondary" href="#contact">Contact</a>
         </div>
       </section>
 
