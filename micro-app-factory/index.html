@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Micro-App Factory — Zach Day</title>
+  <meta name="description" content="A repeatable template for turning small plays into shippable UI tools." />
+  <style>
+    :root {
+      --bg: #0a0a0a;
+      --panel: #161616;
+      --text: #e8eaf0;
+      --muted: #999999;
+      --border: #262626;
+      --link: #ffffff;
+      --shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+      --radius: 8px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    .container {
+      width: min(800px, 92vw);
+      margin: 0 auto;
+      padding: 48px 0 96px;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 24px 0 48px;
+    }
+
+    .brand {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      font-weight: 600;
+      font-size: 15px;
+      letter-spacing: -0.2px;
+      color: var(--text);
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: #10b981;
+    }
+
+    nav a {
+      color: var(--muted);
+      text-decoration: none;
+      margin-left: 20px;
+      font-weight: 500;
+      font-size: 14px;
+      transition: color 0.15s;
+    }
+
+    nav a:hover {
+      color: var(--text);
+    }
+
+    .hero {
+      margin-top: 0;
+      padding: 0;
+      background: transparent;
+      border: none;
+      box-shadow: none;
+      backdrop-filter: none;
+    }
+
+    .hero h1 {
+      margin: 0 0 16px;
+      font-size: clamp(32px, 5vw, 48px);
+      line-height: 1.1;
+      letter-spacing: -0.8px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .hero p {
+      margin: 0 0 32px;
+      color: var(--muted);
+      font-size: 18px;
+      max-width: 60ch;
+      line-height: 1.6;
+    }
+
+    .section {
+      margin-top: 26px;
+    }
+
+    .section h2 {
+      margin: 0 0 24px;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 600;
+      color: var(--muted);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 24px;
+    }
+
+    .meta {
+      color: var(--muted);
+      font-size: 14px;
+      margin: 0 0 16px;
+      line-height: 1.5;
+    }
+
+    footer {
+      margin-top: 64px;
+      border-top: 1px solid var(--border);
+      padding-top: 32px;
+      color: var(--muted);
+      font-size: 13px;
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    
+    @media (max-width: 720px) {
+      .container {
+        padding: 24px 0 64px;
+      }
+
+      nav a {
+        margin-left: 16px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <a href="../index.html" style="text-decoration: none;">
+        <div class="brand">
+          <span class="dot" title="Project"></span>
+          <span>Zach Day</span>
+        </div>
+      </a>
+      <nav>
+        <a href="../index.html#projects">Projects</a>
+        <a href="../index.html#writing">Writing</a>
+        <a href="../index.html#about">About</a>
+        <a href="../index.html#contact">Contact</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <h1>Micro-App Factory</h1>
+        <p>A repeatable template for turning small “plays” into shippable UI tools.</p>
+      </section>
+
+      <section class="section">
+        <h2>About this project</h2>
+        <div class="grid">
+          <div style="grid-column: span 12;">
+            <p class="meta" style="font-size: 16px;">
+              The Micro-App Factory is a methodology and codebase for rapidly deploying single-purpose utilities. 
+              Instead of building a monolithic application, this approach favors small, independent tools that do one thing well.
+            </p>
+            <p class="meta" style="font-size: 16px;">
+              This system reduces the overhead of "starting a new project" to near zero, allowing for experimentation and 
+              quick iteration on ideas that might otherwise remain in the backlog.
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <span>© <span id="year"></span> Zach Day</span>
+      <span>Built from scratch · Iterated in public</span>
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+
+</html>

@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Martin — Innovations</title>
-    <meta name="description" content="Martin: Innovations" />
+    <title>Martin — The Build Log</title>
+    <meta name="description" content="The Build Log: How Martin Was Built" />
     <style>
         :root {
             --bg: #0a0a0a;
@@ -14,6 +14,7 @@
             --muted: #999999;
             --border: #262626;
             --link: #ffffff;
+            --accent: #10b981;
             --shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
             --radius: 8px;
         }
@@ -57,7 +58,7 @@
             width: 8px;
             height: 8px;
             border-radius: 999px;
-            background: #10b981;
+            background: var(--accent);
         }
 
         nav a {
@@ -118,8 +119,132 @@
             border-color: var(--muted);
         }
 
-        footer {
+        .section {
             margin-top: 64px;
+        }
+
+        .section h2 {
+            margin: 0 0 24px;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            color: var(--muted);
+        }
+
+        .section h3 {
+            margin: 0 0 16px;
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .section p {
+            color: var(--muted);
+            font-size: 15px;
+            line-height: 1.7;
+            margin: 0 0 16px;
+            max-width: 65ch;
+        }
+
+        .section ul {
+            color: var(--muted);
+            line-height: 1.7;
+            margin: 0 0 16px;
+            padding-left: 20px;
+        }
+
+        .card {
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 24px;
+            margin-bottom: 24px;
+            background: rgba(255, 255, 255, 0.01);
+        }
+
+        .card h3 {
+            font-size: 18px;
+            margin-bottom: 12px;
+            color: var(--text);
+        }
+
+        .card h4 {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text);
+            margin: 16px 0 8px;
+        }
+
+        .version-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 16px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 12px;
+        }
+
+        .version-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .version-meta {
+            font-size: 12px;
+            color: var(--accent);
+            font-family: ui-monospace, monospace;
+            background: rgba(16, 185, 129, 0.1);
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+
+        .pattern-block {
+            background: #111;
+            padding: 16px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-family: ui-monospace, monospace;
+            color: var(--muted);
+            border: 1px solid var(--border);
+            margin-top: 16px;
+            white-space: pre-wrap;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+            font-size: 14px;
+        }
+
+        th,
+        td {
+            text-align: left;
+            padding: 12px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            color: var(--muted);
+            font-weight: 500;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        td {
+            color: var(--text);
+        }
+
+        .highlight {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        footer {
+            margin-top: 80px;
             border-top: 1px solid var(--border);
             padding-top: 32px;
             color: var(--muted);
@@ -128,10 +253,6 @@
             justify-content: space-between;
             gap: 16px;
             flex-wrap: wrap;
-        }
-
-        footer span {
-            opacity: 0.7;
         }
 
         @media (max-width: 720px) {
@@ -165,34 +286,231 @@
 
         <main>
             <section class="hero">
-                <h1>Martin — Innovations</h1>
-                <p class="meta">The few design choices that made Martin reliably useful instead of occasionally
-                    impressive.</p>
+                <h1>Martin — The Build Log</h1>
+                <p class="meta">
+                    How Martin was built: what worked, what broke, and what architectural patterns emerged
+                    from a single-workflow prototype to a multi-layer orchestration platform.
+                </p>
 
                 <div class="subnav">
                     <a class="pill" href="../index.html">Overview</a>
                     <a class="pill" href="../origin/index.html">Origin</a>
                     <a class="pill" href="../system/index.html">System</a>
                     <a class="pill" href="../plays/index.html">Plays</a>
-                    <a class="pill active" href="../innovations/index.html">Innovations</a>
+                    <a class="pill active" href="./index.html">Innovations</a>
                     <a class="pill" href="../metrics/index.html">Metrics</a>
                     <a class="pill" href="../standards/index.html">Standards</a>
                     <a class="pill" href="../roadmap/index.html">Roadmap</a>
                 </div>
             </section>
 
-            <section style="margin-top: 32px;">
-                <p class="meta"><strong style="color: var(--text);">v1 outline</strong></p>
-                <ul style="color: var(--muted); line-height: 1.7; margin: 0; padding-left: 18px;">
-                    <li><strong style="color: var(--text);">Output format:</strong> always ends with “next actions” (not
-                        vibes)</li>
-                    <li><strong style="color: var(--text);">Constraints-first:</strong> goals + time + risk stated up
-                        front</li>
-                    <li><strong style="color: var(--text);">Memory hygiene:</strong> what gets kept vs discarded is
-                        intentional</li>
-                    <li><strong style="color: var(--text);">Voice consistency:</strong> drafts sound like me, not “AI
-                        tone”</li>
-                </ul>
+            <section class="section">
+                <h2>Why Martin Exists</h2>
+                <p>
+                    Modern operators don’t suffer from a lack of data. They suffer from a lack of coherent, reliable
+                    context.
+                    Most systems record events (a meeting happened, a deal progressed), but very few preserve
+                    <strong>why</strong> something changed or <strong>what signals mattered</strong>.
+                </p>
+                <p>
+                    Martin started as an experiment: Could an AI system reliably orchestrate analysis workflows,
+                    preserve context across time, and produce execution-ready outputs — not just insights?
+                </p>
+            </section>
+
+            <section class="section">
+                <h2>Version History — Capability Evolution</h2>
+
+                <div class="card">
+                    <div class="version-header">
+                        <div class="version-title">v1 — The Prototype Era</div>
+                        <div class="version-meta">Single Workflow</div>
+                    </div>
+                    <p><strong>Core Question:</strong> Can an AI orchestrate structured data pulls?</p>
+                    <p><strong>Constraint:</strong> No memory, no synthesis, single-user architecture.</p>
+
+                    <h4>What It Could Do</h4>
+                    <ul>
+                        <li>Execute one workflow at a time</li>
+                        <li>Pull structured data from source systems</li>
+                        <li>Generate summary outputs</li>
+                    </ul>
+
+                    <div class="pattern-block">User Input
+                        → Orchestrator
+                        → Private Memory Store
+                        → Data Query
+                        → Text Output</div>
+
+                    <h4>What Broke</h4>
+                    <ul>
+                        <li>Every run started from zero (wasted effort)</li>
+                        <li>No validation checkpoints</li>
+                        <li>Private memory blocked multi-user usage</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <div class="version-header">
+                        <div class="version-title">v1.5 — The Persistence Breakthrough</div>
+                        <div class="version-meta">Persistence Layer</div>
+                    </div>
+                    <p><strong>Core Question:</strong> Can the system remember what it learned?</p>
+                    <p><strong>Unlock:</strong> Longitudinal memory via persistence layer.</p>
+
+                    <h4>New Pattern Introduced</h4>
+                    <ul>
+                        <li><strong>Execution Archive (Runs):</strong> Full output history</li>
+                        <li><strong>Current State (State Table):</strong> Queryable latest intelligence</li>
+                    </ul>
+
+                    <div class="pattern-block">User Input
+                        → Orchestrator
+                        → Memory Layer + Persistence Layer
+                        → Multi-source Data Pulls
+                        → Artifact + Logged Execution</div>
+
+                    <h4>Key Learning</h4>
+                    <p>Persistence must separate archive from queryable state, or queries become slow and fragile.</p>
+                </div>
+
+                <div class="card">
+                    <div class="version-header">
+                        <div class="version-title">v2 — The Synthesis Era</div>
+                        <div class="version-meta">Multi-Workflow</div>
+                    </div>
+                    <p><strong>Core Question:</strong> Can multiple workflows produce one reliable narrative?</p>
+                    <p><strong>Unlock:</strong> Coordinated multi-workflow execution with validation gates.</p>
+
+                    <div class="pattern-block">Command
+                        → Orchestrator
+                        → Workflow A
+                        → Workflow B
+                        → Validation Gates
+                        → Synthesis Engine
+                        → Final Artifact</div>
+
+                    <h4>What Broke</h4>
+                    <p>Synthesis introduced new risks: conflicting signals, partial failures, and output drift.
+                        Multi-workflow systems require explicit reliability guardrails.</p>
+                </div>
+
+                <div class="card">
+                    <div class="version-header">
+                        <div class="version-title">v3 — The Production System</div>
+                        <div class="version-meta">Production</div>
+                    </div>
+                    <p><strong>Core Question:</strong> Can the system operate like real infrastructure?</p>
+                    <p><strong>Unlock:</strong> Multi-user, command-driven, stateful orchestration platform.</p>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>Five Innovations That Made Martin Work</h2>
+
+                <div class="card">
+                    <h3>1. Dual-Mode Control (Plan vs Execute)</h3>
+                    <p><strong>Problem:</strong> Evaluators needed strategic thinking, but operators needed immediate
+                        execution. Mixing both caused trust issues.</p>
+                    <p><strong>Solution:</strong> Two explicit modes. <strong>Plan Mode</strong> analyzes and recommends
+                        (no side effects). <strong>Execute Mode</strong> runs workflows and persists results.</p>
+                </div>
+
+                <div class="card">
+                    <h3>2. Persistent Intelligence</h3>
+                    <p><strong>Problem:</strong> Without history, systems can’t detect change.</p>
+                    <p><strong>Solution:</strong> Three-layer persistence model:</p>
+                    <ul>
+                        <li><strong>Runs:</strong> What happened</li>
+                        <li><strong>State:</strong> Current truth</li>
+                        <li><strong>History:</strong> Trend + change detection</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>3. Command Abstraction (Skills Registry)</h3>
+                    <p><strong>Problem:</strong> Workflow definitions were too technical for discovery.</p>
+                    <p><strong>Solution:</strong> Registry mapping Human Command → Workflow Template → Execution Engine.
+                    </p>
+                </div>
+
+                <div class="card">
+                    <h3>4. Validation Gates</h3>
+                    <p><strong>Problem:</strong> Multi-workflow outputs can drift or conflict.</p>
+                    <p><strong>Solution:</strong> Blocking validation checkpoints for data completeness and logical
+                        contradictions.</p>
+                </div>
+
+                <div class="card">
+                    <h3>5. Runner Pattern</h3>
+                    <p><strong>Problem:</strong> Manual execution is reactive.</p>
+                    <p><strong>Solution:</strong> Scheduler + Runner executes workflows on cadence, compares state, and
+                        triggers alerts on meaningful deltas.</p>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>Pivots — What Changed and Why</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Assumption</th>
+                            <th>Reality</th>
+                            <th>Change</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Single-user memory</td>
+                            <td>Collaboration required visibility</td>
+                            <td>Migrated to shared configuration + memory</td>
+                        </tr>
+                        <tr>
+                            <td>Consistent source schemas</td>
+                            <td>Production schemas vary</td>
+                            <td>Schema validation + correction layers added</td>
+                        </tr>
+                        <tr>
+                            <td>More workflows = value</td>
+                            <td>Overlap reduced clarity</td>
+                            <td>Rewrote workflows around distinct problem lenses</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section class="section">
+                <h2>What This System Is (And Isn't)</h2>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+                    <div>
+                        <h3 style="color: var(--accent);">It Is</h3>
+                        <ul>
+                            <li>An orchestration system</li>
+                            <li>A context preservation system</li>
+                            <li>A workflow reliability system</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 style="color: var(--muted);">It Is Not</h3>
+                        <ul>
+                            <li>A general chatbot</li>
+                            <li>A static reporting tool</li>
+                            <li>A single-model solution</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>Core Lessons</h2>
+                <div class="card" style="border-left: 2px solid var(--accent);">
+                    <ul style="margin: 0; padding-left: 20px;">
+                        <li>Memory is more valuable than model cleverness.</li>
+                        <li>Reliability beats novelty in production systems.</li>
+                        <li>Operators need control surfaces, not magic.</li>
+                        <li>Synthesis is where real value appears.</li>
+                    </ul>
+                </div>
             </section>
         </main>
 
