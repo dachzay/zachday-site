@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Martin — Impact</title>
+    <meta name="description" content="The transformation: 3,000 hours/year saved, 45-day risk detection head start" />
+    <style>
+        :root {
+            --bg: #0a0a0a;
+            --panel: #161616;
+            --text: #e8eaf0;
+            --muted: #999999;
+            --border: #262626;
+            --link: #ffffff;
+            --accent: #10b981;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            --radius: 8px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.5;
+        }
+
+        .container {
+            width: min(800px, 92vw);
+            margin: 0 auto;
+            padding: 48px 0 96px;
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 24px 0 48px;
+        }
+
+        .brand {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            font-weight: 600;
+            font-size: 15px;
+            letter-spacing: -0.2px;
+            color: var(--text);
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 999px;
+            background: var(--accent);
+        }
+
+        nav a {
+            color: var(--muted);
+            text-decoration: none;
+            margin-left: 20px;
+            font-weight: 500;
+            font-size: 14px;
+            transition: color 0.15s;
+        }
+
+        nav a:hover {
+            color: var(--text);
+        }
+
+        .hero h1 {
+            margin: 0 0 12px;
+            font-size: clamp(28px, 4vw, 40px);
+            line-height: 1.1;
+            letter-spacing: -0.6px;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .meta {
+            color: var(--muted);
+            font-size: 16px;
+            margin: 0 0 16px;
+            line-height: 1.6;
+            max-width: 65ch;
+        }
+
+        .subnav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 24px;
+        }
+
+        .pill {
+            font-size: 12px;
+            color: var(--text);
+            border: 1px solid var(--border);
+            background: transparent;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-weight: 500;
+            text-decoration: none;
+        }
+
+        .pill:hover {
+            border-color: var(--muted);
+        }
+
+        .pill.active {
+            background: var(--border);
+            color: var(--text);
+            border-color: var(--muted);
+        }
+
+        .section {
+            margin-top: 48px;
+        }
+
+        .section h2 {
+            margin: 0 0 16px;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            color: var(--muted);
+        }
+
+        .section p {
+            color: var(--muted);
+            font-size: 15px;
+            line-height: 1.7;
+            margin: 0 0 16px;
+            max-width: 65ch;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+            font-size: 14px;
+        }
+
+        th,
+        td {
+            text-align: left;
+            padding: 12px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            color: var(--muted);
+            font-weight: 500;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        td {
+            color: var(--text);
+        }
+
+        .highlight {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin: 24px 0;
+        }
+
+        .comparison-card {
+            padding: 20px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+        }
+
+        .comparison-card h3 {
+            margin: 0 0 12px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .comparison-card ul {
+            margin: 0;
+            padding-left: 16px;
+            color: var(--text);
+        }
+
+        .comparison-card li {
+            margin-bottom: 8px;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .roi-card {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 24px;
+            margin: 24px 0;
+        }
+
+        .roi-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            text-align: center;
+        }
+
+        .roi-item {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .roi-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .roi-label {
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        .shift-table td:first-child {
+            color: var(--muted);
+            font-weight: 500;
+        }
+
+        footer {
+            margin-top: 64px;
+            border-top: 1px solid var(--border);
+            padding-top: 32px;
+            color: var(--muted);
+            font-size: 13px;
+            display: flex;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        footer span {
+            opacity: 0.7;
+        }
+
+        @media (max-width: 720px) {
+            .container {
+                padding: 24px 0 64px;
+            }
+
+            nav a {
+                margin-left: 16px;
+            }
+
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .roi-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            table {
+                font-size: 13px;
+            }
+
+            th,
+            td {
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <a href="../../index.html" style="text-decoration: none;">
+                <div class="brand">
+                    <span class="dot" title="Currently building"></span>
+                    <span>Zach Day</span>
+                </div>
+            </a>
+            <nav>
+                <a href="../../index.html#projects">Projects</a>
+                <a href="../../index.html#writing">Writing</a>
+                <a href="../../index.html#about">About</a>
+                <a href="../../index.html#contact">Contact</a>
+            </nav>
+        </header>
+
+        <main>
+            <section class="hero">
+                <h1>Martin — Impact</h1>
+                <p class="meta">
+                    From reactive fire-fighting to proactive partnership. The transformation
+                    measured in hours saved, risks detected, and capacity unlocked.
+                </p>
+
+                <div class="subnav">
+                    <a class="pill" href="../index.html">Overview</a>
+                    <a class="pill active" href="./index.html">Origin</a>
+                    <a class="pill" href="../system/index.html">System</a>
+                    <a class="pill" href="../plays/index.html">Plays</a>
+                    <a class="pill" href="../innovations/index.html">Innovations</a>
+                    <a class="pill" href="../metrics/index.html">Metrics</a>
+                    <a class="pill" href="../standards/index.html">Standards</a>
+                    <a class="pill" href="../roadmap/index.html">Roadmap</a>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>Time Savings</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Activity</th>
+                            <th>Before</th>
+                            <th>After</th>
+                            <th>Saved</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>QBR Prep</td>
+                            <td>4-6 hours</td>
+                            <td>45-55 min</td>
+                            <td class="highlight">3-5 hours</td>
+                        </tr>
+                        <tr>
+                            <td>Renewal Risk Analysis</td>
+                            <td>2-3 hours</td>
+                            <td>8-12 min</td>
+                            <td class="highlight">1.8-2.9 hours</td>
+                        </tr>
+                        <tr>
+                            <td>Platform Usage Review</td>
+                            <td>1-2 hours</td>
+                            <td>8-15 min</td>
+                            <td class="highlight">0.75-1.9 hours</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>
+                    For an 87-account portfolio: <span class="highlight">~3,000 hours/year saved</span>
+                    (58 hours/week, or 1.4 FTEs worth of capacity unlocked).
+                </p>
+            </section>
+
+            <section class="section">
+                <h2>Return on Investment</h2>
+                <div class="roi-card">
+                    <div class="roi-grid">
+                        <div class="roi-item">
+                            <div class="roi-value">$210K</div>
+                            <div class="roi-label">Reclaimed CSM capacity/year</div>
+                        </div>
+                        <div class="roi-item">
+                            <div class="roi-value">~$15K</div>
+                            <div class="roi-label">Development cost (200 hours)</div>
+                        </div>
+                        <div class="roi-item">
+                            <div class="roi-value">14:1</div>
+                            <div class="roi-label">First-year ROI</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>The Strategic Shift</h2>
+                <div class="comparison-grid">
+                    <div class="comparison-card">
+                        <h3>Before Martin</h3>
+                        <ul>
+                            <li>80% time on admin work</li>
+                            <li>20% time on strategic work</li>
+                            <li>Reactive posture</li>
+                            <li>Respond to customer requests</li>
+                            <li>Discover risks too late</li>
+                        </ul>
+                    </div>
+                    <div class="comparison-card">
+                        <h3>After Martin</h3>
+                        <ul>
+                            <li>20% time on admin work</li>
+                            <li>80% time on strategic work</li>
+                            <li>Proactive posture</li>
+                            <li>Anticipate customer needs</li>
+                            <li>Detect risks early</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>The Transformation</h2>
+                <table class="shift-table">
+                    <thead>
+                        <tr>
+                            <th>Dimension</th>
+                            <th>Before</th>
+                            <th>After</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Risk Detection</td>
+                            <td>During renewal call (30d lag)</td>
+                            <td>Automated signals (0-7d lag)</td>
+                        </tr>
+                        <tr>
+                            <td>Account Reviews</td>
+                            <td>Manual, 2-3 hours each</td>
+                            <td>Automated, 8-18 minutes</td>
+                        </tr>
+                        <tr>
+                            <td>Portfolio Visibility</td>
+                            <td>Spreadsheet tracking, weekly</td>
+                            <td>Real-time, query-ready</td>
+                        </tr>
+                        <tr>
+                            <td>Data Aggregation</td>
+                            <td>6+ systems, manual copy-paste</td>
+                            <td>Single interface, automated</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section class="section">
+                <p style="font-size: 16px; color: var(--text); font-weight: 500;">
+                    Martin doesn't replace CSMs. Martin removes the work that prevents CSMs
+                    from being strategic partners.
+                </p>
+            </section>
+        </main>
+
+        <footer>
+            <span>© <span id="year"></span> Zach Day</span>
+            <span>Built from scratch · Iterated in public</span>
+        </footer>
+    </div>
+
+    <script>
+        document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+</body>
+
+</html>

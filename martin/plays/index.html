@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Martin — Plays</title>
-    <meta name="description" content="Martin: Plays" />
+    <meta name="description" content="Martin: Plays Library" />
     <style>
         :root {
             --bg: #0a0a0a;
@@ -112,6 +112,92 @@
             border-color: var(--muted);
         }
 
+        .pill.active {
+            background: var(--border);
+            color: var(--text);
+            border-color: var(--muted);
+        }
+
+        .section {
+            margin-top: 64px;
+        }
+
+        .section-header {
+            margin-bottom: 24px;
+        }
+
+        .section h2 {
+            margin: 0 0 8px;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .section-desc {
+            margin: 0;
+            font-size: 14px;
+            color: var(--muted);
+        }
+
+        .play-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .play-card {
+            display: block;
+            text-decoration: none;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px;
+            transition: border-color 0.15s;
+        }
+
+        .play-card:hover {
+            border-color: var(--muted);
+        }
+
+        .play-card h3 {
+            margin: 0 0 4px;
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .play-card p {
+            margin: 0;
+            font-size: 14px;
+            color: var(--muted);
+            line-height: 1.5;
+        }
+
+        .play-meta {
+            display: block;
+            margin-top: 8px;
+            font-size: 12px;
+            color: #525252;
+            font-weight: 500;
+        }
+
+        .helper-list {
+            margin-top: 16px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .helper-item {
+            color: var(--muted);
+            font-size: 14px;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 8px 12px;
+            border-radius: 6px;
+            border: 1px solid transparent;
+        }
+
         footer {
             margin-top: 64px;
             border-top: 1px solid var(--border);
@@ -165,8 +251,9 @@
 
                 <div class="subnav">
                     <a class="pill" href="../index.html">Overview</a>
+                    <a class="pill" href="../origin/index.html">Origin</a>
                     <a class="pill" href="../system/index.html">System</a>
-                    <a class="pill" href="../plays/index.html">Plays</a>
+                    <a class="pill active" href="../plays/index.html">Plays</a>
                     <a class="pill" href="../innovations/index.html">Innovations</a>
                     <a class="pill" href="../metrics/index.html">Metrics</a>
                     <a class="pill" href="../standards/index.html">Standards</a>
@@ -174,33 +261,82 @@
                 </div>
             </section>
 
-            <section style="margin-top: 32px;">
-                <p class="meta"><strong style="color: var(--text);">Active Plays</strong></p>
-                <div style="display: flex; flex-direction: column; gap: 16px;">
-                    <a href="champion-development.html" style="text-decoration: none;">
-                        <div
-                            style="border: 1px solid var(--border); border-radius: 8px; padding: 20px; transition: border-color 0.15s;">
-                            <h3 style="margin: 0 0 8px; font-size: 16px; font-weight: 600; color: var(--text);">Champion
-                                Development</h3>
-                            <p style="margin: 0; font-size: 14px; color: var(--muted); line-height: 1.5;">Identify who
-                                drives value inside an account. Behavioral signal detection, not title scraping.</p>
-                        </div>
+            <!-- GROUP 1: Single-Account Plays -->
+            <section class="section">
+                <div class="section-header">
+                    <h2>Single-Account Plays</h2>
+                    <p class="section-desc">Tactics for driving meaningful outcomes within a specific domain or account.
+                    </p>
+                </div>
+                <div class="play-list">
+                    <a href="champion-development.html" class="play-card">
+                        <h3>Champion Development</h3>
+                        <p>Identify who drives value inside an account. Behavioral signal detection, not title scraping.
+                        </p>
+                        <span class="play-meta">Single-account play</span>
                     </a>
                 </div>
             </section>
 
-            <section style="margin-top: 48px;">
-                <p class="meta"><strong style="color: var(--text);">Planned Plays</strong></p>
-                <ul style="color: var(--muted); line-height: 1.7; margin: 0; padding-left: 18px;">
-                    <li><strong style="color: var(--text);">Triage:</strong> dump everything → get a ranked next 3</li>
-                    <li><strong style="color: var(--text);">Decision:</strong> options → what I’m optimizing for →
-                        recommendation + tradeoffs</li>
-                    <li><strong style="color: var(--text);">Draft:</strong> messy notes → sendable email / doc / message
-                    </li>
-                    <li><strong style="color: var(--text);">Debrief:</strong> what happened → what to change next time
-                    </li>
-                </ul>
+            <!-- GROUP 2: Portfolio Plays -->
+            <section class="section">
+                <div class="section-header">
+                    <h2>Portfolio Plays</h2>
+                    <p class="section-desc">Strategies for managing risk, opportunity, and allocation across the entire
+                        board.</p>
+                </div>
+                <div class="play-list">
+                    <!-- Placeholder style for empty state if needed, but keeping clean -->
+                    <div
+                        style="padding: 16px; border: 1px dashed var(--border); border-radius: 8px; color: var(--muted); font-size: 13px;">
+                        No published portfolio plays yet.
+                    </div>
+                </div>
             </section>
+
+            <!-- GROUP 3: Utility -->
+            <section class="section">
+                <div class="section-header">
+                    <h2>Utility</h2>
+                    <p class="section-desc">Low-level functions for cleaning, formatting, or validating inputs.</p>
+                </div>
+                <div class="play-list">
+                    <div
+                        style="padding: 16px; border: 1px dashed var(--border); border-radius: 8px; color: var(--muted); font-size: 13px;">
+                        No published utility plays yet.
+                    </div>
+                </div>
+            </section>
+
+            <!-- GROUP 4: Synthesis Workflows -->
+            <section class="section">
+                <div class="section-header">
+                    <h2>Synthesis Workflows</h2>
+                    <p class="section-desc">Complex orchestrations that combine multiple inputs to generate strategic
+                        clarity.</p>
+                </div>
+                <div class="play-list">
+                    <div
+                        style="padding: 16px; border: 1px dashed var(--border); border-radius: 8px; color: var(--muted); font-size: 13px;">
+                        No published synthesis workflows yet.
+                    </div>
+                </div>
+            </section>
+
+            <!-- GROUP 5: Execution Helpers (Footer-like) -->
+            <section class="section" style="margin-top: 80px; border-top: 1px solid var(--border); padding-top: 32px;">
+                <div class="section-header">
+                    <h2 style="color: var(--muted); font-size: 12px;">Execution Helpers</h2>
+                    <p class="section-desc">Useful patterns you’ll recognize.</p>
+                </div>
+                <div class="helper-list">
+                    <div class="helper-item">Triage</div>
+                    <div class="helper-item">Decision</div>
+                    <div class="helper-item">Draft</div>
+                    <div class="helper-item">Debrief</div>
+                </div>
+            </section>
+
         </main>
 
         <footer>

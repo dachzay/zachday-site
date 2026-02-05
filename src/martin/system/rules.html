@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rules — Martin System</title>
+    <link rel="stylesheet" href="../../css/design-tokens.css">
+    <link rel="stylesheet" href="../../css/layout.css">
+    <link rel="stylesheet" href="../../css/components.css">
+    <link rel="stylesheet" href="../../css/responsive.css">
+</head>
+
+<body>
+    <div class="container sidebar-layout">
+        <!-- Mobile Menu Button -->
+        <button class="mobile-menu-toggle btn btn-secondary" style="margin-bottom: var(--sp-4);">
+            ☰ Menu
+        </button>
+
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div style="margin-bottom: var(--sp-6);">
+                <a href="../../index.html" style="font-weight: 700; color: var(--text); text-decoration: none;">Zach
+                    Day</a>
+            </div>
+
+            <div class="sidebar-section-title">Martin System</div>
+            <ul class="sidebar-nav">
+                <li><a href="../index.html">Overview</a></li>
+                <li><a href="index.html" class="active">System</a></li>
+                <!-- We could list subsections here if we want deep hierarchy -->
+                <li><a href="../plays/index.html">Plays</a></li>
+            </ul>
+
+            <div class="sidebar-section-title">Future</div>
+            <ul class="sidebar-nav">
+                <li><a href="../innovations/index.html">Innovations</a></li>
+                <li><a href="../metrics/index.html">Metrics</a></li>
+                <li><a href="../standards/index.html">Standards</a></li>
+                <li><a href="../roadmap/index.html">Roadmap</a></li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header style="margin-bottom: var(--sp-8);">
+                <nav style="font-size: 14px; color: var(--muted); margin-bottom: var(--sp-4);">
+                    <a href="../../index.html" style="color: inherit; text-decoration: none;">Home</a> >
+                    <a href="../index.html" style="color: inherit; text-decoration: none;">Martin</a> >
+                    <a href="index.html" style="color: inherit; text-decoration: none;">System</a> >
+                    <span>Rules</span>
+                </nav>
+                <h1>Rules</h1>
+                <p style="color: var(--muted);">Fundamental constraints that guide decision making.</p>
+            </header>
+
+            <section class="prose">
+                <div class="card" style="margin-bottom: var(--sp-6);">
+                    <h3>1. Maximum Leverage</h3>
+                    <p style="color: var(--muted); margin-top: var(--sp-2);">Always choose the path that yields the
+                        highest output per unit of input.</p>
+                </div>
+
+                <div class="card" style="margin-bottom: var(--sp-6);">
+                    <h3>2. Defaults Matter</h3>
+                    <p style="color: var(--muted); margin-top: var(--sp-2);">If it requires willpower, it will fail.
+                        Build the default path to be the right path.</p>
+                </div>
+
+                <div class="card">
+                    <h3>3. Documentation is Product</h3>
+                    <p style="color: var(--muted); margin-top: var(--sp-2);">If it isn't written down, it doesn't exist.
+                        Treat documentation with the same care as shipping code.</p>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="../../js/navigation.js"></script>
+</body>
+
+</html>

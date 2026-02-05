@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Martin — The Problem</title>
+    <meta name="description"
+        content="The CSM reality: fragmented data, reactive workflows, and the 80/20 admin split" />
+    <style>
+        :root {
+            --bg: #0a0a0a;
+            --panel: #161616;
+            --text: #e8eaf0;
+            --muted: #999999;
+            --border: #262626;
+            --link: #ffffff;
+            --accent: #10b981;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            --radius: 8px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.5;
+        }
+
+        .container {
+            width: min(800px, 92vw);
+            margin: 0 auto;
+            padding: 48px 0 96px;
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 24px 0 48px;
+        }
+
+        .brand {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            font-weight: 600;
+            font-size: 15px;
+            letter-spacing: -0.2px;
+            color: var(--text);
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 999px;
+            background: var(--accent);
+        }
+
+        nav a {
+            color: var(--muted);
+            text-decoration: none;
+            margin-left: 20px;
+            font-weight: 500;
+            font-size: 14px;
+            transition: color 0.15s;
+        }
+
+        nav a:hover {
+            color: var(--text);
+        }
+
+        .hero h1 {
+            margin: 0 0 12px;
+            font-size: clamp(28px, 4vw, 40px);
+            line-height: 1.1;
+            letter-spacing: -0.6px;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .meta {
+            color: var(--muted);
+            font-size: 16px;
+            margin: 0 0 16px;
+            line-height: 1.6;
+            max-width: 65ch;
+        }
+
+        .subnav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 24px;
+        }
+
+        .pill {
+            font-size: 12px;
+            color: var(--text);
+            border: 1px solid var(--border);
+            background: transparent;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-weight: 500;
+            text-decoration: none;
+        }
+
+        .pill:hover {
+            border-color: var(--muted);
+        }
+
+        .pill.active {
+            background: var(--border);
+            color: var(--text);
+            border-color: var(--muted);
+        }
+
+        .section {
+            margin-top: 48px;
+        }
+
+        .section h2 {
+            margin: 0 0 16px;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            color: var(--muted);
+        }
+
+        .section h3 {
+            margin: 0 0 12px;
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .section p {
+            color: var(--muted);
+            font-size: 15px;
+            line-height: 1.7;
+            margin: 0 0 16px;
+            max-width: 65ch;
+        }
+
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin: 24px 0;
+        }
+
+        .stat-card {
+            padding: 16px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: var(--muted);
+            margin-top: 4px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+            font-size: 14px;
+        }
+
+        th,
+        td {
+            text-align: left;
+            padding: 12px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            color: var(--muted);
+            font-weight: 500;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        td {
+            color: var(--text);
+        }
+
+        .highlight {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .list-section ul {
+            margin: 0;
+            padding-left: 20px;
+            color: var(--muted);
+        }
+
+        .list-section li {
+            margin-bottom: 8px;
+            line-height: 1.6;
+        }
+
+        footer {
+            margin-top: 64px;
+            border-top: 1px solid var(--border);
+            padding-top: 32px;
+            color: var(--muted);
+            font-size: 13px;
+            display: flex;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        footer span {
+            opacity: 0.7;
+        }
+
+        @media (max-width: 720px) {
+            .container {
+                padding: 24px 0 64px;
+            }
+
+            nav a {
+                margin-left: 16px;
+            }
+
+            .stats-row {
+                grid-template-columns: 1fr;
+            }
+
+            table {
+                font-size: 13px;
+            }
+
+            th,
+            td {
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <a href="../../index.html" style="text-decoration: none;">
+                <div class="brand">
+                    <span class="dot" title="Currently building"></span>
+                    <span>Zach Day</span>
+                </div>
+            </a>
+            <nav>
+                <a href="../../index.html#projects">Projects</a>
+                <a href="../../index.html#writing">Writing</a>
+                <a href="../../index.html#about">About</a>
+                <a href="../../index.html#contact">Contact</a>
+            </nav>
+        </header>
+
+        <main>
+            <section class="hero">
+                <h1>Martin — The Problem</h1>
+                <p class="meta">
+                    Customer Success Managers manage high-value, high-complexity portfolios. But traditional
+                    CSM workflows are reactive, manual, and fragmented.
+                </p>
+
+                <div class="subnav">
+                    <a class="pill" href="../index.html">Overview</a>
+                    <a class="pill active" href="./index.html">Origin</a>
+                    <a class="pill" href="../system/index.html">System</a>
+                    <a class="pill" href="../plays/index.html">Plays</a>
+                    <a class="pill" href="../innovations/index.html">Innovations</a>
+                    <a class="pill" href="../metrics/index.html">Metrics</a>
+                    <a class="pill" href="../standards/index.html">Standards</a>
+                    <a class="pill" href="../roadmap/index.html">Roadmap</a>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>The Portfolio Scale</h2>
+                <div class="stats-row">
+                    <div class="stat-card">
+                        <div class="stat-value">87</div>
+                        <div class="stat-label">Accounts</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">$9M</div>
+                        <div class="stat-label">ACV Under Management</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">6+</div>
+                        <div class="stat-label">Data Systems</div>
+                    </div>
+                </div>
+                <p>
+                    Data lives across Salesforce, Chorus, dbt/Snowflake, ZoomInfo, Gainsight, and BigQuery.
+                    Each account review takes 2-3 hours just to aggregate the data.
+                </p>
+            </section>
+
+            <section class="section">
+                <h2>Pain Points Quantified</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Activity</th>
+                            <th>Time Cost</th>
+                            <th>Frequency</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Manual QBR prep</td>
+                            <td>4-6 hours</td>
+                            <td>4x/year per account</td>
+                        </tr>
+                        <tr>
+                            <td>Renewal risk analysis</td>
+                            <td>2-3 hours</td>
+                            <td>1x per renewal</td>
+                        </tr>
+                        <tr>
+                            <td>Platform usage deep-dive</td>
+                            <td>1-2 hours</td>
+                            <td>Monthly per account</td>
+                        </tr>
+                        <tr>
+                            <td>Champion mapping</td>
+                            <td>1-2 hours</td>
+                            <td>Quarterly per account</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>
+                    For an 87-account portfolio: <span class="highlight">~3,500 hours/year</span> on manual data work.
+                    That's 67 hours/week, or 1.7 FTEs worth of effort.
+                </p>
+            </section>
+
+            <section class="section">
+                <h2>The 80/20 Split</h2>
+                <h3>What CSMs Should Be Doing</h3>
+                <div class="list-section">
+                    <ul>
+                        <li>Building strategic partnerships with executive stakeholders</li>
+                        <li>Proactively identifying expansion opportunities</li>
+                        <li>Cultivating champions and multi-threading relationships</li>
+                        <li>Delivering business value narratives</li>
+                        <li>Preventing churn through early risk detection</li>
+                    </ul>
+                </div>
+
+                <h3 style="margin-top: 24px;">What CSMs Are Actually Doing</h3>
+                <div class="list-section">
+                    <ul>
+                        <li>Aggregating data from 6+ disconnected systems</li>
+                        <li>Building QBR decks manually</li>
+                        <li>Reacting to renewal risks discovered too late</li>
+                        <li>Firefighting urgent issues</li>
+                        <li>Context-switching between tools</li>
+                    </ul>
+                </div>
+                <p style="margin-top: 24px;">
+                    CSMs are <strong>data aggregators</strong>, not <strong>strategic partners</strong>.
+                    The role has devolved into manual reporting instead of high-value relationship building.
+                </p>
+            </section>
+
+            <section class="section">
+                <h2>The Missed Signals Problem</h2>
+                <p>
+                    Risk signals typically surface during renewal conversations — 30-60 days before contract
+                    expiration. By then, mitigation options are limited.
+                </p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Risk Signal</th>
+                            <th>Reactive</th>
+                            <th>Proactive</th>
+                            <th>Advantage</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Executive Move</td>
+                            <td>30d before</td>
+                            <td>60-90d before</td>
+                            <td class="highlight">+30-60 days</td>
+                        </tr>
+                        <tr>
+                            <td>Competitive Intent</td>
+                            <td>15d before</td>
+                            <td>45-60d before</td>
+                            <td class="highlight">+30-45 days</td>
+                        </tr>
+                        <tr>
+                            <td>Declining Usage</td>
+                            <td>30d before</td>
+                            <td>60-90d before</td>
+                            <td class="highlight">+30-60 days</td>
+                        </tr>
+                        <tr>
+                            <td>Payment Delays</td>
+                            <td>15d before</td>
+                            <td>30-45d before</td>
+                            <td class="highlight">+15-30 days</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>
+                    Risk signals exist in the data before they surface in conversations. The challenge is
+                    <strong>aggregating signals across systems</strong> and <strong>surfacing them proactively</strong>.
+                </p>
+            </section>
+        </main>
+
+        <footer>
+            <span>© <span id="year"></span> Zach Day</span>
+            <span>Built from scratch · Iterated in public</span>
+        </footer>
+    </div>
+
+    <script>
+        document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Martin — The Vision</title>
+    <meta name="description" content="First principles design: augmentation, intelligence, and learning" />
+    <style>
+        :root {
+            --bg: #0a0a0a;
+            --panel: #161616;
+            --text: #e8eaf0;
+            --muted: #999999;
+            --border: #262626;
+            --link: #ffffff;
+            --accent: #10b981;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            --radius: 8px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.5;
+        }
+
+        .container {
+            width: min(800px, 92vw);
+            margin: 0 auto;
+            padding: 48px 0 96px;
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 24px 0 48px;
+        }
+
+        .brand {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            font-weight: 600;
+            font-size: 15px;
+            letter-spacing: -0.2px;
+            color: var(--text);
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 999px;
+            background: var(--accent);
+        }
+
+        nav a {
+            color: var(--muted);
+            text-decoration: none;
+            margin-left: 20px;
+            font-weight: 500;
+            font-size: 14px;
+            transition: color 0.15s;
+        }
+
+        nav a:hover {
+            color: var(--text);
+        }
+
+        .hero h1 {
+            margin: 0 0 12px;
+            font-size: clamp(28px, 4vw, 40px);
+            line-height: 1.1;
+            letter-spacing: -0.6px;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .meta {
+            color: var(--muted);
+            font-size: 16px;
+            margin: 0 0 16px;
+            line-height: 1.6;
+            max-width: 65ch;
+        }
+
+        .subnav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 24px;
+        }
+
+        .pill {
+            font-size: 12px;
+            color: var(--text);
+            border: 1px solid var(--border);
+            background: transparent;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-weight: 500;
+            text-decoration: none;
+        }
+
+        .pill:hover {
+            border-color: var(--muted);
+        }
+
+        .pill.active {
+            background: var(--border);
+            color: var(--text);
+            border-color: var(--muted);
+        }
+
+        .section {
+            margin-top: 48px;
+        }
+
+        .section h2 {
+            margin: 0 0 16px;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            color: var(--muted);
+        }
+
+        .section p {
+            color: var(--muted);
+            font-size: 15px;
+            line-height: 1.7;
+            margin: 0 0 16px;
+            max-width: 65ch;
+        }
+
+        .principle-card {
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 24px;
+            margin-bottom: 16px;
+        }
+
+        .principle-card h3 {
+            margin: 0 0 12px;
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .principle-card p {
+            margin: 0 0 12px;
+        }
+
+        .principle-card ul {
+            margin: 0;
+            padding-left: 20px;
+            color: var(--muted);
+        }
+
+        .principle-card li {
+            margin-bottom: 6px;
+            font-size: 14px;
+        }
+
+        .core-principle {
+            display: flex;
+            gap: 16px;
+            padding: 20px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            margin-bottom: 12px;
+        }
+
+        .core-principle-number {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--accent);
+            min-width: 32px;
+        }
+
+        .core-principle-content h4 {
+            margin: 0 0 8px;
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .core-principle-content p {
+            margin: 0;
+            font-size: 14px;
+        }
+
+        footer {
+            margin-top: 64px;
+            border-top: 1px solid var(--border);
+            padding-top: 32px;
+            color: var(--muted);
+            font-size: 13px;
+            display: flex;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        footer span {
+            opacity: 0.7;
+        }
+
+        @media (max-width: 720px) {
+            .container {
+                padding: 24px 0 64px;
+            }
+
+            nav a {
+                margin-left: 16px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <a href="../../index.html" style="text-decoration: none;">
+                <div class="brand">
+                    <span class="dot" title="Currently building"></span>
+                    <span>Zach Day</span>
+                </div>
+            </a>
+            <nav>
+                <a href="../../index.html#projects">Projects</a>
+                <a href="../../index.html#writing">Writing</a>
+                <a href="../../index.html#about">About</a>
+                <a href="../../index.html#contact">Contact</a>
+            </nav>
+        </header>
+
+        <main>
+            <section class="hero">
+                <h1>Martin — The Vision</h1>
+                <p class="meta">
+                    Martin was not built to replace CSMs. Martin was built to eliminate the work that
+                    prevents CSMs from being strategic partners.
+                </p>
+
+                <div class="subnav">
+                    <a class="pill" href="../index.html">Overview</a>
+                    <a class="pill active" href="./index.html">Origin</a>
+                    <a class="pill" href="../system/index.html">System</a>
+                    <a class="pill" href="../plays/index.html">Plays</a>
+                    <a class="pill" href="../innovations/index.html">Innovations</a>
+                    <a class="pill" href="../metrics/index.html">Metrics</a>
+                    <a class="pill" href="../standards/index.html">Standards</a>
+                    <a class="pill" href="../roadmap/index.html">Roadmap</a>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>Three Core Principles</h2>
+
+                <div class="core-principle">
+                    <div class="core-principle-number">1</div>
+                    <div class="core-principle-content">
+                        <h4>Augmentation, Not Automation</h4>
+                        <p>Don't automate CSM tasks — augment CSM decision-making. Don't replace human judgment —
+                            provide data-driven recommendations. Don't remove CSMs from the loop — give CSMs
+                            superpowers.</p>
+                    </div>
+                </div>
+
+                <div class="core-principle">
+                    <div class="core-principle-number">2</div>
+                    <div class="core-principle-content">
+                        <h4>Intelligence, Not Just Speed</h4>
+                        <p>Don't just pull data faster — synthesize insights across sources. Don't just answer
+                            questions — proactively surface what matters. Don't just execute plays — learn from
+                            execution and improve.</p>
+                    </div>
+                </div>
+
+                <div class="core-principle">
+                    <div class="core-principle-number">3</div>
+                    <div class="core-principle-content">
+                        <h4>Learning, Not Just Execution</h4>
+                        <p>Don't just run workflows — build persistent memory. Don't just log results — detect
+                            patterns and trends. Don't just report status — predict future states.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>Design Principles</h2>
+
+                <div class="principle-card">
+                    <h3>Portfolio-First Architecture</h3>
+                    <p>Every CSM conversation started with "load my portfolio" — a 2-3 minute manual step
+                        repeated dozens of times per week.</p>
+                    <ul>
+                        <li>Automatic, silent portfolio load on first message (Phase -1 Bootstrap)</li>
+                        <li>Portfolio context available for all subsequent queries</li>
+                        <li>2-3 minutes saved per session (10-15 sessions/week)</li>
+                    </ul>
+                </div>
+
+                <div class="principle-card">
+                    <h3>Mode-Driven Execution</h3>
+                    <p>Users wanted both strategic advice (what should I do?) and immediate execution
+                        (do it now). A single interface couldn't serve both needs.</p>
+                    <ul>
+                        <li><strong>/plan</strong> — Analyze, recommend, explain (no logging)</li>
+                        <li><strong>/act</strong> — Execute play, generate artifact, log results</li>
+                        <li>Flexibility without confusion</li>
+                    </ul>
+                </div>
+
+                <div class="principle-card">
+                    <h3>Persistent Intelligence</h3>
+                    <p>Early versions had no memory across conversations. Every execution started from
+                        scratch — no longitudinal tracking, no state change detection.</p>
+                    <ul>
+                        <li>4-table Snowflake architecture</li>
+                        <li>Execution archive, account state, risk history, runner logs</li>
+                        <li>State change detection (new risks, escalations, improvements)</li>
+                    </ul>
+                </div>
+
+                <div class="principle-card">
+                    <h3>Conversational Interface</h3>
+                    <p>CSMs don't want to learn a new tool. They want to ask questions in plain English
+                        and get actionable answers.</p>
+                    <ul>
+                        <li>Natural language → structured action</li>
+                        <li>Skills Registry maps commands to Play DNA</li>
+                        <li>Fuzzy matching for account targeting</li>
+                    </ul>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <span>© <span id="year"></span> Zach Day</span>
+            <span>Built from scratch · Iterated in public</span>
+        </footer>
+    </div>
+
+    <script>
+        document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+</body>
+
+</html>

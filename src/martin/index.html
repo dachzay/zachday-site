@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Martin System — Zach Day</title>
+    <link rel="stylesheet" href="../css/design-tokens.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+</head>
+
+<body>
+    <div class="container sidebar-layout">
+        <!-- Mobile Menu Button -->
+        <button class="mobile-menu-toggle btn btn-secondary" style="margin-bottom: var(--sp-4);">
+            ☰ Menu
+        </button>
+
+        <!-- Sidebar Navigation (Desktop) -->
+        <aside class="sidebar">
+            <div style="margin-bottom: var(--sp-6);">
+                <a href="../index.html" style="font-weight: 700; color: var(--text); text-decoration: none;">Zach
+                    Day</a>
+            </div>
+
+            <div class="sidebar-section-title">Martin System</div>
+            <ul class="sidebar-nav">
+                <li><a href="index.html" class="active">Overview</a></li>
+                <li><a href="system/index.html">System</a></li>
+                <li><a href="plays/index.html">Plays</a></li>
+            </ul>
+
+            <div class="sidebar-section-title">Future</div>
+            <ul class="sidebar-nav">
+                <li><a href="innovations/index.html">Innovations</a></li>
+                <li><a href="metrics/index.html">Metrics</a></li>
+                <li><a href="standards/index.html">Standards</a></li>
+                <li><a href="roadmap/index.html">Roadmap</a></li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header style="margin-bottom: var(--sp-12);">
+                <!-- Mobile Breadcrumb (TODO: Hide on Desktop if Sidebar used) -->
+                <nav style="font-size: 14px; color: var(--muted); margin-bottom: var(--sp-4);">
+                    <a href="../index.html" style="color: inherit; text-decoration: none;">Home</a> >
+                    <span>Martin</span>
+                </nav>
+                <h1>Martin System</h1>
+                <p style="color: var(--muted); max-width: 60ch;">The kernel of my personal operating system.</p>
+            </header>
+
+            <section>
+                <div class="grid">
+                    <a href="system/index.html" class="card" style="grid-column: span 6;">
+                        <h3>System</h3>
+                        <p style="color: var(--muted); font-size: 14px;">Rules, Context, Protocols</p>
+                    </a>
+                    <a href="plays/index.html" class="card" style="grid-column: span 6;">
+                        <h3>Plays</h3>
+                        <p style="color: var(--muted); font-size: 14px;">Repeatable workflows</p>
+                    </a>
+                </div>
+            </section>
+
+            <section>
+                <h2
+                    style="font-size: 14px; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); margin-bottom: var(--sp-4);">
+                    Roadmap</h2>
+                <div class="grid">
+                    <a href="innovations/index.html" class="card" style="grid-column: span 4; opacity: 0.7;">
+                        <h3>Innovations</h3>
+                        <p style="color: var(--muted); font-size: 14px;">Coming soon...</p>
+                    </a>
+                    <a href="roadmap/index.html" class="card" style="grid-column: span 4; opacity: 0.7;">
+                        <h3>Roadmap</h3>
+                        <p style="color: var(--muted); font-size: 14px;">View 18-month plan</p>
+                    </a>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="../../js/navigation.js"></script>
+</body>
+
+</html>

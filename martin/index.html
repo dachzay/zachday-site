@@ -4,8 +4,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Zach — Personal Projects</title>
-  <meta name="description" content="Zach's personal site: projects, writing, and experiments." />
+  <title>Martin — Overview</title>
+  <meta name="description" content="Martin: Personal Operating System Overview" />
   <style>
     :root {
       --bg: #0a0a0a;
@@ -208,6 +208,12 @@
       font-weight: 500;
     }
 
+    .pill.active {
+      background: var(--border);
+      color: var(--text);
+      border-color: var(--muted);
+    }
+
     .card a,
     .card .card-cta {
       color: var(--text);
@@ -279,13 +285,14 @@
 
     <main>
       <section class="hero" style="margin-bottom: 48px;">
-        <h1>Martin</h1>
+        <h1>Martin — Overview</h1>
         <p class="meta" style="font-size: 18px; max-width: 60ch; color: var(--muted); margin-bottom: 32px;">
           I built Martin to execute work, not to define it. It explicitly performs actions based on established rules
           and inputs, without making strategic decisions. It serves as the bridge between intent and outcome.
         </p>
         <div class="subnav">
-          <a href="./index.html" class="pill" style="text-decoration:none;">Overview</a>
+          <a href="./index.html" class="pill active" style="text-decoration:none;">Overview</a>
+          <a href="./origin/index.html" class="pill" style="text-decoration:none;">Origin</a>
           <a href="./system/index.html" class="pill" style="text-decoration:none;">System</a>
           <a href="./plays/index.html" class="pill" style="text-decoration:none;">Plays</a>
           <a href="./innovations/index.html" class="pill" style="text-decoration:none;">Innovations</a>

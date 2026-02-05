@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Martin — Architecture</title>
+    <meta name="description"
+        content="The 5-layer architecture: Control, Memory, Persistence, Execution, Intelligence" />
+    <style>
+        :root {
+            --bg: #0a0a0a;
+            --panel: #161616;
+            --text: #e8eaf0;
+            --muted: #999999;
+            --border: #262626;
+            --link: #ffffff;
+            --accent: #10b981;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            --radius: 8px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.5;
+        }
+
+        .container {
+            width: min(800px, 92vw);
+            margin: 0 auto;
+            padding: 48px 0 96px;
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 24px 0 48px;
+        }
+
+        .brand {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            font-weight: 600;
+            font-size: 15px;
+            letter-spacing: -0.2px;
+            color: var(--text);
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 999px;
+            background: var(--accent);
+        }
+
+        nav a {
+            color: var(--muted);
+            text-decoration: none;
+            margin-left: 20px;
+            font-weight: 500;
+            font-size: 14px;
+            transition: color 0.15s;
+        }
+
+        nav a:hover {
+            color: var(--text);
+        }
+
+        .hero h1 {
+            margin: 0 0 12px;
+            font-size: clamp(28px, 4vw, 40px);
+            line-height: 1.1;
+            letter-spacing: -0.6px;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .meta {
+            color: var(--muted);
+            font-size: 16px;
+            margin: 0 0 16px;
+            line-height: 1.6;
+            max-width: 65ch;
+        }
+
+        .subnav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 24px;
+        }
+
+        .pill {
+            font-size: 12px;
+            color: var(--text);
+            border: 1px solid var(--border);
+            background: transparent;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-weight: 500;
+            text-decoration: none;
+        }
+
+        .pill:hover {
+            border-color: var(--muted);
+        }
+
+        .pill.active {
+            background: var(--border);
+            color: var(--text);
+            border-color: var(--muted);
+        }
+
+        .section {
+            margin-top: 48px;
+        }
+
+        .section h2 {
+            margin: 0 0 16px;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            color: var(--muted);
+        }
+
+        .section p {
+            color: var(--muted);
+            font-size: 15px;
+            line-height: 1.7;
+            margin: 0 0 16px;
+            max-width: 65ch;
+        }
+
+        .architecture-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .layer {
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px;
+            position: relative;
+        }
+
+        .layer::after {
+            content: "↓";
+            position: absolute;
+            bottom: -18px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--border);
+            font-size: 14px;
+            z-index: 1;
+        }
+
+        .layer:last-child::after {
+            display: none;
+        }
+
+        .layer-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .layer-number {
+            width: 24px;
+            height: 24px;
+            border-radius: 4px;
+            background: var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .layer-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .layer-desc {
+            font-size: 14px;
+            color: var(--muted);
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .layer-components {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .component-tag {
+            font-size: 11px;
+            color: var(--muted);
+            background: rgba(255, 255, 255, 0.03);
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-family: ui-monospace, monospace;
+        }
+
+        .rationale-card {
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px;
+            margin-bottom: 12px;
+        }
+
+        .rationale-card h3 {
+            margin: 0 0 8px;
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .rationale-card p {
+            margin: 0;
+            font-size: 14px;
+        }
+
+        footer {
+            margin-top: 64px;
+            border-top: 1px solid var(--border);
+            padding-top: 32px;
+            color: var(--muted);
+            font-size: 13px;
+            display: flex;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        footer span {
+            opacity: 0.7;
+        }
+
+        @media (max-width: 720px) {
+            .container {
+                padding: 24px 0 64px;
+            }
+
+            nav a {
+                margin-left: 16px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <a href="../../index.html" style="text-decoration: none;">
+                <div class="brand">
+                    <span class="dot" title="Currently building"></span>
+                    <span>Zach Day</span>
+                </div>
+            </a>
+            <nav>
+                <a href="../../index.html#projects">Projects</a>
+                <a href="../../index.html#writing">Writing</a>
+                <a href="../../index.html#about">About</a>
+                <a href="../../index.html#contact">Contact</a>
+            </nav>
+        </header>
+
+        <main>
+            <section class="hero">
+                <h1>Martin — Architecture</h1>
+                <p class="meta">
+                    A 5-layer system designed for orchestration, persistence, and intelligence.
+                </p>
+
+                <div class="subnav">
+                    <a class="pill" href="../index.html">Overview</a>
+                    <a class="pill active" href="./index.html">Origin</a>
+                    <a class="pill" href="../system/index.html">System</a>
+                    <a class="pill" href="../plays/index.html">Plays</a>
+                    <a class="pill" href="../innovations/index.html">Innovations</a>
+                    <a class="pill" href="../metrics/index.html">Metrics</a>
+                    <a class="pill" href="../standards/index.html">Standards</a>
+                    <a class="pill" href="../roadmap/index.html">Roadmap</a>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>The 5-Layer Stack</h2>
+                <div class="architecture-stack">
+                    <div class="layer">
+                        <div class="layer-header">
+                            <div class="layer-number">1</div>
+                            <div class="layer-title">Control Plane</div>
+                        </div>
+                        <p class="layer-desc">
+                            Single source of truth for orchestration logic. Mode detection (/plan vs /act),
+                            Phase -1 bootstrap, validation framework.
+                        </p>
+                        <div class="layer-components">
+                            <span class="component-tag">Martin v3.0 System Prompt</span>
+                        </div>
+                    </div>
+
+                    <div class="layer">
+                        <div class="layer-header">
+                            <div class="layer-number">2</div>
+                            <div class="layer-title">Memory Layer</div>
+                        </div>
+                        <p class="layer-desc">
+                            Human-readable, version-controlled, publicly accessible. Migrated from
+                            Google Tasks (Jan 2026) for multi-user support.
+                        </p>
+                        <div class="layer-components">
+                            <span class="component-tag">Play_DNA</span>
+                            <span class="component-tag">Skills_Registry</span>
+                            <span class="component-tag">Validation_Rules</span>
+                            <span class="component-tag">Scheduler_Config</span>
+                            <span class="component-tag">Deployment_History</span>
+                        </div>
+                    </div>
+
+                    <div class="layer">
+                        <div class="layer-header">
+                            <div class="layer-number">3</div>
+                            <div class="layer-title">Persistence Layer</div>
+                        </div>
+                        <p class="layer-desc">
+                            Machine-queryable, longitudinal, scalable. 4-table Snowflake architecture
+                            for execution history and state tracking.
+                        </p>
+                        <div class="layer-components">
+                            <span class="component-tag">EAM_RUNS</span>
+                            <span class="component-tag">ACCOUNT_STATE</span>
+                            <span class="component-tag">RUNNER_LOGS</span>
+                            <span class="component-tag">RISK_HISTORY</span>
+                        </div>
+                    </div>
+
+                    <div class="layer">
+                        <div class="layer-header">
+                            <div class="layer-number">4</div>
+                            <div class="layer-title">Execution Layer</div>
+                        </div>
+                        <p class="layer-desc">
+                            Modular, testable, improvable. 17 skills across 4 categories with
+                            3-55 minute execution times.
+                        </p>
+                        <div class="layer-components">
+                            <span class="component-tag">Portfolio Plays (5)</span>
+                            <span class="component-tag">Account Plays (9)</span>
+                            <span class="component-tag">Synthesis Plays (2)</span>
+                            <span class="component-tag">Utility Plays (1)</span>
+                        </div>
+                    </div>
+
+                    <div class="layer">
+                        <div class="layer-header">
+                            <div class="layer-number">5</div>
+                            <div class="layer-title">Intelligence Layer</div>
+                        </div>
+                        <p class="layer-desc">
+                            Domain knowledge, risk modeling, action frameworks. 40+ risk signals
+                            weighted 0-100 for proactive detection.
+                        </p>
+                        <div class="layer-components">
+                            <span class="component-tag">Risk Signal Dictionary v2.0</span>
+                            <span class="component-tag">Risk Playbook v3.0</span>
+                            <span class="component-tag">Validation Rules (14 BLOCKING)</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>Design Rationale</h2>
+
+                <div class="rationale-card">
+                    <h3>Why Google Sheets for Memory?</h3>
+                    <p>Google Tasks are private — other CSMs couldn't access Martin's memory.
+                        The migration to Google Sheets (Jan 7, 2026) enabled multi-user access,
+                        version control, and collaborative editing.</p>
+                </div>
+
+                <div class="rationale-card">
+                    <h3>Why Snowflake for Persistence?</h3>
+                    <p>Longitudinal tracking requires queryable, scalable storage. Snowflake
+                        enables cross-account analysis, trend detection, and state change monitoring
+                        that Google Sheets cannot support.</p>
+                </div>
+
+                <div class="rationale-card">
+                    <h3>Why Separate Layers?</h3>
+                    <p>Each layer has a single responsibility. Control orchestrates. Memory stores
+                        configuration. Persistence tracks history. Execution runs plays. Intelligence
+                        provides domain knowledge. Separation enables independent evolution.</p>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <span>© <span id="year"></span> Zach Day</span>
+            <span>Built from scratch · Iterated in public</span>
+        </footer>
+    </div>
+
+    <script>
+        document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+</body>
+
+</html>

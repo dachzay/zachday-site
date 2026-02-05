@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Martin — Innovations</title>
-    <meta name="description" content="Martin: Innovations" />
+    <title>Martin — Origin</title>
+    <meta name="description" content="The origin story of Martin: from CSM pain points to AI orchestration" />
     <style>
         :root {
             --bg: #0a0a0a;
@@ -14,6 +14,7 @@
             --muted: #999999;
             --border: #262626;
             --link: #ffffff;
+            --accent: #10b981;
             --shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
             --radius: 8px;
         }
@@ -57,7 +58,7 @@
             width: 8px;
             height: 8px;
             border-radius: 999px;
-            background: #10b981;
+            background: var(--accent);
         }
 
         nav a {
@@ -118,6 +119,72 @@
             border-color: var(--muted);
         }
 
+        .section {
+            margin-top: 48px;
+        }
+
+        .section h2 {
+            margin: 0 0 24px;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            color: var(--muted);
+        }
+
+        .outcomes-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+
+        .outcome-card {
+            padding: 20px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+        }
+
+        .outcome-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 4px;
+        }
+
+        .outcome-label {
+            font-size: 14px;
+            color: var(--muted);
+            line-height: 1.4;
+        }
+
+        .card-link {
+            display: block;
+            text-decoration: none;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px;
+            transition: border-color 0.15s;
+            margin-bottom: 16px;
+        }
+
+        .card-link:hover {
+            border-color: var(--muted);
+        }
+
+        .card-link h3 {
+            margin: 0 0 8px;
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .card-link p {
+            margin: 0;
+            font-size: 14px;
+            color: var(--muted);
+            line-height: 1.5;
+        }
+
         footer {
             margin-top: 64px;
             border-top: 1px solid var(--border);
@@ -142,6 +209,10 @@
             nav a {
                 margin-left: 16px;
             }
+
+            .outcomes-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -165,34 +236,67 @@
 
         <main>
             <section class="hero">
-                <h1>Martin — Innovations</h1>
-                <p class="meta">The few design choices that made Martin reliably useful instead of occasionally
-                    impressive.</p>
+                <h1>Martin — Origin</h1>
+                <p class="meta">
+                    How AI orchestration transformed Customer Success Management from reactive fire-fighting 
+                    to proactive, data-driven partnership — reclaiming 3,000 hours/year and detecting risks 
+                    45 days earlier.
+                </p>
 
                 <div class="subnav">
                     <a class="pill" href="../index.html">Overview</a>
-                    <a class="pill" href="../origin/index.html">Origin</a>
+                    <a class="pill active" href="./index.html">Origin</a>
                     <a class="pill" href="../system/index.html">System</a>
                     <a class="pill" href="../plays/index.html">Plays</a>
-                    <a class="pill active" href="../innovations/index.html">Innovations</a>
+                    <a class="pill" href="../innovations/index.html">Innovations</a>
                     <a class="pill" href="../metrics/index.html">Metrics</a>
                     <a class="pill" href="../standards/index.html">Standards</a>
                     <a class="pill" href="../roadmap/index.html">Roadmap</a>
                 </div>
             </section>
 
-            <section style="margin-top: 32px;">
-                <p class="meta"><strong style="color: var(--text);">v1 outline</strong></p>
-                <ul style="color: var(--muted); line-height: 1.7; margin: 0; padding-left: 18px;">
-                    <li><strong style="color: var(--text);">Output format:</strong> always ends with “next actions” (not
-                        vibes)</li>
-                    <li><strong style="color: var(--text);">Constraints-first:</strong> goals + time + risk stated up
-                        front</li>
-                    <li><strong style="color: var(--text);">Memory hygiene:</strong> what gets kept vs discarded is
-                        intentional</li>
-                    <li><strong style="color: var(--text);">Voice consistency:</strong> drafts sound like me, not “AI
-                        tone”</li>
-                </ul>
+            <section class="section">
+                <h2>Key Outcomes</h2>
+                <div class="outcomes-grid">
+                    <div class="outcome-card">
+                        <div class="outcome-value">10+ hrs/week</div>
+                        <div class="outcome-label">Reclaimed per CSM from manual data aggregation</div>
+                    </div>
+                    <div class="outcome-card">
+                        <div class="outcome-value">30-60 days</div>
+                        <div class="outcome-label">Head start on risk detection (proactive vs reactive)</div>
+                    </div>
+                    <div class="outcome-card">
+                        <div class="outcome-value">87 accounts</div>
+                        <div class="outcome-label">Monitored in real-time with portfolio-first architecture</div>
+                    </div>
+                    <div class="outcome-card">
+                        <div class="outcome-value">17 skills</div>
+                        <div class="outcome-label">Deployed across Portfolio, Account, Strategic, and Utility categories</div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>The Story</h2>
+                <div style="display: flex; flex-direction: column;">
+                    <a href="problem.html" class="card-link">
+                        <h3>The Problem</h3>
+                        <p>87 accounts, $9M ACV, 6+ data systems. CSMs spending 80% of time on admin work instead of strategic partnership.</p>
+                    </a>
+                    <a href="vision.html" class="card-link">
+                        <h3>The Vision</h3>
+                        <p>First principles design: augmentation not automation, intelligence not speed, learning not just execution.</p>
+                    </a>
+                    <a href="architecture.html" class="card-link">
+                        <h3>The Architecture</h3>
+                        <p>5-layer system: Control Plane, Memory Layer, Persistence Layer, Execution Layer, Intelligence Layer.</p>
+                    </a>
+                    <a href="impact.html" class="card-link">
+                        <h3>The Impact</h3>
+                        <p>From reactive to proactive: 3,000 hours/year saved, 45-day risk detection head start, 14:1 ROI.</p>
+                    </a>
+                </div>
             </section>
         </main>
 
