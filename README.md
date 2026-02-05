@@ -18,7 +18,7 @@ A Stripe-quality personal operating system and portfolio site.
 npm run deploy
 ```
 
-This stages all changes, commits with message `deploy: update site`, and pushes. **Cloudflare Pages** is connected to **dachzay/zachday-site**, so every push triggers a deploy — no manual “update Cloudflare” needed.
+This stages all changes, commits with message `deploy: update site`, and pushes. **Cloudflare Pages** is connected to **dachzay/zachday-site**, so every push triggers a deploy — no manual "update Cloudflare" needed.
 
 ### Repo
 
