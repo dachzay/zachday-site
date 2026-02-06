@@ -1,0 +1,805 @@
+# PRD 3: THE PLAY ECOSYSTEM
+## Martin v3.0 — Capabilities, Use Cases, Real Execution Examples
+
+**Document Type:** Product Requirement Document  
+**Target Agent:** Product Marketing Agent  
+**Estimated Duration:** 2-3 hours  
+**Output:** 3-4 page capability narrative for website  
+**Focus:** Features, benefits, customer outcomes, real-world examples  
+**Date:** February 2026  
+
+---
+
+## EXECUTIVE SUMMARY
+
+This PRD captures the complete Martin play ecosystem — 17 skills across 4 categories, each solving a specific business problem. The narrative translates technical capabilities into business value, showing what Martin can do, why it matters, and how it performs in production.
+
+The target agent will synthesize evidence from Confluence play documentation, deployment logs, and execution examples to build a "Martin in Action" capability showcase.
+
+**Primary Data Source:** Confluence (Martin Playbook Library, Brain Waves System Overview, individual play DNA pages)  
+**Supplemental Sources:** Google Sheets (Deployment_History for execution metrics), Snowflake (execution counts)
+
+---
+
+## SECTION 1: THE PLAY TAXONOMY
+
+### Narrative Goal
+Organize Martin's 17 skills into a clear taxonomy that shows the breadth of capabilities. Frame each category by the business problem it solves.
+
+---
+
+### **Portfolio Skills (5 Plays)**
+**Business Problem:** "What's happening across my entire book of business?"
+
+#### 1. Portfolio Access v3.0 (2-3 min)
+**What It Does:** Loads user's portfolio with parent-child hierarchy and renewal aggregation  
+**Business Value:** Foundation layer for all portfolio operations, automatic on first message  
+**Output:** Portfolio summary (total accounts, total ACV, top 10 by ACV, renewal snapshot)  
+**Quality Score:** 9.5/10  
+**Deployments:** 8+  
+**Evidence:** Confluence (Portfolio Access v1.8 DNA page), Deployment_History (8 logged executions)
+
+#### 2. Renewal Pipeline v2.8 (14-26 min)
+**What It Does:** Visual dashboard of upcoming renewals with health correlation and risk scoring  
+**Business Value:** Never miss a renewal, prioritize by risk + value (not just calendar)  
+**Output:** Interactive HTML dashboard with 5 Chart.js visualizations (timeline, health pie, ACV by tier, engagement scatter, risk funnel)  
+**Quality Score:** 9.4/10  
+**Deployments:** 5  
+**Evidence:** Confluence (Renewal Pipeline v2.8 DNA page), Brain Waves System Overview
+
+#### 3. Low Usage Finder v1.3 (3-5 min)
+**What It Does:** Identifies underutilized accounts using semantic model (40% token reduction vs raw SQL)  
+**Business Value:** Surface at-risk accounts before they churn, proactive intervention  
+**Output:** Lightweight text list (top 20 low-usage accounts by priority)  
+**Quality Score:** 9.5/10  
+**Deployments:** 1  
+**Evidence:** Confluence (Low Usage Finder v1.2 DNA page), Play_DNA (v2.0 semantic model pilot)
+
+#### 4. Play Planner v2.4 (5-10 sec)
+**What It Does:** Intelligent play recommendation engine (match accounts to plays OR find accounts for specific play OR build 90-day roadmap)  
+**Business Value:** Strategic prioritization, know which play to run on which account  
+**Output:** Text list with account name, recommended play, rationale, priority score  
+**Quality Score:** 9.0/10  
+**Deployments:** 1  
+**Evidence:** Confluence (Play Planner v2.4 DNA page)
+
+#### 5. Bulk Credit Max Monitor v1.2 (3-5 min)
+**What It Does:** Monitors bulk credit utilization, identifies accounts approaching limits  
+**Business Value:** Upsell intelligence, proactive credit replenishment conversations  
+**Output:** HTML dashboard with 4 priority tiers (CRITICAL/HIGH/MEDIUM/LOW)  
+**Quality Score:** 9.0/10  
+**Deployments:** 1  
+**Evidence:** Confluence (Bulk Credit Max Monitor v1.2 DNA page)
+
+---
+
+### **Account Research Skills (9 Plays)**
+**Business Problem:** "What's happening with this specific customer?"
+
+#### 1. Platform Usage v13.0 (8-15 min)
+**What It Does:** Product adoption deep-dive across all owned products with provisioning-filtered data  
+**Business Value:** Walk into renewals with concrete usage data, prove value or identify training gaps  
+**Output:** HTML dashboard (product ownership, utilization metrics, power user identification, feature adoption)  
+**Quality Score:** 8.5/10  
+**Deployments:** 10  
+**Key Innovation:** Mandatory provisioning filter (prevents 40-70% data inflation from deprovisioned users)  
+**Evidence:** Confluence (Platform Usage v13.0 DNA page), Deployment_History (10 executions)
+
+#### 2. User Analysis v2.6 (7-14 min)
+**What It Does:** Behavioral intelligence with 8-archetype framework (Power User, Analytical, Relational, Driver, Amiable, Explorer, Specialist, Dormant)  
+**Business Value:** Identify champions, understand user personas, tailor engagement strategies  
+**Output:** HTML dashboard with archetype distribution, champion profiles, engagement recommendations  
+**Quality Score:** 9.5/10  
+**Deployments:** 12+  
+**Key Innovation:** Three-tier output system (Executive/Tactical/Technical) for different audiences  
+**Evidence:** Confluence (User Analysis v2.5 DNA page), Deployment_History (12 executions, highest deployment count)
+
+#### 3. Risk Mitigation v1.4 (8-12 min)
+**What It Does:** Multi-source risk intelligence (CRM, meeting intelligence, company data, analytics) with weighted scoring  
+**Business Value:** Detect churn signals 30-60 days earlier, proactive risk mitigation  
+**Output:** HTML dashboard with risk tier (CRITICAL/HIGH/MEDIUM/LOW), detected signals, mitigation playbook  
+**Quality Score:** 8.5/10  
+**Deployments:** 3  
+**Key Innovation:** 40+ risk signals with weighted scoring (0-100), recency + frequency multipliers  
+**Evidence:** Confluence (Risk Mitigation v1.3 DNA page), Risk Signal Dictionary v2.0
+
+#### 4. Expansion Planning v2.2 (10-15 min)
+**What It Does:** Whitespace analysis and GTM vision board (owned vs available products, expansion opportunities)  
+**Business Value:** Transform renewal conversations into growth conversations  
+**Output:** 2-page HTML vision board (current state, future state, strategic roadmap)  
+**Quality Score:** 9.0/10  
+**Deployments:** 3  
+**Evidence:** Confluence (Expansion Planning v2.1 DNA page)
+
+#### 5. Intelligence Gaps v2.0 (10-12 min)
+**What It Does:** Compares internal intelligence (CRM, meetings, analytics) vs external web intelligence to identify blind spots  
+**Business Value:** Reveals what you're missing (executive changes, M&A, product launches, market shifts)  
+**Output:** HTML dashboard with gap summary, web intelligence findings (with sources), recommended actions  
+**Quality Score:** 8.5/10  
+**Deployments:** 3  
+**Key Innovation:** Web search as PRIMARY source (5-7 searches with temporal freshness validation)  
+**Evidence:** Confluence (Intelligence Gaps v2.0 DNA page), Deployment_History (STEP_12 web search validation)
+
+#### 6. Value Framework v1.3 (30-40 min)
+**What It Does:** Comprehensive ROI analysis and business impact assessment  
+**Business Value:** Build data-backed value narrative for renewals, prove ROI to executives  
+**Output:** 3-4 page HTML assessment (executive summary, ROI analysis, business impact, strategic alignment)  
+**Quality Score:** 9.0/10  
+**Deployments:** 1  
+**Evidence:** Confluence (Value Framework Assessment v1.3 DNA page)
+
+#### 7. Multi-Threading v3.0 (12-18 min)
+**What It Does:** Identifies net-new contacts for expansion (new departments, new use cases, new budgets)  
+**Business Value:** Expand relationships beyond single contact, reduce concentration risk  
+**Output:** Google Sheets artifact (10 columns: Account, Business Unit, Name, Title, LinkedIn, Email, Phone, Targeting Rationale, Priority, Next Action)  
+**Quality Score:** 9.0/10  
+**Deployments:** 1  
+**Key Innovation:** Company intelligence integration (Account AI as source of truth), expansion lens (not buying committee gaps)  
+**Evidence:** Confluence (Multi-Threading Intelligence v2.3 DNA page), Deployment_History (v3.0 major rewrite Jan 28, 2026)
+
+#### 8. Champion Cultivation v1.3 (21-31 min)
+**What It Does:** Personalized champion playbook for specific contact (meeting history, behavioral analysis, cultivation tactics)  
+**Business Value:** Develop internal advocates, strengthen key relationships  
+**Output:** 2-page HTML playbook (contact profile, engagement history, relationship score, 3-month cultivation roadmap)  
+**Quality Score:** 9.0/10  
+**Deployments:** 2  
+**Evidence:** Confluence (Champion Cultivation v1.2 DNA page)
+
+#### 9. Enterprise Account Framework v1.5.0 (13-18 min)
+**What It Does:** Comprehensive 4-phase research (Partnership Health, GTM Intelligence, Market Intelligence, Strategic Action) with Snowflake persistence  
+**Business Value:** Complete account intelligence in one execution, persistent memory across conversations  
+**Output:** 7-sheet Google Sheets artifact + Snowflake persistence (EAM_RUNS table)  
+**Quality Score:** 9.5/10  
+**Deployments:** 4 (Snowflake executions logged Jan 27-28, 2026)  
+**Key Innovation:** Dual output (human-readable Sheets + machine-queryable Snowflake JSON)  
+**Evidence:** Confluence (Martin v3.0 Data Architecture), Snowflake (4 executions in EAM_RUNS table)
+
+---
+
+### **Strategic Skills (2 Plays)**
+**Business Problem:** "I need an executive-ready deliverable for a high-stakes customer interaction"
+
+#### 1. Renewal Prep Synthesis v1.2 (31-37 min)
+**What It Does:** 4-play synthesis (Portfolio Access + Risk Mitigation + User Analysis + Platform Usage) executed in silent mode  
+**Business Value:** Eliminate manual deck building, show up to renewals with comprehensive data-backed narrative  
+**Output:** 3-page HTML assessment (Executive Summary + Readiness Score, Risk Analysis + Mitigation Plan, Champion Strategy + Platform Optimization)  
+**Quality Score:** 9.5/10  
+**Deployments:** 2  
+**Validation:** 5 checkpoints (all plays succeeded, no contradictions, score 0-100, recommendations supported, no duplicates)  
+**Evidence:** Confluence (Renewal Prep v1.2 DNA page), Brain Waves System Overview
+
+#### 2. QBR Prep Synthesis v1.2 (45-55 min)
+**What It Does:** 5-play synthesis (Portfolio Access + Risk Mitigation + User Analysis + Platform Usage + Expansion Planning) executed in silent mode  
+**Business Value:** Generate executive-ready QBR presentation in under 1 hour (vs 6-8 hours manual)  
+**Output:** 8-page HTML presentation (Cover, Executive Summary, Business Review, Risk & Health, Champion & Engagement, Platform Adoption, Expansion Vision, Next Steps)  
+**Quality Score:** 9.5/10 (target)  
+**Deployments:** 0 (designed, not yet executed)  
+**Validation:** 6 checkpoints (all plays succeeded, no contradictions, metrics within bounds, recommendations supported, executive summary aligns, expansion realistic)  
+**Evidence:** Confluence (QBR Prep v1.1 DNA page)
+
+---
+
+### **Utility Skills (1 Play)**
+**Business Problem:** "I need to follow up on a customer meeting quickly"
+
+#### 1. Meeting Follow Up v2.1 (3-4 min)
+**What It Does:** Transforms meeting transcript into professional follow-up email (discussion recap, commitments, next steps)  
+**Business Value:** Save 15-20 minutes per meeting, ensure no commitments are missed  
+**Output:** Plain text email draft (subject line, professional body, suggested send time)  
+**Quality Score:** 9.5/10  
+**Deployments:** 2  
+**Evidence:** Confluence (Meeting Follow Up v2.1 DNA page)
+
+---
+
+## SECTION 2: PLAY PERFORMANCE METRICS
+
+### Narrative Goal
+Quantify Martin's performance across all plays with execution data, quality scores, and time savings.
+
+### Performance Summary Table
+
+| Play | Category | Duration | Manual Equiv | Time Saved | Quality | Deployments | Status |
+|------|----------|----------|--------------|------------|---------|-------------|--------|
+| Portfolio Access v3.0 | Portfolio | 2-3 min | 15-20 min | 12-17 min | 9.5/10 | 8+ | Active |
+| Renewal Pipeline v2.8 | Portfolio | 14-26 min | 2-3 hours | 94-146 min | 9.4/10 | 5 | Active |
+| Low Usage Finder v1.3 | Portfolio | 3-5 min | 1-2 hours | 55-117 min | 9.5/10 | 1 | Active |
+| Play Planner v2.4 | Portfolio | 5-10 sec | 30-45 min | 30-45 min | 9.0/10 | 1 | Active |
+| Bulk Credit Monitor v1.2 | Portfolio | 3-5 min | 1-2 hours | 55-117 min | 9.0/10 | 1 | Active |
+| Platform Usage v13.0 | Account | 8-15 min | 2-3 hours | 105-172 min | 8.5/10 | 10 | Active |
+| User Analysis v2.6 | Account | 7-14 min | 1-2 hours | 46-106 min | 9.5/10 | 12+ | Active |
+| Risk Mitigation v1.4 | Account | 8-12 min | 2-3 hours | 108-172 min | 8.5/10 | 3 | Active |
+| Expansion Planning v2.2 | Account | 10-15 min | 2-3 hours | 105-170 min | 9.0/10 | 3 | Active |
+| Intelligence Gaps v2.0 | Account | 10-12 min | 2-3 hours | 108-170 min | 8.5/10 | 3 | Active |
+| Value Framework v1.3 | Account | 30-40 min | 4-6 hours | 200-320 min | 9.0/10 | 1 | Active |
+| Multi-Threading v3.0 | Account | 12-18 min | 3-4 hours | 162-228 min | 9.0/10 | 1 | Active |
+| Champion Cultivation v1.3 | Account | 21-31 min | 2-3 hours | 89-149 min | 9.0/10 | 2 | Active |
+| EAM v1.5.0 | Account | 13-18 min | 4-6 hours | 222-342 min | 9.5/10 | 4 | Active |
+| Renewal Prep Synthesis v1.2 | Strategic | 31-37 min | 5-8 hours | 269-443 min | 9.5/10 | 2 | Active |
+| QBR Prep Synthesis v1.2 | Strategic | 45-55 min | 8-12 hours | 425-665 min | 9.5/10 | 0 | Active |
+| Meeting Follow Up v2.1 | Utility | 3-4 min | 15-20 min | 11-16 min | 9.5/10 | 2 | Active |
+
+**Aggregate Metrics:**
+- **Total Plays:** 17
+- **Average Quality Score:** 9.2/10
+- **Total Deployments:** 50+ (from Confluence Executive Value Prop)
+- **Success Rate:** 98% (from Confluence Executive Value Prop)
+- **Average Time Savings:** 85-95% per execution
+
+**Evidence:** Confluence (Brain Waves System Overview v2.17.0, Martin Playbook Library v2.0.0), Deployment_History sheet
+
+---
+
+## SECTION 3: REAL EXECUTION EXAMPLES
+
+### Narrative Goal
+Show Martin in action with real execution examples (sanitized). Use deployment logs to tell specific stories of how plays performed.
+
+---
+
+### **Example 1: Enterprise Account Monitor (EAM v1.5.0)**
+
+**Context:** Large strategic account, complex product portfolio, upcoming renewal  
+**Execution Date:** January 27-28, 2026  
+**Accounts Analyzed:** 4 enterprise accounts  
+**Duration:** 13-18 minutes per account  
+**Output:** 7-sheet Google Sheets artifact + Snowflake persistence
+
+**What Happened:**
+1. Martin executed 4-phase research:
+   - Phase 1: Partnership Health (CRM data, contract status, health metrics)
+   - Phase 2: GTM Intelligence (meeting transcripts, email activity, stakeholder engagement)
+   - Phase 3: Market Intelligence (company data, scoops, competitive signals)
+   - Phase 4: Strategic Action (recommendations, next steps, risk mitigation)
+
+2. Generated 7-sheet Google Sheets artifact:
+   - Sheet 1: Account Metadata (20 rows × 3 cols)
+   - Sheet 2: Phase 1 - Partnership Health (70 rows × 3 cols)
+   - Sheet 3: Phase 2 - GTM Intelligence (55 rows × 3 cols)
+   - Sheet 4: Phase 3 - Market Intelligence (60 rows × 3 cols)
+   - Sheet 5: Phase 4 - Strategic Action (75 rows × 3 cols)
+   - Sheet 6: Key Contacts (35 rows × 5 cols)
+   - Sheet 7: 90-Day Action Plan (20 rows × 6 cols)
+
+3. Persisted to Snowflake:
+   - Table: PRD_ZI_CHAT.MICROAPP_650_DEV.EAM_RUNS
+   - Columns: RUN_ID, ACCOUNT_ID, ACCOUNT_NAME, GENERATED_AT, STATUS, ARTIFACT_URL, TIER2_JSON
+   - All 4 executions: STATUS='COMPLETE'
+
+**Outcome:**
+- Complete account intelligence in 13-18 minutes (vs 4-6 hours manual)
+- Persistent memory (can query "what changed since last scan?")
+- Confidence scoring (0-100 based on data completeness)
+
+**Evidence:** Snowflake query results (4 executions, Jan 27-28, 2026), Confluence (Martin v3.0 Data Architecture)
+
+---
+
+### **Example 2: User Analysis — Behavioral Intelligence**
+
+**Context:** Mid-market account, 90 users provisioned, need to identify champions  
+**Execution Date:** October 16, 2025  
+**Duration:** 6 minutes  
+**Output:** HTML dashboard with archetype breakdown
+
+**What Happened:**
+1. Queried product analytics (90-day window, provisioned users only)
+2. Calculated engagement scores (0-100 scale)
+3. Classified users into 8 archetypes
+4. Identified 20 power users (top 10% by engagement)
+
+**Key Findings:**
+- 90 users provisioned, 52% activation rate (90-day window)
+- 20 Chrome Extension users (high engagement signal)
+- Learning: "90-day provisioning window reveals true utilization" (vs all-time false positive of 92%)
+
+**Outcome:**
+- Champion identification (20 power users)
+- Training gap analysis (48% inactive users)
+- Engagement strategy (target inactive users for enablement)
+
+**Evidence:** Deployment_History (CHAMP_002, Oct 16, 2025), Confluence (User Analysis v2.5 DNA page)
+
+---
+
+### **Example 3: Intelligence Gaps — Blind Spot Detection**
+
+**Context:** Enterprise account, minimal recent engagement, need to understand external landscape  
+**Execution Date:** January 8, 2026  
+**Duration:** 8-11 minutes  
+**Output:** HTML dashboard with 5 intelligence gaps
+
+**What Happened:**
+1. Audited internal intelligence (CRM, meeting transcripts, analytics)
+2. Executed 7 web searches (recent news, executive changes, product launches, partnerships, financial results, industry trends, customer reviews)
+3. Compared internal vs external intelligence
+4. Identified 5 critical gaps
+
+**Key Findings (Account A):**
+- Zero meeting transcripts in past 90 days (engagement blackout)
+- Brand relaunch announced (missed in internal data)
+- Competitive research activity detected (external intelligence)
+- Parent company leverage opportunity (not documented in CRM)
+- Product launch timing (external intelligence)
+
+**Key Findings (Account B):**
+- Inverted relationship discovered (internal sales team prospecting into active customer with zero awareness)
+- Data center strategy disconnect (20% of revenue, fastest-growing segment, not documented)
+- Global footprint opportunity (90 countries, massive expansion potential)
+- Analyst momentum (external intelligence)
+
+**Outcome:**
+- 5 actionable intelligence gaps per account
+- Fresh web search validated (Dec 2025 - Jan 2026 content)
+- Critical relationship gaps surfaced
+
+**Evidence:** Deployment_History (Intelligence Gaps v1.4 executions, Jan 8, 2026), Confluence (Intelligence Gaps v2.0 DNA page with STEP_12 validation)
+
+---
+
+### **Example 4: Renewal Prep Synthesis — Multi-Play Orchestration**
+
+**Context:** High-value account, renewal in 90 days, need comprehensive readiness assessment  
+**Execution Date:** January 5, 2026  
+**Duration:** 31-37 minutes (4 plays executed silently)  
+**Output:** 3-page HTML Renewal Readiness Assessment
+
+**What Happened:**
+1. **Play 1:** Portfolio Access v3.0 (2-3 min) → Account data, renewal date, ACV
+2. **Play 2:** Risk Mitigation v1.4 (8-12 min) → Risk score, detected signals, mitigation actions
+3. **Play 3:** User Analysis v2.6 (7-14 min) → Champion profiles, engagement score, archetypes
+4. **Play 4:** Platform Usage v13.0 (8-15 min) → Product adoption, feature utilization, expansion opportunities
+5. **Synthesis:** Combined all 4 play outputs into unified narrative
+6. **Scoring:** Readiness score = (100 - risk_score) × 0.4 + (engagement_score × 0.3) + (platform_adoption × 0.3)
+7. **Validation:** 5 checkpoints (all passed)
+
+**Key Findings:**
+- Readiness Score: 78/100 (GOOD - minor prep needed)
+- Risk Score: 18/100 (LOW RISK)
+- Engagement Score: 85/100 (HIGH)
+- Platform Adoption: 92/100 (EXCELLENT)
+
+**Outcome:**
+- Comprehensive renewal assessment in 31-37 minutes (vs 5-8 hours manual)
+- Data-backed readiness score (defensible, quantified)
+- Prioritized action plan (risk mitigation, champion cultivation, platform optimization)
+
+**Evidence:** Deployment_History (RENEW_001, Jan 5, 2026), Confluence (Renewal Prep Synthesis v1.2 DNA page)
+
+---
+
+## SECTION 4: USE CASE MATRIX
+
+### Narrative Goal
+Map plays to business problems and expected outcomes. Show when to use which play.
+
+### Use Case Mapping
+
+| Business Problem | Recommended Play | Expected Outcome | Duration |
+|------------------|------------------|------------------|----------|
+| "Is this account at risk of churning?" | Risk Mitigation v1.4 | Risk tier (CRITICAL/HIGH/MEDIUM/LOW), mitigation playbook | 8-12 min |
+| "Who are the champions at this account?" | User Analysis v2.6 | Champion profiles, archetype breakdown, engagement strategy | 7-14 min |
+| "Are they using what they bought?" | Platform Usage v13.0 | Utilization metrics, feature adoption, power user identification | 8-15 min |
+| "Where can we expand?" | Expansion Planning v2.2 | Whitespace analysis, GTM vision board, strategic roadmap | 10-15 min |
+| "What am I missing about this account?" | Intelligence Gaps v2.0 | Blind spot analysis, web intelligence, data enrichment opportunities | 10-12 min |
+| "How do I prove ROI?" | Value Framework v1.3 | ROI analysis, business impact assessment, executive narrative | 30-40 min |
+| "Who else should we be talking to?" | Multi-Threading v3.0 | Net-new contacts, expansion opportunities, targeting rationale | 12-18 min |
+| "How do I develop this champion?" | Champion Cultivation v1.3 | Personalized playbook, relationship score, 3-month roadmap | 21-31 min |
+| "What's the complete picture?" | EAM v1.5.0 | 4-phase comprehensive research, 7-sheet artifact, Snowflake persistence | 13-18 min |
+| "Which accounts need attention?" | Renewal Pipeline v2.8 | Visual dashboard, priority ranking, recommended plays | 14-26 min |
+| "Which accounts have low usage?" | Low Usage Finder v1.3 | Top 20 low-usage accounts, priority tiers, recommended actions | 3-5 min |
+| "Which play should I run?" | Play Planner v2.4 | Account-to-play matching, 90-day roadmap | 5-10 sec |
+| "Are we approaching credit limits?" | Bulk Credit Monitor v1.2 | Credit utilization dashboard, upsell opportunities | 3-5 min |
+| "I need a renewal assessment" | Renewal Prep Synthesis v1.2 | 3-page readiness assessment, readiness score (0-100) | 31-37 min |
+| "I need a QBR deck" | QBR Prep Synthesis v1.2 | 8-page executive presentation | 45-55 min |
+| "I need to follow up on a meeting" | Meeting Follow Up v2.1 | Professional email draft | 3-4 min |
+
+**Evidence:** Confluence (Martin Playbook Library v2.0.0, Executive Value Proposition)
+
+---
+
+## SECTION 5: CAPABILITY EVOLUTION
+
+### Narrative Goal
+Show how play capabilities evolved over time (v1.0 → current). Highlight key innovations per play.
+
+### Platform Usage Evolution (v11.0 → v13.0)
+
+**v11.0 (Initial):**
+- Basic product usage queries
+- No provisioning filter (data inflated 40-70%)
+- Single product focus
+
+**v12.0 (Enhancement):**
+- Added multi-product support
+- Added semantic layer integration
+
+**v13.0 (Current - Jan 2026):**
+- **FQDN Correction:** All queries use PRD_ZOOMINFO.PRODUCT schema
+- **Mandatory Provisioning Filter:** Prevents data inflation from deprovisioned users
+- **Schema Corrections:** Updated to actual production column names (PDM_PLATFORM, EVENT_TYPE, ACTIVITY_NAME)
+- **Enhanced Metrics:** Recorder vs listener breakdown, email/calendar linking percentages
+
+**Key Innovation:** Provisioning filter prevents 40-70% data inflation  
+**Evidence:** Confluence (Platform Usage v13.0 DNA page, CHANGELOG v13.0)
+
+---
+
+### User Analysis Evolution (v1.0 → v2.6)
+
+**v1.0 (Initial):**
+- Basic engagement scoring
+- No archetype classification
+- Text output only
+
+**v2.1 (Three-Tier System):**
+- Added Executive/Tactical/Technical output tiers
+- Added Success Score calculation
+- Added Primary Workflow labels
+
+**v2.6 (Current - Jan 2026):**
+- **FQDN Correction:** All queries use PRD_ZOOMINFO.PRODUCT schema
+- **Schema Corrections:** Updated column mappings (PDM_PLATFORM, EVENT_TYPE, ACTIVITY_NAME)
+- **Mandatory Provisioning Filter:** Ensures accurate user counts
+- **8-Archetype Framework:** Power User, Analytical, Relational, Driver, Amiable, Explorer, Specialist, Dormant
+
+**Key Innovation:** Three-tier output system (same data, three presentations for different audiences)  
+**Evidence:** Confluence (User Analysis v2.5 DNA page, version history section)
+
+---
+
+### Multi-Threading Evolution (v2.3 → v3.0)
+
+**v2.3 (Previous):**
+- Buying committee gap analysis
+- CRM-only contact discovery
+- Generic targeting rationale
+
+**v3.0 (Current - Jan 2026):**
+- **MAJOR REWRITE:** Expansion lens (new departments, new use cases, new budgets)
+- **Company Intelligence Integration:** Account AI as source of truth for contacts
+- **CRM Cross-Reference:** Remove already-engaged contacts (no duplicates)
+- **Business Context Requirement:** Targeting rationale must include specific company initiatives
+- **4 New Validation Rules:** EXPANSION_1-4 (use case diversification, Account AI integration, business context, CRM cross-reference)
+- **Output Change:** Text → Google Sheets artifact (10 columns)
+
+**Key Innovation:** Expansion lens (not renewal/upsell) + Account AI integration  
+**Evidence:** Deployment_History (Jan 28, 2026: "MAJOR REWRITE"), Confluence (Multi-Threading Intelligence v2.3 DNA page)
+
+---
+
+## SECTION 6: VALIDATION FRAMEWORK
+
+### Narrative Goal
+Show how Martin ensures data quality through 14 BLOCKING validation rules. This is a key differentiator.
+
+### Validation Categories
+
+**From Confluence (Validation_Rules sheet):**
+
+1. **USER_VALIDATION** (Portfolio plays only)
+   - Validates CSM user ID matches system
+   - BLOCKING: HALT if mismatch
+
+2. **PORTFOLIO_QUERY_INTEGRITY** (Portfolio plays only)
+   - Validates portfolio query returns > 0 accounts
+   - BLOCKING: HALT if empty
+
+3. **DATA_EXTRACTION_COMPLETENESS** (All plays)
+   - Validates all required data sources returned results
+   - BLOCKING: HALT if any source empty
+
+4. **SCHEMA_GUARDS** (dbt + Meeting intelligence specific)
+   - Validates FQDN usage (PRD_ZOOMINFO.PRODUCT)
+   - Validates column names (SF_ACCOUNT_ID, SF_USER_ID, SERVER_DATE)
+   - BLOCKING: HALT if schema incorrect
+
+5. **MATH_BOUNDS** (All plays)
+   - Validates percentages 0-100
+   - Validates scores within defined ranges
+   - BLOCKING: HALT if out of bounds
+
+6. **DATA_SOURCE_TAGGING** (All plays)
+   - Validates all data has source attribution
+   - CRITICAL: FLAG if missing
+
+7. **CROSS_SOURCE_CONSISTENCY** (Multi-source plays)
+   - Validates no contradictions between data sources
+   - CRITICAL: FLAG if contradictions detected
+
+8. **BUSINESS_REALITY** (Contract / owned products)
+   - Validates active_users <= provisioned_users
+   - Validates expansion recommendations = owned products only
+   - CRITICAL: FLAG if unrealistic
+
+9. **ARTIFACT_COMPLETENESS** (Artifact plays only)
+   - Validates all required sections present in HTML
+   - BLOCKING: HALT if missing sections
+
+10. **SAFETY_CAPS** (Lists/charts caps)
+    - Validates lists <= 20 items (readability)
+    - Validates charts <= 10 data points (clarity)
+    - BLOCKING: HALT if exceeded
+
+**Evidence:** Confluence (Validation_Rules references in play DNA pages), Google Sheets (Validation_Rules sheet with 14 rules)
+
+---
+
+## SECTION 7: OUTPUT FORMATS
+
+### Narrative Goal
+Show the variety of output formats Martin produces. Visual examples of each format type.
+
+### Output Format Types
+
+**1. HTML Dashboards (10 plays)**
+- Platform Usage v13.0
+- User Analysis v2.6
+- Risk Mitigation v1.4
+- Expansion Planning v2.2
+- Intelligence Gaps v2.0
+- Value Framework v1.3
+- Champion Cultivation v1.3
+- Renewal Pipeline v2.8
+- Bulk Credit Monitor v1.2
+- Renewal Prep Synthesis v1.2
+- QBR Prep Synthesis v1.2
+
+**Characteristics:**
+- ZoomInfo branding (Navy #202B52, Red #EA1B15, Figtree font)
+- Interactive visualizations (Chart.js)
+- Responsive design (A4 aspect ratio)
+- Professional, executive-ready
+
+**2. Google Sheets Artifacts (2 plays)**
+- EAM v1.5.0 (7 sheets)
+- Multi-Threading v3.0 (1 sheet, 10 columns)
+
+**Characteristics:**
+- Structured data (rows × columns)
+- Sortable, filterable
+- Exportable (CSV, Excel)
+- Collaborative (shareable links)
+
+**3. Plain Text (3 plays)**
+- Meeting Follow Up v2.1 (email draft)
+- Low Usage Finder v1.3 (lightweight list)
+- Play Planner v2.4 (recommendation list)
+
+**Characteristics:**
+- Concise, scannable
+- Copy-paste ready
+- No formatting overhead
+
+**Evidence:** Confluence (play DNA pages, OUTPUT FORMAT sections)
+
+---
+
+## SECTION 8: AGENT DELIVERABLES
+
+### Primary Artifacts to Create
+
+**1. Play Catalog: "The Martin Playbook"**
+- **Format:** Categorized table (Portfolio, Account, Strategic, Utility)
+- **Columns:** Play Name, Version, Duration, Quality Score, Deployments, Business Value, Output Format
+- **Tone:** Product marketing, benefit-focused
+- **Length:** 1-2 pages
+
+**2. Use Case Matrix**
+- **Format:** Table (Business Problem → Recommended Play → Expected Outcome → Duration)
+- **Rows:** 15-20 common CSM scenarios
+- **Tone:** Practical, scenario-driven
+- **Length:** 1 page
+
+**3. Feature Comparison Table**
+- **Format:** Side-by-side comparison (all 17 plays)
+- **Rows:** Duration, Complexity, Output Format, Quality Score, Deployments, Key Innovation
+- **Tone:** Data-driven, objective
+- **Length:** 1 page
+
+**4. Case Study Collection: "Martin in Action"**
+- **Format:** 4-5 execution examples (sanitized)
+- **Structure:** Context → Execution → Findings → Outcome
+- **Examples:**
+  - EAM v1.5.0 (4 enterprise accounts, Snowflake persistence)
+  - User Analysis v2.6 (90 users, 52% activation, champion identification)
+  - Intelligence Gaps v2.0 (5 gaps detected, web search validation)
+  - Renewal Prep Synthesis v1.2 (4-play synthesis, readiness score 78/100)
+- **Tone:** Storytelling, outcome-focused
+- **Length:** 2-3 pages
+
+**5. Before/After Metrics**
+- **Format:** Visual comparison (manual vs Martin)
+- **Metrics:**
+  - Time: 4-8 hours → 6-45 minutes
+  - Quality: Variable → 9.2/10 average
+  - Consistency: Ad-hoc → Repeatable framework
+  - Coverage: Reactive → Proactive (portfolio-wide)
+- **Tone:** Impact-focused, quantified
+- **Length:** 1 page
+
+**6. Capability Evolution Timeline**
+- **Format:** Visual timeline (v1.0 → v13.0 for key plays)
+- **Plays to Highlight:**
+  - Platform Usage (v11.0 → v13.0): FQDN correction, provisioning filter
+  - User Analysis (v1.0 → v2.6): Three-tier system, 8-archetype framework
+  - Multi-Threading (v2.3 → v3.0): Expansion lens, Account AI integration
+- **Tone:** Technical evolution, innovation-focused
+- **Length:** 1 page
+
+---
+
+## DATA EXTRACTION CHECKLIST
+
+### Confluence Extraction
+- [ ] Pull all 17 play DNA pages (full markdown)
+- [ ] Extract: Mission, phases, output format, quality score, deployments, key innovations
+- [ ] Extract: Version history (what changed per version)
+- [ ] Extract: Validation rules (from each play DNA page)
+- [ ] Extract: Performance benchmarks (duration, quality, success rate)
+
+### Deployment_History Extraction
+- [ ] Pull all 26+ execution records
+- [ ] Extract: Play_Name, Version, Account_Name (SANITIZE), Duration, Quality_Score, Key_Findings, Learnings
+- [ ] Group by play (which plays have most deployments?)
+- [ ] Identify best execution examples (highest quality, interesting findings)
+- [ ] **SANITIZE:** Replace account names with [Account A], [Account B], [Enterprise Customer]
+
+### Snowflake Extraction
+- [ ] Query EAM_RUNS: All 4 executions
+- [ ] Extract: ACCOUNT_NAME (SANITIZE), GENERATED_AT, STATUS, SOURCE_VERSION
+- [ ] Use for EAM execution example
+- [ ] **SANITIZE:** Replace account names with [Account A], [Account B], [Account C], [Account D]
+
+### Brain Waves System Overview
+- [ ] Extract: Current Play Roster table (15 plays with metrics)
+- [ ] Extract: System Metrics (success rate, average quality, memory-enabled plays)
+- [ ] Extract: Play Translation Table (Technical → Executive)
+
+---
+
+## SUCCESS CRITERIA
+
+### Agent Output Quality Metrics
+
+**Completeness:**
+- [ ] All 17 plays documented (name, version, duration, quality, deployments, business value)
+- [ ] All 4 categories explained (Portfolio, Account, Strategic, Utility)
+- [ ] At least 4 real execution examples (sanitized)
+- [ ] Use case matrix covers 15+ common scenarios
+
+**Evidence Density:**
+- [ ] Every play has quality score and deployment count (from Confluence or Deployment_History)
+- [ ] Every execution example has date, duration, findings, outcome
+- [ ] Every capability claim has supporting evidence (Confluence page reference or deployment log)
+
+**Sanitization:**
+- [ ] No real account names (use [Account A], [Account B], etc.)
+- [ ] No user names except document author
+- [ ] No specific ACV values (use ranges: $500K-$1M, $1M-$3M)
+- [ ] No internal URLs (use [Internal Link] or [Confluence: Page Title])
+
+**Narrative Quality:**
+- [ ] Plays organized by business problem (not just technical category)
+- [ ] Use cases are practical and relatable
+- [ ] Execution examples tell a story (context → execution → outcome)
+- [ ] Metrics are quantified and specific (not vague)
+
+---
+
+## EXECUTION INSTRUCTIONS FOR AGENT
+
+### Step 1: Confluence Extraction (30-45 min)
+1. Read Martin Playbook Library v2.0.0 (complete play roster)
+2. Read Brain Waves System Overview v2.17.0 (system metrics, play translation table)
+3. Read all 17 individual play DNA pages (mission, phases, output, quality, deployments)
+4. Extract version history from each play (what changed, when, why)
+5. Compile play catalog (name, version, category, duration, quality, deployments, business value)
+
+### Step 2: Deployment Log Extraction (20-30 min)
+1. Read Deployment_History sheet (all 26+ executions)
+2. Identify best execution examples (highest quality, interesting findings)
+3. Extract: Play_Name, Version, Account_Name, Duration, Quality_Score, Key_Findings, Learnings
+4. **SANITIZE:** Replace all account names with [Account A], [Account B], etc.
+5. Select 4-5 examples for case studies
+
+### Step 3: Snowflake Extraction (10-15 min)
+1. Query EAM_RUNS table (4 executions)
+2. Extract: ACCOUNT_NAME, GENERATED_AT, STATUS, SOURCE_VERSION
+3. **SANITIZE:** Replace account names with [Account A], [Account B], [Account C], [Account D]
+4. Use for EAM execution example
+
+### Step 4: Narrative Drafting (60-90 min)
+1. Write Section 1: The Play Taxonomy (4 categories, 17 plays)
+2. Write Section 2: Play Performance Metrics (performance summary table)
+3. Write Section 3: Real Execution Examples (4-5 sanitized case studies)
+4. Write Section 4: Use Case Matrix (business problem → play → outcome)
+5. Write Section 5: Capability Evolution (3-4 plays with version progression)
+6. Write Section 6: Validation Framework (14 BLOCKING rules)
+7. Write Section 7: Output Formats (HTML, Sheets, Text examples)
+
+### Step 5: Artifact Creation (30-45 min)
+1. Create play catalog table (17 plays with all metadata)
+2. Create use case matrix (15+ scenarios)
+3. Create feature comparison table (17 plays side-by-side)
+4. Create case study collection (4-5 execution examples)
+5. Create before/after metrics visualization
+6. Create capability evolution timeline (3-4 plays)
+7. Format all content in markdown (.md file)
+
+### Step 6: Sanitization Pass (15-20 min)
+1. Replace all account names with [Account A], [Account B], etc.
+2. Replace user names with [User], [CSM], [Technical Collaborator]
+3. Replace specific ACV with ranges ($500K-$1M, $1M-$3M)
+4. Remove internal URLs, replace with [Internal Link]
+5. Verify no customer names, employee names (except author), proprietary data
+
+### Step 7: Quality Check (15-20 min)
+1. Verify all 17 plays documented
+2. Verify all metrics accurate (cross-reference Confluence + Deployment_History)
+3. Verify execution examples are complete (context → execution → outcome)
+4. Check narrative flow (does taxonomy make sense?)
+5. Proofread (grammar, clarity, accuracy)
+6. Final sanitization check
+
+---
+
+## OUTPUT FORMAT
+
+**File Name:** `prd-3-play-ecosystem-martin-v3.md`
+
+**Structure:**
+```markdown
+# The Play Ecosystem: Martin v3.0 Capabilities
+
+## The Play Taxonomy
+
+### Portfolio Skills (5)
+[Each play: name, version, duration, business value, output, quality, deployments, evidence]
+
+### Account Research Skills (9)
+[Each play: name, version, duration, business value, output, quality, deployments, evidence]
+
+### Strategic Skills (2)
+[Each play: name, version, duration, business value, output, quality, deployments, evidence]
+
+### Utility Skills (1)
+[Each play: name, version, duration, business value, output, quality, deployments, evidence]
+
+## Play Performance Metrics
+[Performance summary table with all 17 plays]
+
+## Real Execution Examples
+[4-5 sanitized case studies with context → execution → findings → outcome]
+
+## Use Case Matrix
+[Business problem → recommended play → expected outcome → duration]
+
+## Capability Evolution
+[3-4 plays with version progression and key innovations]
+
+## Validation Framework
+[14 BLOCKING rules with categories and examples]
+
+## Output Formats
+[HTML, Sheets, Text examples with characteristics]
+
+## Appendix: Evidence Sources
+[Confluence page references, deployment log entries, Snowflake queries]
+```
+
+---
+
+## NOTES FOR AGENT
+
+- **Voice:** Third-person product marketing ("Martin's Platform Usage play analyzes...")
+- **Tone:** Benefit-focused, outcome-oriented, practical
+- **Evidence:** Every capability claim must have Confluence reference or deployment log entry
+- **Examples:** Use real execution data but SANITIZE all account names, user names, ACV values
+- **Gaps:** If deployment data is missing, use Confluence benchmarks (duration, quality estimates)
+- **Length:** 3-4 pages (2,000-3,000 words) — comprehensive capability showcase
+- **Sanitization:** CRITICAL — no customer names, no employee names (except author), no proprietary data
+
+---
+
+## END PRD 3

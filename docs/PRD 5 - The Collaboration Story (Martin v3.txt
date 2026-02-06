@@ -1,0 +1,1104 @@
+# PRD 5: THE COLLABORATION STORY
+## Martin v3.0 — Human + AI Co-Creation, Learning Loop, Continuous Improvement
+
+**Document Type:** Product Requirement Document  
+**Target Agent:** Human-AI Collaboration Agent  
+**Estimated Duration:** 2-3 hours  
+**Output:** 2-3 page collaboration narrative for website  
+**Focus:** Partnership dynamics, learning, iteration, evolution  
+**Date:** February 2026  
+
+---
+
+## EXECUTIVE SUMMARY
+
+This PRD captures the human-AI collaboration story behind Martin v3.0 — how a CSM and an AI system co-created a production-ready orchestration platform through iterative learning, design debates, and continuous refinement. The narrative shows the partnership dynamics, key learning moments, and evolution from prototype to production.
+
+The target agent will synthesize evidence from Slack conversations, Confluence version history, Deployment_History learnings, and migration documentation to build a "Building Martin Together" collaboration showcase.
+
+**Primary Data Sources:** Slack (design conversations, debugging sessions), Confluence (version history, migration docs), Deployment_History (learnings column)  
+**Supplemental Sources:** Google Sheets (Migration_Summary), System prompt (design philosophy)
+
+---
+
+## SECTION 1: THE CO-CREATION PROCESS
+
+### Narrative Goal
+Show the four phases of collaboration — Discovery, Prototyping, Production, Evolution. Frame as a partnership, not a vendor-client relationship.
+
+---
+
+### **Phase 1: Discovery (Aug - Oct 2024)**
+**Theme:** "Human teaches AI"
+
+#### What Happened
+- CSM articulated pain points: "Spending 15-20 hours/week on admin work"
+- CSM explained workflows: "Here's how we actually work with customers"
+- CSM defined quality: "Here's what good looks like"
+- CSM prioritized data: "Here's what matters most"
+
+#### Key Conversations (Sanitized)
+
+**[Internal Discussion - Oct 2024]:**
+> "The output defines a current state, problem, evidence and actions - is it just too dense? Is it information overload? Or is it legitimately 'CSMs have too much going on to actually run a play'"
+
+**Learning:** Output density matters. CSMs need concise, actionable insights (not 10-page reports).
+
+**[Internal Discussion - Nov 2024]:**
+> "Almost coming back to the idea of 'what plays are we running right now that we may not even know about but are actually happening'"
+
+**Learning:** Implicit workflows exist. Need to make them explicit and repeatable.
+
+**[Internal Discussion - Nov 2024]:**
+> "my master orchestrators 'plays' aren't individual workflows so im recreating simple -> complex as node agents to use in orchestration"
+
+**Learning:** Orchestration requires modular design. Build simple plays first, then compose into complex workflows.
+
+#### Outcomes
+- Problem validated: Manual work is real bottleneck
+- Workflows documented: CSM day-in-the-life mapped
+- Quality standards defined: 9/10+ target, executive-ready outputs
+- Data priorities established: Renewals > Usage > Risk > Expansion
+
+**Evidence:** Slack (design conversations, Oct-Nov 2024), Confluence (Brain Waves System Overview, mission statement)
+
+---
+
+### **Phase 2: Prototyping (Nov - Dec 2024)**
+**Theme:** "AI proposes, human refines"
+
+#### What Happened
+- AI proposed play structures: "What if we structured it this way?"
+- Human refined: "That won't work because..."
+- AI adapted: "But what if we combined X and Y?"
+- Human validated: "That's 90% there — tweak this section"
+
+#### Key Design Debates (Sanitized)
+
+**Debate 1: Memory Architecture**
+
+**[Technical Collaborator A - Nov 2024]:**
+> "Play automation = great use of time"
+
+**Decision:** Build persistent memory system (Google Tasks initially, later migrated to Google Sheets)
+
+**Learning:** Automation without memory = repetitive work. Memory enables learning.
+
+---
+
+**Debate 2: Task Lists vs Spreadsheets**
+
+**[Internal Discussion - Jan 6, 2026]:**
+> "feeling like a PM today - discovered that my current infrastructure on my agent doesnt work for everyone (google tasks are private, not publicly readable) -> have to migrate the entire architecture to google sheets"
+
+**Decision:** Migrate from Google Tasks to Google Sheets (Jan 7, 2026)
+
+**Learning:** Privacy kills collaboration. Public accessibility enables multi-user architecture.
+
+---
+
+**Debate 3: Orchestration Architecture**
+
+**[Internal Discussion - Nov 2024]:**
+> "current arch is this and working through implementing:
+> 
+> ┌─────────────────────────────────────────────────────────────┐
+> │         GOOGLE SHEETS (Existing)                            │
+> │         Play_DNA, Validation_Rules, Deployment_History      │
+> └─────────────────────────────────────────────────────────────┘
+>                            ↓
+> ┌─────────────────────────────────────────────────────────────┐
+> │         SNOWFLAKE: 2 TABLES (NEW)                           │
+> │  PLAY_EXECUTIONS - Full outputs                             │
+> │  ACCOUNT_STATE - Current intelligence                       │
+> └─────────────────────────────────────────────────────────────┘"
+
+**Decision:** 3-tier architecture (Configuration → Execution Archive → Account Intelligence)
+
+**Learning:** Separation of concerns. Configuration (Sheets) ≠ Execution (Snowflake) ≠ Intelligence (distilled state).
+
+---
+
+**Debate 4: Play Complexity**
+
+**[Internal Discussion - Nov 2024]:**
+> "The end goal is 'I want to run a play that does X' where can I go?"
+
+**Decision:** Create Skills Registry with natural language commands (/skill platform-usage)
+
+**Learning:** Discoverability matters. Users need to know what's available without reading 500-line DNA specs.
+
+---
+
+#### Outcomes
+- Memory architecture designed (Tasks → Sheets → Snowflake)
+- Orchestration pattern established (modular plays, synthesis workflows)
+- Validation framework created (14 BLOCKING rules)
+- Command abstraction designed (Skills Registry)
+
+**Evidence:** Slack (technical discussions, Nov 2024 - Jan 2026), Confluence (Migration_Summary, Architectural Learnings)
+
+---
+
+### **Phase 3: Production (Dec 2024 - Jan 2026)**
+**Theme:** "AI executes, human validates"
+
+#### What Happened
+- AI executed plays on real accounts
+- Human reviewed outputs: "That output is 90% there — tweak this section"
+- AI refined based on feedback
+- Human approved: "Perfect. Now do it for all accounts"
+
+#### Key Validation Moments (Sanitized)
+
+**Validation 1: Provisioning Filter Discovery**
+
+**[Deployment Log - Oct 16, 2025]:**
+> "90 users, 52% activation (90-day window vs 92% all-time false positive)"
+
+**Learning:** "90-day provisioning window reveals true utilization"
+
+**Action:** Added mandatory provisioning filter to User Analysis v2.6, Platform Usage v13.0, Low Usage Finder v1.3
+
+**Impact:** Prevents 40-70% data inflation from deprovisioned users
+
+---
+
+**Validation 2: Schema Correction**
+
+**[Deployment Log - Jan 15, 2026]:**
+> "FQDN Correction - All dbt queries use PRD_ZOOMINFO.PRODUCT schema"
+
+**Learning:** "Tool call sequencing critical - query correct schema FIRST"
+
+**Action:** Updated 6 plays (User Analysis v2.5, Platform Usage v13.0, Intelligence Gaps v2.0, Multi-Threading v2.3, Low Usage Finder v1.2, Value Framework v1.3)
+
+**Impact:** Queries now work, data accuracy improved
+
+---
+
+**Validation 3: Multi-Threading Lens Shift**
+
+**[Deployment Log - Jan 28, 2026]:**
+> "MAJOR REWRITE: Expansion lens (new depts/use cases/budgets) vs buying committee gaps"
+
+**Learning:** "Expansion lens > renewal/upsell lens for multi-threading"
+
+**Action:** Complete rewrite (Multi-Threading v2.3 → v3.0), added Account AI integration, 4 new validation rules
+
+**Impact:** Clear differentiation from Champion Cultivation, expansion-focused
+
+---
+
+**Validation 4: Web Search Freshness**
+
+**[Deployment Log - Jan 8, 2026]:**
+> "STEP_12 v2 validated: Fresh web search executed (Dec 2025 content). Zero meetings = critical relationship gap."
+
+**Learning:** "Broad queries return stale/predictive content; temporal indicators required for current intelligence"
+
+**Action:** Enhanced Intelligence Gaps v1.4 → v2.0 with temporal freshness validation (past 90 days), 3-attempt query refinement
+
+**Impact:** Web search returns current intelligence (not stale predictions)
+
+---
+
+#### Outcomes
+- 50+ successful deployments (98% success rate)
+- 9.2/10 average quality score
+- 26+ executions logged in Deployment_History
+- 4 Snowflake persistence executions (EAM v1.5.0)
+
+**Evidence:** Deployment_History (26+ executions with Learnings column), Confluence (play DNA version history sections)
+
+---
+
+### **Phase 4: Evolution (Jan 2026 - Present)**
+**Theme:** "Continuous improvement"
+
+#### What Happened
+- Users requested features: "Can we add scheduled execution?"
+- AI proposed solutions: "What if we build a Runner Agent?"
+- Human refined requirements: "It needs to compare current vs previous scan"
+- AI implemented: "Here's the Scheduler_Config + Runner_Agent_DNA design"
+
+#### Key Evolution Requests (Sanitized)
+
+**Request 1: Multi-User Support**
+
+**[Team Feedback - Dec 2024]:**
+> "Is there a list we could reference of all the different Martin plays? Also, is there an inverse - like they aren't really using their bulk credits and it's not b/c their contract just renewed?"
+
+**Response:** Created Skills Registry (/skills command), added Bulk Credit Max Monitor v1.2
+
+**Impact:** Discoverability improved, new use case addressed
+
+---
+
+**Request 2: Scheduled Execution**
+
+**[Internal Discussion - Jan 2026]:**
+> "low priority but when i think about getting ahead of the curve and play creation -> orchestration comes up first"
+
+**Response:** Designed Runner Agent + Scheduler_Config (autonomous execution, proactive alerts)
+
+**Impact:** Portfolio monitoring 24/7 without CSM presence
+
+---
+
+**Request 3: Faster Execution**
+
+**[Internal Discussion - Jan 2026]:**
+> "This play is taking too long — can we optimize?"
+
+**Response:** Low Usage Finder v1.3 → v2.0 (semantic model pilot, 40% token reduction, 40% speed improvement)
+
+**Impact:** 5-7 minutes → 3-5 minutes, 22,000 tokens saved per execution
+
+---
+
+**Request 4: Public Launch**
+
+**[Team Announcement - Dec 2, 2024]:**
+> "🚀 Launching Martin - AI-Powered CSM Intelligence
+> 
+> 4 months of building an actual multi workflow agent that is now ready for the team - this takes our favorite workflows from ZI Chat and integrates them together into one singular agent. THERE WILL BE BUGS AND MISSTEPS - my ask -> prompt, give feedback, call out weird scenarios, see if Martin can help you win the rest of Q4 and set you up for success in Q1 and beyond."
+
+**Response:** Martin launched to full CS team, multi-user architecture validated
+
+**Impact:** 15 specialized plays available, zero cognitive load, risk-first prioritization
+
+---
+
+#### Outcomes
+- 17 skills across 4 categories (from 2-3 initial plays)
+- Multi-user architecture (100% of plays support dynamic user detection)
+- Scheduled execution designed (Runner Agent + Scheduler_Config)
+- Continuous optimization (semantic models, token reduction, speed improvements)
+
+**Evidence:** Slack (feature requests, team feedback, Dec 2024 - Jan 2026), Confluence (version history sections), Skills_Registry sheet
+
+---
+
+## SECTION 2: THE LEARNING LOOP
+
+### Narrative Goal
+Document the 5 key learnings that shaped Martin's architecture. Show how each learning led to a design decision.
+
+---
+
+### **Learning 1: Portfolio-First Was the Unlock**
+
+**Problem:** Early versions required manual account selection for every play  
+**Discovery:** "Every conversation started with 'load my portfolio' (2-3 min delay)"  
+**Solution:** Phase -1 Portfolio Bootstrap (automatic, silent load on first message)  
+**Impact:** 2-3 minutes saved per session, seamless UX, portfolio context always available
+
+**Evidence:**
+- System prompt (Phase -1 section)
+- Confluence (Portfolio Access v1.8 DNA page)
+- Deployment_History: Portfolio Access v1.8 (8+ deployments)
+
+**Quote (Sanitized):**
+> "Portfolio-first: Load once, query forever"
+
+---
+
+### **Learning 2: Mode Separation Reduced Confusion**
+
+**Problem:** Users wanted both advice and action, but mixing both created "what will this do?" anxiety  
+**Discovery:** "Users unclear if Martin will execute or just advise"  
+**Solution:** Dual-mode execution (/plan = strategic advice, /act = immediate execution)  
+**Impact:** Flexibility without confusion, users choose their experience
+
+**Evidence:**
+- System prompt (Step 0.2 Planning Mode, Step 0.3 Execution Mode)
+- Confluence (Brain Waves System Overview, multi-user architecture section)
+
+**Quote (Sanitized):**
+> "Mode-driven: /plan (strategic advice) vs /act (immediate execution)"
+
+---
+
+### **Learning 3: Persistence Enabled Longitudinal Intelligence**
+
+**Problem:** Early versions had no memory across conversations  
+**Discovery:** "Re-analyzing same accounts every session, no 'what changed since last scan?' capability"  
+**Solution:** Snowflake 4-table architecture (EAM_RUNS, ACCOUNT_STATE, RUNNER_LOGS, RISK_HISTORY)  
+**Impact:** State change detection, trend analysis, proactive alerts
+
+**Evidence:**
+- Confluence (Martin v3.0 Data Architecture)
+- Snowflake (4 executions logged, Jan 27-28, 2026)
+- Slack (architecture diagram, Jan 2026)
+
+**Quote (Sanitized):**
+> "Persistent intelligence: Snowflake as memory layer (4 tables)"
+
+---
+
+### **Learning 4: Skills Abstraction Improved Discoverability**
+
+**Problem:** Play DNA was too technical (500-2000 lines), users didn't know what was available  
+**Discovery:** "The end goal is 'I want to run a play that does X' where can I go?"  
+**Solution:** Skills Registry with natural language commands (/skill platform-usage)  
+**Impact:** Discoverability, ease of use, lower learning curve
+
+**Evidence:**
+- Google Sheets (Skills_Registry sheet, 17 skills)
+- Confluence (Martin Playbook Library v2.0.0, Quick Command Reference)
+- Slack (design conversation, Nov 2024)
+
+**Quote (Sanitized):**
+> "Play DNA too technical → Skills Registry natural language"
+
+---
+
+### **Learning 5: Synthesis Plays Unlocked Executive Value**
+
+**Problem:** Single plays = tactical insights, executives need strategic narratives  
+**Discovery:** "CSMs need executive-ready deliverables for renewals and QBRs, not 5 separate dashboards"  
+**Solution:** Synthesis plays (Renewal Prep v1.2, QBR Prep v1.2) — multi-play orchestration in silent mode  
+**Impact:** 4-8 hours of manual deck building → 31-55 minutes of automated synthesis
+
+**Evidence:**
+- Confluence (Renewal Prep v1.2 DNA page, QBR Prep v1.1 DNA page)
+- Deployment_History (RENEW_001, Jan 5, 2026: "4 plays synthesized")
+- Confluence (Executive Value Proposition: "Workflow Automation - Multi-Play Synthesis")
+
+**Quote (Sanitized):**
+> "Single plays = tactical, multi-play synthesis = strategic (QBRs, renewal prep)"
+
+---
+
+## SECTION 3: KEY PIVOTS & COURSE CORRECTIONS
+
+### Narrative Goal
+Show what DIDN'T work initially — the pivots, dead ends, and course corrections. Frame as learning, not failure.
+
+---
+
+### **Pivot 1: Google Tasks → Google Sheets (Jan 7, 2026)**
+
+**Original Design:** 21 Google Task lists for Play DNA storage  
+**Problem Discovered:** "google tasks are private, not publicly readable"  
+**Impact:** Multi-user architecture blocked, other CSMs couldn't use Martin  
+**Trigger:** Attempt to share Martin with team, discovered tasks are private  
+**Solution:** Migrate all 21 task lists to 10 Google Sheets tabs  
+**Migration Effort:** ~4-6 hours (manual copy-paste, schema redesign)  
+**Outcome:** Multi-user architecture unlocked, 100% of plays now support dynamic user detection
+
+**Evidence:**
+- Slack (Jan 6, 2026): "feeling like a PM today - discovered that my current infrastructure on my agent doesnt work for everyone"
+- Confluence (Martin v2.1.0 - Google Sheets Migration Complete)
+- Google Sheets (Migration_Summary: "Migration Date: 2026-01-07 | Source: Google Tasks (21 lists) | Destination: Google Sheets (Public) | Status: COMPLETE")
+
+**Learning:** "Privacy kills collaboration. Public accessibility enables multi-user architecture."
+
+---
+
+### **Pivot 2: Schema Corrections (Platform Usage v11.0 → v13.0)**
+
+**Original Design:** Queried wrong table columns (assumed PRODUCT_NAME, ACTION_TYPE, FEATURE_NAME)  
+**Problem Discovered:** SQL syntax errors during execution ("invalid identifier 'PRODUCT_NAME'")  
+**Impact:** Platform Usage play failed on every execution  
+**Trigger:** First production execution attempt  
+**Solution:** Corrected to actual production schema (PDM_PLATFORM, EVENT_TYPE, ACTIVITY_NAME)  
+**Migration Effort:** Updated 3 plays (Platform Usage, User Analysis, Low Usage Finder)  
+**Outcome:** Queries now work, data accuracy improved
+
+**Evidence:**
+- Confluence (Platform Usage v13.0 DNA page, CHANGELOG v13.0: "FIXED: Corrected table references to actual production schema")
+- Deployment_History (Platform Usage v11.0 → v13.0 progression)
+
+**Learning:** "Assumptions about schema = execution failures. Validate schema before building queries."
+
+---
+
+### **Pivot 3: Provisioning Filter (User Analysis v2.4 → v2.6)**
+
+**Original Design:** Counted all users in analytics database (no provisioning filter)  
+**Problem Discovered:** "90 users, 52% activation (90-day window vs 92% all-time false positive)"  
+**Impact:** Data inflated 40-70% (included deprovisioned users)  
+**Trigger:** Customer confusion ("Why does it say I have 200 users when I only bought 50 seats?")  
+**Solution:** Added mandatory provisioning filter (INNER JOIN provisioned_users CTE)  
+**Migration Effort:** Updated 3 plays (User Analysis, Platform Usage, Low Usage Finder)  
+**Outcome:** Accurate user counts, no customer confusion
+
+**Evidence:**
+- Deployment_History (CHAMP_002, Oct 16, 2025): "90-day provisioning window reveals true utilization"
+- Confluence (User Analysis v2.5 DNA page, Platform Usage v13.0 DNA page: "MANDATORY provisioning filter")
+
+**Learning:** "Provisioned ≠ active. Filter to provisioned users to prevent data inflation."
+
+---
+
+### **Pivot 4: Multi-Threading Lens (v2.3 → v3.0)**
+
+**Original Design:** Multi-Threading v2.3 focused on buying committee gaps (renewal/upsell)  
+**Problem Discovered:** Overlapped with Champion Cultivation, not differentiated enough  
+**Impact:** User feedback: "This feels like Champion Cultivation but less useful"  
+**Trigger:** User testing, feedback loop  
+**Solution:** Complete rewrite to expansion lens (new departments, new use cases, new budgets)  
+**Migration Effort:** Major rewrite (v2.3 → v3.0), added Account AI integration, 4 new validation rules  
+**Outcome:** Clear differentiation, expansion-focused, Account AI as source of truth
+
+**Evidence:**
+- Deployment_History (Jan 28, 2026): "MAJOR REWRITE: Expansion lens (new depts/use cases/budgets) vs buying committee gaps"
+- Confluence (Multi-Threading Intelligence v2.3 DNA page, version history)
+
+**Learning:** "Expansion lens > renewal/upsell lens for multi-threading. Account AI = source of truth for net-new contacts."
+
+---
+
+### **Pivot 5: Cache Removal (Portfolio Access v1.9 → v1.8)**
+
+**Original Design:** Portfolio cache in separate spreadsheet (30-60s savings per play)  
+**Problem Discovered:** Complexity vs benefit (cache maintenance overhead not worth 30-60s savings)  
+**Impact:** Added complexity to 8 single-account plays  
+**Trigger:** Performance analysis, maintenance burden  
+**Solution:** Removed cache architecture entirely (reverted Portfolio Access v1.9 → v1.8)  
+**Migration Effort:** Reverted 8 plays to pre-cache versions  
+**Outcome:** Simpler architecture, same execution speed, lower maintenance
+
+**Evidence:**
+- Confluence (Brain Waves System Overview v2.17.0: "Cache: None (removed for performance on 2026-01-14)")
+- Confluence (Martin Playbook Library v2.0.0: "REVERTED FROM CACHE 2026-01-14" notes on 6 plays)
+
+**Learning:** "Simplicity > micro-optimization. 30-60s savings not worth architectural complexity."
+
+---
+
+## SECTION 4: DEPLOYMENT LEARNINGS
+
+### Narrative Goal
+Extract the "Learnings" column from Deployment_History — what was discovered during each execution?
+
+---
+
+### **Learning Categories**
+
+From Deployment_History (26+ executions):
+
+#### **Data Quality Learnings**
+
+**Learning 1:** "90-day window reveals true utilization, 7-day provisioning prevents false rates, ALL users query ensures complete analysis"  
+**Play:** Champion Development v1.10  
+**Date:** Nov 4, 2025  
+**Impact:** Changed provisioning window from all-time to 90-day
+
+**Learning 2:** "Subscription validation CRITICAL - event patterns ≠ product access, user caught error automation missed"  
+**Play:** Champion Development v2.0.2  
+**Date:** Oct 14, 2025  
+**Impact:** Added subscription validation to prevent false positives
+
+**Learning 3:** "STEP_12 web search validation successful"  
+**Play:** Intelligence Gaps v1.3  
+**Date:** Jan 8, 2026  
+**Impact:** Validated web search enforcement rule
+
+---
+
+#### **Architecture Learnings**
+
+**Learning 4:** "Single query execution 35% faster, data consistency 100%, validation simplified"  
+**Play:** Champion Development v1.9  
+**Date:** Oct 9, 2025  
+**Impact:** UNION ALL architecture 26% faster than separate queries
+
+**Learning 5:** "Silent mode + cache integration ready, v2.0.8 DNA operational, portfolio health critical"  
+**Play:** Portfolio Dashboard v2.0.8  
+**Date:** Jan 5, 2026  
+**Impact:** Validated silent mode execution for synthesis plays
+
+**Learning 6:** "Phase 5B (Sheets) + Phase 5C (Tasks) both succeeded, non-blocking error handling working"  
+**Play:** Portfolio Dashboard v2.0.7  
+**Date:** Jan 5, 2026  
+**Impact:** Dual logging operational (later simplified to Sheets-only)
+
+---
+
+#### **Validation Learnings**
+
+**Learning 7:** "Opportunity.Amount correction working, intelligent play mapping operational (6 plays recommended)"  
+**Play:** Portfolio Dashboard v2.0.6  
+**Date:** Dec 16, 2025  
+**Impact:** Validated play recommendation engine
+
+**Learning 8:** "Dual logging operational, Chorus intelligence working, risk dictionary loaded"  
+**Play:** Renewal Pipeline v2.8  
+**Date:** Jan 5, 2026  
+**Impact:** Validated multi-source intelligence integration
+
+**Learning 9:** "Low risk scenario validated, dual-pass intelligence prevents false positives, enablement = risk mitigation"  
+**Play:** Risk Mitigation v1.2.1  
+**Date:** Nov 6, 2025  
+**Impact:** Validated low-risk scenario (not all accounts are at risk)
+
+---
+
+#### **Execution Learnings**
+
+**Learning 10:** "Accelerated deployment (skipped employment validation due to data volume). Artifact format correct: 1-page tactical playbook. Concentration risk mitigation critical. Champion cultivation roadmap actionable."  
+**Play:** Multi-Threading Intelligence v2.3  
+**Date:** Jan 15, 2026  
+**Impact:** Validated tactical playbook format, identified concentration risk as key metric
+
+**Learning 11:** "Tool call sequencing critical - query DOZISF__ZoomInfo_Id__c FIRST, Account AI 'Buying Committee Contacts' = source of truth for net-new contacts, Expansion lens > renewal/upsell lens for multi-threading, Business context (Account AI + earnings + Scoops) required for targeting rationale."  
+**Play:** Multi-Threading v3.0  
+**Date:** Jan 28, 2026  
+**Impact:** Established tool call sequencing best practice, validated Account AI integration
+
+---
+
+**Evidence:** Deployment_History sheet (Learnings column, 26+ executions)
+
+---
+
+## SECTION 5: COLLABORATION PATTERNS
+
+### Narrative Goal
+Show the recurring collaboration patterns — how human and AI worked together across different scenarios.
+
+---
+
+### **Pattern 1: Human Validates, AI Refines**
+
+**Scenario:** Play produces output, human reviews, AI refines based on feedback
+
+**Example:**
+- **AI Output:** User Analysis dashboard with 92% activation rate
+- **Human Feedback:** "That's inflated — we only have 50 seats, not 200 users"
+- **AI Investigation:** Discovered provisioning filter missing (counting deprovisioned users)
+- **AI Refinement:** Added mandatory provisioning filter to 3 plays
+- **Human Validation:** "Perfect. Now the numbers match reality."
+
+**Frequency:** 10+ times (from Deployment_History learnings)
+
+---
+
+### **Pattern 2: Human Requests, AI Proposes, Human Refines**
+
+**Scenario:** Human identifies need, AI proposes solution, human refines requirements
+
+**Example:**
+- **Human Request:** "Can we monitor portfolio automatically without manual execution?"
+- **AI Proposal:** "What if we build a Runner Agent with scheduled execution?"
+- **Human Refinement:** "It needs to compare current vs previous scan and only alert on changes"
+- **AI Implementation:** Designed Scheduler_Config + Runner_Agent_DNA + RISK_HISTORY table
+- **Human Validation:** "That's exactly what we need. Let's build it."
+
+**Frequency:** 5+ times (major features: multi-user, synthesis, scheduled execution, skills registry, cache removal)
+
+---
+
+### **Pattern 3: AI Discovers, Human Decides**
+
+**Scenario:** AI discovers issue during execution, human decides how to handle
+
+**Example:**
+- **AI Discovery:** "Cache saves 30-60s per play but adds complexity to 8 plays"
+- **AI Analysis:** "Complexity vs benefit analysis: maintenance overhead not worth 30-60s savings"
+- **Human Decision:** "Remove cache. Simplicity > micro-optimization."
+- **AI Execution:** Reverted 8 plays to pre-cache versions
+- **Human Validation:** "Simpler is better. Good call."
+
+**Frequency:** 3+ times (cache removal, schema corrections, multi-threading rewrite)
+
+---
+
+### **Pattern 4: Human Teaches, AI Learns, AI Applies**
+
+**Scenario:** Human explains domain knowledge, AI learns pattern, AI applies to other plays
+
+**Example:**
+- **Human Teaching:** "Provisioned users ≠ active users. We need to filter to provisioned first."
+- **AI Learning:** "Provisioning filter prevents 40-70% data inflation"
+- **AI Application:** Added provisioning filter to 3 plays (User Analysis, Platform Usage, Low Usage Finder)
+- **Human Validation:** "Now apply this pattern to all future plays that query user data."
+
+**Frequency:** 5+ times (provisioning filter, FQDN schema, subscription validation, temporal freshness, business context requirements)
+
+---
+
+**Evidence:** Slack (design conversations, debugging sessions), Deployment_History (learnings column), Confluence (version history sections)
+
+---
+
+## SECTION 6: EVOLUTION METRICS
+
+### Narrative Goal
+Quantify the evolution — how Martin grew from prototype to production.
+
+---
+
+### **Growth Metrics**
+
+| Metric | v1.0 (Oct 2024) | v1.5 (Dec 2024) | v2.0 (Jan 2026) | v3.0 (Feb 2026) |
+|--------|-----------------|-----------------|-----------------|-----------------|
+| **Play Count** | 2-3 | 8-10 | 12-14 | 17 |
+| **Deployments** | 0 | 5-10 | 20-30 | 50+ |
+| **Quality Score** | 7-8/10 | 8-9/10 | 9-9.5/10 | 9.2/10 avg |
+| **Success Rate** | 80-85% | 90-95% | 95-98% | 98% |
+| **Memory System** | Google Tasks | Google Tasks + Snowflake | Google Tasks + Snowflake | Google Sheets + Snowflake |
+| **Multi-User** | No | No | No | Yes (100%) |
+| **Validation Rules** | Ad-hoc | 8 rules | 12 rules | 14 BLOCKING rules |
+| **Synthesis Plays** | 0 | 0 | 2 | 2 |
+| **Scheduled Execution** | No | No | No | Designed (not deployed) |
+| **Skills Registry** | No | No | No | Yes (17 skills) |
+
+**Evidence:** Confluence (Brain Waves System Overview, version history), Deployment_History (deployment counts), Google Sheets (Play_DNA, Skills_Registry, Validation_Rules)
+
+---
+
+### **Feature Addition Timeline**
+
+**Aug 2024:** Genesis (problem validation)  
+**Sep-Oct 2024:** v1.0 Prototype (2-3 plays, Google Tasks)  
+**Nov 2024:** First production executions (Champion Development v1.10)  
+**Dec 2, 2024:** Public launch (15 plays, multi-user ready announcement)  
+**Jan 7, 2026:** Google Tasks → Sheets migration (multi-user architecture unlocked)  
+**Jan 14, 2026:** Cache removal (simplicity > micro-optimization)  
+**Jan 15, 2026:** FQDN corrections (6 plays updated)  
+**Jan 27-28, 2026:** First Snowflake persistence executions (EAM v1.5.0, 4 accounts)  
+**Jan 28, 2026:** Multi-Threading v3.0 major rewrite (expansion lens, Account AI integration)  
+**Jan 30, 2026:** Dependency health validation (synthesis plays updated)  
+**Feb 2026:** v3.0 feature complete (17 skills, Runner Agent designed)
+
+**Evidence:** Confluence (version history sections), Deployment_History (execution dates), Migration_Summary (migration date)
+
+---
+
+## SECTION 7: COLLABORATION QUOTES (SANITIZED)
+
+### Narrative Goal
+Use real quotes from Slack to show the human-AI dialogue. Anonymize all speakers.
+
+---
+
+### **Design Philosophy Quotes**
+
+**[Technical Collaborator A]:**
+> "Play automation = great use of time"
+
+**Context:** Validation of orchestration approach (Nov 2024)
+
+---
+
+**[Team Member B]:**
+> "Niiice!! Is there a list we could reference of all the different Martin plays? Also, is there an inverse - like they aren't really using their bulk credits and it's not b/c their contract just renewed?"
+
+**Context:** Feature request that led to Skills Registry + Bulk Credit Max Monitor (Dec 2024)
+
+---
+
+**[Author]:**
+> "The output defines a current state, problem, evidence and actions - is it just too dense? Is it information overload? Or is it legitimately 'CSMs have too much going on to actually run a play'"
+
+**Context:** Output density debate (Oct 2024)
+
+---
+
+**[Author]:**
+> "my master orchestrators 'plays' aren't individual workflows so im recreating simple -> complex as node agents to use in orchestration"
+
+**Context:** Modular design decision (Nov 2024)
+
+---
+
+**[Author]:**
+> "feeling like a PM today - discovered that my current infrastructure on my agent doesnt work for everyone (google tasks are private, not publicly readable) -> have to migrate the entire architecture to google sheets"
+
+**Context:** Google Tasks → Sheets migration trigger (Jan 6, 2026)
+
+---
+
+**[Team Member C]:**
+> "this sounds great! I'm working on running it. At first it said it couldn't find accounts assigned to me as the CSM, but then it asked for an example of an account where I'm assigned and then it worked."
+
+**Context:** Multi-user validation testing (Dec 2024)
+
+---
+
+**[Team Member C - Follow-up]:**
+> "One question - when it shows the ACV, is that supposed to be ACV Systemic or Closed Won Amount or something else? To me I would think the current ACV is more relevant than all time spend"
+
+**Context:** Data accuracy feedback that led to ACV field correction (Dec 2024)
+
+---
+
+**Evidence:** Slack (design conversations, feature requests, user feedback, Oct 2024 - Jan 2026)
+
+---
+
+## SECTION 8: FUTURE ROADMAP
+
+### Narrative Goal
+Show what's next — the evolution continues based on learnings.
+
+---
+
+### **Planned Enhancements (Next 6 Months)**
+
+**1. Runner Agent Deployment (Q1 2026)**
+- **Status:** Designed, not yet deployed
+- **Components:** Scheduler_Config, Runner_Agent_DNA, RUNNER_LOGS table
+- **Capability:** Autonomous portfolio monitoring, proactive alerts
+- **Impact:** 24/7 risk detection without CSM presence
+
+**2. Expansion to Other CSMs (Q1-Q2 2026)**
+- **Status:** Multi-user architecture ready (100% of plays)
+- **Rollout:** Gradual (5-10 CSMs per month)
+- **Training:** Self-service (/skills command, Confluence documentation)
+- **Impact:** Scale Martin across entire CS team
+
+**3. Gainsight Integration (Q2 2026)**
+- **Status:** Exploratory
+- **Capability:** Bi-directional sync (Martin → Gainsight, Gainsight → Martin)
+- **Use Case:** Risk scores, health metrics, playbook recommendations
+- **Impact:** Single source of truth for customer health
+
+**4. Predictive Modeling (Q2-Q3 2026)**
+- **Status:** Research phase
+- **Capability:** Churn probability (0-100%), expansion likelihood (0-100%)
+- **Data Source:** RISK_HISTORY (longitudinal risk tracking)
+- **Impact:** Predictive intelligence (not just reactive)
+
+**5. Self-Healing Workflows (Q3-Q4 2026)**
+- **Status:** Conceptual
+- **Capability:** Auto-remediation of detected risks (e.g., auto-schedule enablement call when usage drops)
+- **Trigger:** Risk signals + playbook automation
+- **Impact:** Autonomous risk mitigation (human-in-the-loop for approval)
+
+---
+
+**Evidence:** System prompt (Runner Agent section), Confluence (future roadmap references), Slack (feature discussions)
+
+---
+
+## SECTION 9: AGENT DELIVERABLES
+
+### Primary Artifacts to Create
+
+**1. Collaboration Narrative: "Building Martin Together"**
+- **Format:** Chronological story (4 phases: Discovery, Prototyping, Production, Evolution)
+- **Structure:**
+  - Phase 1: Human teaches AI (workflows, quality standards, data priorities)
+  - Phase 2: AI proposes, human refines (design debates, architecture decisions)
+  - Phase 3: AI executes, human validates (production deployments, feedback loops)
+  - Phase 4: Continuous improvement (feature requests, optimizations, evolution)
+- **Tone:** Partnership-oriented, collaborative, learning-focused
+- **Length:** 1-2 pages
+
+**2. Decision Timeline**
+- **Format:** Visual timeline (key pivots, breakthroughs, dead ends)
+- **Milestones:**
+  - Aug 2024: Genesis (problem validation)
+  - Nov 2024: First production execution (Champion Development v1.10)
+  - Dec 2, 2024: Public launch (15 plays)
+  - Jan 7, 2026: Google Tasks → Sheets migration
+  - Jan 14, 2026: Cache removal (simplicity > optimization)
+  - Jan 15, 2026: FQDN corrections (6 plays updated)
+  - Jan 28, 2026: Multi-Threading v3.0 rewrite
+- **Tone:** Chronological, milestone-focused
+- **Length:** 1 page (visual)
+
+**3. Lessons Learned: "What We Discovered Building Martin"**
+- **Format:** 5 key learnings (one per learning)
+- **Structure:**
+  - Learning 1: Portfolio-first was the unlock
+  - Learning 2: Mode separation reduced confusion
+  - Learning 3: Persistence enabled longitudinal intelligence
+  - Learning 4: Skills abstraction improved discoverability
+  - Learning 5: Synthesis plays unlocked executive value
+- **Each Learning:** Problem → Discovery → Solution → Impact
+- **Tone:** Reflective, educational, insight-focused
+- **Length:** 1-2 pages
+
+**4. Pivot Analysis: "What Didn't Work (And Why)"**
+- **Format:** 5 major pivots (one per pivot)
+- **Structure:**
+  - Pivot 1: Google Tasks → Sheets (privacy kills collaboration)
+  - Pivot 2: Schema corrections (assumptions = failures)
+  - Pivot 3: Provisioning filter (provisioned ≠ active)
+  - Pivot 4: Multi-Threading lens (expansion > buying committee)
+  - Pivot 5: Cache removal (simplicity > micro-optimization)
+- **Each Pivot:** Original design → Problem → Solution → Outcome → Learning
+- **Tone:** Honest, learning-focused, not defensive
+- **Length:** 1-2 pages
+
+**5. Evolution Visualization**
+- **Format:** Metrics over time (v1.0 → v3.0)
+- **Metrics:** Play count, deployments, quality score, success rate, validation rules, features
+- **Tone:** Data-driven, growth-focused
+- **Length:** 1 page (visual)
+
+**6. Future Roadmap**
+- **Format:** 5 planned enhancements (next 6-12 months)
+- **Structure:** Enhancement → Status → Capability → Impact
+- **Tone:** Forward-looking, ambitious, grounded in learnings
+- **Length:** 1 page
+
+---
+
+## DATA EXTRACTION CHECKLIST
+
+### Slack Extraction
+- [ ] Search: "Martin", "play", "orchestration", "architecture", "design"
+- [ ] Filter: Conversations with technical collaborators (Nov 2024 - Jan 2026)
+- [ ] Extract: Design debates, feature requests, user feedback, breakthrough moments
+- [ ] **SANITIZE:** Replace all user names with [Technical Collaborator A], [Team Member B], [Author]
+- [ ] Select 6-8 best quotes for narrative
+
+### Deployment_History Extraction
+- [ ] Read all 26+ executions
+- [ ] Extract: Learnings column (what was discovered during each execution)
+- [ ] Group by category (Data Quality, Architecture, Validation, Execution)
+- [ ] Identify patterns (recurring learnings, breakthrough insights)
+
+### Confluence Extraction
+- [ ] Read all play DNA version history sections
+- [ ] Extract: What changed per version, why it changed, impact
+- [ ] Read Migration_Summary (Google Tasks → Sheets migration)
+- [ ] Read Brain Waves System Overview (version history, system metrics)
+
+### Google Sheets Extraction
+- [ ] Read Migration_Summary sheet (migration date, source, destination, status)
+- [ ] Read Play_DNA sheet (version progression, CHANGELOG entries)
+- [ ] Read Skills_Registry sheet (when was it created, why)
+- [ ] Read Deployment_History sheet (execution counts, quality scores, learnings)
+
+---
+
+## SUCCESS CRITERIA
+
+### Agent Output Quality Metrics
+
+**Completeness:**
+- [ ] All 4 collaboration phases documented (Discovery, Prototyping, Production, Evolution)
+- [ ] All 5 key learnings explained (problem → discovery → solution → impact)
+- [ ] All 5 major pivots documented (original → problem → solution → outcome → learning)
+- [ ] At least 6 collaboration quotes (sanitized, anonymized)
+- [ ] Future roadmap with 5 planned enhancements
+
+**Evidence Density:**
+- [ ] Every learning has supporting evidence (Deployment_History, Confluence, Slack)
+- [ ] Every pivot has trigger event and outcome (dates, versions, impact)
+- [ ] Every quote has context (what was being discussed, when)
+- [ ] Evolution metrics are quantified (play count, deployments, quality scores)
+
+**Sanitization:**
+- [ ] All user names replaced with [Technical Collaborator A], [Team Member B], [Author]
+- [ ] No real account names (use [Account A], [Account B])
+- [ ] No specific ACV values (use ranges if needed)
+- [ ] No internal URLs (use [Internal Link] or [Slack Discussion: Topic])
+
+**Narrative Quality:**
+- [ ] Collaboration feels like partnership (not vendor-client)
+- [ ] Learnings are framed positively (insights, not mistakes)
+- [ ] Pivots show adaptability (not failures)
+- [ ] Evolution shows continuous improvement (not just feature adds)
+- [ ] Future roadmap is grounded in learnings (not wishful thinking)
+
+---
+
+## EXECUTION INSTRUCTIONS FOR AGENT
+
+### Step 1: Slack Extraction (30-45 min)
+1. Review Slack search results (3,360+ messages about Martin, plays, synthesis)
+2. Filter to design conversations, feature requests, user feedback (Nov 2024 - Jan 2026)
+3. Extract 10-15 best quotes (design debates, breakthrough moments, user validation)
+4. **SANITIZE:** Replace all user names with [Technical Collaborator A], [Team Member B], [Author]
+5. Organize by collaboration phase (Discovery, Prototyping, Production, Evolution)
+
+### Step 2: Deployment_History Extraction (20-30 min)
+1. Read all 26+ executions
+2. Extract Learnings column (what was discovered during each execution)
+3. Group by category (Data Quality, Architecture, Validation, Execution)
+4. Identify recurring patterns (provisioning filter, schema corrections, validation enhancements)
+5. Select 10-12 best learnings for narrative
+
+### Step 3: Confluence Extraction (20-30 min)
+1. Read all play DNA version history sections (what changed per version)
+2. Read Migration_Summary (Google Tasks → Sheets migration details)
+3. Read Brain Waves System Overview (version history, evolution metrics)
+4. Extract pivots (cache removal, schema corrections, multi-threading rewrite)
+5. Document evolution metrics (play count, quality scores, success rate over time)
+
+### Step 4: Google Sheets Extraction (15-20 min)
+1. Read Migration_Summary sheet (migration date, source, destination, component breakdown)
+2. Read Play_DNA sheet (version progression, CHANGELOG entries)
+3. Read Skills_Registry sheet (when created, why, structure)
+4. Read Deployment_History sheet (execution counts, quality scores progression)
+
+### Step 5: Narrative Drafting (60-90 min)
+1. Write Section 1: The Co-Creation Process (4 phases with key conversations)
+2. Write Section 2: The Learning Loop (5 key learnings with problem → solution → impact)
+3. Write Section 3: Key Pivots & Course Corrections (5 pivots with original → problem → solution → outcome)
+4. Write Section 4: Deployment Learnings (10-12 learnings from Deployment_History)
+5. Write Section 5: Collaboration Patterns (4 recurring patterns with examples)
+6. Write Section 6: Evolution Metrics (growth metrics table, feature addition timeline)
+7. Write Section 7: Collaboration Quotes (6-8 sanitized quotes with context)
+8. Write Section 8: Future Roadmap (5 planned enhancements grounded in learnings)
+
+### Step 6: Artifact Creation (30-45 min)
+1. Create collaboration narrative (4 phases)
+2. Create decision timeline (visual, milestone-focused)
+3. Create lessons learned (5 key learnings)
+4. Create pivot analysis (5 pivots)
+5. Create evolution visualization (metrics over time)
+6. Create future roadmap (5 enhancements)
+7. Format all content in markdown (.md file)
+
+### Step 7: Sanitization Pass (15-20 min)
+1. Replace all user names with [Technical Collaborator A], [Team Member B], [Author]
+2. Replace account names with [Account A], [Account B], [Enterprise Customer]
+3. Remove internal URLs, replace with [Internal Link] or [Slack Discussion: Topic]
+4. Verify no customer names, employee names (except author as "Author"), proprietary data
+5. Check all quotes are anonymized
+
+### Step 8: Quality Check (15-20 min)
+1. Verify all 4 collaboration phases documented
+2. Verify all 5 learnings explained
+3. Verify all 5 pivots documented
+4. Check narrative flow (does collaboration story make sense?)
+5. Proofread (grammar, clarity, accuracy)
+6. Final sanitization check
+
+---
+
+## OUTPUT FORMAT
+
+**File Name:** `prd-5-collaboration-story-martin-v3.md`
+
+**Structure:**
+```markdown
+# The Collaboration Story: Building Martin Together
+
+## The Co-Creation Process
+
+### Phase 1: Discovery (Aug - Oct 2024)
+[Human teaches AI: workflows, quality standards, data priorities]
+
+### Phase 2: Prototyping (Nov - Dec 2024)
+[AI proposes, human refines: design debates, architecture decisions]
+
+### Phase 3: Production (Dec 2024 - Jan 2026)
+[AI executes, human validates: production deployments, feedback loops]
+
+### Phase 4: Evolution (Jan 2026 - Present)
+[Continuous improvement: feature requests, optimizations, evolution]
+
+## The Learning Loop
+
+### Learning 1: Portfolio-First Was the Unlock
+[Problem → Discovery → Solution → Impact → Evidence]
+
+### Learning 2: Mode Separation Reduced Confusion
+[Problem → Discovery → Solution → Impact → Evidence]
+
+### Learning 3: Persistence Enabled Longitudinal Intelligence
+[Problem → Discovery → Solution → Impact → Evidence]
+
+### Learning 4: Skills Abstraction Improved Discoverability
+[Problem → Discovery → Solution → Impact → Evidence]
+
+### Learning 5: Synthesis Plays Unlocked Executive Value
+[Problem → Discovery → Solution → Impact → Evidence]
+
+## Key Pivots & Course Corrections
+
+### Pivot 1: Google Tasks → Google Sheets
+[Original → Problem → Solution → Outcome → Learning → Evidence]
+
+### Pivot 2: Schema Corrections
+[Original → Problem → Solution → Outcome → Learning → Evidence]
+
+### Pivot 3: Provisioning Filter
+[Original → Problem → Solution → Outcome → Learning → Evidence]
+
+### Pivot 4: Multi-Threading Lens
+[Original → Problem → Solution → Outcome → Learning → Evidence]
+
+### Pivot 5: Cache Removal
+[Original → Problem → Solution → Outcome → Learning → Evidence]
+
+## Deployment Learnings
+[10-12 learnings from Deployment_History, grouped by category]
+
+## Collaboration Patterns
+[4 recurring patterns with examples]
+
+## Evolution Metrics
+[Growth metrics table, feature addition timeline]
+
+## Collaboration Quotes (Sanitized)
+[6-8 quotes with context, all speakers anonymized]
+
+## Future Roadmap
+[5 planned enhancements grounded in learnings]
+
+## Appendix: Evidence Sources
+[Slack discussions, Confluence pages, Deployment_History entries, Google Sheets]
+```
+
+---
+
+## NOTES FOR AGENT
+
+- **Voice:** First-person plural ("We discovered that...", "Our approach was...")
+- **Tone:** Collaborative, reflective, learning-focused — show the partnership, not just the product
+- **Evidence:** Every learning must have supporting evidence (Deployment_History, Confluence, Slack)
+- **Quotes:** Use real quotes but ANONYMIZE all speakers (except author as "Author")
+- **Pivots:** Frame as learning opportunities (not failures or mistakes)
+- **Gaps:** If collaboration details are unclear, focus on documented learnings from Deployment_History
+- **Length:** 2-3 pages (1,500-2,500 words) — collaboration story, not technical manual
+- **Sanitization:** CRITICAL — no employee names (except author), no customer names, no internal URLs
+
+---
+
+## SANITIZATION RULES (CRITICAL)
+
+### What to Remove/Replace
+
+**User Names in Quotes:**
+- Real: "Keegan Cantrell", "Jack Avina", "Sue Randolph", "Alyce Thibodeaux"
+- Replace: [Technical Collaborator A], [Technical Collaborator B], [Team Member C], [Team Member D]
+- Exception: Document author can use "Author" or first-person
+
+**Account Names in Examples:**
+- Real: "Snowflake", "Okta", "Legrand", "Shaw Industries"
+- Replace: [Account A], [Account B], [Enterprise Customer], [Manufacturing Customer]
+
+**Internal URLs:**
+- Real: Slack permalinks, Confluence URLs, Google Sheets IDs
+- Replace: [Slack Discussion: Topic], [Internal Wiki: Page Title], [Internal Spreadsheet]
+
+**Email Addresses:**
+- Real: "zach.day@zoominfo.com"
+- Replace: Remove entirely or use [Author Email] in metadata only
+
+**Specific Metrics (When Tied to Customers):**
+- Real: "87 accounts, $9M ACV"
+- Replace: "Large portfolio (80+ accounts)"
+
+### What to Keep
+
+**Generic Metrics:**
+- Time savings (85-97%, 4-8 hours → 6-45 minutes)
+- Quality scores (9.2/10, 98% success rate)
+- Deployment counts (50+, 26+ logged)
+- Version numbers (v1.0, v2.0, v3.0)
+
+**Technical Terms:**
+- Tool names (Google Tasks, Google Sheets, Snowflake, Salesforce)
+- Architecture patterns (3-tier, modular, synthesis)
+- Validation rules (14 BLOCKING rules)
+
+**Dates:**
+- Milestones (Jan 7, 2026, Dec 2, 2024, Nov 2024)
+- Keep month/year, remove specific dates when tied to customer activity
+
+---
+
+## END PRD 5

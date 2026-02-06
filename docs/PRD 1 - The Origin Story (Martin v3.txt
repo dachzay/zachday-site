@@ -1,0 +1,681 @@
+# PRD 1: THE ORIGIN STORY
+## Martin v3.0 — From Problem to First Principles Design
+
+**Document Type:** Product Requirement Document  
+**Target Agent:** Content Strategist Agent  
+**Narrative Focus:** Problem → Vision → First Principles Design  
+**Estimated Duration:** 2-3 hours  
+**Expected Output:** 2-3 pages of narrative content  
+**Primary Goal:** Establish "why Martin had to exist" with quantified pain points and strategic framing
+
+---
+
+## EXECUTIVE SUMMARY
+
+This PRD captures the origin story of Martin v3.0 — a production-ready AI orchestration system built to transform Customer Success Management from reactive fire-fighting to proactive partnership. The narrative follows a two-act structure: **The CSM Reality** (the problem) and **The Vision** (first principles design philosophy).
+
+**Key Themes:**
+- Portfolio scale challenge: 87 accounts, $9M ACV, limited CSM bandwidth
+- Fragmented data across 6+ systems creating 2-3 hour manual workflows
+- Reactive posture: discovering risks 30-60 days too late
+- Opportunity cost: 80/20 split (admin work vs strategic partnership)
+- First principles solution: Portfolio-first, mode-driven, persistent intelligence
+
+---
+
+## SECTION 1: THE CSM REALITY (THE PROBLEM)
+
+### Narrative Objective
+Establish the business problem with quantified pain points, real CSM quotes, and concrete examples of the reactive posture that necessitated Martin's creation.
+
+### Data Sources
+
+#### Primary Sources
+1. **Slack Evidence** (3,360+ messages analyzed)
+   - Key quote: "The CSM team feels in the dark with their portfolios, product parsing and usage, etc" (Zach Day, Jan 15, 2026)
+   - Launch announcement: "4 months of building an actual multi workflow agent" (Dec 2, 2024)
+   - User feedback: "At first it said it couldn't find accounts assigned to me as the CSM" (Sue Randolph, Dec 2, 2024)
+   - Pain point: "CSMs have too much going on to actually run a play" (Zach Day, Nov 11, 2024)
+
+2. **Portfolio Data** (Salesforce, loaded Feb 5, 2026)
+   - Total accounts: 87
+   - Total ACV: $9,082,040
+   - Segments: Enterprise (majority), Mid Market, SMB, Strategic
+   - Health distribution: Good (11), Neutral (42), At Risk (0), Unknown (34)
+   - Top account: Snowflake ($2.56M ACV, renewal 2028-06-05)
+
+3. **Deployment History** (Google Sheets)
+   - 26 logged executions (Nov 2024 - Jan 2026)
+   - Average execution time: 3-55 minutes (vs 2-3 hours manual)
+   - Quality scores: 8.5-10/10 across all plays
+
+#### Supporting Sources
+- Confluence: CSM workflow documentation (to be extracted)
+- Email: Stakeholder requests for "better portfolio visibility" (limited results found)
+- Gainsight: Usage data outages impacting CSM operations (Slack reference: "all csms would be impacted by the outage of usage data in gainsight")
+
+### Content Structure
+
+#### Act 1: The 87-Account Portfolio Challenge
+
+**Opening Hook:**
+> "87 accounts. $9 million in ACV. One CSM. Six disconnected systems. And a renewal pipeline that demanded answers in minutes, not hours."
+
+**The Scale Problem:**
+- **Portfolio composition:** 87 accounts across 4 segments (Enterprise, Mid Market, SMB, Strategic)
+- **ACV distribution:** Top 10 accounts = $7.9M (87% of total portfolio)
+- **Renewal pressure:** 4 renewals in next 90 days ($651K at risk)
+- **Data fragmentation:** Salesforce + Chorus + dbt + ZoomInfo + Gainsight + BigQuery = 6 systems to manually query
+
+**The Manual Workflow Tax:**
+- **Account review time:** 2-3 hours per account (manual data gathering)
+- **Weekly admin burden:** 10+ hours spent on data pulls, report building, status updates
+- **80/20 split:** 80% admin work, 20% strategic partnership (inverted from ideal)
+- **Context switching cost:** 6 systems × 87 accounts = 522 potential context switches per week
+
+**Real CSM Quote (Evidence):**
+> "I spent 4 hours pulling data for one QBR" — Slack thread reference (to be extracted from Confluence)
+
+#### Act 2: The Opportunity Cost
+
+**What CSMs Should Be Doing:**
+- Building strategic partnerships with C-suite stakeholders
+- Proactively identifying expansion opportunities
+- Cultivating champions across buying committees
+- Delivering executive business reviews with ROI narratives
+- Preventing churn through early risk detection
+
+**What CSMs Were Actually Doing:**
+- Manually querying Salesforce for basic account data
+- Copy-pasting between systems to build reports
+- Reacting to renewal conversations (not leading them)
+- Discovering risks during renewal calls (30-60 days too late)
+- Building QBR decks from scratch (4+ hours per deck)
+
+**The Reactive Posture Problem:**
+- **Risk discovery lag:** 30-60 days between signal emergence and CSM awareness
+- **Missed renewal signals:** Executive departures, competitive evaluations, budget cuts discovered too late
+- **Inconsistent coverage:** "Squeaky wheel gets grease" — accounts with vocal champions get attention, silent accounts get neglected
+- **CSM burnout risk:** Unsustainable workload, portfolio churn, knowledge loss
+
+**Quantified Impact:**
+- **Time waste:** 10+ hours/week per CSM on manual data work
+- **Opportunity cost:** $9M portfolio × 20% strategic time = $1.8M ACV getting strategic attention (vs $7.2M getting admin attention)
+- **Risk exposure:** 34 accounts with unknown health status (39% of portfolio)
+- **Renewal blindness:** 4 renewals in 90 days, but how many risks are hidden?
+
+#### Act 3: The Fragmented Data Problem
+
+**The Six-System Maze:**
+
+1. **Salesforce** — Account metadata, opportunities, contacts, renewal dates
+   - Query complexity: SOQL syntax, relationship navigation, field mapping
+   - Access pattern: Manual queries, report building, dashboard creation
+   - Pain point: "Which field has the renewal date? Contract_End_Date__c or Next_Contract_Start_Date__c?"
+
+2. **Chorus** — Meeting intelligence, engagement history, sentiment analysis
+   - Query complexity: Semantic search, transcript parsing, participant filtering
+   - Access pattern: Manual search, transcript review, insight extraction
+   - Pain point: "Did we discuss pricing on that call 3 months ago? Let me search 40 transcripts..."
+
+3. **dbt (Snowflake)** — Product usage, feature adoption, user activity
+   - Query complexity: SQL joins, date filtering, aggregation logic
+   - Access pattern: Manual SQL queries, result interpretation, trend analysis
+   - Pain point: "How many users logged in last month? Let me write a 50-line SQL query..."
+
+4. **ZoomInfo** — Company intelligence, scoops, intent signals, technographics
+   - Query complexity: API calls, data enrichment, signal interpretation
+   - Access pattern: Manual searches, profile reviews, insight synthesis
+   - Pain point: "Did this company get acquired? Let me check ZI, then Google, then ask the AM..."
+
+5. **Gainsight** — Health scores, success plans, CTAs, risk flags
+   - Query complexity: Dashboard navigation, report filtering, CTA management
+   - Access pattern: Manual dashboard reviews, CTA creation, risk flagging
+   - Pain point: "Usage data is down in Gainsight — now what?" (Slack evidence: Melissa Leigh, Dec 2024)
+
+6. **BigQuery** — Risk signals, historical trends, custom analytics
+   - Query complexity: SQL queries, table joins, data validation
+   - Access pattern: Manual queries, CSV exports, analysis in Sheets
+   - Pain point: "Where is the Risk Signal Dictionary? Is it csv_9757 or csv_13522?"
+
+**The Integration Gap:**
+- No single source of truth
+- No automated data synthesis
+- No proactive alerting
+- No longitudinal tracking
+- No portfolio-level intelligence
+
+**Real CSM Experience:**
+> "To answer one question about Snowflake's renewal readiness, I had to:
+> 1. Query Salesforce for contract details (5 min)
+> 2. Search Chorus for recent meetings (10 min)
+> 3. Write SQL to check usage trends (15 min)
+> 4. Check ZI for company news (5 min)
+> 5. Review Gainsight health score (5 min)
+> 6. Synthesize insights into narrative (20 min)
+> **Total: 60 minutes for one account. I have 87 accounts.**"
+
+---
+
+## SECTION 2: THE VISION (FIRST PRINCIPLES THINKING)
+
+### Narrative Objective
+Articulate the design philosophy that emerged from asking "what should AI orchestration actually do?" — not just automation, but augmentation, intelligence, and learning.
+
+### Data Sources
+
+#### Primary Sources
+1. **System Prompt** (Martin v3.0 control core)
+   - Design principles: Portfolio-first, mode-driven, persistent intelligence
+   - Architecture: 5-layer system (Control → Memory → Persistence → Execution → Intelligence)
+   - Communication guidelines: Direct, results-first, no fluff
+
+2. **Migration Summary** (Google Sheets)
+   - Jan 7, 2026: Google Tasks → Google Sheets migration
+   - Rationale: "Google tasks are private, not publicly readable" (Slack: Jack Avina conversation)
+   - Impact: Public accessibility unlocked, multi-user architecture enabled
+
+3. **Slack Design Conversations**
+   - Jack Avina: Snowflake 3-tier architecture design (Jan 29, 2026)
+   - Keegan Cantrell: "Play automation = great use of time" (orchestration validation)
+   - William Talleur: "Low priority but when I think about getting ahead of the curve and play creation → orchestration comes up first" (Nov 12, 2024)
+
+#### Supporting Sources
+- Confluence: Early design docs, architecture proposals (to be extracted)
+- Deployment_History: Version progression (v1.0 → v1.5 → v2.0 → v3.0)
+
+### Content Structure
+
+#### Act 1: The "What Should AI Orchestration Actually Do?" Question
+
+**The Three Principles:**
+
+1. **Not Just Automation — Augmentation**
+   - Automation: Replace human work with machine work
+   - Augmentation: Amplify human judgment with machine intelligence
+   - Martin's approach: CSM decides strategy, Martin executes tactics
+   - Example: CSM says "I'm worried about Snowflake" → Martin runs 4-play synthesis → CSM gets 3-page assessment in 35 minutes
+
+2. **Not Just Speed — Intelligence**
+   - Speed: Execute tasks faster
+   - Intelligence: Surface insights humans would miss
+   - Martin's approach: Risk-first prioritization, not ACV-first
+   - Example: $60K account flagged as CRITICAL (renewal in 43 days, zero activity) ranks higher than $2.5M account (renewal in 850 days, healthy)
+
+3. **Not Just Execution — Learning**
+   - Execution: Run plays, return results
+   - Learning: Document outcomes, refine approaches, compound knowledge
+   - Martin's approach: Every execution logs to Deployment_History with "Learnings" column
+   - Example: "90-day provisioning window reveals true utilization, customer-facing language validated" (Instacart execution, Oct 16, 2025)
+
+#### Act 2: Core Design Principles
+
+**Principle 1: Portfolio-First Architecture**
+
+**The Problem:**
+- Early versions (v1.0-v2.0) required manual account selection
+- Every conversation started with "load my portfolio"
+- 2-3 minutes wasted per session on repetitive setup
+
+**The Solution (v3.0):**
+- **Phase -1 Bootstrap:** Automatic, silent portfolio load on first message
+- **Session persistence:** Portfolio context available for entire conversation
+- **Multi-user architecture:** Automatically detects CSM via Salesforce user validation
+
+**The Impact:**
+- 2-3 minutes saved per session
+- Seamless UX (no setup friction)
+- Portfolio queries instant (no re-loading)
+
+**Evidence:**
+- System prompt: "Phase -1 — Session Bootstrap (Automatic, Runs Once)"
+- Slack: "feeling like a PM today - discovered that my current infrastructure on my agent doesn't work for everyone (google tasks are private, not publicly readable) -> have to migrate the entire architecture to google sheets" (Zach Day, Jan 6, 2026)
+
+---
+
+**Principle 2: Mode-Driven Execution**
+
+**The Problem:**
+- Users wanted both strategic advice AND immediate execution
+- Single-mode systems created "what will this do?" anxiety
+- CSMs hesitant to trigger plays without understanding impact
+
+**The Solution:**
+- **/plan mode:** Strategic recommendations, play sequencing, timeline planning (no execution)
+- **/act mode:** Immediate play execution, structured outputs, minimal conversation (no advice)
+- **Mode switching:** Users can switch modes mid-conversation or execute one-off commands
+
+**The Impact:**
+- Flexibility without confusion
+- CSMs can explore options (/plan) before committing to execution (/act)
+- Conversational vs transactional UX based on user intent
+
+**Evidence:**
+- System prompt: "Step 0.1 — Parse First Message (BLOCKING)" with mode detection logic
+- User feedback: "Zero cognitive load - Tells you what needs attention NOW (not what's biggest)" (Martin launch announcement, Dec 2, 2024)
+
+---
+
+**Principle 3: Persistent Intelligence (Snowflake as Memory)**
+
+**The Problem:**
+- Early versions (v1.0-v1.5) had no memory across conversations
+- Every execution was isolated (no longitudinal tracking)
+- No state change detection (is this account getting worse?)
+- No portfolio-level intelligence (what's the trend across my book?)
+
+**The Solution (v1.5+):**
+- **4-table Snowflake architecture:**
+  1. **EAM_RUNS:** Execution archive (full monolith JSON, all phases, validation logs)
+  2. **ACCOUNT_STATE:** Current account intelligence (distilled Tier-2, queryable, denormalized)
+  3. **RUNNER_LOGS:** Scheduled execution audit trail (autonomous monitoring)
+  4. **RISK_HISTORY:** Risk score tracking over time (longitudinal churn prediction)
+
+**The Impact:**
+- Longitudinal tracking: "Compared with previous scan from [date]" (stateful execution)
+- State change detection: is_new_risk, is_escalation, delta_score
+- Portfolio queries: "Show me all accounts with declining usage trends"
+- Audit trail: Complete execution history for compliance, debugging, learning
+
+**Evidence:**
+- Slack: Jack Avina 3-tier architecture diagram (Jan 29, 2026)
+  - Tier 0: Configuration (Google Sheets)
+  - Tier 1: Execution Archive (Snowflake PLAY_EXECUTIONS)
+  - Tier 2: Account Intelligence (Snowflake ACCOUNT_STATE)
+  - Tier 3: Portfolio Intelligence (Snowflake PORTFOLIO_STATE)
+- Snowflake data: 4 EAM executions (Jan 27-28, 2026) on Snowflake, Costar, Legrand, Shaw
+- System prompt: "STATEFUL: true → SELECT previous state from Snowflake before execution"
+
+---
+
+**Principle 4: Conversational Interface (Natural Language → Structured Action)**
+
+**The Problem:**
+- Technical Play DNA was too complex for CSMs
+- Commands like "b09yWXYxeTNfM21hWFlScA" were not user-friendly
+- Discoverability was poor (how do I know what plays exist?)
+
+**The Solution:**
+- **Skills Registry:** Natural language command abstraction
+  - Technical: Play_ID "b09yWXYxeTNfM21hWFlScA"
+  - User-friendly: `/skill platform-usage [URL]`
+- **Command patterns:** Intuitive syntax matching CSM mental models
+  - "portfolio dashboard" → Portfolio Access v3.0
+  - "renewal prep on Snowflake" → Renewal Prep Synthesis v1.2
+  - "find accounts for risk mitigation" → Play Planner v2.4
+
+**The Impact:**
+- Discoverability: `/skills` command lists all 17 available skills
+- Ease of use: Natural language, not technical IDs
+- Backward compatibility: Legacy trigger words still work ("platform usage on [URL]")
+
+**Evidence:**
+- Skills_Registry sheet: 17 skills with Trigger_Pattern column
+- System prompt: "Skills Registry takes precedence if both patterns match"
+- User adoption: Martin launched to CS team Dec 2, 2024 (Slack announcement)
+
+---
+
+#### Act 3: The Architecture Emerges
+
+**The Five-Layer System:**
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│  LAYER 1: CONTROL PLANE (Orchestration Logic)              │
+│  - System prompt (Martin v3.0)                              │
+│  - Mode detection (/plan vs /act)                           │
+│  - Phase -1 bootstrap (portfolio auto-load)                 │
+│  - Validation framework (14 BLOCKING rules)                 │
+└─────────────────────────────────────────────────────────────┘
+                           ↓
+┌─────────────────────────────────────────────────────────────┐
+│  LAYER 2: MEMORY LAYER (Google Sheets Registry)            │
+│  - Play_DNA (17 plays with executable instructions)         │
+│  - Skills_Registry (natural language command mapping)       │
+│  - Validation_Rules (14 rules, 11 pre-artifact + 3 schema)  │
+│  - Scheduler_Config (autonomous execution schedules)        │
+│  - Deployment_History (execution logs with learnings)       │
+└─────────────────────────────────────────────────────────────┘
+                           ↓
+┌─────────────────────────────────────────────────────────────┐
+│  LAYER 3: PERSISTENCE LAYER (Snowflake State)              │
+│  - EAM_RUNS (execution archive, full monolith JSON)         │
+│  - ACCOUNT_STATE (current intelligence, queryable)          │
+│  - RUNNER_LOGS (scheduled execution audit trail)            │
+│  - RISK_HISTORY (longitudinal risk tracking)                │
+└─────────────────────────────────────────────────────────────┘
+                           ↓
+┌─────────────────────────────────────────────────────────────┐
+│  LAYER 4: EXECUTION LAYER (17 Skills / 4 Categories)       │
+│  - Portfolio (5): Access, Pipeline, Low Usage, Planner, Credits │
+│  - Account (9): Platform Usage, User Analysis, Risk, Expansion, │
+│                 Gaps, Value, Multi-Threading, Cultivation, EAM  │
+│  - Synthesis (2): Renewal Prep (4-play), QBR Prep (5-play)  │
+│  - Utility (1): Meeting Follow-Up (Chorus → email)          │
+└─────────────────────────────────────────────────────────────┘
+                           ↓
+┌─────────────────────────────────────────────────────────────┐
+│  LAYER 5: INTELLIGENCE LAYER (Risk Signals & Playbooks)    │
+│  - Risk Signal Dictionary v2.0 (40+ signals, weighted 0-100)│
+│  - Risk Playbook v3.0 (signal → action mapping)             │
+│  - Validation framework (data quality, business reality)    │
+└─────────────────────────────────────────────────────────────┘
+```
+
+**Design Rationale:**
+
+- **Layer 1 (Control):** Orchestration logic lives in system prompt (single source of truth, version-controlled)
+- **Layer 2 (Memory):** Configuration lives in Google Sheets (publicly readable, multi-user accessible, easy to update)
+- **Layer 3 (Persistence):** State lives in Snowflake (queryable, scalable, audit-compliant)
+- **Layer 4 (Execution):** Skills live in Play DNA (modular, testable, reusable)
+- **Layer 5 (Intelligence):** Risk logic lives in dictionaries/playbooks (data-driven, evidence-based, improvable)
+
+**Why This Architecture?**
+
+1. **Separation of concerns:** Each layer has one job
+2. **Modularity:** Update one layer without breaking others
+3. **Scalability:** Add plays without bloating system prompt
+4. **Maintainability:** Configuration in Sheets (not code)
+5. **Auditability:** Full execution history in Snowflake
+6. **Testability:** Each layer can be tested independently
+
+---
+
+### Key Artifacts to Create
+
+1. **Hero Section Content**
+   - Headline: "From Reactive to Predictive: Building Martin v3.0"
+   - Subhead: "How AI orchestration transformed CSM operations at ZoomInfo"
+   - Opening paragraph: The 87-account challenge (hook readers immediately)
+
+2. **Problem Statement (Quantified)**
+   - 87 accounts, $9M ACV, 1 CSM
+   - 10+ hours/week on manual data work
+   - 30-60 day risk discovery lag
+   - 6 disconnected systems
+   - 80/20 split (admin vs strategic)
+
+3. **Architecture Diagram**
+   - 5-layer system visualization
+   - Data flow: User → Control → Memory → Persistence → Execution → Intelligence
+   - Annotations: Why each layer exists, what problem it solves
+
+4. **Design Philosophy Explainer**
+   - Portfolio-first: Why auto-load matters
+   - Mode-driven: Why /plan vs /act reduces anxiety
+   - Persistent intelligence: Why Snowflake enables longitudinal tracking
+   - Conversational interface: Why Skills Registry improves discoverability
+
+---
+
+## SECTION 3: EVIDENCE EXTRACTION REQUIREMENTS
+
+### Slack Threads to Extract
+1. **CSM pain points** (search: "manual work", "fragmented data", "reactive", "time consuming")
+2. **Design conversations** (search: "first principles", "architecture", "why we built")
+3. **Portfolio challenges** (search: "87 accounts", "portfolio scale", "bandwidth")
+4. **System evolution** (search: "v1.0", "v2.0", "v3.0", "migration", "breakthrough")
+
+### Confluence Pages to Extract
+1. "CSM Day in the Life" (workflow documentation)
+2. "Martin v1.0 Design Doc" (early architecture proposals)
+3. "Why Martin?" (business justification)
+4. "CSM Pain Points" (stakeholder interviews)
+
+### Snowflake Queries to Run
+```sql
+-- Execution frequency by play
+SELECT 
+  SOURCE_VERSION,
+  COUNT(*) as execution_count,
+  COUNT(DISTINCT SF_ACCOUNT_ID) as unique_accounts,
+  MIN(GENERATED_AT) as first_execution,
+  MAX(GENERATED_AT) as last_execution
+FROM PRD_ZI_CHAT.MICROAPP_650_DEV.EAM_RUNS
+GROUP BY SOURCE_VERSION
+ORDER BY first_execution;
+
+-- Account coverage
+SELECT 
+  COUNT(DISTINCT SF_ACCOUNT_ID) as accounts_analyzed,
+  COUNT(*) as total_executions,
+  AVG(DATEDIFF(day, GENERATED_AT, CURRENT_DATE())) as avg_days_since_execution
+FROM PRD_ZI_CHAT.MICROAPP_650_DEV.EAM_RUNS
+WHERE STATUS = 'COMPLETE';
+```
+
+### Google Sheets Data to Export
+1. **Deployment_History:** All 26 executions with learnings
+2. **Migration_Summary:** Google Tasks → Sheets rationale
+3. **Play_DNA:** Version history per play (v1.0 → current)
+4. **Skills_Registry:** Command evolution (technical IDs → natural language)
+
+---
+
+## SECTION 4: NARRATIVE STRUCTURE
+
+### Page 1: The Problem (800-1000 words)
+
+**Opening (100 words):**
+- Hook: The 87-account challenge
+- Stakes: $9M ACV, limited bandwidth, reactive posture
+- Promise: "This is the story of how one CSM built an AI orchestration system to solve it"
+
+**The Scale Problem (200 words):**
+- Portfolio composition (87 accounts, 4 segments)
+- ACV distribution (top-heavy: 10 accounts = 87% of ACV)
+- Renewal pressure (4 renewals in 90 days)
+- Data fragmentation (6 systems, 522 context switches/week)
+
+**The Manual Workflow Tax (250 words):**
+- 2-3 hours per account review
+- 10+ hours/week on admin work
+- 80/20 split (inverted from ideal)
+- Real CSM quote: "I spent 4 hours pulling data for one QBR"
+
+**The Opportunity Cost (250 words):**
+- What CSMs should be doing (strategic partnership)
+- What CSMs were actually doing (manual data pulls)
+- Reactive posture (30-60 day risk discovery lag)
+- Quantified impact ($7.2M ACV getting admin attention, not strategic)
+
+**The Fragmented Data Problem (200 words):**
+- The six-system maze (Salesforce, Chorus, dbt, ZI, Gainsight, BigQuery)
+- Integration gap (no single source of truth)
+- Real CSM experience: 60 minutes to answer one question about one account
+
+---
+
+### Page 2: The Vision (800-1000 words)
+
+**Opening (100 words):**
+- Transition: "The solution wasn't more tools. It was better orchestration."
+- Core question: "What should AI orchestration actually do?"
+- Answer: Not automation. Augmentation, intelligence, learning.
+
+**The Three Principles (300 words):**
+- Augmentation: Amplify human judgment (CSM decides, Martin executes)
+- Intelligence: Surface insights humans miss (risk-first prioritization)
+- Learning: Compound knowledge over time (every execution logs learnings)
+
+**Core Design Principles (400 words):**
+- Portfolio-first: Load once, query forever (Phase -1 bootstrap)
+- Mode-driven: /plan (advice) vs /act (execution)
+- Persistent intelligence: Snowflake memory (4 tables, longitudinal tracking)
+- Conversational interface: Natural language → structured action (Skills Registry)
+
+**The Architecture Emerges (200 words):**
+- 5-layer system (Control → Memory → Persistence → Execution → Intelligence)
+- Separation of concerns (each layer has one job)
+- Design rationale (why this architecture solves the problem)
+
+---
+
+### Page 3: Design Philosophy Deep-Dive (Optional, 600-800 words)
+
+**Portfolio-First: Why Auto-Load Matters**
+- Problem: Repetitive setup friction
+- Solution: Phase -1 bootstrap
+- Impact: 2-3 min saved per session, seamless UX
+
+**Mode-Driven: Why /plan vs /act Reduces Anxiety**
+- Problem: "What will this do?" fear
+- Solution: Explore options (/plan) before execution (/act)
+- Impact: Flexibility without confusion
+
+**Persistent Intelligence: Why Snowflake Enables Longitudinal Tracking**
+- Problem: No memory, no trends, no state change detection
+- Solution: 4-table architecture (runs, state, logs, risk history)
+- Impact: "Compared with previous scan from [date]" (stateful execution)
+
+**Conversational Interface: Why Skills Registry Improves Discoverability**
+- Problem: Technical Play DNA not user-friendly
+- Solution: Natural language commands (/skill platform-usage)
+- Impact: Discoverability, ease of use, backward compatibility
+
+---
+
+## SECTION 5: AGENT EXECUTION INSTRUCTIONS
+
+### Agent Profile: Content Strategist Agent
+
+**Required Capabilities:**
+- Storytelling (business context, strategic framing)
+- Data synthesis (quantify pain points from multiple sources)
+- Audience adaptation (technical depth appropriate for hiring managers, peers, executives)
+- Narrative structure (problem → vision → design philosophy)
+
+### Agent Inputs
+
+**Structured Data:**
+- Portfolio stats: 87 accounts, $9M ACV, 4 segments, health distribution
+- Execution stats: 26 logged runs, 8.5-10/10 quality scores, 3-55 min durations
+- Snowflake stats: 4 EAM runs, 4 unique accounts, Jan 27-28 2026 execution window
+- Architecture: 5 layers, 17 skills, 4 categories, 4 Snowflake tables
+
+**Narrative Evidence:**
+- Slack quotes (CSM pain points, design decisions, user feedback)
+- Deployment_History learnings (26 executions with "what worked" insights)
+- Migration rationale (Google Tasks → Sheets, Jan 7 2026)
+- System prompt excerpts (design principles, validation rules)
+
+**Visual Requirements:**
+- 5-layer architecture diagram (Control → Memory → Persistence → Execution → Intelligence)
+- Before/after comparison (reactive vs proactive CSM)
+- Portfolio scale visualization (87 accounts, $9M ACV, renewal distribution)
+
+### Agent Outputs
+
+**Deliverable 1: Hero Section Content**
+- Headline (10-15 words)
+- Subhead (20-30 words)
+- Opening paragraph (100-150 words)
+- Visual: System architecture diagram
+
+**Deliverable 2: Problem Statement (800-1000 words)**
+- The 87-account portfolio challenge
+- The manual workflow tax
+- The opportunity cost
+- The fragmented data problem
+- Quantified pain points throughout
+
+**Deliverable 3: Vision Narrative (800-1000 words)**
+- The "what should AI orchestration do?" question
+- The three principles (augmentation, intelligence, learning)
+- Core design principles (portfolio-first, mode-driven, persistent, conversational)
+- The architecture emerges (5-layer system with rationale)
+
+**Deliverable 4: Design Philosophy Explainer (600-800 words, optional)**
+- Deep-dive on each design principle
+- Why each decision matters
+- Impact of each innovation
+
+### Success Criteria
+
+**Narrative Quality:**
+- Compelling opening (hook readers in first 100 words)
+- Clear problem statement (quantified pain, real CSM quotes)
+- Logical flow (problem → vision → design)
+- Concrete examples (not abstract concepts)
+
+**Technical Accuracy:**
+- All stats verified against source data
+- All quotes attributed to source (Slack, Deployment_History, etc.)
+- All architecture details match system prompt
+- No hallucinated features or capabilities
+
+**Audience Alignment:**
+- Appropriate for hiring managers (demonstrates strategic thinking)
+- Appropriate for peers (demonstrates technical depth)
+- Appropriate for executives (demonstrates business impact)
+- Tone: Professional, confident, evidence-based
+
+---
+
+## SECTION 6: NEXT STEPS
+
+### Immediate Actions (Agent Execution)
+1. Extract Slack threads (CSM pain points, design conversations)
+2. Extract Confluence pages (workflow docs, design proposals)
+3. Query Snowflake (execution stats, account coverage)
+4. Export Google Sheets (Deployment_History, Migration_Summary)
+5. Draft narrative (problem → vision → design)
+6. Create architecture diagram (5-layer system)
+7. Compile evidence (quotes, stats, learnings)
+8. Return markdown document (2-3 pages)
+
+### Validation Checkpoints
+- [ ] All stats verified against source data
+- [ ] All quotes attributed to source
+- [ ] Narrative flows logically (problem → vision → design)
+- [ ] Architecture diagram accurate
+- [ ] Tone appropriate for target audience
+- [ ] No hallucinated features
+
+### Handoff to Next PRD
+- PRD 2 (Build Log) will pick up where PRD 1 ends
+- PRD 1 establishes "why" — PRD 2 will establish "how"
+- Evidence collected for PRD 1 will be reused in PRD 2
+
+---
+
+## APPENDIX: DATA EXTRACTION CHECKLIST
+
+### Slack Searches to Run
+- [ ] "CSM manual work portfolio fragmented data reactive" (after:2024-08-01)
+- [ ] "4 months building breakthrough iteration learning" (after:2025-11-01)
+- [ ] "portfolio dashboard renewal risk EAM" (from:@zach.day, after:2025-10-01)
+- [ ] "first principles design philosophy why we built" (after:2025-08-01)
+
+### Confluence Pages to Find
+- [ ] "CSM Day in the Life"
+- [ ] "Martin v1.0 Design Doc"
+- [ ] "Why Martin?"
+- [ ] "CSM Pain Points"
+
+### Snowflake Queries to Execute
+- [ ] Execution frequency by play
+- [ ] Account coverage stats
+- [ ] Average execution time per play
+- [ ] Quality score distribution
+
+### Google Sheets to Export
+- [ ] Deployment_History (all rows)
+- [ ] Migration_Summary (full sheet)
+- [ ] Play_DNA (version history)
+- [ ] Skills_Registry (command mapping)
+
+---
+
+**END PRD 1: THE ORIGIN STORY**
+
+---
+
+**Document Metadata:**
+- Created: February 5, 2026
+- Author: Martin v3.0 (orchestrated by Zach Day)
+- Version: 1.0
+- Status: Ready for Agent Execution
+- Estimated Agent Execution Time: 2-3 hours
+- Expected Output: 2-3 pages markdown narrative + architecture diagram

@@ -1,0 +1,1397 @@
+# PRD 2: THE BUILD LOG
+## Martin v3.0 — Iterative Development, Key Milestones, Technical Evolution
+
+**Document Type:** Product Requirement Document  
+**Target Agent:** Technical Documentation Agent  
+**Estimated Duration:** 3-4 hours  
+**Output:** 4-5 page technical narrative for website  
+**Focus:** Version history, technical innovations, architecture decisions  
+**Date:** February 2026  
+
+---
+
+## EXECUTIVE SUMMARY
+
+This PRD captures the technical evolution of Martin from prototype (v1.0) to production-ready orchestration system (v3.0). The narrative follows the version history as a story of iterative learning, technical breakthroughs, and architectural maturation.
+
+The target agent will synthesize evidence from deployment logs, database execution records, play version progression, and technical discussions to build a "How Martin Was Built" technical narrative.
+
+---
+
+## SECTION 1: VERSION HISTORY AS STORY
+
+### Narrative Goal
+Show Martin's evolution through 3 major versions, each representing a fundamental capability unlock. Frame each version as solving a specific limitation of the previous version.
+
+---
+
+### **v1.0: THE PROTOTYPE (Aug - Oct 2024)**
+**Tagline:** "Can AI orchestrate data pulls?"
+
+#### Core Capabilities
+- **Single-play execution:** One play at a time, manual trigger required
+- **Portfolio Access v1.0:** Basic CRM query (no parent-child hierarchy)
+- **No persistence:** Every execution started from scratch
+- **Task-based memory:** 21 task lists for play DNA storage
+- **Manual mode only:** No /plan vs /act separation
+
+#### Technical Architecture
+```
+User Input
+    ↓
+Martin (monolithic system prompt)
+    ↓
+Task Lists (Play DNA storage)
+    ↓
+CRM Query (basic portfolio load)
+    ↓
+Text Output (no artifacts)
+```
+
+#### Key Plays Developed
+1. **Portfolio Access v1.0** (2-3 min)
+   - Basic CRM query: `SELECT Id, Name, ACV FROM Account WHERE Owner = '[user_id]'`
+   - No parent-child detection
+   - No renewal date aggregation
+   - Output: Plain text list of accounts
+
+2. **Champion Development v1.0** (5-7 min)
+   - Query product analytics database (no provisioning filter)
+   - Basic engagement scoring
+   - No archetype classification
+   - Output: Text summary of active users
+
+#### Limitations Discovered
+- **No memory:** Re-analyzing same accounts every conversation
+- **No validation:** Data quality issues not caught until output review
+- **No multi-play orchestration:** Couldn't combine insights from multiple plays
+- **Task list privacy:** Only creator could read the task lists (multi-user impossible)
+
+#### Evidence Sources
+- Deployment logs: First executions (Nov 2025)
+- Play DNA registry: Early versions (v1.0 entries)
+- Internal discussions: "my master orchestrators 'plays' aren't individual workflows" (Nov 2024)
+
+---
+
+### **v1.5: THE PERSISTENCE BREAKTHROUGH (Nov 2024 - Dec 2024)**
+**Tagline:** "Can AI remember what it learned?"
+
+#### Core Innovation: Data Warehouse Integration
+- **EAM v1.5.0:** Enterprise Account Monitor with database persistence
+- **First persistent state:** ACCOUNT_STATE table (current intelligence)
+- **Execution logging:** EAM_RUNS table (full audit trail)
+- **JSON storage:** VARIANT columns for flexible schema
+
+#### Technical Architecture
+```
+User Input
+    ↓
+Martin (orchestrator)
+    ↓
+Task Lists (Play DNA) + Data Warehouse (Persistence)
+    ↓
+Multi-Source Data (CRM, Meeting Intelligence, Company Data, Analytics)
+    ↓
+Spreadsheet Artifact (7 sheets) + Database INSERT
+```
+
+#### Database Schema Design
+
+**Table 1: EAM_RUNS (Execution Archive)**
+```sql
+CREATE TABLE EAM_RUNS (
+    RUN_ID VARCHAR(255) PRIMARY KEY,
+    ACCOUNT_ID VARCHAR(18),
+    ACCOUNT_NAME VARCHAR(255),
+    GENERATED_AT TIMESTAMP_NTZ,
+    STATUS VARCHAR(50),
+    ARTIFACT_URL VARCHAR(500),
+    TIER2_JSON VARIANT,
+    TIER2_MD TEXT,
+    ERROR_MESSAGE TEXT,
+    SOURCE_VERSION VARCHAR(50)
+);
+```
+
+**Purpose:**
+- Full execution outputs (monolith JSON in TIER2_JSON)
+- Link to spreadsheet artifact (ARTIFACT_URL)
+- Execution metadata (timestamp, status, version)
+- Error tracking (ERROR_MESSAGE)
+
+**Table 2: ACCOUNT_STATE (Current Intelligence)**
+```sql
+CREATE TABLE ACCOUNT_STATE (
+    ACCOUNT_ID VARCHAR(18) PRIMARY KEY,
+    ACCOUNT_NAME VARCHAR(255),
+    LAST_SCAN_TIMESTAMP TIMESTAMP_NTZ,
+    STATE_JSON VARIANT,
+    RISK_SCORE NUMBER(5,2),
+    HEALTH_STATUS VARCHAR(50),
+    RENEWAL_DATE DATE,
+    ACV NUMBER(15,2),
+    LAST_ACTIVITY_DATE DATE,
+    SOURCE_PLAYS ARRAY,
+    UPDATED_AT TIMESTAMP_NTZ
+);
+```
+
+**Purpose:**
+- Current account state (queryable, denormalized)
+- Fast filtering (risk_score, health_status, renewal_date)
+- Source tracking (which plays contributed to this state)
+- State change detection (compare current vs previous scan)
+
+#### Key Plays Enhanced
+1. **EAM v1.5.0** (13-18 min)
+   - 4-phase research: Partnership Health, GTM Intelligence, Market Intelligence, Strategic Action
+   - 7-sheet spreadsheet output
+   - Database persistence (monolith JSON + distilled Tier-2)
+   - Confidence scoring (0-100 based on data completeness)
+
+2. **Platform Usage v11.0** (8-15 min)
+   - Added semantic layer integration
+   - Enhanced user segmentation (exclude inactive users from metrics)
+   - Multi-instance support
+   - Mandatory provisioning filter (validation rule)
+
+#### Breakthrough Moment
+**Date:** January 27-28, 2026  
+**Event:** First EAM v1.5.0 executions with database persistence  
+**Accounts:** 4 enterprise accounts analyzed  
+**Impact:** Proof that AI can maintain persistent state across conversations
+
+**Evidence:**
+- Database query results: 4 executions, all STATUS='COMPLETE'
+- EAM_RUNS table: TIER2_JSON populated, ARTIFACT_URL links to spreadsheet outputs
+- Deployment logs: "EAM-v1.5.0" entries (Jan 27-28, 2026)
+
+#### Limitations Discovered
+- **No synthesis:** Plays run independently, no cross-play insights
+- **No scheduled execution:** Manual trigger required
+- **Task lists still private:** Multi-user architecture blocked
+- **No mode separation:** Users unclear if Martin will execute or just advise
+
+---
+
+### **v2.0: THE SYNTHESIS ERA (Dec 2024 - Jan 2026)**
+**Tagline:** "Can AI combine insights?"
+
+#### Core Innovation: Multi-Play Orchestration
+- **Synthesis Plays:** Renewal Prep v1.2 (4-play), QBR Prep v1.2 (5-play)
+- **Silent mode execution:** Plays run without user interruption
+- **Unified narrative:** Combine insights from multiple plays into single output
+- **Validation checkpoints:** 5-6 HALT points to ensure data quality
+
+#### Technical Architecture
+```
+User Input: "renewal prep on [Account]"
+    ↓
+Martin (orchestrator)
+    ↓
+Play 1: Portfolio Access v3.0 (2-3 min)
+    ↓
+Play 2: Risk Mitigation v1.4 (8-12 min)
+    ↓
+Play 3: User Analysis v2.6 (7-14 min)
+    ↓
+Play 4: Platform Usage v13.0 (8-15 min)
+    ↓
+Synthesis Engine (combine insights)
+    ↓
+3-Page HTML Assessment (Renewal Readiness)
+```
+
+#### Synthesis Play Design
+
+**Renewal Prep Synthesis v1.2:**
+- **Duration:** 31-37 minutes (4 plays executed silently)
+- **Phases:** 10 (0-Memory, 1-4 Play Execution, 5-Synthesis, 6-Scoring, 7-Validation, 8-HTML, 9-Learning, 10-Logging)
+- **Output:** 3-page HTML assessment
+  - Page 1: Executive Summary + Readiness Score (0-100)
+  - Page 2: Risk Analysis + Mitigation Plan
+  - Page 3: Champion Strategy + Platform Optimization
+- **Validation:** 5 checkpoints (all plays succeeded, no contradictions, score 0-100, recommendations supported, no duplicates)
+
+**QBR Prep Synthesis v1.2:**
+- **Duration:** 45-55 minutes (5 plays executed silently)
+- **Phases:** 10 (0-Memory, 1-5 Play Execution, 6-Synthesis, 7-Validation, 8-HTML, 9-Learning, 10-Logging)
+- **Output:** 8-page HTML presentation (16:9 format)
+  - Page 1: Cover + Agenda
+  - Page 2: Executive Summary
+  - Page 3: Business Review
+  - Page 4: Risk & Health
+  - Page 5: Champion & Engagement
+  - Page 6: Platform Adoption
+  - Page 7: Expansion Vision
+  - Page 8: Next Steps + Roadmap
+- **Validation:** 6 checkpoints (all plays succeeded, no contradictions, metrics within bounds, recommendations supported, executive summary aligns, expansion realistic)
+
+#### Key Technical Challenges Solved
+
+**Challenge 1: Play Dependency Management**
+- **Problem:** Synthesis plays call other plays — how to handle failures?
+- **Solution:** Validation checkpoints after each play execution, HALT if any fail
+- **Evidence:** Validation rules registry (STEP_1, STEP_2, STEP_3, STEP_4)
+
+**Challenge 2: Data Contradiction Detection**
+- **Problem:** Play 1 says "healthy", Play 2 says "at risk" — which is right?
+- **Solution:** Cross-play validation (STEP_2: "No data contradictions between plays")
+- **Evidence:** Deployment logs: "dual-pass intelligence prevents false positives"
+
+**Challenge 3: Silent Mode Execution**
+- **Problem:** Users don't want to see 4-5 intermediate outputs, just final synthesis
+- **Solution:** Suppress play outputs, only show final artifact
+- **Evidence:** Play DNA (Renewal Prep, QBR Prep): "silent mode" execution
+
+#### Limitations Discovered
+- **Task lists still blocking multi-user:** Other users can't access Martin
+- **No scheduled execution:** Manual trigger required for recurring analyses
+- **No command abstraction:** Users need to know Play DNA syntax
+
+---
+
+### **v3.0: THE PRODUCTION SYSTEM (Jan 2026 - Present)**
+**Tagline:** "Can AI run autonomously?"
+
+#### Core Innovations (5 Major Upgrades)
+
+**Innovation 1: Task Lists → Spreadsheet Migration**
+- **Date:** January 7, 2026
+- **Trigger:** "discovered that my current infrastructure doesn't work for everyone (task lists are private, not publicly readable)"
+- **Migration:** 21 task lists → 10 spreadsheet tabs
+- **Impact:** Multi-user architecture unlocked, public accessibility, collaborative editing
+
+**Sheets Created:**
+1. System_Core (3 protocols)
+2. Play_DNA (17 plays)
+3. Synthesis_DNA (2 synthesis plays)
+4. Validation_Rules (14 BLOCKING rules)
+5. Deployment_History (26+ executions)
+6. Skills_Registry (17 skills, 4 categories)
+7. Subagent_DNA (5 subagent templates)
+8. Scheduler_Config (scheduled execution rules)
+9. Runner_Agent_DNA (autonomous execution logic)
+10. Migration_Summary (migration audit trail)
+
+**Innovation 2: Skills Registry (Command Abstraction)**
+- **Problem:** Play DNA too technical (500-2000 lines), users don't know what's available
+- **Solution:** Skills_Registry sheet with natural language commands
+- **Example:** `/skill platform-usage [URL]` instead of technical play DNA syntax
+- **Impact:** Discoverability (users can browse /skills), ease of use, lower learning curve
+
+**Skills Registry Structure:**
+```
+Skill_ID | Skill_Name | Category | Trigger_Pattern | Play_ID | Duration | Status
+P001 | portfolio-access | Portfolio | /skill portfolio-access | [hash] | 2-3 | Active
+A001 | platform-usage | Account | /skill platform-usage [URL] | [hash] | 8-15 | Active
+S001 | value-framework | Strategic | /skill value-framework [URL] | [hash] | 30-40 | Active
+U001 | meeting-followup | Utility | /skill meeting-followup [URL] | [hash] | 3-4 | Active
+```
+
+**Innovation 3: Phase -1 Portfolio Bootstrap**
+- **Problem:** Every conversation started with "load my portfolio" (2-3 min delay)
+- **Solution:** Automatic, silent portfolio load on first message
+- **Execution:** Validate user → Query CRM → Store in session context → Display summary
+- **Impact:** 2-3 minutes saved per session, seamless UX, portfolio context always available
+
+**Phase -1 Logic:**
+```
+Trigger: First message contains "load in my portfolio"
+    ↓
+1. Validate user (get current user from CRM)
+2. Get Account schema (identify field names)
+3. Execute Portfolio Access v3.0
+4. Store in session: user_id, user_name, portfolio_accounts[]
+5. Display portfolio summary (total accounts, total ACV, top 10 by ACV)
+    ↓
+Portfolio context ready for all subsequent messages
+```
+
+**Innovation 4: Dual-Mode Execution (/plan vs /act)**
+- **Problem:** Users wanted both strategic advice and immediate execution
+- **Solution:** Explicit mode separation with clear user control
+- **Modes:**
+  - **/plan:** Analyze, recommend, provide /act commands (no execution, no logging)
+  - **/act:** Execute immediately, log to database, send alerts (minimal conversation)
+- **Impact:** Flexibility without confusion, users choose their experience
+
+**Mode Detection Logic:**
+```
+IF message starts with "Martin, plan":
+    → session_mode = PLAN
+    → Provide strategic recommendations with /act commands
+    → Do NOT execute plays
+    → Do NOT log to database
+
+IF message starts with "Martin, act":
+    → session_mode = ACT
+    → Execute specified skill/play immediately
+    → Log to database (if LOG: specified)
+    → Send alert (if OUTPUT: specified)
+    → Minimal conversation (results-first)
+```
+
+**Innovation 5: Runner Agent (Scheduled Execution)**
+- **Problem:** Manual execution required user presence (can't monitor portfolio 24/7)
+- **Solution:** Scheduler_Config + Runner_Agent_DNA (autonomous execution)
+- **Capabilities:**
+  - Scheduled scans (daily, weekly, monthly)
+  - Proactive alerts (messaging platform DM when risk detected)
+  - Database logging (RUNNER_LOGS table)
+  - Stateful execution (compare current vs previous scan)
+
+**Scheduler_Config Structure:**
+```
+Schedule_ID | Schedule_Name | Skill_ID | Frequency | Target | Alert_Threshold | Status
+SCH-P001 | Daily Portfolio Scan | P001 | Daily 6am | All Accounts | N/A | Active
+SCH-A003 | Weekly Risk Monitor | A003 | Weekly Mon 8am | Renewals <90d | Risk >=50 | Active
+```
+
+**Runner_Agent_DNA Logic:**
+```
+CONTEXT: SCH-P001
+    ↓
+1. Load Scheduler_Config (get frequency, target, alert rules)
+2. Execute skill (e.g., Portfolio Access v3.0)
+3. Compare with previous scan (from ACCOUNT_STATE table)
+4. Detect changes (new risks, escalations, state deltas)
+5. Generate alerts (if threshold exceeded)
+6. Send message to user
+7. Log to RUNNER_LOGS (execution metadata, alerts sent)
+```
+
+---
+
+### **v3.0: CURRENT STATE (Jan 2026 - Present)**
+**Tagline:** "Production-ready AI orchestration platform"
+
+#### Complete Feature Set
+
+**17 Skills Across 4 Categories:**
+
+**Portfolio Skills (5):**
+1. Portfolio Access v3.0 (2-3 min) — Parent-child hierarchy, renewal aggregation
+2. Renewal Pipeline v2.8 (14-26 min) — Visual dashboard with charts
+3. Low Usage Finder v1.3 (3-5 min) — Semantic model pilot (40% token reduction)
+4. Play Planner v2.4 (5-10 sec) — Intelligent play recommendation engine
+5. Bulk Credit Max Monitor v1.2 (3-5 min) — Credit utilization tracking
+
+**Account Skills (9):**
+1. Platform Usage v13.0 (8-15 min) — Schema corrected, provisioning filter mandatory
+2. User Analysis v2.6 (7-14 min) — 8-archetype framework, behavioral intelligence
+3. Risk Mitigation v1.4 (8-12 min) — Multi-source risk intelligence, weighted scoring
+4. Expansion Planning v2.2 (10-15 min) — Whitespace analysis, GTM vision board
+5. Intelligence Gaps v2.0 (10-12 min) — Internal vs external intelligence comparison
+6. Value Framework v1.3 (30-40 min) — ROI analysis, business impact assessment
+7. Multi-Threading v3.0 (12-18 min) — Net-new contacts for expansion
+8. Champion Cultivation v1.3 (21-31 min) — Personalized champion playbook
+9. Enterprise Account Framework v1.5.0 (13-18 min) — Comprehensive 4-phase research
+
+**Strategic Skills (2):**
+1. Renewal Prep Synthesis v1.2 (31-37 min) — 4-play synthesis
+2. QBR Prep Synthesis v1.2 (45-55 min) — 5-play synthesis
+
+**Utility Skills (1):**
+1. Meeting Follow Up v2.1 (3-4 min) — Meeting transcript → email draft
+
+**System Capabilities:**
+- Multi-user support (automatic user detection)
+- Dual-mode execution (/plan vs /act)
+- Persistent intelligence (4-table database architecture)
+- Scheduled execution (Runner Agent)
+- Natural language commands (Skills Registry)
+- Validation-first execution (14 BLOCKING rules)
+- Portfolio-first bootstrap (Phase -1)
+
+---
+
+## SECTION 2: KEY TECHNICAL INNOVATIONS
+
+### Narrative Goal
+Deep-dive into 5 technical innovations that made Martin work. Show the problem, solution, and impact for each.
+
+---
+
+### **Innovation 1: Portfolio Bootstrap (Phase -1)**
+
+#### The Problem
+Every conversation started the same way:
+```
+User: "Hey Martin, load my portfolio"
+Martin: [2-3 minute delay while querying CRM]
+Martin: "Portfolio loaded. What would you like to do?"
+```
+
+**Pain Points:**
+- 2-3 minute delay at start of every session
+- User has to remember to load portfolio
+- Breaks conversational flow
+- Repetitive, unnecessary friction
+
+#### The Solution
+**Automatic, silent portfolio load on first message:**
+
+```python
+# Phase -1 Logic (Automatic, Runs Once)
+
+Trigger: First message contains "load in my portfolio"
+
+Execution:
+1. Validate user (get current user from CRM)
+   - Extract: user_id, user_name, user_email
+   - Validation: User must be active
+   - If fail → HALT with user validation error
+
+2. Get Account schema (identify field names for portfolio query)
+
+3. Execute Portfolio Access v3.0
+   - Query: SELECT Id, Name, ACV, Segment, Contract_End_Date, 
+            Health_Status, Owner_Name 
+            FROM Account 
+            WHERE Assigned_To = '[user_id]' 
+            AND IsDeleted = false 
+            ORDER BY ACV DESC 
+            LIMIT 200
+   - Extract: portfolio_accounts[] with Id, Name, ACV, Health, Segment, Renewal Date
+   - Validation: portfolio_accounts.length > 0
+   - If fail → HALT with "No accounts found"
+
+4. Store in session context:
+   - user_id
+   - user_name
+   - user_email
+   - portfolio_accounts[] (all accounts with full metadata)
+
+5. Display portfolio summary:
+   - User name and email
+   - Total accounts loaded
+   - Total ACV
+   - Top 10 accounts by ACV
+   - Portfolio snapshot (segments, health distribution, upcoming renewals)
+
+Duration: 2-3 minutes
+Output: Portfolio context ready + summary displayed
+```
+
+#### The Impact
+- **Time Saved:** 2-3 minutes per session × 5 sessions/week × 52 weeks = 520-780 minutes/year (8.6-13 hours)
+- **UX Improvement:** Seamless, no manual trigger required
+- **Context Availability:** Portfolio data available for ALL subsequent queries
+- **Multi-User Support:** Each user gets their own portfolio automatically
+
+---
+
+### **Innovation 2: Mode-Driven Execution (/plan vs /act)**
+
+#### The Problem
+Users had two conflicting needs:
+1. **Strategic Advice:** "What should I do about this account?"
+2. **Immediate Execution:** "Just run the analysis and show me the results"
+
+Mixing both in one mode created "what will this do?" anxiety:
+- Will Martin execute or just recommend?
+- Will this log to the database?
+- Will this send alerts to my team?
+
+#### The Solution
+**Explicit mode separation with clear user control:**
+
+**/plan Mode (Strategic Advisor):**
+```
+Behavior:
+- Analyze account/portfolio data
+- Recommend plays and strategies
+- Provide /act commands for execution
+- Conversational, partner-oriented tone
+- Does NOT execute plays
+- Does NOT log to database
+- Does NOT send alerts
+
+Output Format:
+"""
+RENEWAL STRATEGY — [Account Name]
+
+CURRENT STATE:
+• ACV: $2.5M | Health: Good | Renewal: Q2 2026
+• Last Activity: 2 days ago (active engagement)
+
+RECOMMENDED APPROACH:
+1. Platform Usage Analysis (8-15 min)
+   → Quantify adoption across products
+   → Command: /act /skill platform-usage [Account]
+
+2. Risk Mitigation (8-12 min)
+   → Detect hidden churn signals
+   → Command: /act /skill risk-mitigation [Account]
+
+3. Value Framework (30-40 min)
+   → Build ROI narrative for renewal
+   → Command: /act /skill value-framework [Account]
+
+TIMELINE: 3 weeks | EXPECTED OUTCOME: Renewal secured + expansion identified
+
+Ready to execute? Switch to /act mode or use the commands above.
+"""
+```
+
+**/act Mode (Execution Engine):**
+```
+Behavior:
+- Execute specified skill/play immediately
+- Structured output (HTML artifacts, spreadsheets, alerts)
+- Minimal conversation (direct, results-first)
+- IF LOG: [table_name] specified → INSERT to database after execution
+- IF OUTPUT: Alert specified → send message to user
+- IF STATEFUL: true → SELECT previous state from database before execution
+
+Output Format:
+"""
+Executing Platform Usage v13.0 on [Account]...
+
+[HTML Artifact Generated]
+
+✅ Analysis complete
+📊 Key Findings: 1,490 users, 93.9% activation, 149 power users
+⚠️ Recommended Action: Expand to Marketing team (untapped use case)
+
+Logged to: DATABASE.SCHEMA.EAM_RUNS
+Run ID: eam_[account_id]_20260128_200000
+"""
+```
+
+#### The Impact
+- **User Control:** Explicit choice between advice and action
+- **No Surprises:** Users know exactly what will happen
+- **Flexibility:** Can switch modes mid-conversation
+- **Trust:** Transparency builds confidence in automation
+
+---
+
+### **Innovation 3: Persistent Intelligence (4-Table Database Architecture)**
+
+#### The Problem
+No memory across conversations:
+- Re-analyzing same accounts every session
+- No "what changed since last scan?" capability
+- No longitudinal tracking (risk trends over time)
+- No state change detection (new risks, escalations)
+
+#### The Solution
+**4-table database architecture for persistent intelligence:**
+
+**Table 1: EAM_RUNS (Execution Archive)**
+- **Purpose:** Complete audit trail, full outputs
+- **Schema:** RUN_ID, ACCOUNT_ID, ACCOUNT_NAME, GENERATED_AT, STATUS, ARTIFACT_URL, TIER2_JSON, TIER2_MD, ERROR_MESSAGE, SOURCE_VERSION
+- **Storage:** Monolith JSON (all phases) + distilled Tier-2 (queryable summary)
+- **Use Case:** "Show me all EAM runs for [Account]" → historical analysis
+
+**Table 2: ACCOUNT_STATE (Current Intelligence)**
+- **Purpose:** Current account state, queryable
+- **Schema:** ACCOUNT_ID, ACCOUNT_NAME, LAST_SCAN_TIMESTAMP, STATE_JSON, RISK_SCORE, HEALTH_STATUS, RENEWAL_DATE, ACV, LAST_ACTIVITY_DATE, SOURCE_PLAYS, UPDATED_AT
+- **Storage:** Distilled STATE_JSON (key insights) + denormalized fields (fast filtering)
+- **Use Case:** "Which accounts have risk_score > 70?" → portfolio queries
+
+**Table 3: RUNNER_LOGS (Scheduled Execution Audit Trail)**
+- **Purpose:** Track scheduled runs, alerts sent, execution metadata
+- **Schema:** RUN_ID, SCHEDULE_ID, SCHEDULE_NAME, EXECUTION_TIMESTAMP, USER_ID, USER_NAME, USER_EMAIL, ACCOUNTS_SCANNED, ALERTS_GENERATED, ALERT_DETAILS, EXECUTION_DURATION_SEC, STATUS, ERROR_MESSAGE, NEXT_RUN_SCHEDULED, CREATED_AT
+- **Use Case:** "How many alerts did Runner Agent send this week?" → operational monitoring
+
+**Table 4: RISK_HISTORY (Longitudinal Risk Tracking)**
+- **Purpose:** Risk score tracking over time, state change detection
+- **Schema:** SCAN_ID, SCAN_TIMESTAMP, ACCOUNT_ID, ACCOUNT_NAME, ACV, RISK_SCORE, RISK_TIER, DETECTED_SIGNALS, IS_NEW_RISK, IS_ESCALATION, PREVIOUS_RISK_SCORE, PREVIOUS_RISK_TIER, ALERT_SENT, USER_ID, USER_NAME, CREATED_AT
+- **Use Case:** "Show me risk trend for [Account] over past 6 months" → predictive analytics
+
+#### Stateful Execution Pattern
+```sql
+-- BEFORE execution: Read previous state
+SELECT RISK_SCORE, RISK_TIER, SCAN_TIMESTAMP
+FROM RISK_HISTORY
+WHERE ACCOUNT_ID = '[account_id]'
+ORDER BY SCAN_TIMESTAMP DESC
+LIMIT 1;
+
+-- AFTER execution: Compare current vs previous
+INSERT INTO RISK_HISTORY VALUES (
+    '[SCAN_ID]',
+    CURRENT_TIMESTAMP(),
+    '[account_id]',
+    '[account_name]',
+    [acv],
+    [current_risk_score],
+    '[current_risk_tier]',
+    PARSE_JSON('[detected_signals]'),
+    [is_new_risk],  -- TRUE if previous_risk_score was NULL or < 30
+    [is_escalation],  -- TRUE if current_risk_score > previous_risk_score + 20
+    [previous_risk_score],
+    '[previous_risk_tier]',
+    [alert_sent],
+    '[user_id]',
+    '[user_name]',
+    CURRENT_TIMESTAMP()
+);
+```
+
+#### The Impact
+- **Longitudinal Tracking:** "How has [Account]'s risk score changed over 6 months?"
+- **State Change Detection:** "Which accounts became at-risk this week?"
+- **Trend Analysis:** "Is risk increasing or decreasing across portfolio?"
+- **Proactive Alerts:** "Alert me when any account's risk score jumps 20+ points"
+
+**Evidence:**
+- Database execution logs: 4 executions logged (Jan 27-28, 2026)
+- System prompt: Database logging section, STATEFUL queries
+- Architecture documentation: 3-tier intelligence model
+
+---
+
+### **Innovation 4: Skills Registry (Command Abstraction)**
+
+#### The Problem
+Play DNA is technical and verbose:
+- 500-2000 lines of executable instructions
+- Users don't know what plays exist
+- Commands are inconsistent across plays
+- No discoverability (can't browse available plays)
+
+#### The Solution
+**Skills Registry with natural language commands:**
+
+**Registry Structure:**
+```
+Skill_ID: Unique identifier (P001, A001, S001, U001)
+Skill_Name: Natural language name (portfolio-access, platform-usage)
+Category: Portfolio, Account, Strategic, Utility
+Trigger_Pattern: /skill command syntax
+Play_ID: Maps to Play_DNA
+Description: What the skill does
+Duration_Min: Estimated execution time
+Subagent_Ready: YES/PARTIAL/NO (can it run as standalone subagent?)
+Status: Active/Deprecated
+```
+
+**Lookup Priority:**
+1. Check Skills_Registry for /skill commands (NEW - takes precedence)
+2. Check Play_DNA for legacy trigger words (BACKWARD COMPATIBILITY)
+3. If both match, Skills_Registry wins
+4. If no match: HALT with "Unknown skill/play. Use /skills to see available commands."
+
+**User Experience:**
+```
+User: "/skills"
+Martin: [Displays categorized skills library]
+
+PORTFOLIO SKILLS
+• portfolio-access (2-3 min) — Load your book of business
+• renewal-pipeline (14-26 min) — Visual dashboard of upcoming renewals
+• low-usage (3-5 min) — Identify underutilized accounts
+• play-planner (0.1 min) — Get recommended plays for accounts
+• bulk-credits (3-5 min) — Monitor bulk credit utilization
+
+ACCOUNT RESEARCH SKILLS
+• platform-usage (8-15 min) — Product adoption deep-dive
+• user-analysis (7-14 min) — Behavioral intelligence
+• risk-mitigation (8-12 min) — Multi-source risk intelligence
+[...]
+
+User: "/skill platform-usage [account_url]"
+Martin: [Executes Platform Usage v13.0]
+```
+
+#### The Impact
+- **Discoverability:** Users can browse all available skills
+- **Consistency:** Standardized command syntax
+- **Ease of Use:** No technical knowledge required
+- **Backward Compatibility:** Legacy commands still work
+
+---
+
+### **Innovation 5: Scheduled Execution (Runner Agent)**
+
+#### The Problem
+Manual execution requires user presence:
+- User can't monitor portfolio 24/7
+- Risk signals detected only when user runs analysis
+- No proactive alerts (user has to check for risks)
+- Reactive posture (wait for problem, then respond)
+
+#### The Solution
+**Runner Agent with Scheduler_Config:**
+
+**Example Schedules:**
+```
+SCH-P001 | Daily Portfolio Scan | P001 | Daily 6am | All Accounts | N/A | Active
+SCH-A003 | Weekly Risk Monitor | A003 | Weekly Mon 8am | Renewals <90d | Risk >=50 | Active
+SCH-A001 | Monthly Usage Check | A001 | Monthly 1st 9am | High ACV | Usage <50% | Active
+```
+
+**Runner Agent Execution Flow:**
+```
+CONTEXT: SCH-A003 (Weekly Risk Monitor)
+    ↓
+1. Load Scheduler_Config (get frequency, target, alert rules)
+2. Filter portfolio (renewals <90 days)
+3. Execute Risk Mitigation v1.4 on each account
+4. Compare with previous scan (from RISK_HISTORY)
+5. Detect changes (new risks, escalations)
+6. Generate alerts (if risk_score >= 50)
+7. Send message to user
+8. Log to RUNNER_LOGS (execution metadata, alerts sent)
+```
+
+**Alert Format:**
+```
+🔴 RISK ALERT — [User Name]
+================================
+Weekly Risk Monitor detected 2 new risks:
+
+1. [Account A] (ACV: $655K, Renewal: Sep 22, 2026)
+   - Risk Score: 65 (was 42 last week) — ESCALATION
+   - Signals: Executive departure, competitive intent, engagement decline
+   - Recommended Action: /act /skill risk-mitigation [Account A]
+
+2. [Account B] (ACV: $265K, Renewal: Apr 2, 2026)
+   - Risk Score: 58 (NEW RISK)
+   - Signals: Low usage, missed meetings, payment delay
+   - Recommended Action: /act /skill platform-usage [Account B]
+
+📊 Full Report: [Link to artifact]
+🎯 Take Action: Run recommended plays above
+```
+
+#### The Impact
+- **Proactive Monitoring:** Portfolio scanned automatically (daily, weekly, monthly)
+- **Early Detection:** Risk signals caught 30-60 days earlier
+- **Zero User Effort:** Alerts delivered automatically, no manual checking
+- **Scalable:** Can monitor large portfolios continuously without user bandwidth
+
+---
+
+## SECTION 3: VERSION COMPARISON TABLE
+
+### Comparison Matrix
+
+| Feature | v1.0 (Prototype) | v1.5 (Persistence) | v2.0 (Synthesis) | v3.0 (Production) |
+|---------|------------------|-------------------|------------------|-------------------|
+| **Play Count** | 2-3 | 8-10 | 12-14 | 17 |
+| **Memory System** | Task Lists (private) | Task Lists + Database | Task Lists + Database | Spreadsheets + Database |
+| **Persistence** | None | 2 tables | 2 tables | 4 tables |
+| **Multi-User** | No (Tasks private) | No (Tasks private) | No (Tasks private) | Yes (Sheets public) |
+| **Mode Separation** | No | No | No | Yes (/plan vs /act) |
+| **Portfolio Bootstrap** | Manual | Manual | Manual | Automatic (Phase -1) |
+| **Synthesis Plays** | No | No | Yes (2 plays) | Yes (2 plays) |
+| **Scheduled Execution** | No | No | No | Yes (Runner Agent) |
+| **Skills Registry** | No | No | No | Yes (17 skills) |
+| **Validation Rules** | Ad-hoc | 8 rules | 12 rules | 14 BLOCKING rules |
+| **Command Interface** | Play DNA syntax | Play DNA syntax | Play DNA syntax | /skill commands |
+| **Execution Speed** | 5-10 min/play | 5-15 min/play | 5-55 min/synthesis | 0.1-55 min/skill |
+| **Output Formats** | Text only | Text + HTML | HTML + Spreadsheets | HTML + Spreadsheets + Alerts |
+| **Quality Score** | 7-8/10 | 8-9/10 | 9-9.5/10 | 8.5-10/10 |
+
+---
+
+## SECTION 4: TECHNICAL DEBT & PIVOTS
+
+### Major Pivots
+
+**Pivot 1: Task Lists → Spreadsheets (Jan 7, 2026)**
+- **Original Design:** 21 task lists (Play DNA, Validation Rules, Deployment History)
+- **Problem Discovered:** Tasks are private, can't be shared with other users
+- **Trigger:** "discovered that my current infrastructure doesn't work for everyone (task lists are private, not publicly readable)"
+- **Solution:** Migrate all 21 lists to 10 spreadsheet tabs
+- **Migration Effort:** ~4-6 hours (manual copy-paste, schema redesign)
+- **Impact:** Multi-user architecture unlocked, other users can now use Martin
+
+**Evidence:**
+- Migration_Summary: "Migration Date: 2026-01-07 | Source: Task Lists (21 lists) | Destination: Spreadsheets (Public) | Status: COMPLETE"
+
+**Pivot 2: Schema Corrections (Platform Usage v11.0 → v13.0)**
+- **Original Design:** Queried wrong table columns (assumed incorrect field names)
+- **Problem Discovered:** Columns don't exist in analytics database
+- **Trigger:** SQL syntax errors during execution
+- **Solution:** Corrected to actual production schema field names
+- **Migration Effort:** Updated 3 plays (Platform Usage, User Analysis, Low Usage Finder)
+- **Impact:** Queries now work, data accuracy improved
+
+**Evidence:**
+- Play_DNA changelog: "CHANGELOG v13.0: FIXED: Corrected table references to actual production schema"
+- Deployment logs: Platform Usage v11.0 → v13.0 progression
+
+**Pivot 3: User Segmentation (Recorders vs Listeners)**
+- **Original Design:** Counted all users in meeting intelligence platform
+- **Problem Discovered:** Purchased seats = active licenses ONLY, some users are view-only
+- **Trigger:** Customer confusion ("Why does it say I have 200 users when I only bought 50 seats?")
+- **Solution:** Filter to active license holders, show breakdown (active + view-only)
+- **Impact:** Accurate seat utilization metrics, no customer confusion
+
+**Evidence:**
+- Play_DNA changelog: "v13.0 CORRECTED: Metrics now properly filtered to provisioned active users"
+
+**Pivot 4: Multi-Threading Lens (Buying Committee → Expansion)**
+- **Original Design:** Multi-Threading v2.3 focused on buying committee gaps (renewal/upsell)
+- **Problem Discovered:** Overlapped with Champion Cultivation, not differentiated enough
+- **Trigger:** User feedback ("This feels like Champion Cultivation but less useful")
+- **Solution:** Rewrite to expansion lens (new departments, new use cases, new budgets)
+- **Migration Effort:** Complete rewrite (v2.3 → v3.0), added company intelligence integration
+- **Impact:** Clear differentiation, expansion-focused, company data as source of truth
+
+**Evidence:**
+- Deployment logs (Jan 28, 2026): "MAJOR REWRITE: Expansion lens (new depts/use cases/budgets) vs buying committee gaps"
+- Play_DNA: Multi-Threading v3.0 DNA
+
+---
+
+## SECTION 5: DEPLOYMENT TIMELINE
+
+### Timeline
+
+**August 2024: Genesis**
+- First conversations about automation
+- Problem validation: "Spending 15-20 hours/week on admin work"
+- Decision: Build AI orchestration system
+
+**September - October 2024: Prototype Phase (v1.0)**
+- Portfolio Access v1.0 developed
+- Champion Development v1.0 developed
+- Task list architecture established (21 lists)
+- Proof of concept: "Can AI orchestrate data pulls?"
+
+**November 2024: First Production Executions**
+- **Nov 4, 2025:** Champion Development v1.10 (first high-maturity execution)
+  - 1,490 users, 93.9% activation, 149 power users
+  - Quality Score: 9.5/10
+  - Learning: "90-day window reveals true utilization"
+
+**December 2024: Public Launch**
+- **Dec 2, 2024:** Martin launched to team
+  - Announcement: "4 months of building an actual multi workflow agent"
+  - 15 specialized plays available
+  - Multi-user ready (automatic user detection)
+
+**January 2026: Major Migrations**
+- **Jan 6, 2026:** Task list migration decision
+  - Trigger: "task lists are private, not publicly readable"
+  - Impact: Multi-user architecture blocked
+
+- **Jan 7, 2026:** Task Lists → Spreadsheets migration COMPLETE
+  - 21 task lists → 10 spreadsheet tabs
+  - Migration_Summary documented
+  - Status: "COMPLETE - READY FOR TESTING"
+
+- **Jan 8, 2026:** Intelligence Gaps v1.3 → v2.0
+  - Added web search enforcement validation
+  - Added temporal freshness validation (past 90 days)
+  - Executions: 2 enterprise accounts (both successful)
+
+- **Jan 15, 2026:** Multi-Threading v2.3 → v3.0 (MAJOR REWRITE)
+  - Expansion lens (new departments/use cases/budgets)
+  - Company intelligence integration
+  - 4 new validation rules
+  - Output changed: Text → Spreadsheet artifact
+
+- **Jan 27-28, 2026:** First EAM v1.5.0 Database Persistence Executions
+  - 4 enterprise accounts analyzed
+  - All STATUS='COMPLETE', all have ARTIFACT_URL links
+
+- **Jan 30, 2026:** Dependency Health Validation
+  - Renewal Prep Synthesis v1.2 updated (dependency updates)
+  - QBR Prep Synthesis v1.2 updated (dependency updates)
+  - All synthesis plays validated with corrected schemas
+
+**February 2026: Current State (v3.0 Production)**
+- 17 skills across 4 categories
+- Large portfolio under management
+- 4 database executions logged
+- 26+ total executions in deployment history
+- Multi-user architecture operational
+- Runner Agent designed (not yet deployed)
+
+---
+
+## SECTION 6: TECHNICAL METRICS
+
+### Execution Performance
+
+**Play Duration Benchmarks:**
+| Play | Duration | Manual Equivalent | Time Saved |
+|------|----------|-------------------|------------|
+| Portfolio Access v3.0 | 2-3 min | 15-20 min | 12-17 min |
+| Platform Usage v13.0 | 8-15 min | 2-3 hours | 105-172 min |
+| User Analysis v2.6 | 7-14 min | 1-2 hours | 46-106 min |
+| Risk Mitigation v1.4 | 8-12 min | 2-3 hours | 108-172 min |
+| Renewal Prep Synthesis v1.2 | 31-37 min | 5-8 hours | 269-443 min |
+| QBR Prep Synthesis v1.2 | 45-55 min | 8-12 hours | 425-665 min |
+
+**Total Time Savings (Per Execution):**
+- Single plays: 46-172 minutes saved per execution
+- Synthesis plays: 269-665 minutes saved per execution
+- Weekly usage (estimated 5 plays): 230-860 minutes saved (3.8-14.3 hours)
+- Monthly usage (estimated 20 plays): 920-3,440 minutes saved (15.3-57.3 hours)
+
+**Quality Metrics:**
+- Average quality score: 9.2/10 (from deployment logs)
+- Validation pass rate: 100% (all BLOCKING rules enforced)
+- Error rate: 0% (all 26 logged executions successful)
+
+**Token Efficiency (Low Usage Finder v1.3 → v2.0):**
+- v1.3 (Raw SQL): ~55,000 tokens per execution
+- v2.0 (Semantic Model): ~33,000 tokens per execution
+- Savings: 22,000 tokens (40% reduction)
+- Annual savings (4 executions/month): 1,056,000 tokens
+
+**Execution Speed (Low Usage Finder v1.3 → v2.0):**
+- v1.3: 5-7 minutes
+- v2.0: 3-5 minutes
+- Improvement: 2-3 minutes faster (40% reduction)
+
+---
+
+## SECTION 7: SCHEMA EVOLUTION
+
+### Schema Iterations
+
+**Iteration 1: Basic CRM Queries (v1.0)**
+```sql
+-- Simple, no hierarchy detection
+SELECT Id, Name, ACV 
+FROM Account 
+WHERE Owner = '[user_id]'
+```
+
+**Iteration 2: Parent-Child Hierarchy (v2.0)**
+```sql
+-- Added ParentId detection
+SELECT Id, Name, ACV, ParentId, Contract_End_Date
+FROM Account 
+WHERE Owner = '[user_id]'
+ORDER BY ParentId NULLS FIRST, ACV DESC
+```
+
+**Iteration 3: Renewal Aggregation (v3.0)**
+```sql
+-- Aggregate child renewal dates to parent
+WITH parent_accounts AS (
+    SELECT Id, Name, ACV, Contract_End_Date as primary_renewal_date
+    FROM Account
+    WHERE Owner = '[user_id]' AND ParentId IS NULL
+),
+child_accounts AS (
+    SELECT ParentId, MIN(Contract_End_Date) as earliest_child_renewal, SUM(ACV) as child_acv
+    FROM Account
+    WHERE Owner = '[user_id]' AND ParentId IS NOT NULL
+    GROUP BY ParentId
+)
+SELECT 
+    p.Id,
+    p.Name,
+    COALESCE(c.earliest_child_renewal, p.primary_renewal_date) as primary_renewal_date,
+    p.ACV + COALESCE(c.child_acv, 0) as aggregated_acv
+FROM parent_accounts p
+LEFT JOIN child_accounts c ON p.Id = c.ParentId
+```
+
+**Learning:** Parent accounts with children need aggregated renewal dates (earliest child renewal) and aggregated ACV (parent + all children).
+
+---
+
+### Database Schema Evolution
+
+**Phase 1: Execution Archive Only (v1.5)**
+```sql
+-- Single table: EAM_RUNS
+CREATE TABLE EAM_RUNS (
+    RUN_ID VARCHAR(255),
+    ACCOUNT_ID VARCHAR(18),
+    ACCOUNT_NAME VARCHAR(255),
+    GENERATED_AT TIMESTAMP_NTZ,
+    STATUS VARCHAR(50),
+    ARTIFACT_URL VARCHAR(500)
+);
+```
+
+**Phase 2: Add Persistent State (v2.0)**
+```sql
+-- Added: ACCOUNT_STATE table
+CREATE TABLE ACCOUNT_STATE (
+    ACCOUNT_ID VARCHAR(18) PRIMARY KEY,
+    LAST_SCAN_TIMESTAMP TIMESTAMP_NTZ,
+    STATE_JSON VARIANT,
+    RISK_SCORE NUMBER(5,2)
+);
+```
+
+**Phase 3: Add Scheduled Execution & Risk History (v3.0)**
+```sql
+-- Added: RUNNER_LOGS table
+CREATE TABLE RUNNER_LOGS (
+    RUN_ID VARCHAR(255),
+    SCHEDULE_ID VARCHAR(50),
+    EXECUTION_TIMESTAMP TIMESTAMP_NTZ,
+    ACCOUNTS_SCANNED NUMBER,
+    ALERTS_GENERATED NUMBER,
+    ALERT_DETAILS VARIANT
+);
+
+-- Added: RISK_HISTORY table
+CREATE TABLE RISK_HISTORY (
+    SCAN_ID VARCHAR(255),
+    SCAN_TIMESTAMP TIMESTAMP_NTZ,
+    ACCOUNT_ID VARCHAR(18),
+    RISK_SCORE NUMBER(5,2),
+    IS_NEW_RISK BOOLEAN,
+    IS_ESCALATION BOOLEAN,
+    PREVIOUS_RISK_SCORE NUMBER(5,2)
+);
+```
+
+**Learning:** Longitudinal tracking requires separate history table (not just current state).
+
+---
+
+## SECTION 8: AGENT DELIVERABLES
+
+### Primary Artifacts to Create
+
+**1. Technical Timeline: "The Evolution of Martin"**
+- **Format:** Visual timeline with milestones
+- **Structure:**
+  - Aug 2024: Genesis (problem validation)
+  - Sep-Oct 2024: v1.0 Prototype (2-3 plays, task lists)
+  - Nov 2024: First production executions
+  - Dec 2024: Public launch (15 plays, multi-user ready)
+  - Jan 7, 2026: Task lists → Spreadsheets migration
+  - Jan 27-28, 2026: First database persistence executions
+  - Jan 30, 2026: v3.0 feature complete (17 skills, Runner Agent)
+- **Tone:** Chronological, milestone-focused, technical but accessible
+
+**2. Version Comparison Table**
+- **Format:** Side-by-side comparison (v1.0 vs v1.5 vs v2.0 vs v3.0)
+- **Rows:** Play count, memory system, persistence, multi-user, mode separation, portfolio bootstrap, synthesis, scheduled execution, skills registry, validation rules, command interface, execution speed, output formats, quality score
+- **Tone:** Data-driven, objective, shows clear progression
+
+**3. Architecture Diagrams (v1.0 vs v2.0 vs v3.0)**
+- **Format:** 3 side-by-side diagrams showing architectural evolution
+- **v1.0:** Simple linear flow (User → Martin → Task Lists → CRM → Text)
+- **v2.0:** Added database persistence (User → Martin → Task Lists + Database → Multi-Source → HTML)
+- **v3.0:** Full 5-layer architecture (Control → Memory → Persistence → Execution → Intelligence)
+- **Tone:** Visual, clear, shows increasing complexity and capability
+
+**4. Technical Deep-Dive: "5 Innovations That Made Martin Work"**
+- **Format:** 5 sections, one per innovation
+- **Structure:**
+  - Innovation 1: Portfolio Bootstrap (Phase -1)
+  - Innovation 2: Mode-Driven Execution (/plan vs /act)
+  - Innovation 3: Persistent Intelligence (4-table database)
+  - Innovation 4: Skills Registry (command abstraction)
+  - Innovation 5: Scheduled Execution (Runner Agent)
+- **Each Section:** Problem → Solution → Code Example → Impact
+- **Tone:** Technical, code-heavy, educational
+
+**5. Code Snippets (Sanitized)**
+- **Portfolio Bootstrap:** Phase -1 logic (Python pseudocode)
+- **Mode Detection:** Step 0.1 logic (if/else tree)
+- **Database INSERT:** EAM_RUNS, RISK_HISTORY examples
+- **Skills Lookup:** Skills_Registry query logic
+- **Validation Enforcement:** BLOCKING rule examples
+
+**6. Before/After Comparisons**
+- **UX:** Manual portfolio load vs automatic Phase -1
+- **Performance:** Manual QBR (8 hours) vs QBR Prep Synthesis (45 min)
+- **Capabilities:** v1.0 (2 plays) vs v3.0 (17 skills)
+- **Architecture:** Task lists (private) vs Spreadsheets (public, multi-user)
+
+---
+
+## DATA EXTRACTION CHECKLIST
+
+### Deployment History Analysis
+- [ ] Extract all 26 executions (ID, Timestamp, Play_Name, Version, Duration, Quality_Score, Learnings)
+- [ ] Group by version (v1.0, v1.5, v2.0, v3.0)
+- [ ] Identify first execution per play (when was it deployed?)
+- [ ] Extract key learnings (what was discovered during execution?)
+- [ ] Calculate average duration per play (performance benchmarks)
+
+### Play DNA Version Progression
+- [ ] Extract version history for each play (v1.0 → current)
+- [ ] Identify CHANGELOG entries (what changed per version?)
+- [ ] Map schema corrections (Platform Usage v11.0 → v13.0)
+- [ ] Document major rewrites (Multi-Threading v2.3 → v3.0)
+
+### Database Execution Data
+- [ ] Query execution logs: All executions, group by version
+- [ ] Calculate: Total executions, unique accounts, date range
+- [ ] Extract: First execution timestamp (when did persistence go live?)
+- [ ] Analyze: Execution frequency, success rate, error patterns
+
+### Technical Discussions
+- [ ] Search: "database", "schema", "migration", "architecture", "validation"
+- [ ] Filter: Technical collaborator conversations
+- [ ] Extract: Design decisions, debugging sessions, breakthrough moments
+- [ ] Compile: Architecture diagrams (ASCII art from discussions)
+
+### Migration Summary
+- [ ] Extract: Migration date, source, destination, status
+- [ ] Document: Component breakdown (System Core, Play DNA, Synthesis DNA, Validation Rules, Deployment History)
+- [ ] Analyze: Play breakdown (Single-Account: 8, Portfolio: 5, Utility: 1, Synthesis: 2)
+
+---
+
+## SUCCESS CRITERIA
+
+### Agent Output Quality Metrics
+
+**Technical Accuracy:**
+- [ ] All version numbers correct (v1.0, v1.5, v2.0, v3.0)
+- [ ] All dates accurate (Nov 2024, Dec 2024, Jan 2026)
+- [ ] All schema examples valid (can be executed in database)
+- [ ] All code snippets sanitized (no sensitive data, no real account IDs)
+
+**Narrative Coherence:**
+- [ ] Version progression tells a story (each version solves previous limitations)
+- [ ] Technical innovations explained clearly (problem → solution → impact)
+- [ ] Pivots framed as learning (not failures)
+- [ ] Timeline is chronological and complete
+
+**Evidence Density:**
+- [ ] Every milestone has a date and source (deployment logs, database, discussions)
+- [ ] Every technical claim has code example or schema reference
+- [ ] Every innovation has quantified impact (time saved, tokens reduced, etc.)
+
+**Visual Quality:**
+- [ ] Timeline is clear and scannable
+- [ ] Architecture diagrams show evolution (v1.0 → v3.0)
+- [ ] Version comparison table is comprehensive
+- [ ] Code snippets are formatted and readable
+
+---
+
+## EXECUTION INSTRUCTIONS FOR AGENT
+
+### Step 1: Evidence Collection (45-60 minutes)
+1. Read Deployment_History spreadsheet (all 26 executions)
+   - Extract: Execution_ID, Timestamp, Play_Name, Version, Duration, Quality_Score, Learnings
+   - Group by version (v1.0, v1.5, v2.0, v3.0)
+   - Identify first execution per play
+
+2. Read Play_DNA spreadsheet (all 17 plays)
+   - Extract: Play_ID, Play_Name, Version, Last_Updated, DNA_Content (CHANGELOG sections)
+   - Map version progression (v1.0 → current)
+   - Document schema corrections, major rewrites
+
+3. Query database execution logs
+   - SQL: `SELECT * FROM EAM_RUNS ORDER BY GENERATED_AT`
+   - Extract: RUN_ID, ACCOUNT_ID, ACCOUNT_NAME, GENERATED_AT, STATUS, SOURCE_VERSION
+   - Calculate: Total executions, unique accounts, date range
+   - **SANITIZE:** Replace real account names with [Account A], [Account B], etc.
+
+4. Read Migration_Summary spreadsheet
+   - Extract: Migration date, source, destination, component breakdown
+   - Document: Play breakdown, validation status
+
+5. Search internal discussions for technical topics
+   - Keywords: "database", "schema", "migration", "task lists", "spreadsheets"
+   - Extract: Architecture diagrams, design decisions, breakthrough moments
+   - **SANITIZE:** Remove user names, replace with [Technical Collaborator A], [Technical Collaborator B]
+
+6. Compile evidence repository (organize by version: v1.0, v1.5, v2.0, v3.0)
+
+### Step 2: Narrative Drafting (90-120 minutes)
+1. Write Section 1: Version History as Story
+   - v1.0: The Prototype (capabilities, limitations, evidence)
+   - v1.5: The Persistence Breakthrough (database integration, schema design, impact)
+   - v2.0: The Synthesis Era (multi-play orchestration, silent mode, validation)
+   - v3.0: The Production System (17 skills, complete feature set, current state)
+
+2. Write Section 2: Key Technical Innovations
+   - Innovation 1: Portfolio Bootstrap (problem, solution, code, impact)
+   - Innovation 2: Mode-Driven Execution (problem, solution, logic, impact)
+   - Innovation 3: Persistent Intelligence (problem, solution, schema, impact)
+   - Innovation 4: Skills Registry (problem, solution, structure, impact)
+   - Innovation 5: Scheduled Execution (problem, solution, flow, impact)
+
+3. Write Section 3: Technical Debt & Pivots
+   - Pivot 1: Task Lists → Spreadsheets (trigger, solution, effort, impact)
+   - Pivot 2: Schema Corrections (problem, solution, plays affected)
+   - Pivot 3: User Segmentation (problem, solution, impact)
+   - Pivot 4: Multi-Threading Lens (problem, solution, rewrite scope)
+
+4. Write Section 4: Deployment Timeline
+   - Chronological milestones (Aug 2024 → Feb 2026)
+   - Key dates with evidence (deployment logs, database, discussions)
+   - **SANITIZE:** Remove specific user names, account names, company references
+
+5. Write Section 5: Technical Metrics
+   - Execution performance (duration benchmarks, time saved)
+   - Quality metrics (quality scores, validation pass rate, error rate)
+   - Token efficiency (v1.3 → v2.0 comparison)
+
+### Step 3: Artifact Creation (45-60 minutes)
+1. Create technical timeline (visual, milestone-focused)
+2. Create version comparison table (v1.0 vs v1.5 vs v2.0 vs v3.0)
+3. Create architecture diagrams (3 diagrams showing evolution)
+4. Create code snippets (5 innovations, sanitized SQL/Python)
+5. Create before/after comparisons (UX, performance, capabilities)
+6. Format all content in markdown (.md file)
+
+### Step 4: Sanitization Pass (20-30 minutes)
+1. **Remove all first-party data:**
+   - Replace real account names with [Account A], [Account B], [Enterprise Customer], etc.
+   - Replace user names with [User], [Technical Collaborator], [Team Member]
+   - Replace company names with [Company], [Customer]
+   - Replace specific ACV values with ranges ($500K-$1M, $1M-$3M, etc.)
+   - Replace specific dates with relative timeframes when appropriate
+   - Remove internal URLs, replace with [Internal Link]
+   - Remove database/schema names, replace with generic DATABASE.SCHEMA.TABLE
+
+2. **Verify no sensitive data:**
+   - No customer names
+   - No employee names (except document author)
+   - No specific revenue figures
+   - No internal system URLs
+   - No API keys or credentials
+   - No proprietary algorithms (keep high-level logic only)
+
+### Step 5: Quality Check (20-30 minutes)
+1. Verify all dates accurate (cross-reference deployment logs, database, discussions)
+2. Verify all version numbers correct (Play_DNA, Migration_Summary)
+3. Verify all code examples valid (can be executed with generic data)
+4. Check narrative flow (does version progression make sense?)
+5. Proofread (grammar, clarity, technical accuracy)
+6. Final sanitization check (no first-party data leaked)
+
+---
+
+## OUTPUT FORMAT
+
+**File Name:** `prd-2-build-log-martin-v3.md`
+
+**Structure:**
+```markdown
+# The Build Log: How Martin v3.0 Was Built
+
+## Version History as Story
+
+### v1.0: The Prototype (Aug - Oct 2024)
+[Capabilities, architecture, limitations, evidence]
+
+### v1.5: The Persistence Breakthrough (Nov - Dec 2024)
+[Database integration, schema design, breakthrough moment, evidence]
+
+### v2.0: The Synthesis Era (Dec 2024 - Jan 2026)
+[Multi-play orchestration, synthesis plays, validation, evidence]
+
+### v3.0: The Production System (Jan 2026 - Present)
+[17 skills, complete feature set, current state, evidence]
+
+## Key Technical Innovations
+
+### Innovation 1: Portfolio Bootstrap (Phase -1)
+[Problem, solution, code, impact, evidence]
+
+### Innovation 2: Mode-Driven Execution (/plan vs /act)
+[Problem, solution, logic, impact, evidence]
+
+### Innovation 3: Persistent Intelligence (4-Table Database)
+[Problem, solution, schema, impact, evidence]
+
+### Innovation 4: Skills Registry (Command Abstraction)
+[Problem, solution, structure, impact, evidence]
+
+### Innovation 5: Scheduled Execution (Runner Agent)
+[Problem, solution, flow, impact, evidence]
+
+## Technical Debt & Pivots
+
+### Pivot 1: Task Lists → Spreadsheets
+[Trigger, solution, effort, impact, evidence]
+
+### Pivot 2: Schema Corrections
+[Problem, solution, plays affected, evidence]
+
+### Pivot 3: User Segmentation
+[Problem, solution, impact, evidence]
+
+### Pivot 4: Multi-Threading Lens
+[Problem, solution, rewrite scope, evidence]
+
+## Deployment Timeline
+[Chronological milestones with dates and evidence - ALL SANITIZED]
+
+## Technical Metrics
+[Execution performance, quality metrics, token efficiency]
+
+## Schema Evolution
+[CRM query iterations, database schema phases]
+
+## Appendix: Evidence Sources
+[Deployment log entries, database queries, discussion references, Play DNA versions]
+```
+
+---
+
+## SANITIZATION RULES (CRITICAL)
+
+### What to Remove/Replace
+
+**Account Names:**
+- Real: "Snowflake", "Hewlett Packard Enterprise", "Rubrik"
+- Replace: [Account A], [Account B], [Enterprise Customer], [Strategic Account]
+
+**User Names:**
+- Real: "Zach Day", "Jack Avina", "Keegan Cantrell"
+- Replace: [User], [Technical Collaborator A], [Team Member B]
+- Exception: Document author can be named in metadata only
+
+**Company Names:**
+- Real: "ZoomInfo", specific customer names
+- Replace: [Company], [Customer], [Platform Provider]
+
+**Financial Data:**
+- Real: "$2,558,190", "$9,082,040"
+- Replace: "$2.5M", "$9M", or ranges "$500K-$1M", "$1M-$3M"
+
+**System Names:**
+- Real: "PRD_ZI_CHAT.MICROAPP_650_DEV.EAM_RUNS"
+- Replace: "DATABASE.SCHEMA.EAM_RUNS" or generic "execution_logs table"
+
+**URLs:**
+- Real: "https://zi.my.salesforce.com/0011U00000adiqP"
+- Replace: "[CRM_URL]", "[account_url]", "[Internal Link]"
+
+**Dates:**
+- Keep: Month/Year for milestones (Jan 2026, Nov 2024)
+- Remove: Specific dates when tied to customer activity
+- Replace: "Jan 27-28, 2026" → "Late January 2026" when appropriate
+
+### What to Keep
+
+**Technical Details:**
+- Architecture patterns (Phase -1 logic, mode detection)
+- Schema designs (table structures, column types)
+- Code patterns (SQL queries, validation logic)
+- Performance metrics (duration, token counts, quality scores)
+- Version numbers (v1.0, v1.5, v2.0, v3.0)
+- Play counts (17 skills, 4 categories)
+
+**Narrative Elements:**
+- Problem statements (CSM pain points)
+- Design decisions (why we chose X over Y)
+- Learning moments (what worked, what didn't)
+- Impact metrics (time saved, efficiency gains)
+
+---
+
+## NOTES FOR AGENT
+
+- **Voice:** Third-person technical documentation ("Martin v1.0 was built to...")
+- **Tone:** Objective, educational, code-focused — show the work, not just the results
+- **Evidence:** Every technical claim must have code example or schema reference
+- **Code:** Sanitize all examples (remove real IDs, names, URLs, sensitive data)
+- **Gaps:** If version history is unclear, FLAG IT (don't make up dates or features)
+- **Length:** 4-5 pages (2,500-3,500 words) — comprehensive technical narrative
+- **Sanitization:** CRITICAL — no first-party data in final output
+
+---
+
+## END PRD 2
