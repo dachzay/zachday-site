@@ -432,6 +432,108 @@
       line-height: 1.5;
     }
 
+    .page-intro {
+      max-width: 680px;
+      margin: 0 auto 48px;
+    }
+
+    .why-this-matters {
+      font-size: 16px;
+      line-height: 1.7;
+      color: var(--muted);
+      margin: 0;
+    }
+
+    .methodology {
+      max-width: 780px;
+      margin: 0 auto 48px;
+    }
+
+    .section-heading {
+      font-size: 14px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--muted);
+      margin: 0 0 24px;
+    }
+
+    .stage-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .stage {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      padding: 20px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .stage:last-child {
+      border-bottom: none;
+    }
+
+    .stage-number {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--muted);
+      font-family: monospace;
+      min-width: 24px;
+      padding-top: 2px;
+    }
+
+    .stage-name {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+      margin: 0 0 4px;
+    }
+
+    .stage-description {
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--muted);
+      margin: 0;
+    }
+
+    .evidence-section {
+      max-width: 780px;
+      margin: 0 auto 48px;
+    }
+
+    .evidence-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .evidence-list li {
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--muted);
+    }
+
+    .evidence-list li:last-child {
+      border-bottom: none;
+    }
+
+    .connection {
+      max-width: 680px;
+      margin: 0 auto 48px;
+    }
+
+    .connection-text {
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--muted);
+      margin: 0;
+    }
+
     footer {
       margin-top: 64px;
       border-top: 1px solid var(--border);
@@ -488,6 +590,28 @@
         grid-template-columns: 1fr;
       }
     }
+
+    @media (min-width: 721px) {
+      .why-this-matters,
+      .stage-description,
+      .connection-text {
+        display: block;
+        -webkit-line-clamp: unset;
+        -webkit-box-orient: initial;
+        overflow: visible;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .stage {
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .stage-number {
+        min-width: auto;
+      }
+    }
   </style>
 </head>
 
@@ -509,32 +633,78 @@
     </header>
 
     <main>
-      <section class="hero">
-        <h1>Micro-App Factory</h1>
-        <p>A repeatable template for turning small "plays" into shippable UI tools.</p>
-        <p class="meta" style="font-size: 16px; max-width: 60ch;">Why this matters: This artifact shows my preference for small, composable systems over monolithic builds.</p>
+      <section class="page-intro">
+        <p class="why-this-matters">Every automated play in the Martin system started as an unstructured AI conversation. The Micro-App Factory is the methodology for converting those conversations into production-grade systems - versioned, validated, persistent, and repeatable. This page documents how that conversion works and why it matters.</p>
       </section>
 
-      <section class="tldr">
-        <h2>Executive Summary</h2>
-        <ul>
-          <li><strong>Purpose:</strong> Ship single-purpose tools fast.</li>
-          <li><strong>Key sections:</strong> About this project</li>
-          <li><strong>Focus:</strong> Templates, repeatability, and fast iteration.</li>
-        </ul>
-      </section>
-<section class="section">
-        <h2>About this project</h2>
-        <div class="grid">
-          <div style="grid-column: span 12;">
-            <p class="meta" style="font-size: 16px;">
-              A methodology and codebase for rapidly shipping single-purpose utilities.
-            </p>
-            <p class="meta" style="font-size: 16px;">
-              Cuts the cost of starting new projects so experiments ship quickly.
-            </p>
+      <section class="methodology">
+        <h2 class="section-heading">From Conversation to Production</h2>
+        <div class="stage-list">
+          <div class="stage">
+            <span class="stage-number">01</span>
+            <div class="stage-content">
+              <h3 class="stage-name">Raw AI Conversation</h3>
+              <p class="stage-description">An unstructured question to an LLM. "Can you analyze this account's platform usage?" No defined inputs, no expected outputs, no validation. The AI produces something plausible. Sometimes useful. Never reliable.</p>
+            </div>
+          </div>
+          <div class="stage">
+            <span class="stage-number">02</span>
+            <div class="stage-content">
+              <h3 class="stage-name">Structured Prompt</h3>
+              <p class="stage-description">The conversation becomes a specification. Defined inputs (Salesforce account ID), expected outputs (usage metrics by product), specific tool calls (dbt queries with exact table paths). The AI now has constraints. Output quality improves, but execution is still manual and unrepeatable.</p>
+            </div>
+          </div>
+          <div class="stage">
+            <span class="stage-number">03</span>
+            <div class="stage-content">
+              <h3 class="stage-name">Executable DNA</h3>
+              <p class="stage-description">The specification becomes a phased execution plan stored as structured data. Each phase has a tool call, a validation checkpoint, and a defined output. The DNA is version-controlled and readable by both humans and the AI orchestrator. This is where a workflow becomes a system.</p>
+            </div>
+          </div>
+          <div class="stage">
+            <span class="stage-number">04</span>
+            <div class="stage-content">
+              <h3 class="stage-name">Production Deployment</h3>
+              <p class="stage-description">The DNA executes against a real account with real data. The output is logged with a timestamp, quality score, and execution duration. Failures are captured. Edge cases surface. The gap between "works in theory" and "works in production" becomes visible.</p>
+            </div>
+          </div>
+          <div class="stage">
+            <span class="stage-number">05</span>
+            <div class="stage-content">
+              <h3 class="stage-name">Failure, Correction, New Rule</h3>
+              <p class="stage-description">Production exposes what testing cannot. A schema changes and queries break. An engagement score is estimated instead of computed. A contact email is inferred instead of verified. Each failure becomes a validation rule - a permanent constraint that prevents the same error from recurring. The system gets stricter with every deployment.</p>
+            </div>
+          </div>
+          <div class="stage">
+            <span class="stage-number">06</span>
+            <div class="stage-content">
+              <h3 class="stage-name">Versioned and Persistent</h3>
+              <p class="stage-description">The corrected DNA is versioned (v1.0, v1.1, v2.0). Execution history persists to Snowflake. Learnings are documented in the deployment log. The play now has a lineage - every version traceable to the failure that prompted it. Intelligence compounds across sessions instead of resetting to zero.</p>
+            </div>
+          </div>
+          <div class="stage">
+            <span class="stage-number">07</span>
+            <div class="stage-content">
+              <h3 class="stage-name">Repeatable</h3>
+              <p class="stage-description">The methodology applies again. A new question becomes a new conversation becomes a new DNA becomes a new production system. Each iteration is faster than the last because the infrastructure (memory core, validation framework, logging pipeline) already exists. The factory produces the next system, not just the first one.</p>
+            </div>
           </div>
         </div>
+      </section>
+
+      <section class="evidence-section">
+        <h2 class="section-heading">Production Evidence</h2>
+        <ul class="evidence-list">
+          <li>17 systems built using this methodology. 9 single-account plays (User Analysis, Platform Usage, Risk Mitigation, Expansion Planning, Intelligence Gaps, Value Framework, Multi-Threading, Champion Cultivation, Enterprise Account Framework), 5 portfolio plays (Portfolio Access, Renewal Pipeline, Low Usage Finder, Play Planner, Bulk Credit Monitor), 2 synthesis patterns (Renewal Prep, QBR Prep), and 1 utility (Meeting Follow Up). Each one started as a conversation.</li>
+          <li>User Analysis progressed from v1.0 (a single query with no validation) to v2.6 (provisioning-filtered, schema-corrected, 8-archetype classification framework) through 12 production deployments over 4 months. Platform Usage progressed through 13 versions. Enterprise Account Framework reached v1.5.0 with 22 API calls per execution and 3-source contact verification.</li>
+          <li>The validation framework grew from 0 rules to 20 enforceable rules across 3 severity tiers. Every rule traces to a specific production failure. STEP_9B (provisioning filter enforcement) exists because usage data was inflated 40-70% without it. CONTACT_SOURCE_VALIDATION exists because the system fabricated contact emails. EMAIL_INFERENCE_PROHIBITION exists because pattern-generated emails passed initial checks but were not verified.</li>
+          <li>The infrastructure that manages all 17 systems - the Memory Core - contains 13 sheets across 4 intelligence layers, 4 Snowflake tables for cross-session persistence, and a skills registry that maps natural language commands to executable DNA. The factory does not just produce systems. It produces the management layer for those systems.</li>
+        </ul>
+      </section>
+
+      <section class="connection">
+        <h2 class="section-heading">Martin Is the Proof</h2>
+        <p class="connection-text">Martin is not one product. It is 17 products managed by a single orchestration layer, built over 5 months using the methodology described above. The Memory Core is the persistent infrastructure. The validation framework is the quality guarantee. The version history is the evidence of iteration. The Micro-App Factory is the process that produced all of it - and the process that will produce whatever comes next.</p>
       </section>
     </main>
 

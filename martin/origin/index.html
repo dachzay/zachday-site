@@ -547,6 +547,8 @@
                     <li>Operational drag: 10+ hours per week spent on manual aggregation</li>
                     <li>Risk lag: key issues detected weeks later in reactive workflows</li>
                     <li>Outcome target: earlier signal detection and more strategic CSM time</li>
+                    <li>The first play (Champion Development v1.0, October 2025) was a single unstructured AI conversation that produced a usage report. It had no validation rules, no versioning, no persistent memory, and no quality scoring. Within 4 months, that same play evolved into User Analysis v2.6 - provisioning-filtered, schema-validated, 8-archetype classified, with 6 enforceable validation checkpoints. The distance between v1.0 and v2.6 is the distance between an AI experiment and a production system.</li>
+                    <li>The decision to store play logic as structured DNA (rather than prompt templates) was made after the third deployment failed due to schema drift. Prompts are fragile - they break silently when underlying data changes. DNA is auditable - each phase has a defined tool call, a validation checkpoint, and a versioned output spec. That architectural decision enabled everything that followed: the Memory Core, the validation framework, the subagent architecture, and the ability to audit and correct 16 issues across 13 sheets in a single pass.</li>
                 </ul>
             </section>
 <section class="section">
