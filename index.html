@@ -284,6 +284,51 @@
       color: var(--text);
     }
 
+    .positioning {
+      max-width: 680px;
+      margin: 0 auto 48px;
+      padding: 0 24px;
+    }
+
+    .positioning-text {
+      font-size: 16px;
+      line-height: 1.7;
+      color: var(--muted);
+      font-weight: 400;
+      margin: 0;
+    }
+
+    .impact-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      max-width: 900px;
+      margin: 0 auto 64px;
+      padding: 0 24px;
+    }
+
+    .impact-item {
+      text-align: center;
+    }
+
+    .impact-value {
+      display: block;
+      font-size: 36px;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.5px;
+    }
+
+    .impact-label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
     .meta {
       color: var(--muted);
       font-size: 14px;
@@ -358,6 +403,95 @@
     .pill.active {
       background: rgba(255, 255, 255, 0.08);
       border-color: var(--muted);
+    }
+
+    .other-work {
+      margin-top: 48px;
+      grid-column: span 12;
+    }
+
+    .other-work-heading {
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    .other-work-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .card.compact {
+      grid-column: span 1;
+      padding: 18px;
+    }
+
+    .card.compact .pillrow,
+    .card.compact .card-cta {
+      display: none;
+    }
+
+    .philosophy {
+      max-width: 900px;
+      margin: 80px auto 0;
+      padding: 0 24px;
+    }
+
+    .philosophy-heading {
+      font-size: 14px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--muted);
+      margin-bottom: 32px;
+    }
+
+    .philosophy-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 32px;
+    }
+
+    .philosophy-principle {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text);
+      margin: 0 0 8px;
+    }
+
+    .philosophy-description {
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--muted);
+      margin: 0;
+    }
+
+    .contact {
+      max-width: 680px;
+      margin: 80px auto 48px;
+      padding: 0 24px;
+      text-align: center;
+    }
+
+    .contact-text {
+      font-size: 14px;
+      color: var(--muted);
+      margin: 0;
+    }
+
+    .contact-text a {
+      color: var(--text);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s;
+    }
+
+    .contact-text a:hover {
+      border-bottom-color: var(--text);
     }
 
     .card a,
@@ -488,6 +622,21 @@
         grid-template-columns: 1fr;
       }
     }
+
+    @media (max-width: 600px) {
+      .impact-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+      }
+
+      .other-work-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .philosophy-grid {
+        grid-template-columns: 1fr;
+      }
+    }
   </style>
 </head>
 
@@ -500,7 +649,6 @@
       </a>
       <nav>
         <a href="#projects">Projects</a>
-        <a href="#writing">Writing</a>
         <a href="#about">About</a>
         <a href="#contact">Contact</a>
       </nav>
@@ -516,11 +664,34 @@
         </div>
       </section>
 
+      <section class="positioning">
+        <p class="positioning-text">Senior Customer Success Manager at ZoomInfo. I build systems that turn data into decisions - AI co-pilots, automated playbooks, and intelligence frameworks that run a $10M+ enterprise portfolio. This site is the evidence.</p>
+      </section>
+
+      <section class="impact-grid" aria-label="Impact metrics">
+        <div class="impact-item">
+          <span class="impact-value">17</span>
+          <span class="impact-label">Automated Plays</span>
+        </div>
+        <div class="impact-item">
+          <span class="impact-value">$10.6M</span>
+          <span class="impact-label">Portfolio Under Management</span>
+        </div>
+        <div class="impact-item">
+          <span class="impact-value">50+</span>
+          <span class="impact-label">Production Deployments</span>
+        </div>
+        <div class="impact-item">
+          <span class="impact-value">v3.0</span>
+          <span class="impact-label">Current System Version</span>
+        </div>
+      </section>
+
       <section class="tldr">
         <h2>Executive Summary</h2>
         <ul>
           <li><strong>Purpose:</strong> Build practical AI systems for real work.</li>
-          <li><strong>Key sections:</strong> Projects, Writing, About</li>
+          <li><strong>Key sections:</strong> Projects, About, Contact</li>
           <li><strong>Focus:</strong> High-leverage systems with clear outcomes.</li>
         </ul>
       </section>
@@ -528,7 +699,7 @@
 <section id="projects" class="section">
         <h2>Featured projects</h2>
         <div class="grid">
-          <a href="./martin/index.html" class="card">
+          <a href="./martin/index.html" class="card" style="grid-column: span 12;">
             <h3>Martin</h3>
             <p class="meta">
               An execution layer that turns intent into repeatable action.
@@ -541,52 +712,47 @@
             </div>
           </a>
 
-          <a href="./micro-app-factory/index.html" class="card">
-            <h3>Micro-App Factory</h3>
-            <p class="meta">A repeatable template for turning small "plays" into shippable UI tools.</p>
-            <span class="card-cta">See the template</span>
-            <div class="pillrow">
-              <span class="pill">UI</span>
-              <span class="pill">Templates</span>
-              <span class="pill">Shipping</span>
-            </div>
-          </a>
+          <div class="other-work">
+            <h3 class="other-work-heading">Other Work</h3>
+            <div class="other-work-grid">
+              <a href="./micro-app-factory/index.html" class="card compact">
+                <h3>Micro-App Factory</h3>
+                <p class="meta">Template system for small, shippable UI tools.</p>
+              </a>
 
-          <a href="./signal-engine/index.html" class="card">
-            <h3>Signal Engine (Mock Data)</h3>
-            <p class="meta">A demo pipeline that converts events into health signals.</p>
-            <span class="card-cta">Explore -></span>
-            <div class="pillrow">
-              <span class="pill">Analytics</span>
-              <span class="pill">Scoring</span>
-              <span class="pill">Playbooks</span>
-            </div>
-          </a>
+              <a href="./signal-engine/index.html" class="card compact">
+                <h3>Signal Engine</h3>
+                <p class="meta">Pipeline for converting events into health signals.</p>
+              </a>
 
-          <a href="./personal-os/index.html" class="card">
-            <h3>Personal OS: Notes -> Actions</h3>
-            <p class="meta">My system for turning messy ideas into weekly execution and feedback loops.</p>
-            <span class="card-cta">Read the system</span>
-            <div class="pillrow">
-              <span class="pill">Process</span>
-              <span class="pill">Ops</span>
-              <span class="pill">Leverage</span>
+              <a href="./personal-os/index.html" class="card compact">
+                <h3>Personal OS</h3>
+                <p class="meta">Weekly operating loop for turning ideas into execution.</p>
+              </a>
             </div>
-          </a>
+          </div>
         </div>
       </section>
 
-      <section id="writing" class="section">
-        <h2>Live Feed</h2>
-        <div class="grid">
-          <article class="card" style="grid-column: span 12;">
-            <h3>Latest on X</h3>
-            <p class="meta">Live feed from @dachzay.</p>
-            <a class="twitter-timeline" data-theme="dark" data-chrome="noheader nofooter noborders transparent" data-height="520" data-tweet-limit="1" href="https://twitter.com/dachzay?ref_src=twsrc%5Etfw">Tweets by dachzay</a>
-            <noscript>
-              <p class="meta">Enable JavaScript to view the live feed.</p>
-            </noscript>
-          </article>
+      <section class="philosophy">
+        <h2 class="philosophy-heading">How I Work</h2>
+        <div class="philosophy-grid">
+          <div class="philosophy-item">
+            <h4 class="philosophy-principle">Context Before Action</h4>
+            <p class="philosophy-description">Every account interaction starts with data - health, usage, renewal proximity, stakeholder map. The 2-minute investment in context changes the entire quality of the output. Nothing is one-size-fits-all.</p>
+          </div>
+          <div class="philosophy-item">
+            <h4 class="philosophy-principle">Infrastructure Over Hustle</h4>
+            <p class="philosophy-description">Speed comes from systems, not more hours. Compounding intelligence - automated plays, persistent memory, cached portfolio data - replaces manual research with machine-speed analysis.</p>
+          </div>
+          <div class="philosophy-item">
+            <h4 class="philosophy-principle">Expansion Is the Game</h4>
+            <p class="philosophy-description">Retention is table stakes. The real scoreboard is growth. Every account analysis includes white space identification: who is missing from the conversation, who can open doors, what product solves a problem they have not articulated yet.</p>
+          </div>
+          <div class="philosophy-item">
+            <h4 class="philosophy-principle">Validate Everything</h4>
+            <p class="philosophy-description">No hallucinated data. No estimated scores presented as facts. Every number traces to a query, every contact traces to a source, every recommendation traces to evidence. If the data does not support the claim, the claim does not ship.</p>
+          </div>
         </div>
       </section>
 
@@ -603,13 +769,8 @@
         </div>
       </section>
 
-      <section id="contact" class="section">
-        <h2>Contact</h2>
-        <div class="grid">
-          <article class="card" style="grid-column: span 12;">
-            <p class="meta">Email: <a href="mailto:you@domain.com">you@domain.com</a> - GitHub - LinkedIn</p>
-          </article>
-        </div>
+      <section id="contact" class="contact">
+        <p class="contact-text"><a href="mailto:zach.day@zoominfo.com">zach.day@zoominfo.com</a> / <a href="https://linkedin.com/in/dachzay" target="_blank" rel="noopener noreferrer">linkedin.com/in/dachzay</a> / <a href="https://x.com/dachzay" target="_blank" rel="noopener noreferrer">@dachzay</a></p>
       </section>
     </main>
 
@@ -619,7 +780,6 @@
     </footer>
   </div>
 
-  <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
     const header = document.querySelector("header");
@@ -632,3 +792,4 @@
 </body>
 
 </html>
+

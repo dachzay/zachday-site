@@ -432,6 +432,61 @@
       line-height: 1.5;
     }
 
+    .reading-order {
+      margin-top: 32px;
+      padding: 16px 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .reading-order-text {
+      font-size: 13px;
+      color: var(--muted);
+      font-style: italic;
+      margin: 0;
+    }
+
+    .version-timeline {
+      margin-top: 40px;
+    }
+
+    .timeline-heading {
+      font-size: 14px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    .timeline-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .timeline-list li {
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .timeline-version {
+      font-weight: 700;
+      color: var(--text);
+      margin-right: 12px;
+      font-family: Consolas, "Courier New", monospace;
+    }
+
+    .timeline-date {
+      color: var(--muted);
+      margin-right: 12px;
+    }
+
+    .timeline-note {
+      color: var(--muted);
+    }
+
     footer {
       margin-top: 64px;
       border-top: 1px solid var(--border);
@@ -503,7 +558,6 @@
       <nav>
         <a class="back-home" href="../index.html">Back to Home</a>
         <a href="../index.html#projects">Projects</a>
-        <a href="../index.html#writing">Writing</a>
         <a href="../index.html#about">About</a>
         <a href="../index.html#contact">Contact</a>
       </nav>
@@ -552,6 +606,19 @@
               <li><a href="./standards/index.html">Standards</a>: constraints that keep outputs reliable</li>
             </ul>
           </div>
+        </div>
+        <div class="reading-order">
+          <p class="reading-order-text">This project is best understood in sequence: Origin, System, Plays, Innovations, Metrics, Standards. Each section builds on the last.</p>
+        </div>
+        <div class="version-timeline">
+          <h3 class="timeline-heading">Version History</h3>
+          <ul class="timeline-list">
+            <li><span class="timeline-version">v3.0</span><span class="timeline-date">Feb 2026</span><span class="timeline-note">Dual-mode architecture (/plan + /act), Snowflake persistence, operator profiles, skills registry</span></li>
+            <li><span class="timeline-version">v2.0</span><span class="timeline-date">Jan 2026</span><span class="timeline-note">Google Sheets memory core, portfolio cache, 8 single-account plays validated</span></li>
+            <li><span class="timeline-version">v1.8</span><span class="timeline-date">Dec 2025</span><span class="timeline-note">Multi-user architecture, dual logging, smart load experience</span></li>
+            <li><span class="timeline-version">v1.5</span><span class="timeline-date">Nov 2025</span><span class="timeline-note">Enterprise Account Framework, contact verification, zero-hallucination guarantees</span></li>
+            <li><span class="timeline-version">v1.0</span><span class="timeline-date">Oct 2025</span><span class="timeline-note">Initial system - 5 plays, Google Tasks memory, single-user</span></li>
+          </ul>
         </div>
       </section>
 
@@ -635,3 +702,4 @@
 </body>
 
 </html>
+
