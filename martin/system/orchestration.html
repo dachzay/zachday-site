@@ -568,8 +568,22 @@
     };
     toggleHeader();
     window.addEventListener("scroll", toggleHeader, { passive: true });
+    const dots = document.querySelectorAll(".dot");
+    const setPresenceDot = () => {
+      const online = navigator.onLine;
+      dots.forEach((dot) => {
+        dot.style.background = online ? "var(--accent)" : "#ef4444";
+        dot.style.boxShadow = online ? "0 0 10px rgba(16, 185, 129, 0.6)" : "0 0 10px rgba(239, 68, 68, 0.6)";
+        dot.title = online ? "Online" : "Offline";
+      });
+    };
+    setPresenceDot();
+    window.addEventListener("online", setPresenceDot);
+    window.addEventListener("offline", setPresenceDot);
     </script>
 </body>
 
 </html>
+
+
 
