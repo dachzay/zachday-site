@@ -7,20 +7,19 @@
   
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <title>Micro-App Factory — Zach Day</title>
+  <link href="https://fonts.googleapis.com/css2...family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <title>Micro-App Factory - Zach Day</title>
   <meta name="description" content="A repeatable template for turning small plays into shippable UI tools." />
   <style>
     :root {
       --bg: #0a0a0a;
       --panel: #161616;
       --text: #e8eaf0;
-      --muted: #999999;
-      --border: #262626;
-      --link: #ffffff;
+      --muted: #a0a0a0;
+      --border: #2a2a2a;
       --accent: #10b981;
-      --shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-      --radius: 8px;
+      --shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+      --radius: 12px;
     }
 
     html {
@@ -34,16 +33,19 @@
     body {
       margin: 0;
       font-family: "Inter", "SF Pro Text", "Segoe UI", system-ui, -apple-system, sans-serif;
-      background: radial-gradient(1200px 600px at 20% -10%, rgba(16, 185, 129, 0.12), transparent 60%), radial-gradient(900px 500px at 85% 0%, rgba(59, 130, 246, 0.12), transparent 60%), var(--bg);
+      background: radial-gradient(900px 520px at 15% -10%, rgba(16, 185, 129, 0.14), transparent 60%),
+        radial-gradient(700px 420px at 90% 0%, rgba(255, 255, 255, 0.06), transparent 65%),
+        var(--bg);
       color: var(--text);
       line-height: 1.5;
     }
 
     .container {
-      width: min(800px, 92vw);
+      width: min(980px, 92vw);
       margin: 0 auto;
       padding: 48px 0 96px;
     }
+
     header {
       position: sticky;
       top: 0;
@@ -51,10 +53,16 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 16px 0 24px;
+      padding: 16px 0 20px;
       background: rgba(10, 10, 10, 0.72);
       backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    header.scrolled {
+      border-color: var(--border);
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.5);
     }
 
     .brand {
@@ -71,8 +79,23 @@
       width: 8px;
       height: 8px;
       border-radius: 999px;
-      background: #10b981;
+      background: var(--accent);
+      box-shadow: 0 0 10px rgba(16, 185, 129, 0.6);
+      animation: pulse 2.4s ease-in-out infinite;
     }
+
+    @keyframes pulse {
+      0%,
+      100% {
+        transform: scale(1);
+        opacity: 0.7;
+      }
+      50% {
+        transform: scale(1.6);
+        opacity: 1;
+      }
+    }
+
     nav a {
       color: var(--muted);
       text-decoration: none;
@@ -83,33 +106,62 @@
       border-bottom: 1px solid transparent;
       padding-bottom: 2px;
     }
+
     nav a:hover {
       color: var(--text);
       border-color: var(--text);
     }
+
+    a {
+      color: var(--text);
+      text-decoration-color: var(--border);
+    }
+
+    a:hover {
+      color: var(--text);
+      text-decoration-color: var(--text);
+    }
+
+    .back-home {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-size: 12px;
+      text-decoration: none;
+      margin-right: 12px;
+    }
+
+    .back-home:hover {
+      border-color: var(--muted);
+    }
+
     a:focus-visible,
     button:focus-visible,
     .btn:focus-visible,
     .pill:focus-visible,
-    .card:focus-visible {
+    .card:focus-visible,
+    .back-home:focus-visible {
       outline: 2px solid var(--accent);
       outline-offset: 2px;
     }
 
     .hero {
       margin-top: 0;
-      padding: 0;
-      background: transparent;
+      padding: 32px 0 48px;
+      background: radial-gradient(ellipse 80% 55% at 50% 0%, rgba(22, 22, 22, 0.6), transparent 70%);
       border: none;
       box-shadow: none;
-      backdrop-filter: none;
     }
 
     .hero h1 {
       margin: 0 0 16px;
-      font-size: clamp(32px, 5vw, 48px);
-      line-height: 1.1;
-      letter-spacing: -0.8px;
+      font-size: clamp(36px, 5vw, 56px);
+      line-height: 1.05;
+      letter-spacing: -1px;
       font-weight: 700;
       color: var(--text);
     }
@@ -122,13 +174,59 @@
       line-height: 1.6;
     }
 
+    .cta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-top: 0;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 20px;
+      border-radius: 10px;
+      border: 1px solid transparent;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 14px;
+      transition: all 0.15s;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn.primary {
+      background: #ffffff;
+      color: #000000;
+      border-color: #ffffff;
+    }
+
+    .btn.primary:hover {
+      background: #e5e5e5;
+      border-color: #e5e5e5;
+    }
+
+    .btn.secondary {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .btn.secondary:hover {
+      border-color: var(--muted);
+      background: rgba(255, 255, 255, 0.03);
+    }
+
     .section {
-      margin-top: 26px;
+      margin-top: 56px;
     }
 
     .section h2 {
       margin: 0 0 24px;
-      font-size: 14px;
+      font-size: 13px;
       text-transform: uppercase;
       letter-spacing: 1px;
       font-weight: 600;
@@ -141,6 +239,51 @@
       gap: 24px;
     }
 
+    .card {
+      grid-column: span 6;
+      display: block;
+      text-decoration: none;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: none;
+      padding: 24px;
+      transition: border-color 0.2s, background 0.2s, transform 0.2s, box-shadow 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::after {
+      content: "";
+      position: absolute;
+      inset: -120% -60% auto -60%;
+      height: 220%;
+      background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.12) 50%, transparent 70%);
+      transform: translateX(-40%);
+      opacity: 0;
+      transition: transform 0.7s ease, opacity 0.2s ease;
+      pointer-events: none;
+    }
+
+    .card:hover {
+      border-color: #3a3a3a;
+      background: rgba(255, 255, 255, 0.02);
+      transform: translateY(-4px);
+      box-shadow: var(--shadow);
+    }
+
+    .card:hover::after {
+      opacity: 1;
+      transform: translateX(40%);
+    }
+
+    .card h3 {
+      margin: 0 0 8px;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
     .meta {
       color: var(--muted);
       font-size: 14px;
@@ -148,18 +291,29 @@
       line-height: 1.5;
     }
 
+    @media (min-width: 721px) {
+      .meta,
+      .hero p,
+      main p {
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+    }
+
     .tldr {
       margin: 24px 0 40px;
       padding: 20px 22px;
-      border-radius: 10px;
+      border-radius: var(--radius);
       border: 1px solid var(--border);
-      background: linear-gradient(180deg, rgba(22, 22, 22, 0.9), rgba(16, 16, 16, 0.6));
+      background: linear-gradient(180deg, rgba(22, 22, 22, 0.92), rgba(16, 16, 16, 0.7));
       box-shadow: var(--shadow);
     }
 
     .tldr h2 {
       margin: 0 0 12px;
-      font-size: 13px;
+      font-size: 12px;
       text-transform: uppercase;
       letter-spacing: 1px;
       font-weight: 600;
@@ -177,6 +331,107 @@
       margin-bottom: 8px;
     }
 
+    .pillrow,
+    .subnav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    .pill {
+      font-size: 12px;
+      color: var(--text);
+      border: 1px solid var(--border);
+      background: transparent;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-weight: 500;
+      text-decoration: none;
+      transition: border-color 0.15s ease, background 0.15s ease;
+    }
+
+    .pill:hover {
+      border-color: var(--muted);
+    }
+
+    .pill.active {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: var(--muted);
+    }
+
+    .card a,
+    .card .card-cta {
+      color: var(--text);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+      text-decoration-color: var(--border);
+      font-weight: 500;
+      font-size: 14px;
+      transition: text-decoration-color 0.15s;
+    }
+
+    .card a:hover,
+    .card:hover .card-cta {
+      text-decoration-color: var(--text);
+    }
+
+    .outcomes-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .outcome-card {
+      padding: 20px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .outcome-value {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .outcome-label {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+
+    .card-link {
+      display: block;
+      text-decoration: none;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      transition: border-color 0.15s, transform 0.15s;
+      margin-bottom: 16px;
+      background: rgba(255, 255, 255, 0.01);
+    }
+
+    .card-link:hover {
+      border-color: var(--muted);
+      transform: translateY(-2px);
+    }
+
+    .card-link h3 {
+      margin: 0 0 8px;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .card-link p {
+      margin: 0;
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
     footer {
       margin-top: 64px;
       border-top: 1px solid var(--border);
@@ -187,8 +442,11 @@
       justify-content: space-between;
       gap: 16px;
       flex-wrap: wrap;
+    }
 
-}
+    footer span {
+      opacity: 0.7;
+    }
 
     @media (prefers-reduced-motion: reduce) {
       html {
@@ -200,6 +458,13 @@
         transition: none !important;
       }
     }
+
+    @media (max-width: 900px) {
+      nav a {
+        margin-left: 14px;
+      }
+    }
+
     @media (max-width: 720px) {
       .card {
         grid-column: span 12;
@@ -209,12 +474,18 @@
         padding: 24px 0 64px;
       }
 
-      nav a {
-        margin-left: 16px;
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
       }
 
       .hero {
         padding: 24px 0 32px;
+      }
+
+      .outcomes-grid {
+        grid-template-columns: 1fr;
       }
     }
   </style>
@@ -230,6 +501,7 @@
         </div>
       </a>
       <nav>
+        <a class="back-home" href="../index.html">Back to Home</a>
         <a href="../index.html#projects">Projects</a>
         <a href="../index.html#writing">Writing</a>
         <a href="../index.html#about">About</a>
@@ -240,15 +512,15 @@
     <main>
       <section class="hero">
         <h1>Micro-App Factory</h1>
-        <p>A repeatable template for turning small “plays” into shippable UI tools.</p>
+        <p>A repeatable template for turning small "plays" into shippable UI tools.</p>
       </section>
 
       <section class="tldr">
         <h2>Executive Summary</h2>
         <ul>
-          <li><strong>Purpose:</strong> Micro-App Factory</li>
+          <li><strong>Purpose:</strong> Ship single-purpose tools fast.</li>
           <li><strong>Key sections:</strong> About this project</li>
-          <li><strong>Focus:</strong> A repeatable template for turning small plays into shippable UI tools.</li>
+          <li><strong>Focus:</strong> Templates, repeatability, and fast iteration.</li>
         </ul>
       </section>
 <section class="section">
@@ -256,12 +528,10 @@
         <div class="grid">
           <div style="grid-column: span 12;">
             <p class="meta" style="font-size: 16px;">
-              The Micro-App Factory is a methodology and codebase for rapidly deploying single-purpose utilities. 
-              Instead of building a monolithic application, this approach favors small, independent tools that do one thing well.
+              A methodology and codebase for rapidly shipping single-purpose utilities.
             </p>
             <p class="meta" style="font-size: 16px;">
-              This system reduces the overhead of "starting a new project" to near zero, allowing for experimentation and 
-              quick iteration on ideas that might otherwise remain in the backlog.
+              Cuts the cost of starting new projects so experiments ship quickly.
             </p>
           </div>
         </div>
@@ -269,14 +539,21 @@
     </main>
 
     <footer>
-      <span>© <span id="year"></span> Zach Day</span>
-      <span>Built from scratch · Iterated in public</span>
+      <span>(c) <span id="year"></span> Zach Day</span>
+      <span>Built from scratch - Iterated in public</span>
     </footer>
   </div>
 
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
+    const header = document.querySelector("header");
+    const toggleHeader = () => {
+      header.classList.toggle("scrolled", window.scrollY > 8);
+    };
+    toggleHeader();
+    window.addEventListener("scroll", toggleHeader, { passive: true });
   </script>
 </body>
 
 </html>
+

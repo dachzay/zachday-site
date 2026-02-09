@@ -7,20 +7,19 @@
   
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <title>Zach — Personal Projects</title>
+  <link href="https://fonts.googleapis.com/css2...family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <title>Zach Day - Personal Projects</title>
   <meta name="description" content="Zach's personal site: projects, writing, and experiments." />
   <style>
     :root {
       --bg: #0a0a0a;
       --panel: #161616;
       --text: #e8eaf0;
-      --muted: #999999;
-      --border: #262626;
-      --link: #ffffff;
+      --muted: #a0a0a0;
+      --border: #2a2a2a;
       --accent: #10b981;
-      --shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-      --radius: 8px;
+      --shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+      --radius: 12px;
     }
 
     html {
@@ -34,16 +33,19 @@
     body {
       margin: 0;
       font-family: "Inter", "SF Pro Text", "Segoe UI", system-ui, -apple-system, sans-serif;
-      background: radial-gradient(1200px 600px at 20% -10%, rgba(16, 185, 129, 0.12), transparent 60%), radial-gradient(900px 500px at 85% 0%, rgba(59, 130, 246, 0.12), transparent 60%), var(--bg);
+      background: radial-gradient(900px 520px at 15% -10%, rgba(16, 185, 129, 0.14), transparent 60%),
+        radial-gradient(700px 420px at 90% 0%, rgba(255, 255, 255, 0.06), transparent 65%),
+        var(--bg);
       color: var(--text);
       line-height: 1.5;
     }
 
     .container {
-      width: min(800px, 92vw);
+      width: min(980px, 92vw);
       margin: 0 auto;
       padding: 48px 0 96px;
     }
+
     header {
       position: sticky;
       top: 0;
@@ -51,10 +53,16 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 16px 0 24px;
+      padding: 16px 0 20px;
       background: rgba(10, 10, 10, 0.72);
       backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    header.scrolled {
+      border-color: var(--border);
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.5);
     }
 
     .brand {
@@ -71,8 +79,23 @@
       width: 8px;
       height: 8px;
       border-radius: 999px;
-      background: #10b981;
+      background: var(--accent);
+      box-shadow: 0 0 10px rgba(16, 185, 129, 0.6);
+      animation: pulse 2.4s ease-in-out infinite;
     }
+
+    @keyframes pulse {
+      0%,
+      100% {
+        transform: scale(1);
+        opacity: 0.7;
+      }
+      50% {
+        transform: scale(1.6);
+        opacity: 1;
+      }
+    }
+
     nav a {
       color: var(--muted);
       text-decoration: none;
@@ -83,15 +106,45 @@
       border-bottom: 1px solid transparent;
       padding-bottom: 2px;
     }
+
     nav a:hover {
       color: var(--text);
       border-color: var(--text);
     }
+
+    a {
+      color: var(--text);
+      text-decoration-color: var(--border);
+    }
+
+    a:hover {
+      color: var(--text);
+      text-decoration-color: var(--text);
+    }
+
+    .back-home {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-size: 12px;
+      text-decoration: none;
+      margin-right: 12px;
+    }
+
+    .back-home:hover {
+      border-color: var(--muted);
+    }
+
     a:focus-visible,
     button:focus-visible,
     .btn:focus-visible,
     .pill:focus-visible,
-    .card:focus-visible {
+    .card:focus-visible,
+    .back-home:focus-visible {
       outline: 2px solid var(--accent);
       outline-offset: 2px;
     }
@@ -99,17 +152,16 @@
     .hero {
       margin-top: 0;
       padding: 32px 0 48px;
-      background: radial-gradient(ellipse 100% 60% at 50% 0%, rgba(22, 22, 22, 0.5), transparent 70%);
+      background: radial-gradient(ellipse 80% 55% at 50% 0%, rgba(22, 22, 22, 0.6), transparent 70%);
       border: none;
       box-shadow: none;
-      backdrop-filter: none;
     }
 
     .hero h1 {
       margin: 0 0 16px;
-      font-size: clamp(32px, 5vw, 48px);
-      line-height: 1.1;
-      letter-spacing: -0.8px;
+      font-size: clamp(36px, 5vw, 56px);
+      line-height: 1.05;
+      letter-spacing: -1px;
       font-weight: 700;
       color: var(--text);
     }
@@ -134,7 +186,7 @@
       align-items: center;
       gap: 8px;
       padding: 12px 20px;
-      border-radius: 8px;
+      border-radius: 10px;
       border: 1px solid transparent;
       text-decoration: none;
       font-weight: 500;
@@ -174,7 +226,7 @@
 
     .section h2 {
       margin: 0 0 24px;
-      font-size: 14px;
+      font-size: 13px;
       text-transform: uppercase;
       letter-spacing: 1px;
       font-weight: 600;
@@ -186,23 +238,43 @@
       grid-template-columns: repeat(12, 1fr);
       gap: 24px;
     }
+
     .card {
       grid-column: span 6;
       display: block;
       text-decoration: none;
-      padding: 0;
-      background: transparent;
+      background: var(--panel);
       border: 1px solid var(--border);
       border-radius: var(--radius);
       box-shadow: none;
       padding: 24px;
-      transition: border-color 0.15s, background 0.15s, transform 0.2s, box-shadow 0.2s;
+      transition: border-color 0.2s, background 0.2s, transform 0.2s, box-shadow 0.2s;
+      position: relative;
+      overflow: hidden;
     }
+
+    .card::after {
+      content: "";
+      position: absolute;
+      inset: -120% -60% auto -60%;
+      height: 220%;
+      background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.12) 50%, transparent 70%);
+      transform: translateX(-40%);
+      opacity: 0;
+      transition: transform 0.7s ease, opacity 0.2s ease;
+      pointer-events: none;
+    }
+
     .card:hover {
-      border-color: var(--muted);
+      border-color: #3a3a3a;
       background: rgba(255, 255, 255, 0.02);
-      transform: translateY(-2px);
+      transform: translateY(-4px);
       box-shadow: var(--shadow);
+    }
+
+    .card:hover::after {
+      opacity: 1;
+      transform: translateX(40%);
     }
 
     .card h3 {
@@ -219,18 +291,29 @@
       line-height: 1.5;
     }
 
+    @media (min-width: 721px) {
+      .meta,
+      .hero p,
+      main p {
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+    }
+
     .tldr {
       margin: 24px 0 40px;
       padding: 20px 22px;
-      border-radius: 10px;
+      border-radius: var(--radius);
       border: 1px solid var(--border);
-      background: linear-gradient(180deg, rgba(22, 22, 22, 0.9), rgba(16, 16, 16, 0.6));
+      background: linear-gradient(180deg, rgba(22, 22, 22, 0.92), rgba(16, 16, 16, 0.7));
       box-shadow: var(--shadow);
     }
 
     .tldr h2 {
       margin: 0 0 12px;
-      font-size: 13px;
+      font-size: 12px;
       text-transform: uppercase;
       letter-spacing: 1px;
       font-weight: 600;
@@ -248,11 +331,12 @@
       margin-bottom: 8px;
     }
 
-    .pillrow {
+    .pillrow,
+    .subnav {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
-      margin-top: 24px;
+      margin-top: 16px;
     }
 
     .pill {
@@ -261,8 +345,19 @@
       border: 1px solid var(--border);
       background: transparent;
       padding: 4px 10px;
-      border-radius: 4px;
+      border-radius: 999px;
       font-weight: 500;
+      text-decoration: none;
+      transition: border-color 0.15s ease, background 0.15s ease;
+    }
+
+    .pill:hover {
+      border-color: var(--muted);
+    }
+
+    .pill.active {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: var(--muted);
     }
 
     .card a,
@@ -281,6 +376,62 @@
       text-decoration-color: var(--text);
     }
 
+    .outcomes-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .outcome-card {
+      padding: 20px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .outcome-value {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .outcome-label {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+
+    .card-link {
+      display: block;
+      text-decoration: none;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      transition: border-color 0.15s, transform 0.15s;
+      margin-bottom: 16px;
+      background: rgba(255, 255, 255, 0.01);
+    }
+
+    .card-link:hover {
+      border-color: var(--muted);
+      transform: translateY(-2px);
+    }
+
+    .card-link h3 {
+      margin: 0 0 8px;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .card-link p {
+      margin: 0;
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
     footer {
       margin-top: 64px;
       border-top: 1px solid var(--border);
@@ -292,6 +443,7 @@
       gap: 16px;
       flex-wrap: wrap;
     }
+
     footer span {
       opacity: 0.7;
     }
@@ -306,6 +458,13 @@
         transition: none !important;
       }
     }
+
+    @media (max-width: 900px) {
+      nav a {
+        margin-left: 14px;
+      }
+    }
+
     @media (max-width: 720px) {
       .card {
         grid-column: span 12;
@@ -315,12 +474,18 @@
         padding: 24px 0 64px;
       }
 
-      nav a {
-        margin-left: 16px;
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
       }
 
       .hero {
         padding: 24px 0 32px;
+      }
+
+      .outcomes-grid {
+        grid-template-columns: 1fr;
       }
     }
   </style>
@@ -344,18 +509,19 @@
     <main>
       <section class="hero">
         <h1>I build practical AI systems for everyday people.</h1>
-        <p>Projects, experiments, and write-ups—tangible and easy to explore.</p>
+        <p>Projects, experiments, and write-ups-tangible and easy to explore.</p>
+        <p>This site is a collection of execution systems and artifacts shared for interpretation, not instruction.</p>
         <div class="cta">
-          <a class="btn primary" href="#projects">View projects →</a>
+          <a class="btn primary" href="#projects">Projects</a>
         </div>
       </section>
 
       <section class="tldr">
         <h2>Executive Summary</h2>
         <ul>
-          <li><strong>Purpose:</strong> I build practical AI systems for everyday people.</li>
-          <li><strong>Key sections:</strong> Featured projects, Writing, About</li>
-          <li><strong>Focus:</strong> Zach's personal site: projects, writing, and experiments.</li>
+          <li><strong>Purpose:</strong> Build practical AI systems for real work.</li>
+          <li><strong>Key sections:</strong> Projects, Writing, About</li>
+          <li><strong>Focus:</strong> High-leverage systems with clear outcomes.</li>
         </ul>
       </section>
 
@@ -365,9 +531,9 @@
           <a href="./martin/index.html" class="card">
             <h3>Martin</h3>
             <p class="meta">
-              A personal AI system for turning ideas, notes, and signals into clear next actions.
+              An execution layer that turns intent into repeatable action.
             </p>
-            <span class="card-cta">Explore the system</span>
+            <span class="card-cta">Explore -></span>
             <div class="pillrow">
               <span class="pill">Agents</span>
               <span class="pill">Workflow</span>
@@ -377,7 +543,7 @@
 
           <a href="./micro-app-factory/index.html" class="card">
             <h3>Micro-App Factory</h3>
-            <p class="meta">A repeatable template for turning small “plays” into shippable UI tools.</p>
+            <p class="meta">A repeatable template for turning small "plays" into shippable UI tools.</p>
             <span class="card-cta">See the template</span>
             <div class="pillrow">
               <span class="pill">UI</span>
@@ -388,8 +554,8 @@
 
           <a href="./signal-engine/index.html" class="card">
             <h3>Signal Engine (Mock Data)</h3>
-            <p class="meta">A demo pipeline for transforming usage events into customer health signals.</p>
-            <span class="card-cta">Explore the model</span>
+            <p class="meta">A demo pipeline that converts events into health signals.</p>
+            <span class="card-cta">Explore -></span>
             <div class="pillrow">
               <span class="pill">Analytics</span>
               <span class="pill">Scoring</span>
@@ -398,7 +564,7 @@
           </a>
 
           <a href="./personal-os/index.html" class="card">
-            <h3>Personal OS: Notes → Actions</h3>
+            <h3>Personal OS: Notes -> Actions</h3>
             <p class="meta">My system for turning messy ideas into weekly execution and feedback loops.</p>
             <span class="card-cta">Read the system</span>
             <div class="pillrow">
@@ -411,11 +577,15 @@
       </section>
 
       <section id="writing" class="section">
-        <h2>Writing</h2>
+        <h2>Live Feed</h2>
         <div class="grid">
           <article class="card" style="grid-column: span 12;">
-            <h3>Coming soon</h3>
-            <p class="meta">Short posts on shipping, systems, and building leverage with AI.</p>
+            <h3>Latest on X</h3>
+            <p class="meta">Live feed from @dachzay.</p>
+            <a class="twitter-timeline" data-theme="dark" data-chrome="noheader nofooter noborders transparent" data-height="520" data-tweet-limit="1" href="https://twitter.com/dachzay?ref_src=twsrc%5Etfw">Tweets by dachzay</a>
+            <noscript>
+              <p class="meta">Enable JavaScript to view the live feed.</p>
+            </noscript>
           </article>
         </div>
       </section>
@@ -425,7 +595,7 @@
         <div class="grid">
           <article class="card" style="grid-column: span 12;">
             <p class="meta" style="margin:0;">
-              I’m Zach. I like turning ambiguous problems into small, testable systems—then shipping the simplest
+              I'm Zach. I like turning ambiguous problems into small, testable systems-then shipping the simplest
               version
               that creates real output. This site is the public trail of that work.
             </p>
@@ -437,20 +607,27 @@
         <h2>Contact</h2>
         <div class="grid">
           <article class="card" style="grid-column: span 12;">
-            <p class="meta">Email: <a href="mailto:you@domain.com">you@domain.com</a> · GitHub · LinkedIn</p>
+            <p class="meta">Email: <a href="mailto:you@domain.com">you@domain.com</a> - GitHub - LinkedIn</p>
           </article>
         </div>
       </section>
     </main>
 
     <footer>
-      <span>© <span id="year"></span> Zach Day</span>
-      <span>Built from scratch · Iterated in public</span>
+      <span>(c) <span id="year"></span> Zach Day</span>
+      <span>Built from scratch - Iterated in public</span>
     </footer>
   </div>
 
+  <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
+    const header = document.querySelector("header");
+    const toggleHeader = () => {
+      header.classList.toggle("scrolled", window.scrollY > 8);
+    };
+    toggleHeader();
+    window.addEventListener("scroll", toggleHeader, { passive: true });
   </script>
 </body>
 
