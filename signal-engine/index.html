@@ -2,29 +2,27 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2...family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <title>Signal Engine - Zach Day</title>
-    <meta name="description" content="A demo pipeline for transforming usage events into customer health signals." />
-    <style>
+  <meta name="description" content="Interactive signal flow map showing health, confidence, and playback states." />
+  <style>
     :root {
       --bg: #0a0a0a;
-      --panel: #161616;
+      --panel: #151515;
       --text: #e8eaf0;
       --muted: #a0a0a0;
       --border: #2a2a2a;
       --accent: #10b981;
-      --shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+      --warn: #f59e0b;
+      --bad: #ef4444;
       --radius: 12px;
-    }
-
-    html {
-      scroll-behavior: smooth;
+      --shadow: 0 4px 20px rgba(0, 0, 0, 0.55);
     }
 
     * {
@@ -34,17 +32,15 @@
     body {
       margin: 0;
       font-family: "Inter", "SF Pro Text", "Segoe UI", system-ui, -apple-system, sans-serif;
-      background: radial-gradient(900px 520px at 15% -10%, rgba(16, 185, 129, 0.14), transparent 60%),
-        radial-gradient(700px 420px at 90% 0%, rgba(255, 255, 255, 0.06), transparent 65%),
-        var(--bg);
+      background: radial-gradient(900px 520px at 15% -10%, rgba(16, 185, 129, 0.14), transparent 60%), radial-gradient(700px 420px at 90% 0%, rgba(255, 255, 255, 0.06), transparent 65%), var(--bg);
       color: var(--text);
       line-height: 1.5;
     }
 
     .container {
-      width: min(980px, 92vw);
+      width: min(1040px, 92vw);
       margin: 0 auto;
-      padding: 48px 0 96px;
+      padding: 36px 0 84px;
     }
 
     header {
@@ -55,7 +51,7 @@
       align-items: center;
       justify-content: space-between;
       padding: 16px 0 20px;
-      background: rgba(10, 10, 10, 0.72);
+      background: rgba(10, 10, 10, 0.75);
       backdrop-filter: blur(12px);
       border-bottom: 1px solid transparent;
       transition: border-color 0.2s ease, box-shadow 0.2s ease;
@@ -63,7 +59,7 @@
 
     header.scrolled {
       border-color: var(--border);
-      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.5);
+      box-shadow: var(--shadow);
     }
 
     .brand {
@@ -72,7 +68,6 @@
       align-items: center;
       font-weight: 600;
       font-size: 15px;
-      letter-spacing: -0.2px;
       color: var(--text);
     }
 
@@ -91,6 +86,7 @@
         transform: scale(1);
         opacity: 0.7;
       }
+
       50% {
         transform: scale(1.6);
         opacity: 1;
@@ -100,10 +96,9 @@
     nav a {
       color: var(--muted);
       text-decoration: none;
-      margin-left: 20px;
+      margin-left: 18px;
       font-weight: 500;
       font-size: 14px;
-      transition: color 0.15s, border-color 0.15s;
       border-bottom: 1px solid transparent;
       padding-bottom: 2px;
     }
@@ -111,16 +106,6 @@
     nav a:hover {
       color: var(--text);
       border-color: var(--text);
-    }
-
-    a {
-      color: var(--text);
-      text-decoration-color: var(--border);
-    }
-
-    a:hover {
-      color: var(--text);
-      text-decoration-color: var(--text);
     }
 
     .back-home {
@@ -133,100 +118,33 @@
       color: var(--text);
       font-size: 12px;
       text-decoration: none;
-      margin-right: 12px;
-    }
-
-    .back-home:hover {
-      border-color: var(--muted);
-    }
-
-    a:focus-visible,
-    button:focus-visible,
-    .btn:focus-visible,
-    .pill:focus-visible,
-    .card:focus-visible,
-    .back-home:focus-visible {
-      outline: 2px solid var(--accent);
-      outline-offset: 2px;
+      margin-right: 10px;
     }
 
     .hero {
-      margin-top: 0;
-      padding: 32px 0 48px;
-      background: radial-gradient(ellipse 80% 55% at 50% 0%, rgba(22, 22, 22, 0.6), transparent 70%);
-      border: none;
-      box-shadow: none;
+      margin-top: 10px;
+      padding: 26px 0 34px;
     }
 
     .hero h1 {
-      margin: 0 0 16px;
-      font-size: clamp(36px, 5vw, 56px);
-      line-height: 1.05;
+      margin: 0 0 10px;
+      font-size: clamp(34px, 5vw, 56px);
+      line-height: 1.06;
       letter-spacing: -1px;
-      font-weight: 700;
-      color: var(--text);
     }
 
     .hero p {
-      margin: 0 0 32px;
+      margin: 0;
       color: var(--muted);
-      font-size: 18px;
-      max-width: 60ch;
-      line-height: 1.6;
-    }
-
-    .cta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 16px;
-      margin-top: 0;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 12px 20px;
-      border-radius: 10px;
-      border: 1px solid transparent;
-      text-decoration: none;
-      font-weight: 500;
-      font-size: 14px;
-      transition: all 0.15s;
-    }
-
-    .btn:hover {
-      transform: translateY(-1px);
-    }
-
-    .btn.primary {
-      background: #ffffff;
-      color: #000000;
-      border-color: #ffffff;
-    }
-
-    .btn.primary:hover {
-      background: #e5e5e5;
-      border-color: #e5e5e5;
-    }
-
-    .btn.secondary {
-      background: transparent;
-      color: var(--text);
-      border: 1px solid var(--border);
-    }
-
-    .btn.secondary:hover {
-      border-color: var(--muted);
-      background: rgba(255, 255, 255, 0.03);
+      max-width: 70ch;
     }
 
     .section {
-      margin-top: 56px;
+      margin-top: 34px;
     }
 
     .section h2 {
-      margin: 0 0 24px;
+      margin: 0 0 14px;
       font-size: 13px;
       text-transform: uppercase;
       letter-spacing: 1px;
@@ -234,209 +152,216 @@
       color: var(--muted);
     }
 
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(12, 1fr);
-      gap: 24px;
-    }
-
-    .card {
-      grid-column: span 6;
-      display: block;
-      text-decoration: none;
-      background: var(--panel);
+    .lab {
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      box-shadow: none;
-      padding: 24px;
-      transition: border-color 0.2s, background 0.2s, transform 0.2s, box-shadow 0.2s;
-      position: relative;
+      background: linear-gradient(180deg, rgba(22, 22, 22, 0.98), rgba(14, 14, 14, 0.86));
+      box-shadow: var(--shadow);
       overflow: hidden;
     }
 
-    .card::after {
-      content: "";
-      position: absolute;
-      inset: -120% -60% auto -60%;
-      height: 220%;
-      background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.12) 50%, transparent 70%);
-      transform: translateX(-40%);
-      opacity: 0;
-      transition: transform 0.7s ease, opacity 0.2s ease;
-      pointer-events: none;
+    .lab-head {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 16px;
+      padding: 16px;
+      border-bottom: 1px solid var(--border);
     }
 
-    .card:hover {
-      border-color: #3a3a3a;
-      background: rgba(255, 255, 255, 0.02);
-      transform: translateY(-4px);
-      box-shadow: var(--shadow);
+    .control-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
     }
 
-    .card:hover::after {
-      opacity: 1;
-      transform: translateX(40%);
-    }
-
-    .card h3 {
-      margin: 0 0 8px;
-      font-size: 16px;
-      font-weight: 600;
-      color: var(--text);
-    }
-
-    .meta {
-      color: var(--muted);
-      font-size: 14px;
-      margin: 0 0 16px;
-      line-height: 1.5;
-    }
-
-    @media (min-width: 721px) {
-      .meta,
-      .hero p,
-      main p {
-        display: -webkit-box;
-        -webkit-line-clamp: 3;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-      }
-    }
-
-    .tldr {
-      margin: 24px 0 40px;
-      padding: 20px 22px;
-      border-radius: var(--radius);
+    .btn {
       border: 1px solid var(--border);
-      background: linear-gradient(180deg, rgba(22, 22, 22, 0.92), rgba(16, 16, 16, 0.7));
-      box-shadow: var(--shadow);
+      background: #111;
+      color: var(--text);
+      border-radius: 10px;
+      padding: 8px 13px;
+      font-size: 13px;
+      cursor: pointer;
     }
 
-    .tldr h2 {
-      margin: 0 0 12px;
+    .btn:hover {
+      border-color: #444;
+      background: #161616;
+    }
+
+    .timeline-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 280px;
+    }
+
+    .timeline-wrap input {
+      width: 230px;
+      accent-color: var(--accent);
+    }
+
+    .tick-label {
+      font-size: 12px;
+      color: var(--muted);
+      min-width: 62px;
+      text-align: right;
+    }
+
+    .lab-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 0;
+    }
+
+    .graph-pane {
+      padding: 14px;
+      border-right: 1px solid var(--border);
+    }
+
+    .graph-shell {
+      border: 1px solid #262626;
+      border-radius: 10px;
+      background: radial-gradient(circle at 35% 20%, rgba(16, 185, 129, 0.08), rgba(10, 10, 10, 0.6) 45%), #0f0f0f;
+      overflow: hidden;
+    }
+
+    #signalGraph {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .edge {
+      stroke: #3a3a3a;
+      stroke-width: 2;
+      transition: stroke 0.25s ease, stroke-width 0.25s ease;
+    }
+
+    .edge-label {
+      font-size: 10px;
+      fill: #8a8a8a;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .edge.active {
+      stroke: var(--accent);
+      stroke-width: 3;
+    }
+
+    .node-box {
+      fill: #151515;
+      stroke: #343434;
+      stroke-width: 1.5;
+      transition: stroke 0.25s ease;
+    }
+
+    .node.active .node-box {
+      stroke: #2ad197;
+    }
+
+    .node.warn .node-box {
+      stroke: var(--warn);
+    }
+
+    .node.error .node-box {
+      stroke: var(--bad);
+    }
+
+    .node-title {
+      fill: #f2f2f2;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .node-type {
+      fill: #9d9d9d;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+
+    .node-stat {
+      fill: #c9c9c9;
+      font-size: 10px;
+    }
+
+    .state-dot {
+      transition: fill 0.25s ease;
+    }
+
+    .side-pane {
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .metric {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px;
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .metric strong {
+      display: block;
+      font-size: 19px;
+      line-height: 1.1;
+    }
+
+    .metric span {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .event-log {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.02);
+      padding: 12px;
+    }
+
+    .event-log h3 {
+      margin: 0 0 8px;
       font-size: 12px;
       text-transform: uppercase;
       letter-spacing: 1px;
-      font-weight: 600;
       color: var(--muted);
     }
 
-    .tldr ul {
+    .event-log p {
       margin: 0;
-      padding-left: 18px;
-      color: var(--muted);
-      line-height: 1.6;
-    }
-
-    .tldr li {
-      margin-bottom: 8px;
-    }
-
-    .pillrow,
-    .subnav {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 16px;
-    }
-
-    .pill {
-      font-size: 12px;
-      color: var(--text);
-      border: 1px solid var(--border);
-      background: transparent;
-      padding: 4px 10px;
-      border-radius: 999px;
-      font-weight: 500;
-      text-decoration: none;
-      transition: border-color 0.15s ease, background 0.15s ease;
-    }
-
-    .pill:hover {
-      border-color: var(--muted);
-    }
-
-    .pill.active {
-      background: rgba(255, 255, 255, 0.08);
-      border-color: var(--muted);
-    }
-
-    .card a,
-    .card .card-cta {
-      color: var(--text);
-      text-decoration: underline;
-      text-underline-offset: 4px;
-      text-decoration-color: var(--border);
-      font-weight: 500;
-      font-size: 14px;
-      transition: text-decoration-color 0.15s;
-    }
-
-    .card a:hover,
-    .card:hover .card-cta {
-      text-decoration-color: var(--text);
-    }
-
-    .outcomes-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 16px;
-    }
-
-    .outcome-card {
-      padding: 20px;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      background: rgba(255, 255, 255, 0.02);
-    }
-
-    .outcome-value {
-      font-size: 22px;
-      font-weight: 700;
-      color: var(--text);
-      margin-bottom: 4px;
-    }
-
-    .outcome-label {
       font-size: 13px;
+      color: #c9c9c9;
+      min-height: 38px;
+    }
+
+    .legend {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      font-size: 12px;
       color: var(--muted);
-      line-height: 1.4;
     }
 
-    .card-link {
-      display: block;
-      text-decoration: none;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 20px;
-      transition: border-color 0.15s, transform 0.15s;
-      margin-bottom: 16px;
-      background: rgba(255, 255, 255, 0.01);
-    }
-
-    .card-link:hover {
-      border-color: var(--muted);
-      transform: translateY(-2px);
-    }
-
-    .card-link h3 {
-      margin: 0 0 8px;
-      font-size: 16px;
-      font-weight: 600;
+    .legend b {
       color: var(--text);
-    }
-
-    .card-link p {
-      margin: 0;
-      font-size: 14px;
-      color: var(--muted);
-      line-height: 1.5;
+      font-weight: 600;
     }
 
     footer {
-      margin-top: 64px;
+      margin-top: 56px;
       border-top: 1px solid var(--border);
-      padding-top: 32px;
+      padding-top: 26px;
       color: var(--muted);
       font-size: 13px;
       display: flex;
@@ -445,114 +370,138 @@
       flex-wrap: wrap;
     }
 
-    footer span {
-      opacity: 0.7;
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      html {
-        scroll-behavior: auto;
+    @media (max-width: 980px) {
+      .lab-head {
+        grid-template-columns: 1fr;
       }
 
-      * {
-        animation: none !important;
-        transition: none !important;
+      .timeline-wrap {
+        justify-content: space-between;
       }
-    }
 
-    @media (max-width: 900px) {
-      nav a {
-        margin-left: 14px;
+      .timeline-wrap input {
+        width: 100%;
+      }
+
+      .lab-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .graph-pane {
+        border-right: none;
+        border-bottom: 1px solid var(--border);
       }
     }
 
     @media (max-width: 720px) {
-      .card {
-        grid-column: span 12;
-      }
-
       .container {
-        padding: 24px 0 64px;
+        padding: 22px 0 58px;
       }
 
       header {
         flex-direction: column;
         align-items: flex-start;
-        gap: 12px;
+        gap: 10px;
       }
 
       .hero {
-        padding: 24px 0 32px;
+        padding: 20px 0 26px;
       }
 
-      .outcomes-grid {
+      .metric-grid {
         grid-template-columns: 1fr;
+      }
+
+      nav a {
+        margin-left: 12px;
       }
     }
   </style>
 </head>
 
 <body>
-    <div class="container">
-        <header>
-            <a href="../index.html" style="text-decoration: none;">
-                <div class="brand">
-                    <span class="dot" title="Project"></span>
-                    <span>Zach Day</span>
-                </div>
-            </a>
-            <nav>
+  <div class="container">
+    <header>
+      <a href="../index.html" style="text-decoration: none;">
+        <div class="brand">
+          <span class="dot" title="Project"></span>
+          <span>Zach Day</span>
+        </div>
+      </a>
+      <nav>
         <a class="back-home" href="../index.html">Back to Home</a>
-                <a href="../index.html#projects">Projects</a>
-                <a href="../index.html#about">About</a>
-                <a href="../index.html#contact">Contact</a>
-            </nav>
-        </header>
+        <a href="../index.html#projects">Projects</a>
+        <a href="../index.html#about">About</a>
+        <a href="../index.html#contact">Contact</a>
+      </nav>
+    </header>
 
-        <main>
-            <section class="hero">
-                <h1>Signal Engine</h1>
-                <p>A demo pipeline that converts events into health signals.</p>
-                <p class="meta" style="font-size: 16px; max-width: 60ch;">Why this matters: This project captures how I translate noisy telemetry into operational decisions.</p>
-            </section>
-
-      <section class="tldr">
-        <h2>Executive Summary</h2>
-        <ul>
-          <li><strong>Purpose:</strong> Convert raw events into actionable signals.</li>
-          <li><strong>Key sections:</strong> About this project</li>
-          <li><strong>Focus:</strong> Scoring, playbooks, and health detection.</li>
-        </ul>
+    <main>
+      <section class="hero">
+        <h1>Signal Engine</h1>
+        <p>Interactive view of how raw telemetry moves through transforms, scoring rules, and health outputs.</p>
       </section>
-<section class="section">
-                <h2>About this project</h2>
-                <div class="grid">
-                    <div style="grid-column: span 12;">
-                        <p class="meta" style="font-size: 16px;">
-                            Demonstrates how raw data becomes actionable intelligence.
-                        </p>
-                        <p class="meta" style="font-size: 16px;">
-                            Defines scoring rules and playbooks that trigger on clear conditions.
-                        </p>
-                    </div>
-                </div>
-            </section>
-        </main>
 
-        <footer>
-            <span>(c) <span id="year"></span> Zach Day</span>
-            <span>Built from scratch - Iterated in public</span>
-        </footer>
-    </div>
+      <section class="section">
+        <h2>Signal Graph Lab</h2>
+        <div class="lab">
+          <div class="lab-head">
+            <div class="control-row">
+              <button class="btn" id="playPauseBtn" type="button">Play</button>
+              <button class="btn" id="stepBtn" type="button">Step</button>
+              <button class="btn" id="jitterBtn" type="button">Randomize</button>
+            </div>
+            <div class="timeline-wrap">
+              <input id="timeline" type="range" min="0" max="5" value="0" step="1" aria-label="Timeline" />
+              <span class="tick-label" id="tickLabel">Tick 1/6</span>
+            </div>
+          </div>
 
-    <script>
-        document.getElementById("year").textContent = new Date().getFullYear();
+          <div class="lab-grid">
+            <div class="graph-pane">
+              <div class="graph-shell">
+                <svg id="signalGraph" viewBox="0 0 900 450" role="img" aria-label="Signal engine flow map"></svg>
+              </div>
+            </div>
+
+            <aside class="side-pane">
+              <div class="metric-grid">
+                <div class="metric"><strong id="metricConfidence">0%</strong><span>Avg confidence</span></div>
+                <div class="metric"><strong id="metricLatency">0ms</strong><span>Pipeline latency</span></div>
+                <div class="metric"><strong id="metricHealthy">0</strong><span>Healthy nodes</span></div>
+                <div class="metric"><strong id="metricAlert">None</strong><span>Current alert</span></div>
+              </div>
+
+              <div class="event-log">
+                <h3>What Changed</h3>
+                <p id="eventText">Booting signal engine scenario.</p>
+              </div>
+
+              <div class="legend">
+                <span><b>Input</b> Event Ingestion</span>
+                <span><b>Transform</b> Feature Extraction</span>
+                <span><b>Output</b> Health + Playbook</span>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <span>(c) <span id="year"></span> Zach Day</span>
+      <span>Built from scratch - Iterated in public</span>
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
     const header = document.querySelector("header");
-    const toggleHeader = () => {
-      header.classList.toggle("scrolled", window.scrollY > 8);
-    };
+    const toggleHeader = () => header.classList.toggle("scrolled", window.scrollY > 8);
     toggleHeader();
     window.addEventListener("scroll", toggleHeader, { passive: true });
+
     const dots = document.querySelectorAll(".dot");
     const setPresenceDot = () => {
       const online = navigator.onLine;
@@ -565,10 +514,296 @@
     setPresenceDot();
     window.addEventListener("online", setPresenceDot);
     window.addEventListener("offline", setPresenceDot);
-    </script>
+
+    const graph = document.getElementById("signalGraph");
+    const timelineInput = document.getElementById("timeline");
+    const tickLabel = document.getElementById("tickLabel");
+    const eventText = document.getElementById("eventText");
+    const playPauseBtn = document.getElementById("playPauseBtn");
+    const stepBtn = document.getElementById("stepBtn");
+    const jitterBtn = document.getElementById("jitterBtn");
+
+    const nodes = [
+      { id: "evt", label: "Event Stream", kind: "Input", x: 70, y: 150 },
+      { id: "clean", label: "Normalizer", kind: "Transform", x: 240, y: 80 },
+      { id: "features", label: "Feature Calc", kind: "Transform", x: 420, y: 80 },
+      { id: "score", label: "Signal Score", kind: "Transform", x: 600, y: 80 },
+      { id: "health", label: "Health State", kind: "Output", x: 780, y: 80 },
+      { id: "acts", label: "Action Rules", kind: "Output", x: 780, y: 240 },
+      { id: "audit", label: "Audit Log", kind: "Output", x: 600, y: 240 },
+      { id: "qa", label: "Drift Check", kind: "Transform", x: 420, y: 240 },
+      { id: "ctx", label: "Account Context", kind: "Input", x: 240, y: 240 }
+    ];
+
+    const edges = [
+      { id: "e1", from: "evt", to: "clean", label: "raw" },
+      { id: "e2", from: "clean", to: "features", label: "fields" },
+      { id: "e3", from: "features", to: "score", label: "metrics" },
+      { id: "e4", from: "score", to: "health", label: "health" },
+      { id: "e5", from: "score", to: "acts", label: "trigger" },
+      { id: "e6", from: "score", to: "audit", label: "record" },
+      { id: "e7", from: "ctx", to: "qa", label: "context" },
+      { id: "e8", from: "qa", to: "features", label: "guard" },
+      { id: "e9", from: "evt", to: "qa", label: "sample" }
+    ];
+
+    const snapshots = [
+      {
+        states: { evt: "active", clean: "active", features: "active", score: "active", health: "active", acts: "active", audit: "active", qa: "active", ctx: "active" },
+        confidence: { evt: 0.96, clean: 0.94, features: 0.93, score: 0.91, health: 0.9, acts: 0.88, audit: 0.98, qa: 0.87, ctx: 0.95 },
+        hot: ["e1", "e2", "e3", "e4", "e6", "e7", "e8"],
+        latency: 98,
+        alert: "None",
+        note: "Baseline run: normal ingestion and healthy confidence across all nodes."
+      },
+      {
+        states: { evt: "active", clean: "active", features: "active", score: "warn", health: "warn", acts: "active", audit: "active", qa: "active", ctx: "active" },
+        confidence: { evt: 0.94, clean: 0.92, features: 0.89, score: 0.74, health: 0.71, acts: 0.8, audit: 0.96, qa: 0.86, ctx: 0.94 },
+        hot: ["e1", "e2", "e3", "e4", "e5", "e6", "e7", "e8"],
+        latency: 114,
+        alert: "Risk rising",
+        note: "Spike in low-quality events reduced score certainty and raised risk early warning."
+      },
+      {
+        states: { evt: "active", clean: "warn", features: "warn", score: "warn", health: "warn", acts: "active", audit: "active", qa: "active", ctx: "active" },
+        confidence: { evt: 0.93, clean: 0.76, features: 0.7, score: 0.69, health: 0.68, acts: 0.74, audit: 0.95, qa: 0.89, ctx: 0.94 },
+        hot: ["e1", "e2", "e3", "e4", "e5", "e6", "e9"],
+        latency: 137,
+        alert: "Input quality",
+        note: "Normalizer flagged missing fields; downstream confidence dropped below target threshold."
+      },
+      {
+        states: { evt: "active", clean: "active", features: "warn", score: "error", health: "error", acts: "warn", audit: "active", qa: "warn", ctx: "active" },
+        confidence: { evt: 0.93, clean: 0.9, features: 0.66, score: 0.48, health: 0.41, acts: 0.62, audit: 0.97, qa: 0.69, ctx: 0.95 },
+        hot: ["e1", "e2", "e3", "e4", "e5", "e6", "e9"],
+        latency: 188,
+        alert: "Sev-2 scoring",
+        note: "Scoring model confidence collapsed due to drift; playbook throttled to reduce false positives."
+      },
+      {
+        states: { evt: "active", clean: "active", features: "active", score: "warn", health: "warn", acts: "active", audit: "active", qa: "active", ctx: "active" },
+        confidence: { evt: 0.95, clean: 0.91, features: 0.84, score: 0.72, health: 0.71, acts: 0.81, audit: 0.98, qa: 0.86, ctx: 0.95 },
+        hot: ["e1", "e2", "e3", "e4", "e5", "e6", "e7", "e8"],
+        latency: 126,
+        alert: "Monitoring",
+        note: "Recovered after fallback feature set. Drift check remains elevated and under monitoring."
+      },
+      {
+        states: { evt: "active", clean: "active", features: "active", score: "active", health: "active", acts: "active", audit: "active", qa: "active", ctx: "active" },
+        confidence: { evt: 0.96, clean: 0.94, features: 0.92, score: 0.89, health: 0.87, acts: 0.86, audit: 0.98, qa: 0.9, ctx: 0.95 },
+        hot: ["e1", "e2", "e3", "e4", "e6", "e7", "e8"],
+        latency: 103,
+        alert: "Resolved",
+        note: "Stabilized with updated thresholds and cleaned source payloads."
+      }
+    ];
+
+    const stateColor = {
+      active: "#10b981",
+      warn: "#f59e0b",
+      error: "#ef4444"
+    };
+
+    function getNode(id) {
+      return nodes.find((node) => node.id === id);
+    }
+
+    function renderGraph() {
+      graph.innerHTML = "";
+
+      const edgeLayer = document.createElementNS("http://www.w3.org/2000/svg", "g");
+      edgeLayer.setAttribute("id", "edgeLayer");
+      graph.appendChild(edgeLayer);
+
+      edges.forEach((edge) => {
+        const from = getNode(edge.from);
+        const to = getNode(edge.to);
+
+        const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+        line.setAttribute("x1", from.x + 50);
+        line.setAttribute("y1", from.y + 24);
+        line.setAttribute("x2", to.x + 4);
+        line.setAttribute("y2", to.y + 24);
+        line.setAttribute("class", "edge");
+        line.dataset.edgeId = edge.id;
+        edgeLayer.appendChild(line);
+
+        const label = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        label.setAttribute("x", (from.x + to.x) / 2);
+        label.setAttribute("y", (from.y + to.y) / 2 - 8);
+        label.setAttribute("class", "edge-label");
+        label.textContent = edge.label;
+        edgeLayer.appendChild(label);
+      });
+
+      const nodeLayer = document.createElementNS("http://www.w3.org/2000/svg", "g");
+      nodeLayer.setAttribute("id", "nodeLayer");
+      graph.appendChild(nodeLayer);
+
+      nodes.forEach((node) => {
+        const group = document.createElementNS("http://www.w3.org/2000/svg", "g");
+        group.setAttribute("class", "node");
+        group.setAttribute("id", `node-${node.id}`);
+        group.setAttribute("transform", `translate(${node.x}, ${node.y})`);
+
+        const box = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+        box.setAttribute("width", "118");
+        box.setAttribute("height", "54");
+        box.setAttribute("rx", "10");
+        box.setAttribute("class", "node-box");
+        group.appendChild(box);
+
+        const name = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        name.setAttribute("x", "10");
+        name.setAttribute("y", "18");
+        name.setAttribute("class", "node-title");
+        name.textContent = node.label;
+        group.appendChild(name);
+
+        const type = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        type.setAttribute("x", "10");
+        type.setAttribute("y", "33");
+        type.setAttribute("class", "node-type");
+        type.textContent = node.kind;
+        group.appendChild(type);
+
+        const stat = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        stat.setAttribute("x", "28");
+        stat.setAttribute("y", "46");
+        stat.setAttribute("class", "node-stat");
+        stat.setAttribute("id", `stat-${node.id}`);
+        stat.textContent = "0%";
+        group.appendChild(stat);
+
+        const dot = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+        dot.setAttribute("cx", "14");
+        dot.setAttribute("cy", "43");
+        dot.setAttribute("r", "5");
+        dot.setAttribute("class", "state-dot");
+        dot.setAttribute("id", `dot-${node.id}`);
+        dot.setAttribute("fill", "#555");
+        group.appendChild(dot);
+
+        nodeLayer.appendChild(group);
+      });
+    }
+
+    function applySnapshot(index) {
+      const snapshot = snapshots[index];
+      tickLabel.textContent = `Tick ${index + 1}/${snapshots.length}`;
+
+      let confidenceTotal = 0;
+      let healthyCount = 0;
+
+      nodes.forEach((node) => {
+        const state = snapshot.states[node.id];
+        const confidence = Math.round(snapshot.confidence[node.id] * 100);
+        const group = document.getElementById(`node-${node.id}`);
+        const dot = document.getElementById(`dot-${node.id}`);
+        const stat = document.getElementById(`stat-${node.id}`);
+
+        group.classList.remove("active", "warn", "error");
+        group.classList.add(state);
+
+        dot.setAttribute("fill", stateColor[state]);
+        stat.textContent = `${confidence}% conf`;
+
+        confidenceTotal += confidence;
+        if (state === "active") {
+          healthyCount += 1;
+        }
+      });
+
+      document.querySelectorAll(".edge").forEach((line) => {
+        const active = snapshot.hot.includes(line.dataset.edgeId);
+        line.classList.toggle("active", active);
+      });
+
+      const avg = Math.round(confidenceTotal / nodes.length);
+      document.getElementById("metricConfidence").textContent = `${avg}%`;
+      document.getElementById("metricLatency").textContent = `${snapshot.latency}ms`;
+      document.getElementById("metricHealthy").textContent = `${healthyCount}/${nodes.length}`;
+      document.getElementById("metricAlert").textContent = snapshot.alert;
+      eventText.textContent = snapshot.note;
+    }
+
+    let tick = 0;
+    let timer = null;
+
+    function nextTick() {
+      tick = (tick + 1) % snapshots.length;
+      timelineInput.value = String(tick);
+      applySnapshot(tick);
+    }
+
+    function stopPlayback() {
+      if (timer) {
+        window.clearInterval(timer);
+        timer = null;
+      }
+      playPauseBtn.textContent = "Play";
+    }
+
+    function startPlayback() {
+      stopPlayback();
+      timer = window.setInterval(nextTick, 1200);
+      playPauseBtn.textContent = "Pause";
+    }
+
+    function jitterSnapshot() {
+      const random = snapshots.map((snap) => {
+        const clone = structuredClone(snap);
+        nodes.forEach((node) => {
+          const delta = (Math.random() - 0.5) * 0.16;
+          const current = clone.confidence[node.id];
+          clone.confidence[node.id] = Math.max(0.35, Math.min(0.99, current + delta));
+
+          if (clone.confidence[node.id] < 0.56) {
+            clone.states[node.id] = "error";
+          } else if (clone.confidence[node.id] < 0.78) {
+            clone.states[node.id] = "warn";
+          } else {
+            clone.states[node.id] = "active";
+          }
+        });
+
+        return clone;
+      });
+
+      random.forEach((updated, i) => {
+        snapshots[i] = updated;
+      });
+
+      applySnapshot(tick);
+    }
+
+    playPauseBtn.addEventListener("click", () => {
+      if (timer) {
+        stopPlayback();
+      } else {
+        startPlayback();
+      }
+    });
+
+    stepBtn.addEventListener("click", () => {
+      stopPlayback();
+      nextTick();
+    });
+
+    jitterBtn.addEventListener("click", () => {
+      stopPlayback();
+      jitterSnapshot();
+    });
+
+    timelineInput.addEventListener("input", (event) => {
+      stopPlayback();
+      tick = Number(event.target.value);
+      applySnapshot(tick);
+    });
+
+    renderGraph();
+    applySnapshot(0);
+  </script>
 </body>
 
 </html>
-
-
-
