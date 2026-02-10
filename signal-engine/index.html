@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <title>Signal Engine - Canonical Model</title>
+  <title>Signal Engine - Pattern View</title>
   <style>
     :root { --bg:#090909; --panel:#141414; --text:#e8eaf0; --muted:#a0a0a0; --border:#2a2a2a; --accent:#10b981; --warn:#f59e0b; --radius:12px; }
     * { box-sizing:border-box; }
@@ -81,24 +81,24 @@
       <nav><a class="back-home" href="../index.html">Back to Home</a><a href="../index.html#projects">Projects</a><a href="../index.html#about">About</a><a href="../index.html#contact">Contact</a></nav>
     </header>
     <main>
-      <section class="hero"><h1>Signal Engine</h1><p>Canonical model (v1.0): what we ingest, how each stage transforms it, how risk is scored, and what playbook is triggered.</p></section>
-      <section class="section"><h2>Canonical Pipeline</h2><div class="lab"><div class="lab-head"><div class="controls"><select id="scenarioSelect" aria-label="Scenario"><option value="0">Competitive Intent Spike</option><option value="1">Executive Move + Layoffs</option><option value="2">Payment Delays + NPS Drop</option></select><button class="btn" id="playPauseBtn" type="button">Play</button><button class="btn" id="stepBtn" type="button">Step</button></div><div class="timeline-wrap"><input id="timeline" type="range" min="0" max="4" value="0" step="1" aria-label="Pipeline stage" /><span class="tick-label" id="tickLabel">Stage 1/5</span></div></div><div class="lab-grid"><div class="graph-pane"><div class="graph-shell"><svg id="pipelineGraph" viewBox="0 0 980 330" role="img" aria-label="Signal engine pipeline"></svg></div></div><aside class="side-pane"><div class="metric-grid"><div class="metric"><strong id="metricScore">0</strong><span>Risk Score</span></div><div class="metric"><strong id="metricTier">HEALTHY</strong><span>Risk Tier</span></div><div class="metric"><strong id="metricDelta">0</strong><span>Delta Score</span></div><div class="metric"><strong id="metricEsc">No</strong><span>Escalation</span></div></div><div class="panel"><h3>Stage Output</h3><pre id="stageJson">Loading...</pre></div><div class="panel"><h3>Gate Status</h3><div class="chip-row" id="gateRow"></div></div></aside></div></div></section>
+      <section class="hero"><h1>Signal Engine</h1><p>Pattern view: abstracted event flow showing how signals become priority states and response tracks.</p></section>
+      <section class="section"><h2>Pattern Pipeline</h2><div class="lab"><div class="lab-head"><div class="controls"><select id="scenarioSelect" aria-label="Scenario"><option value="0">Pattern A: Demand Shift</option><option value="1">Pattern B: Stakeholder Change</option><option value="2">Pattern C: Value Risk</option></select><button class="btn" id="playPauseBtn" type="button">Play</button><button class="btn" id="stepBtn" type="button">Step</button></div><div class="timeline-wrap"><input id="timeline" type="range" min="0" max="4" value="0" step="1" aria-label="Pipeline stage" /><span class="tick-label" id="tickLabel">Stage 1/5</span></div></div><div class="lab-grid"><div class="graph-pane"><div class="graph-shell"><svg id="pipelineGraph" viewBox="0 0 980 330" role="img" aria-label="Signal engine pipeline"></svg></div></div><aside class="side-pane"><div class="metric-grid"><div class="metric"><strong id="metricScore">0</strong><span>Priority Score</span></div><div class="metric"><strong id="metricTier">HEALTHY</strong><span>Priority Tier</span></div><div class="metric"><strong id="metricDelta">0</strong><span>Score Delta</span></div><div class="metric"><strong id="metricEsc">No</strong><span>Escalation</span></div></div><div class="panel"><h3>Stage Output</h3><pre id="stageJson">Loading...</pre></div><div class="panel"><h3>Gate Status</h3><div class="chip-row" id="gateRow"></div></div></aside></div></div></section>
       <section class="section">
         <h2>Ingestion Surface</h2>
         <div class="cards">
-          <div class="card"><h3>Universal Event Envelope</h3><p>Normalized fields: event_id, event_timestamp, source_system, account_id, entity_type, raw_payload, metadata.confidence.</p></div>
-          <div class="card"><h3>Source Systems</h3><div class="chip-row"><span class="chip">SALESFORCE</span><span class="chip">CHORUS</span><span class="chip">INTENT</span><span class="chip">PRODUCT_USAGE</span><span class="chip">SCOOPS</span><span class="chip">NPS</span><span class="chip">FINANCIAL</span><span class="chip">TECHNOGRAPHICS</span><span class="chip">WEB_ANALYTICS</span><span class="chip">MARKETO</span></div></div>
-          <div class="card"><h3>Signal Dictionary Contract</h3><p>Schema keys used in pipeline: signal_id, risk_category, weight, classification, validation_required, detection_method.</p></div>
+          <div class="card"><h3>Universal Event Envelope</h3><p>Normalized fields: event_key, event_time, source_group, entity_key, entity_type, payload_blob, metadata.confidence.</p></div>
+          <div class="card"><h3>Source Groups</h3><div class="chip-row"><span class="chip">CRM Feed</span><span class="chip">Conversation Feed</span><span class="chip">Intent Feed</span><span class="chip">Usage Feed</span><span class="chip">Survey Feed</span><span class="chip">Finance Feed</span><span class="chip">External Feed</span></div></div>
+          <div class="card"><h3>Signal Dictionary Contract</h3><p>Schema keys used in pipeline: pattern_id, category, weight, class, review_required, detection_mode.</p></div>
         </div>
       </section>
       <section class="section">
         <h2>Transform Contract</h2>
         <div class="contract-grid">
-          <div class="stage"><h3>Ingest</h3><p>Normalize source payloads into Event Envelope.<br />Halt: missing account_id or event_timestamp (GATE-003).</p></div>
-          <div class="stage"><h3>Detect</h3><p>Match rules to assign signal_candidates and classification.<br />Warn: high-priority event with zero matches (GATE-004).</p></div>
-          <div class="stage"><h3>Enrich</h3><p>Join account/contact context, apply passive-signal validation window.<br />Expire PASSIVE >72h unvalidated (GATE-006).</p></div>
-          <div class="stage"><h3>Score</h3><p>Compute weighted contributions + clamp [0,100].<br />Halt: math bounds or cross-source consistency checks (GATE-007, GATE-008).</p></div>
-          <div class="stage"><h3>Persist</h3><p>INSERT RISK_HISTORY, UPSERT ACCOUNT_STATE, log runner state, alert T3+ tiers.<br />Retry + fail log on persistence failure (GATE-009).</p></div>
+          <div class="stage"><h3>Ingest</h3><p>Normalize source payloads into Event Envelope.<br />Halt: missing entity_key or event_time (GATE-A1).</p></div>
+          <div class="stage"><h3>Detect</h3><p>Match rules to assign pattern_candidates and class labels.<br />Warn: priority event with zero matches (GATE-B2).</p></div>
+          <div class="stage"><h3>Enrich</h3><p>Join entity context and apply review windows for passive patterns.<br />Expire pending patterns after timeout (GATE-C3).</p></div>
+          <div class="stage"><h3>Score</h3><p>Compute weighted contributions + clamp [0,100].<br />Halt: math bounds or cross-feed consistency checks (GATE-D4, GATE-D5).</p></div>
+          <div class="stage"><h3>Persist</h3><p>Write audit history, update current state, emit notification for elevated tiers.<br />Retry + fail log on persistence failure (GATE-E6).</p></div>
         </div>
       </section>
       <section class="section">
@@ -107,11 +107,11 @@
         <div class="panel" style="margin-top:10px;"><h3>Current Calculation</h3><pre id="calcJson">Loading...</pre></div>
       </section>
       <section class="section">
-        <h2>Signal To Playbook Mapping</h2>
-        <div class="table-wrap"><table><thead><tr><th>Signal</th><th>Weight</th><th>Class</th><th>Playbook</th><th>Priority</th><th>Recommended Action</th></tr></thead><tbody id="mappingBody"></tbody></table></div>
+        <h2>Pattern To Response Mapping</h2>
+        <div class="table-wrap"><table><thead><tr><th>Pattern</th><th>Weight</th><th>Class</th><th>Response Track</th><th>Priority</th><th>Recommended Action</th></tr></thead><tbody id="mappingBody"></tbody></table></div>
       </section>
     </main>
-    <footer><span>(c) <span id="year"></span> Zach Day</span><span>Signal Engine canonical schema mapped to UI</span></footer>
+    <footer><span>(c) <span id="year"></span> Zach Day</span><span>Signal Engine pattern view (abstracted)</span></footer>
   </div>
 
   <script>
@@ -121,78 +121,78 @@
     toggleHeader();
     window.addEventListener("scroll", toggleHeader, { passive: true });
 
-    const stageLabels = ["Event Envelope", "Signal Candidates", "Context Join", "Risk Scoring", "Snowflake Write"];
+    const stageLabels = ["Event Envelope", "Pattern Candidates", "Context Join", "Priority Scoring", "State Write"];
     const pipelineNodes = [
       { label: "INGEST", meta: "Envelope + required field checks", x: 50, y: 120 },
       { label: "DETECT", meta: "Rule matching + candidate signals", x: 230, y: 120 },
-      { label: "ENRICH", meta: "Account/contact context + validation", x: 410, y: 120 },
-      { label: "SCORE", meta: "Weighted risk + escalation", x: 590, y: 120 },
-      { label: "PERSIST", meta: "RISK_HISTORY + ACCOUNT_STATE", x: 770, y: 120 }
+      { label: "ENRICH", meta: "Entity context + validation", x: 410, y: 120 },
+      { label: "SCORE", meta: "Weighted priority + escalation", x: 590, y: 120 },
+      { label: "PERSIST", meta: "History store + current state", x: 770, y: 120 }
     ];
     const gates = [
-      { id: "GATE-003", stage: 0, type: "BLOCKING" },
-      { id: "GATE-004", stage: 1, type: "WARNING" },
-      { id: "GATE-006", stage: 2, type: "WARNING" },
-      { id: "GATE-007", stage: 3, type: "BLOCKING" },
-      { id: "GATE-009", stage: 4, type: "CRITICAL" }
+      { id: "GATE-A1", stage: 0, type: "BLOCKING" },
+      { id: "GATE-B2", stage: 1, type: "WARNING" },
+      { id: "GATE-C3", stage: 2, type: "WARNING" },
+      { id: "GATE-D4", stage: 3, type: "BLOCKING" },
+      { id: "GATE-E6", stage: 4, type: "CRITICAL" }
     ];
     const scenarios = [
       {
-        previousScore: 34,
-        acv: 1250000,
+        previousScore: 31,
+        acv: 1000000,
         envelope: {
-          event_id: "evt-3f8a-11",
-          event_timestamp: "2026-02-10T13:21:00Z",
-          source_system: "INTENT",
-          account_id: "0019A00000ZZ123QAB",
-          account_name: "Northwind Health",
-          entity_type: "ACCOUNT",
-          raw_payload: { intent_topic: "Sales intelligence alternatives", intent_score: 92, signal_strength: "HIGH", is_competitor_topic: true, competitor_name: "CompetitorX", mention_count: 6 },
-          metadata: { confidence: 0.91, portfolio_context: true }
+          event_key: "evt-A-01",
+          event_time: "2026-02-10T13:21:00Z",
+          source_group: "Intent Feed",
+          entity_key: "entity-101",
+          entity_label: "Entity A",
+          entity_type: "ENTITY",
+          payload_blob: { topic: "Category trend shift", intensity: "HIGH", mention_count: 4 },
+          metadata: { confidence: 0.9, context_attached: true }
         },
         detectedSignals: [
-          { signal_id: "SIG-CT-001", signal_name: "Competitive intent signals", weight: 73, classification: "ACTIVE", days_since_detection: 2, occurrence_count: 5, source_system: "INTENT", playbook_id: "PB-COMP-INTENT", playbook_name: "Competitive Intent Response", priority: "CRITICAL", recommended_action: "Run proactive business review before renewal window narrows." },
-          { signal_id: "SIG-CT-004", signal_name: "Competitor mention", weight: 75, classification: "ACTIVE", days_since_detection: 5, occurrence_count: 3, source_system: "CHORUS", playbook_id: "PB-COMP-MENTION", playbook_name: "Competitor Mention Response", priority: "CRITICAL", recommended_action: "Frame outreach around planning and differentiation proof." }
+          { signal_id: "PAT-A1", signal_name: "Demand shift indicator", weight: 70, classification: "ACTIVE", days_since_detection: 2, occurrence_count: 4, source_system: "Feed-A", playbook_id: "RESP-1", playbook_name: "Demand Response", priority: "HIGH", recommended_action: "Run a proactive value check and align next-step narrative." },
+          { signal_id: "PAT-A2", signal_name: "Narrative pressure signal", weight: 68, classification: "ACTIVE", days_since_detection: 4, occurrence_count: 2, source_system: "Feed-B", playbook_id: "RESP-2", playbook_name: "Narrative Response", priority: "HIGH", recommended_action: "Prepare differentiator proof points for stakeholder review." }
         ],
-        enrich: { segment: "Strategic", acv: 1250000, partnership_health: "AT RISK", validation_status: "PASS", contacts: ["VP Revenue Ops", "Director RevOps"] }
+        enrich: { segment: "Tier 1", baseline_value: "High", state: "WATCH", validation_status: "PASS", stakeholders: ["Primary Sponsor", "Ops Lead"] }
       },
       {
-        previousScore: 28,
-        acv: 760000,
+        previousScore: 26,
+        acv: 650000,
         envelope: {
-          event_id: "evt-8bc9-22",
-          event_timestamp: "2026-02-10T10:05:00Z",
-          source_system: "SCOOPS",
-          account_id: "0019A00000BC789QAB",
-          account_name: "Harbor Mutual",
-          entity_type: "ACCOUNT",
-          raw_payload: { scoop_type: "Executive Move", headline: "CRO departs amid workforce reduction", published_date: "2026-02-09", severity: "HIGH" },
-          metadata: { confidence: 0.87, portfolio_context: true }
+          event_key: "evt-B-03",
+          event_time: "2026-02-10T10:05:00Z",
+          source_group: "External Feed",
+          entity_key: "entity-204",
+          entity_label: "Entity B",
+          entity_type: "ENTITY",
+          payload_blob: { trigger_type: "Leadership change", severity: "HIGH", signals: 2 },
+          metadata: { confidence: 0.86, context_attached: true }
         },
         detectedSignals: [
-          { signal_id: "SIG-OC-001", signal_name: "Executive Move", weight: 65, classification: "ACTIVE", days_since_detection: 1, occurrence_count: 1, source_system: "SCOOPS", playbook_id: "PB-EXEC-MOVE", playbook_name: "Executive Move Response", priority: "HIGH", recommended_action: "Map new leader and reset value narrative within 72h." },
-          { signal_id: "SIG-OC-003", signal_name: "Layoffs", weight: 70, classification: "ACTIVE", days_since_detection: 1, occurrence_count: 2, source_system: "SCOOPS", playbook_id: "PB-LAYOFFS", playbook_name: "Layoffs Response", priority: "HIGH", recommended_action: "Lead with right-sizing strategy and ROI preservation." }
+          { signal_id: "PAT-B1", signal_name: "Stakeholder turnover signal", weight: 62, classification: "ACTIVE", days_since_detection: 1, occurrence_count: 1, source_system: "Feed-C", playbook_id: "RESP-3", playbook_name: "Stakeholder Reset", priority: "HIGH", recommended_action: "Re-map decision paths and reset stakeholder alignment." },
+          { signal_id: "PAT-B2", signal_name: "Capacity reduction signal", weight: 66, classification: "ACTIVE", days_since_detection: 1, occurrence_count: 2, source_system: "Feed-C", playbook_id: "RESP-4", playbook_name: "Capacity Stabilization", priority: "HIGH", recommended_action: "Shift plan to efficiency-first outcomes and preserve critical scope." }
         ],
-        enrich: { segment: "Enterprise", acv: 760000, partnership_health: "AT RISK", validation_status: "PASS", contacts: ["New Interim CRO", "Procurement Lead"] }
+        enrich: { segment: "Tier 2", baseline_value: "Medium", state: "WATCH", validation_status: "PASS", stakeholders: ["Interim Owner", "Budget Contact"] }
       },
       {
-        previousScore: 49,
-        acv: 220000,
+        previousScore: 45,
+        acv: 250000,
         envelope: {
-          event_id: "evt-bad4-51",
-          event_timestamp: "2026-02-10T09:40:00Z",
-          source_system: "FINANCIAL",
-          account_id: "0019A00000PQ456QAB",
-          account_name: "Summit Logistics",
-          entity_type: "ACCOUNT",
-          raw_payload: { payment_status: "OVERDUE", days_overdue: 47, amount_outstanding: 84200, previous_payment_history: "LATE_RECURRING" },
-          metadata: { confidence: 0.93, portfolio_context: true }
+          event_key: "evt-C-07",
+          event_time: "2026-02-10T09:40:00Z",
+          source_group: "Finance Feed",
+          entity_key: "entity-318",
+          entity_label: "Entity C",
+          entity_type: "ENTITY",
+          payload_blob: { status: "Delayed", trend: "Negative", signal_strength: "HIGH" },
+          metadata: { confidence: 0.92, context_attached: true }
         },
         detectedSignals: [
-          { signal_id: "SIG-FI-004", signal_name: "AR / payment delays", weight: 68, classification: "ACTIVE", days_since_detection: 0, occurrence_count: 4, source_system: "FINANCIAL", playbook_id: "PB-AR-DELAY", playbook_name: "Payment Delay Investigation", priority: "MEDIUM", recommended_action: "Confirm root cause and tie payment path to renewal risk controls." },
-          { signal_id: "SIG-SC-007", signal_name: "Declining NPS score", weight: 78, classification: "ACTIVE", days_since_detection: 4, occurrence_count: 1, source_system: "NPS", playbook_id: "PB-NPS-DECLINE", playbook_name: "NPS Decline Intervention", priority: "HIGH", recommended_action: "Open feedback loop with detractor and define recovery milestones." }
+          { signal_id: "PAT-C1", signal_name: "Commitment delay signal", weight: 64, classification: "ACTIVE", days_since_detection: 0, occurrence_count: 3, source_system: "Feed-D", playbook_id: "RESP-5", playbook_name: "Commitment Review", priority: "MEDIUM", recommended_action: "Validate root cause and align mitigation checkpoints." },
+          { signal_id: "PAT-C2", signal_name: "Satisfaction decline signal", weight: 72, classification: "ACTIVE", days_since_detection: 3, occurrence_count: 1, source_system: "Feed-E", playbook_id: "RESP-6", playbook_name: "Satisfaction Recovery", priority: "HIGH", recommended_action: "Open recovery loop and define measurable turnaround targets." }
         ],
-        enrich: { segment: "Mid Market", acv: 220000, partnership_health: "CRITICAL", validation_status: "PASS", contacts: ["Director Operations", "Finance Controller"] }
+        enrich: { segment: "Tier 3", baseline_value: "Medium", state: "AT_RISK", validation_status: "PASS", stakeholders: ["Operations Contact", "Finance Contact"] }
       }
     ];
 
@@ -251,10 +251,10 @@
 
     function stageOutput(scenario, scored, stageIndex) {
       if (stageIndex === 0) return { stage: "INGEST", label: stageLabels[0], output: scenario.envelope };
-      if (stageIndex === 1) return { stage: "DETECT", label: stageLabels[1], output: { event_id: scenario.envelope.event_id, signal_candidates: scenario.detectedSignals.map((s) => s.signal_id), detections: scenario.detectedSignals.map((s) => ({ signal_id: s.signal_id, signal_name: s.signal_name, classification: s.classification, source_system: s.source_system })) } };
-      if (stageIndex === 2) return { stage: "ENRICH", label: stageLabels[2], output: { account_id: scenario.envelope.account_id, account_name: scenario.envelope.account_name, context: scenario.enrich, passive_validation: "No unvalidated PASSIVE signals in this scenario" } };
-      if (stageIndex === 3) return { stage: "SCORE", label: stageLabels[3], output: { previous_risk_score: scenario.previousScore, current_risk_score: scored.finalScore, risk_tier: scored.currentTier, previous_risk_tier: scored.previousTier, delta_score: scored.delta, is_new_risk: scored.isNewRisk, is_escalation: scored.escalation, detected_signals: scored.rows } };
-      return { stage: "PERSIST", label: stageLabels[4], output: { writes: [{ table: "PRD_ZI_CHAT.MICROAPP_650_DEV.RISK_HISTORY", mode: "INSERT", status: "SUCCESS" }, { table: "PRD_ZI_CHAT.MICROAPP_650_DEV.ACCOUNT_STATE", mode: "UPSERT", status: "SUCCESS" }, { table: "PRD_ZI_CHAT.MICROAPP_650_DEV.RUNNER_LOGS", mode: "INSERT", status: "SUCCESS" }], alert_delivery: tierRank(scored.currentTier) >= tierRank("ELEVATED") ? "Slack DM queued" : "No alert required" } };
+      if (stageIndex === 1) return { stage: "DETECT", label: stageLabels[1], output: { event_key: scenario.envelope.event_key, pattern_candidates: scenario.detectedSignals.map((s) => s.signal_id), detections: scenario.detectedSignals.map((s) => ({ pattern_id: s.signal_id, pattern_name: s.signal_name, class: s.classification, source_group: s.source_system })) } };
+      if (stageIndex === 2) return { stage: "ENRICH", label: stageLabels[2], output: { entity_key: scenario.envelope.entity_key, entity_label: scenario.envelope.entity_label, context: scenario.enrich, passive_review: "No unreviewed passive patterns in this scenario" } };
+      if (stageIndex === 3) return { stage: "SCORE", label: stageLabels[3], output: { previous_priority_score: scenario.previousScore, current_priority_score: scored.finalScore, priority_tier: scored.currentTier, previous_tier: scored.previousTier, delta_score: scored.delta, is_new_risk: scored.isNewRisk, is_escalation: scored.escalation, detected_patterns: scored.rows } };
+      return { stage: "PERSIST", label: stageLabels[4], output: { writes: [{ target: "HISTORY_STORE", mode: "INSERT", status: "SUCCESS" }, { target: "CURRENT_STATE_STORE", mode: "UPSERT", status: "SUCCESS" }, { target: "RUN_AUDIT_LOG", mode: "INSERT", status: "SUCCESS" }], notification: tierRank(scored.currentTier) >= tierRank("ELEVATED") ? "Response notification queued" : "No notification required" } };
     }
 
     function renderGraph() {
