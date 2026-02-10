@@ -1,809 +1,367 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <title>Signal Engine - Zach Day</title>
-  <meta name="description" content="Interactive signal flow map showing health, confidence, and playback states." />
+  <title>Signal Engine - Canonical Model</title>
   <style>
-    :root {
-      --bg: #0a0a0a;
-      --panel: #151515;
-      --text: #e8eaf0;
-      --muted: #a0a0a0;
-      --border: #2a2a2a;
-      --accent: #10b981;
-      --warn: #f59e0b;
-      --bad: #ef4444;
-      --radius: 12px;
-      --shadow: 0 4px 20px rgba(0, 0, 0, 0.55);
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      font-family: "Inter", "SF Pro Text", "Segoe UI", system-ui, -apple-system, sans-serif;
-      background: radial-gradient(900px 520px at 15% -10%, rgba(16, 185, 129, 0.14), transparent 60%), radial-gradient(700px 420px at 90% 0%, rgba(255, 255, 255, 0.06), transparent 65%), var(--bg);
-      color: var(--text);
-      line-height: 1.5;
-    }
-
-    .container {
-      width: min(1040px, 92vw);
-      margin: 0 auto;
-      padding: 36px 0 84px;
-    }
-
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 16px 0 20px;
-      background: rgba(10, 10, 10, 0.75);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid transparent;
-      transition: border-color 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    header.scrolled {
-      border-color: var(--border);
-      box-shadow: var(--shadow);
-    }
-
-    .brand {
-      display: flex;
-      gap: 12px;
-      align-items: center;
-      font-weight: 600;
-      font-size: 15px;
-      color: var(--text);
-    }
-
-    .dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 999px;
-      background: var(--accent);
-      box-shadow: 0 0 10px rgba(16, 185, 129, 0.6);
-      animation: pulse 2.4s ease-in-out infinite;
-    }
-
-    @keyframes pulse {
-      0%,
-      100% {
-        transform: scale(1);
-        opacity: 0.7;
-      }
-
-      50% {
-        transform: scale(1.6);
-        opacity: 1;
-      }
-    }
-
-    nav a {
-      color: var(--muted);
-      text-decoration: none;
-      margin-left: 18px;
-      font-weight: 500;
-      font-size: 14px;
-      border-bottom: 1px solid transparent;
-      padding-bottom: 2px;
-    }
-
-    nav a:hover {
-      color: var(--text);
-      border-color: var(--text);
-    }
-
-    .back-home {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 6px 12px;
-      border-radius: 999px;
-      border: 1px solid var(--border);
-      color: var(--text);
-      font-size: 12px;
-      text-decoration: none;
-      margin-right: 10px;
-    }
-
-    .hero {
-      margin-top: 10px;
-      padding: 26px 0 34px;
-    }
-
-    .hero h1 {
-      margin: 0 0 10px;
-      font-size: clamp(34px, 5vw, 56px);
-      line-height: 1.06;
-      letter-spacing: -1px;
-    }
-
-    .hero p {
-      margin: 0;
-      color: var(--muted);
-      max-width: 70ch;
-    }
-
-    .section {
-      margin-top: 34px;
-    }
-
-    .section h2 {
-      margin: 0 0 14px;
-      font-size: 13px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      font-weight: 600;
-      color: var(--muted);
-    }
-
-    .lab {
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      background: linear-gradient(180deg, rgba(22, 22, 22, 0.98), rgba(14, 14, 14, 0.86));
-      box-shadow: var(--shadow);
-      overflow: hidden;
-    }
-
-    .lab-head {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 16px;
-      padding: 16px;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .control-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      align-items: center;
-    }
-
-    .btn {
-      border: 1px solid var(--border);
-      background: #111;
-      color: var(--text);
-      border-radius: 10px;
-      padding: 8px 13px;
-      font-size: 13px;
-      cursor: pointer;
-    }
-
-    .btn:hover {
-      border-color: #444;
-      background: #161616;
-    }
-
-    .timeline-wrap {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      min-width: 280px;
-    }
-
-    .timeline-wrap input {
-      width: 230px;
-      accent-color: var(--accent);
-    }
-
-    .tick-label {
-      font-size: 12px;
-      color: var(--muted);
-      min-width: 62px;
-      text-align: right;
-    }
-
-    .lab-grid {
-      display: grid;
-      grid-template-columns: 2fr 1fr;
-      gap: 0;
-    }
-
-    .graph-pane {
-      padding: 14px;
-      border-right: 1px solid var(--border);
-    }
-
-    .graph-shell {
-      border: 1px solid #262626;
-      border-radius: 10px;
-      background: radial-gradient(circle at 35% 20%, rgba(16, 185, 129, 0.08), rgba(10, 10, 10, 0.6) 45%), #0f0f0f;
-      overflow: hidden;
-    }
-
-    #signalGraph {
-      display: block;
-      width: 100%;
-      height: auto;
-    }
-
-    .edge {
-      stroke: #3a3a3a;
-      stroke-width: 2;
-      transition: stroke 0.25s ease, stroke-width 0.25s ease;
-    }
-
-    .edge-label {
-      font-size: 10px;
-      fill: #8a8a8a;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    .edge.active {
-      stroke: var(--accent);
-      stroke-width: 3;
-    }
-
-    .node-box {
-      fill: #151515;
-      stroke: #343434;
-      stroke-width: 1.5;
-      transition: stroke 0.25s ease;
-    }
-
-    .node.active .node-box {
-      stroke: #2ad197;
-    }
-
-    .node.warn .node-box {
-      stroke: var(--warn);
-    }
-
-    .node.error .node-box {
-      stroke: var(--bad);
-    }
-
-    .node-title {
-      fill: #f2f2f2;
-      font-size: 12px;
-      font-weight: 600;
-    }
-
-    .node-type {
-      fill: #9d9d9d;
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: 0.8px;
-    }
-
-    .node-stat {
-      fill: #c9c9c9;
-      font-size: 10px;
-    }
-
-    .state-dot {
-      transition: fill 0.25s ease;
-    }
-
-    .side-pane {
-      padding: 14px;
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-
-    .metric-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 10px;
-    }
-
-    .metric {
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 10px;
-      background: rgba(255, 255, 255, 0.02);
-    }
-
-    .metric strong {
-      display: block;
-      font-size: 19px;
-      line-height: 1.1;
-    }
-
-    .metric span {
-      font-size: 12px;
-      color: var(--muted);
-    }
-
-    .event-log {
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      background: rgba(255, 255, 255, 0.02);
-      padding: 12px;
-    }
-
-    .event-log h3 {
-      margin: 0 0 8px;
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: var(--muted);
-    }
-
-    .event-log p {
-      margin: 0;
-      font-size: 13px;
-      color: #c9c9c9;
-      min-height: 38px;
-    }
-
-    .legend {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      font-size: 12px;
-      color: var(--muted);
-    }
-
-    .legend b {
-      color: var(--text);
-      font-weight: 600;
-    }
-
-    footer {
-      margin-top: 56px;
-      border-top: 1px solid var(--border);
-      padding-top: 26px;
-      color: var(--muted);
-      font-size: 13px;
-      display: flex;
-      justify-content: space-between;
-      gap: 16px;
-      flex-wrap: wrap;
-    }
-
-    @media (max-width: 980px) {
-      .lab-head {
-        grid-template-columns: 1fr;
-      }
-
-      .timeline-wrap {
-        justify-content: space-between;
-      }
-
-      .timeline-wrap input {
-        width: 100%;
-      }
-
-      .lab-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .graph-pane {
-        border-right: none;
-        border-bottom: 1px solid var(--border);
-      }
-    }
-
-    @media (max-width: 720px) {
-      .container {
-        padding: 22px 0 58px;
-      }
-
-      header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
-      }
-
-      .hero {
-        padding: 20px 0 26px;
-      }
-
-      .metric-grid {
-        grid-template-columns: 1fr;
-      }
-
-      nav a {
-        margin-left: 12px;
-      }
-    }
+    :root { --bg:#090909; --panel:#141414; --text:#e8eaf0; --muted:#a0a0a0; --border:#2a2a2a; --accent:#10b981; --warn:#f59e0b; --radius:12px; }
+    * { box-sizing:border-box; }
+    body { margin:0; font-family:"Inter", "Segoe UI", system-ui, sans-serif; background:radial-gradient(920px 540px at 8% -10%, rgba(16,185,129,.16), transparent 62%), var(--bg); color:var(--text); }
+    .container { width:min(1100px,92vw); margin:0 auto; padding:32px 0 72px; }
+    header { position:sticky; top:0; z-index:10; display:flex; justify-content:space-between; align-items:center; padding:14px 0 18px; background:rgba(9,9,9,.78); border-bottom:1px solid transparent; }
+    header.scrolled { border-color:var(--border); }
+    .brand { display:flex; align-items:center; gap:10px; font-weight:600; font-size:14px; color:var(--text); }
+    .dot { width:8px; height:8px; border-radius:999px; background:var(--accent); box-shadow:0 0 10px rgba(16,185,129,.6); }
+    nav a { color:var(--muted); text-decoration:none; margin-left:16px; font-size:14px; }
+    nav a:hover { color:var(--text); }
+    .back-home { border:1px solid var(--border); border-radius:999px; padding:6px 12px; font-size:12px; color:var(--text); text-decoration:none; margin-right:8px; }
+    .hero h1 { margin:10px 0 8px; font-size:clamp(32px,4.7vw,56px); line-height:1.05; }
+    .hero p { margin:0; color:var(--muted); max-width:72ch; }
+    .section { margin-top:26px; }
+    .section h2 { margin:0 0 12px; font-size:12px; text-transform:uppercase; letter-spacing:1px; color:var(--muted); }
+    .lab,.panel,.card,.stage,.table-wrap,.formula { border:1px solid var(--border); border-radius:var(--radius); background:var(--panel); }
+    .lab { overflow:hidden; }
+    .lab-head { display:grid; grid-template-columns:1fr auto; gap:12px; padding:12px; border-bottom:1px solid var(--border); }
+    .controls { display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+    .btn,select { border:1px solid var(--border); background:#111; color:var(--text); border-radius:10px; padding:8px 12px; font-size:13px; }
+    .btn { cursor:pointer; }
+    .timeline-wrap { display:flex; align-items:center; gap:10px; min-width:270px; }
+    .timeline-wrap input { width:210px; accent-color:var(--accent); }
+    .tick-label { font-size:12px; color:var(--muted); min-width:84px; text-align:right; }
+    .lab-grid { display:grid; grid-template-columns:1.5fr 1fr; }
+    .graph-pane { border-right:1px solid var(--border); padding:12px; }
+    .graph-shell { border:1px solid #262626; border-radius:10px; background:#0f0f0f; overflow:hidden; }
+    #pipelineGraph { display:block; width:100%; height:auto; }
+    .edge { stroke:#363636; stroke-width:2.5; }
+    .edge.active { stroke:var(--accent); }
+    .node-box { fill:#151515; stroke:#383838; stroke-width:1.5; }
+    .node.complete .node-box { stroke:var(--accent); fill:#102019; }
+    .node.active .node-box { stroke:#2de0a2; fill:#13261e; }
+    .node.pending .node-box { stroke:#474747; fill:#151515; }
+    .node.warn .node-box { stroke:var(--warn); fill:#2a2211; }
+    .node-title { fill:#f0f0f0; font-size:12px; font-weight:600; }
+    .node-meta { fill:#a0a0a0; font-size:10px; }
+    .side-pane { padding:12px; display:flex; flex-direction:column; gap:10px; }
+    .metric-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
+    .metric { border:1px solid var(--border); border-radius:10px; padding:10px; background:#171717; }
+    .metric strong { display:block; font-size:18px; }
+    .metric span { color:var(--muted); font-size:12px; }
+    .panel { padding:10px; }
+    .panel h3 { margin:0 0 8px; font-size:12px; text-transform:uppercase; color:var(--muted); }
+    pre { margin:0; background:#0f0f0f; border:1px solid #272727; border-radius:10px; padding:10px; overflow:auto; font-size:11px; color:#d9d9d9; max-height:250px; }
+    .chip-row { display:flex; flex-wrap:wrap; gap:8px; }
+    .chip { border:1px solid var(--border); border-radius:999px; padding:4px 9px; font-size:11px; color:#d5d5d5; background:#121212; }
+    .cards { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; }
+    .card { padding:12px; }
+    .card h3 { margin:0 0 6px; font-size:14px; }
+    .card p { margin:0; color:var(--muted); font-size:13px; }
+    .contract-grid { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:10px; }
+    .stage { padding:10px; }
+    .stage h3 { margin:0 0 5px; font-size:12px; text-transform:uppercase; }
+    .stage p { margin:0; color:var(--muted); font-size:12px; line-height:1.45; }
+    .formula { padding:12px; font-size:13px; }
+    .table-wrap { overflow-x:auto; }
+    table { width:100%; border-collapse:collapse; font-size:13px; min-width:760px; }
+    th,td { border-bottom:1px solid #282828; padding:9px 10px; text-align:left; vertical-align:top; }
+    th { color:var(--muted); font-size:11px; text-transform:uppercase; background:#111; }
+    footer { margin-top:50px; border-top:1px solid var(--border); padding-top:22px; color:var(--muted); font-size:13px; display:flex; justify-content:space-between; flex-wrap:wrap; }
+    @media (max-width:980px){ .lab-head{grid-template-columns:1fr;} .lab-grid{grid-template-columns:1fr;} .graph-pane{border-right:none;border-bottom:1px solid var(--border);} .cards{grid-template-columns:1fr;} .contract-grid{grid-template-columns:repeat(2,minmax(0,1fr));} }
+    @media (max-width:720px){ .container{padding:22px 0 58px;} header{flex-direction:column;align-items:flex-start;gap:10px;} nav a{margin-left:10px;} .contract-grid,.metric-grid{grid-template-columns:1fr;} }
   </style>
 </head>
-
 <body>
   <div class="container">
     <header>
-      <a href="../index.html" style="text-decoration: none;">
-        <div class="brand">
-          <span class="dot" title="Project"></span>
-          <span>Zach Day</span>
-        </div>
-      </a>
-      <nav>
-        <a class="back-home" href="../index.html">Back to Home</a>
-        <a href="../index.html#projects">Projects</a>
-        <a href="../index.html#about">About</a>
-        <a href="../index.html#contact">Contact</a>
-      </nav>
+      <a href="../index.html" style="text-decoration:none;"><div class="brand"><span class="dot" title="Project"></span><span>Zach Day</span></div></a>
+      <nav><a class="back-home" href="../index.html">Back to Home</a><a href="../index.html#projects">Projects</a><a href="../index.html#about">About</a><a href="../index.html#contact">Contact</a></nav>
     </header>
-
     <main>
-      <section class="hero">
-        <h1>Signal Engine</h1>
-        <p>Interactive view of how raw telemetry moves through transforms, scoring rules, and health outputs.</p>
-      </section>
-
+      <section class="hero"><h1>Signal Engine</h1><p>Canonical model (v1.0): what we ingest, how each stage transforms it, how risk is scored, and what playbook is triggered.</p></section>
+      <section class="section"><h2>Canonical Pipeline</h2><div class="lab"><div class="lab-head"><div class="controls"><select id="scenarioSelect" aria-label="Scenario"><option value="0">Competitive Intent Spike</option><option value="1">Executive Move + Layoffs</option><option value="2">Payment Delays + NPS Drop</option></select><button class="btn" id="playPauseBtn" type="button">Play</button><button class="btn" id="stepBtn" type="button">Step</button></div><div class="timeline-wrap"><input id="timeline" type="range" min="0" max="4" value="0" step="1" aria-label="Pipeline stage" /><span class="tick-label" id="tickLabel">Stage 1/5</span></div></div><div class="lab-grid"><div class="graph-pane"><div class="graph-shell"><svg id="pipelineGraph" viewBox="0 0 980 330" role="img" aria-label="Signal engine pipeline"></svg></div></div><aside class="side-pane"><div class="metric-grid"><div class="metric"><strong id="metricScore">0</strong><span>Risk Score</span></div><div class="metric"><strong id="metricTier">HEALTHY</strong><span>Risk Tier</span></div><div class="metric"><strong id="metricDelta">0</strong><span>Delta Score</span></div><div class="metric"><strong id="metricEsc">No</strong><span>Escalation</span></div></div><div class="panel"><h3>Stage Output</h3><pre id="stageJson">Loading...</pre></div><div class="panel"><h3>Gate Status</h3><div class="chip-row" id="gateRow"></div></div></aside></div></div></section>
       <section class="section">
-        <h2>Signal Graph Lab</h2>
-        <div class="lab">
-          <div class="lab-head">
-            <div class="control-row">
-              <button class="btn" id="playPauseBtn" type="button">Play</button>
-              <button class="btn" id="stepBtn" type="button">Step</button>
-              <button class="btn" id="jitterBtn" type="button">Randomize</button>
-            </div>
-            <div class="timeline-wrap">
-              <input id="timeline" type="range" min="0" max="5" value="0" step="1" aria-label="Timeline" />
-              <span class="tick-label" id="tickLabel">Tick 1/6</span>
-            </div>
-          </div>
-
-          <div class="lab-grid">
-            <div class="graph-pane">
-              <div class="graph-shell">
-                <svg id="signalGraph" viewBox="0 0 900 450" role="img" aria-label="Signal engine flow map"></svg>
-              </div>
-            </div>
-
-            <aside class="side-pane">
-              <div class="metric-grid">
-                <div class="metric"><strong id="metricConfidence">0%</strong><span>Avg confidence</span></div>
-                <div class="metric"><strong id="metricLatency">0ms</strong><span>Pipeline latency</span></div>
-                <div class="metric"><strong id="metricHealthy">0</strong><span>Healthy nodes</span></div>
-                <div class="metric"><strong id="metricAlert">None</strong><span>Current alert</span></div>
-              </div>
-
-              <div class="event-log">
-                <h3>What Changed</h3>
-                <p id="eventText">Booting signal engine scenario.</p>
-              </div>
-
-              <div class="legend">
-                <span><b>Input</b> Event Ingestion</span>
-                <span><b>Transform</b> Feature Extraction</span>
-                <span><b>Output</b> Health + Playbook</span>
-              </div>
-            </aside>
-          </div>
+        <h2>Ingestion Surface</h2>
+        <div class="cards">
+          <div class="card"><h3>Universal Event Envelope</h3><p>Normalized fields: event_id, event_timestamp, source_system, account_id, entity_type, raw_payload, metadata.confidence.</p></div>
+          <div class="card"><h3>Source Systems</h3><div class="chip-row"><span class="chip">SALESFORCE</span><span class="chip">CHORUS</span><span class="chip">INTENT</span><span class="chip">PRODUCT_USAGE</span><span class="chip">SCOOPS</span><span class="chip">NPS</span><span class="chip">FINANCIAL</span><span class="chip">TECHNOGRAPHICS</span><span class="chip">WEB_ANALYTICS</span><span class="chip">MARKETO</span></div></div>
+          <div class="card"><h3>Signal Dictionary Contract</h3><p>Schema keys used in pipeline: signal_id, risk_category, weight, classification, validation_required, detection_method.</p></div>
         </div>
+      </section>
+      <section class="section">
+        <h2>Transform Contract</h2>
+        <div class="contract-grid">
+          <div class="stage"><h3>Ingest</h3><p>Normalize source payloads into Event Envelope.<br />Halt: missing account_id or event_timestamp (GATE-003).</p></div>
+          <div class="stage"><h3>Detect</h3><p>Match rules to assign signal_candidates and classification.<br />Warn: high-priority event with zero matches (GATE-004).</p></div>
+          <div class="stage"><h3>Enrich</h3><p>Join account/contact context, apply passive-signal validation window.<br />Expire PASSIVE >72h unvalidated (GATE-006).</p></div>
+          <div class="stage"><h3>Score</h3><p>Compute weighted contributions + clamp [0,100].<br />Halt: math bounds or cross-source consistency checks (GATE-007, GATE-008).</p></div>
+          <div class="stage"><h3>Persist</h3><p>INSERT RISK_HISTORY, UPSERT ACCOUNT_STATE, log runner state, alert T3+ tiers.<br />Retry + fail log on persistence failure (GATE-009).</p></div>
+        </div>
+      </section>
+      <section class="section">
+        <h2>Scoring Formula</h2>
+        <div class="formula"><code>RISK_SCORE = MIN(100, SUM(signal_weight * recency_decay * acv_multiplier * frequency_boost))</code><br /><code>recency_decay = e^(-0.03 * days_since_detection)</code><br /><code>frequency_boost = 1 + LOG2(occurrence_count) * 0.1</code></div>
+        <div class="panel" style="margin-top:10px;"><h3>Current Calculation</h3><pre id="calcJson">Loading...</pre></div>
+      </section>
+      <section class="section">
+        <h2>Signal To Playbook Mapping</h2>
+        <div class="table-wrap"><table><thead><tr><th>Signal</th><th>Weight</th><th>Class</th><th>Playbook</th><th>Priority</th><th>Recommended Action</th></tr></thead><tbody id="mappingBody"></tbody></table></div>
       </section>
     </main>
-
-    <footer>
-      <span>(c) <span id="year"></span> Zach Day</span>
-      <span>Built from scratch - Iterated in public</span>
-    </footer>
+    <footer><span>(c) <span id="year"></span> Zach Day</span><span>Signal Engine canonical schema mapped to UI</span></footer>
   </div>
 
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
-
     const header = document.querySelector("header");
     const toggleHeader = () => header.classList.toggle("scrolled", window.scrollY > 8);
     toggleHeader();
     window.addEventListener("scroll", toggleHeader, { passive: true });
 
-    const dots = document.querySelectorAll(".dot");
-    const setPresenceDot = () => {
-      const online = navigator.onLine;
-      dots.forEach((dot) => {
-        dot.style.background = online ? "var(--accent)" : "#ef4444";
-        dot.style.boxShadow = online ? "0 0 10px rgba(16, 185, 129, 0.6)" : "0 0 10px rgba(239, 68, 68, 0.6)";
-        dot.title = online ? "Online" : "Offline";
-      });
-    };
-    setPresenceDot();
-    window.addEventListener("online", setPresenceDot);
-    window.addEventListener("offline", setPresenceDot);
-
-    const graph = document.getElementById("signalGraph");
-    const timelineInput = document.getElementById("timeline");
-    const tickLabel = document.getElementById("tickLabel");
-    const eventText = document.getElementById("eventText");
-    const playPauseBtn = document.getElementById("playPauseBtn");
-    const stepBtn = document.getElementById("stepBtn");
-    const jitterBtn = document.getElementById("jitterBtn");
-
-    const nodes = [
-      { id: "evt", label: "Event Stream", kind: "Input", x: 70, y: 150 },
-      { id: "clean", label: "Normalizer", kind: "Transform", x: 240, y: 80 },
-      { id: "features", label: "Feature Calc", kind: "Transform", x: 420, y: 80 },
-      { id: "score", label: "Signal Score", kind: "Transform", x: 600, y: 80 },
-      { id: "health", label: "Health State", kind: "Output", x: 780, y: 80 },
-      { id: "acts", label: "Action Rules", kind: "Output", x: 780, y: 240 },
-      { id: "audit", label: "Audit Log", kind: "Output", x: 600, y: 240 },
-      { id: "qa", label: "Drift Check", kind: "Transform", x: 420, y: 240 },
-      { id: "ctx", label: "Account Context", kind: "Input", x: 240, y: 240 }
+    const stageLabels = ["Event Envelope", "Signal Candidates", "Context Join", "Risk Scoring", "Snowflake Write"];
+    const pipelineNodes = [
+      { label: "INGEST", meta: "Envelope + required field checks", x: 50, y: 120 },
+      { label: "DETECT", meta: "Rule matching + candidate signals", x: 230, y: 120 },
+      { label: "ENRICH", meta: "Account/contact context + validation", x: 410, y: 120 },
+      { label: "SCORE", meta: "Weighted risk + escalation", x: 590, y: 120 },
+      { label: "PERSIST", meta: "RISK_HISTORY + ACCOUNT_STATE", x: 770, y: 120 }
     ];
-
-    const edges = [
-      { id: "e1", from: "evt", to: "clean", label: "raw" },
-      { id: "e2", from: "clean", to: "features", label: "fields" },
-      { id: "e3", from: "features", to: "score", label: "metrics" },
-      { id: "e4", from: "score", to: "health", label: "health" },
-      { id: "e5", from: "score", to: "acts", label: "trigger" },
-      { id: "e6", from: "score", to: "audit", label: "record" },
-      { id: "e7", from: "ctx", to: "qa", label: "context" },
-      { id: "e8", from: "qa", to: "features", label: "guard" },
-      { id: "e9", from: "evt", to: "qa", label: "sample" }
+    const gates = [
+      { id: "GATE-003", stage: 0, type: "BLOCKING" },
+      { id: "GATE-004", stage: 1, type: "WARNING" },
+      { id: "GATE-006", stage: 2, type: "WARNING" },
+      { id: "GATE-007", stage: 3, type: "BLOCKING" },
+      { id: "GATE-009", stage: 4, type: "CRITICAL" }
     ];
-
-    const snapshots = [
+    const scenarios = [
       {
-        states: { evt: "active", clean: "active", features: "active", score: "active", health: "active", acts: "active", audit: "active", qa: "active", ctx: "active" },
-        confidence: { evt: 0.96, clean: 0.94, features: 0.93, score: 0.91, health: 0.9, acts: 0.88, audit: 0.98, qa: 0.87, ctx: 0.95 },
-        hot: ["e1", "e2", "e3", "e4", "e6", "e7", "e8"],
-        latency: 98,
-        alert: "None",
-        note: "Baseline run: normal ingestion and healthy confidence across all nodes."
+        previousScore: 34,
+        acv: 1250000,
+        envelope: {
+          event_id: "evt-3f8a-11",
+          event_timestamp: "2026-02-10T13:21:00Z",
+          source_system: "INTENT",
+          account_id: "0019A00000ZZ123QAB",
+          account_name: "Northwind Health",
+          entity_type: "ACCOUNT",
+          raw_payload: { intent_topic: "Sales intelligence alternatives", intent_score: 92, signal_strength: "HIGH", is_competitor_topic: true, competitor_name: "CompetitorX", mention_count: 6 },
+          metadata: { confidence: 0.91, portfolio_context: true }
+        },
+        detectedSignals: [
+          { signal_id: "SIG-CT-001", signal_name: "Competitive intent signals", weight: 73, classification: "ACTIVE", days_since_detection: 2, occurrence_count: 5, source_system: "INTENT", playbook_id: "PB-COMP-INTENT", playbook_name: "Competitive Intent Response", priority: "CRITICAL", recommended_action: "Run proactive business review before renewal window narrows." },
+          { signal_id: "SIG-CT-004", signal_name: "Competitor mention", weight: 75, classification: "ACTIVE", days_since_detection: 5, occurrence_count: 3, source_system: "CHORUS", playbook_id: "PB-COMP-MENTION", playbook_name: "Competitor Mention Response", priority: "CRITICAL", recommended_action: "Frame outreach around planning and differentiation proof." }
+        ],
+        enrich: { segment: "Strategic", acv: 1250000, partnership_health: "AT RISK", validation_status: "PASS", contacts: ["VP Revenue Ops", "Director RevOps"] }
       },
       {
-        states: { evt: "active", clean: "active", features: "active", score: "warn", health: "warn", acts: "active", audit: "active", qa: "active", ctx: "active" },
-        confidence: { evt: 0.94, clean: 0.92, features: 0.89, score: 0.74, health: 0.71, acts: 0.8, audit: 0.96, qa: 0.86, ctx: 0.94 },
-        hot: ["e1", "e2", "e3", "e4", "e5", "e6", "e7", "e8"],
-        latency: 114,
-        alert: "Risk rising",
-        note: "Spike in low-quality events reduced score certainty and raised risk early warning."
+        previousScore: 28,
+        acv: 760000,
+        envelope: {
+          event_id: "evt-8bc9-22",
+          event_timestamp: "2026-02-10T10:05:00Z",
+          source_system: "SCOOPS",
+          account_id: "0019A00000BC789QAB",
+          account_name: "Harbor Mutual",
+          entity_type: "ACCOUNT",
+          raw_payload: { scoop_type: "Executive Move", headline: "CRO departs amid workforce reduction", published_date: "2026-02-09", severity: "HIGH" },
+          metadata: { confidence: 0.87, portfolio_context: true }
+        },
+        detectedSignals: [
+          { signal_id: "SIG-OC-001", signal_name: "Executive Move", weight: 65, classification: "ACTIVE", days_since_detection: 1, occurrence_count: 1, source_system: "SCOOPS", playbook_id: "PB-EXEC-MOVE", playbook_name: "Executive Move Response", priority: "HIGH", recommended_action: "Map new leader and reset value narrative within 72h." },
+          { signal_id: "SIG-OC-003", signal_name: "Layoffs", weight: 70, classification: "ACTIVE", days_since_detection: 1, occurrence_count: 2, source_system: "SCOOPS", playbook_id: "PB-LAYOFFS", playbook_name: "Layoffs Response", priority: "HIGH", recommended_action: "Lead with right-sizing strategy and ROI preservation." }
+        ],
+        enrich: { segment: "Enterprise", acv: 760000, partnership_health: "AT RISK", validation_status: "PASS", contacts: ["New Interim CRO", "Procurement Lead"] }
       },
       {
-        states: { evt: "active", clean: "warn", features: "warn", score: "warn", health: "warn", acts: "active", audit: "active", qa: "active", ctx: "active" },
-        confidence: { evt: 0.93, clean: 0.76, features: 0.7, score: 0.69, health: 0.68, acts: 0.74, audit: 0.95, qa: 0.89, ctx: 0.94 },
-        hot: ["e1", "e2", "e3", "e4", "e5", "e6", "e9"],
-        latency: 137,
-        alert: "Input quality",
-        note: "Normalizer flagged missing fields; downstream confidence dropped below target threshold."
-      },
-      {
-        states: { evt: "active", clean: "active", features: "warn", score: "error", health: "error", acts: "warn", audit: "active", qa: "warn", ctx: "active" },
-        confidence: { evt: 0.93, clean: 0.9, features: 0.66, score: 0.48, health: 0.41, acts: 0.62, audit: 0.97, qa: 0.69, ctx: 0.95 },
-        hot: ["e1", "e2", "e3", "e4", "e5", "e6", "e9"],
-        latency: 188,
-        alert: "Sev-2 scoring",
-        note: "Scoring model confidence collapsed due to drift; playbook throttled to reduce false positives."
-      },
-      {
-        states: { evt: "active", clean: "active", features: "active", score: "warn", health: "warn", acts: "active", audit: "active", qa: "active", ctx: "active" },
-        confidence: { evt: 0.95, clean: 0.91, features: 0.84, score: 0.72, health: 0.71, acts: 0.81, audit: 0.98, qa: 0.86, ctx: 0.95 },
-        hot: ["e1", "e2", "e3", "e4", "e5", "e6", "e7", "e8"],
-        latency: 126,
-        alert: "Monitoring",
-        note: "Recovered after fallback feature set. Drift check remains elevated and under monitoring."
-      },
-      {
-        states: { evt: "active", clean: "active", features: "active", score: "active", health: "active", acts: "active", audit: "active", qa: "active", ctx: "active" },
-        confidence: { evt: 0.96, clean: 0.94, features: 0.92, score: 0.89, health: 0.87, acts: 0.86, audit: 0.98, qa: 0.9, ctx: 0.95 },
-        hot: ["e1", "e2", "e3", "e4", "e6", "e7", "e8"],
-        latency: 103,
-        alert: "Resolved",
-        note: "Stabilized with updated thresholds and cleaned source payloads."
+        previousScore: 49,
+        acv: 220000,
+        envelope: {
+          event_id: "evt-bad4-51",
+          event_timestamp: "2026-02-10T09:40:00Z",
+          source_system: "FINANCIAL",
+          account_id: "0019A00000PQ456QAB",
+          account_name: "Summit Logistics",
+          entity_type: "ACCOUNT",
+          raw_payload: { payment_status: "OVERDUE", days_overdue: 47, amount_outstanding: 84200, previous_payment_history: "LATE_RECURRING" },
+          metadata: { confidence: 0.93, portfolio_context: true }
+        },
+        detectedSignals: [
+          { signal_id: "SIG-FI-004", signal_name: "AR / payment delays", weight: 68, classification: "ACTIVE", days_since_detection: 0, occurrence_count: 4, source_system: "FINANCIAL", playbook_id: "PB-AR-DELAY", playbook_name: "Payment Delay Investigation", priority: "MEDIUM", recommended_action: "Confirm root cause and tie payment path to renewal risk controls." },
+          { signal_id: "SIG-SC-007", signal_name: "Declining NPS score", weight: 78, classification: "ACTIVE", days_since_detection: 4, occurrence_count: 1, source_system: "NPS", playbook_id: "PB-NPS-DECLINE", playbook_name: "NPS Decline Intervention", priority: "HIGH", recommended_action: "Open feedback loop with detractor and define recovery milestones." }
+        ],
+        enrich: { segment: "Mid Market", acv: 220000, partnership_health: "CRITICAL", validation_status: "PASS", contacts: ["Director Operations", "Finance Controller"] }
       }
     ];
 
-    const stateColor = {
-      active: "#10b981",
-      warn: "#f59e0b",
-      error: "#ef4444"
-    };
+    const stageJson = document.getElementById("stageJson");
+    const calcJson = document.getElementById("calcJson");
+    const mappingBody = document.getElementById("mappingBody");
+    const gateRow = document.getElementById("gateRow");
+    const metricScore = document.getElementById("metricScore");
+    const metricTier = document.getElementById("metricTier");
+    const metricDelta = document.getElementById("metricDelta");
+    const metricEsc = document.getElementById("metricEsc");
+    const timeline = document.getElementById("timeline");
+    const tickLabel = document.getElementById("tickLabel");
+    const playPauseBtn = document.getElementById("playPauseBtn");
+    const stepBtn = document.getElementById("stepBtn");
+    const scenarioSelect = document.getElementById("scenarioSelect");
+    const graph = document.getElementById("pipelineGraph");
 
-    function getNode(id) {
-      return nodes.find((node) => node.id === id);
+    const recencyDecay = (days) => Math.exp(-0.03 * days);
+    const acvMultiplier = (acv) => (acv >= 1000000 ? 1.3 : acv >= 500000 ? 1.15 : acv >= 100000 ? 1.0 : 0.85);
+    const frequencyBoost = (count) => 1 + Math.log2(Math.max(1, count)) * 0.1;
+    const tierFromScore = (score) => (score <= 20 ? "HEALTHY" : score <= 40 ? "MONITOR" : score <= 60 ? "ELEVATED" : score <= 80 ? "HIGH" : "CRITICAL");
+    const tierRank = (tier) => ["HEALTHY", "MONITOR", "ELEVATED", "HIGH", "CRITICAL"].indexOf(tier);
+
+    function scoreScenario(scenario) {
+      const acvMul = acvMultiplier(scenario.acv);
+      const rows = scenario.detectedSignals.map((signal) => {
+        const rec = recencyDecay(signal.days_since_detection);
+        const freq = frequencyBoost(signal.occurrence_count);
+        const contribution = signal.weight * rec * acvMul * freq;
+        return {
+          signal_id: signal.signal_id,
+          signal_name: signal.signal_name,
+          weight: signal.weight,
+          recency_decay: Number(rec.toFixed(3)),
+          frequency_boost: Number(freq.toFixed(3)),
+          acv_multiplier: acvMul,
+          weighted_contribution: Number(contribution.toFixed(2)),
+          playbook_id: signal.playbook_id,
+          playbook_name: signal.playbook_name,
+          recommended_action: signal.recommended_action,
+          classification: signal.classification,
+          priority: signal.priority
+        };
+      });
+      const rawTotal = rows.reduce((sum, row) => sum + row.weighted_contribution, 0);
+      const finalScore = Math.min(100, Number(rawTotal.toFixed(2)));
+      const currentTier = tierFromScore(finalScore);
+      const previousTier = tierFromScore(scenario.previousScore);
+      const delta = Number((finalScore - scenario.previousScore).toFixed(2));
+      const hasCriticalNew = scenario.detectedSignals.some((signal) => signal.weight >= 75);
+      const escalation = tierRank(currentTier) - tierRank(previousTier) >= 2 || delta >= 25 || hasCriticalNew;
+      const isNewRisk = ["HEALTHY", "MONITOR"].includes(previousTier) && ["ELEVATED", "HIGH", "CRITICAL"].includes(currentTier);
+      return { rows, finalScore, rawTotal, currentTier, previousTier, delta, escalation, isNewRisk, acvMul };
+    }
+
+    function stageOutput(scenario, scored, stageIndex) {
+      if (stageIndex === 0) return { stage: "INGEST", label: stageLabels[0], output: scenario.envelope };
+      if (stageIndex === 1) return { stage: "DETECT", label: stageLabels[1], output: { event_id: scenario.envelope.event_id, signal_candidates: scenario.detectedSignals.map((s) => s.signal_id), detections: scenario.detectedSignals.map((s) => ({ signal_id: s.signal_id, signal_name: s.signal_name, classification: s.classification, source_system: s.source_system })) } };
+      if (stageIndex === 2) return { stage: "ENRICH", label: stageLabels[2], output: { account_id: scenario.envelope.account_id, account_name: scenario.envelope.account_name, context: scenario.enrich, passive_validation: "No unvalidated PASSIVE signals in this scenario" } };
+      if (stageIndex === 3) return { stage: "SCORE", label: stageLabels[3], output: { previous_risk_score: scenario.previousScore, current_risk_score: scored.finalScore, risk_tier: scored.currentTier, previous_risk_tier: scored.previousTier, delta_score: scored.delta, is_new_risk: scored.isNewRisk, is_escalation: scored.escalation, detected_signals: scored.rows } };
+      return { stage: "PERSIST", label: stageLabels[4], output: { writes: [{ table: "PRD_ZI_CHAT.MICROAPP_650_DEV.RISK_HISTORY", mode: "INSERT", status: "SUCCESS" }, { table: "PRD_ZI_CHAT.MICROAPP_650_DEV.ACCOUNT_STATE", mode: "UPSERT", status: "SUCCESS" }, { table: "PRD_ZI_CHAT.MICROAPP_650_DEV.RUNNER_LOGS", mode: "INSERT", status: "SUCCESS" }], alert_delivery: tierRank(scored.currentTier) >= tierRank("ELEVATED") ? "Slack DM queued" : "No alert required" } };
     }
 
     function renderGraph() {
       graph.innerHTML = "";
-
       const edgeLayer = document.createElementNS("http://www.w3.org/2000/svg", "g");
-      edgeLayer.setAttribute("id", "edgeLayer");
       graph.appendChild(edgeLayer);
-
-      edges.forEach((edge) => {
-        const from = getNode(edge.from);
-        const to = getNode(edge.to);
-
+      for (let i = 0; i < pipelineNodes.length - 1; i += 1) {
+        const from = pipelineNodes[i];
+        const to = pipelineNodes[i + 1];
         const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
-        line.setAttribute("x1", from.x + 50);
-        line.setAttribute("y1", from.y + 24);
-        line.setAttribute("x2", to.x + 4);
-        line.setAttribute("y2", to.y + 24);
+        line.setAttribute("x1", from.x + 140);
+        line.setAttribute("y1", from.y + 34);
+        line.setAttribute("x2", to.x);
+        line.setAttribute("y2", to.y + 34);
         line.setAttribute("class", "edge");
-        line.dataset.edgeId = edge.id;
+        line.setAttribute("id", `edge-${i}`);
         edgeLayer.appendChild(line);
-
-        const label = document.createElementNS("http://www.w3.org/2000/svg", "text");
-        label.setAttribute("x", (from.x + to.x) / 2);
-        label.setAttribute("y", (from.y + to.y) / 2 - 8);
-        label.setAttribute("class", "edge-label");
-        label.textContent = edge.label;
-        edgeLayer.appendChild(label);
-      });
-
+      }
       const nodeLayer = document.createElementNS("http://www.w3.org/2000/svg", "g");
-      nodeLayer.setAttribute("id", "nodeLayer");
       graph.appendChild(nodeLayer);
-
-      nodes.forEach((node) => {
+      pipelineNodes.forEach((node, index) => {
         const group = document.createElementNS("http://www.w3.org/2000/svg", "g");
-        group.setAttribute("class", "node");
-        group.setAttribute("id", `node-${node.id}`);
+        group.setAttribute("class", "node pending");
+        group.setAttribute("id", `node-${index}`);
         group.setAttribute("transform", `translate(${node.x}, ${node.y})`);
-
         const box = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-        box.setAttribute("width", "118");
-        box.setAttribute("height", "54");
-        box.setAttribute("rx", "10");
         box.setAttribute("class", "node-box");
+        box.setAttribute("width", "140");
+        box.setAttribute("height", "68");
+        box.setAttribute("rx", "12");
         group.appendChild(box);
-
-        const name = document.createElementNS("http://www.w3.org/2000/svg", "text");
-        name.setAttribute("x", "10");
-        name.setAttribute("y", "18");
-        name.setAttribute("class", "node-title");
-        name.textContent = node.label;
-        group.appendChild(name);
-
-        const type = document.createElementNS("http://www.w3.org/2000/svg", "text");
-        type.setAttribute("x", "10");
-        type.setAttribute("y", "33");
-        type.setAttribute("class", "node-type");
-        type.textContent = node.kind;
-        group.appendChild(type);
-
-        const stat = document.createElementNS("http://www.w3.org/2000/svg", "text");
-        stat.setAttribute("x", "28");
-        stat.setAttribute("y", "46");
-        stat.setAttribute("class", "node-stat");
-        stat.setAttribute("id", `stat-${node.id}`);
-        stat.textContent = "0%";
-        group.appendChild(stat);
-
-        const dot = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-        dot.setAttribute("cx", "14");
-        dot.setAttribute("cy", "43");
-        dot.setAttribute("r", "5");
-        dot.setAttribute("class", "state-dot");
-        dot.setAttribute("id", `dot-${node.id}`);
-        dot.setAttribute("fill", "#555");
-        group.appendChild(dot);
-
+        const title = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        title.setAttribute("x", "10");
+        title.setAttribute("y", "23");
+        title.setAttribute("class", "node-title");
+        title.textContent = node.label;
+        group.appendChild(title);
+        const meta = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        meta.setAttribute("x", "10");
+        meta.setAttribute("y", "41");
+        meta.setAttribute("class", "node-meta");
+        meta.textContent = node.meta;
+        group.appendChild(meta);
         nodeLayer.appendChild(group);
       });
     }
 
-    function applySnapshot(index) {
-      const snapshot = snapshots[index];
-      tickLabel.textContent = `Tick ${index + 1}/${snapshots.length}`;
-
-      let confidenceTotal = 0;
-      let healthyCount = 0;
-
-      nodes.forEach((node) => {
-        const state = snapshot.states[node.id];
-        const confidence = Math.round(snapshot.confidence[node.id] * 100);
-        const group = document.getElementById(`node-${node.id}`);
-        const dot = document.getElementById(`dot-${node.id}`);
-        const stat = document.getElementById(`stat-${node.id}`);
-
-        group.classList.remove("active", "warn", "error");
-        group.classList.add(state);
-
-        dot.setAttribute("fill", stateColor[state]);
-        stat.textContent = `${confidence}% conf`;
-
-        confidenceTotal += confidence;
-        if (state === "active") {
-          healthyCount += 1;
-        }
+    function applyStage(stageIndex, scenarioIndex) {
+      const scenario = scenarios[scenarioIndex];
+      const scored = scoreScenario(scenario);
+      const output = stageOutput(scenario, scored, stageIndex);
+      tickLabel.textContent = `Stage ${stageIndex + 1}/5`;
+      pipelineNodes.forEach((_, index) => {
+        const node = document.getElementById(`node-${index}`);
+        node.classList.remove("pending", "active", "complete", "warn");
+        if (index < stageIndex) node.classList.add("complete");
+        else if (index === stageIndex) node.classList.add(scored.escalation && stageIndex >= 3 ? "warn" : "active");
+        else node.classList.add("pending");
       });
-
-      document.querySelectorAll(".edge").forEach((line) => {
-        const active = snapshot.hot.includes(line.dataset.edgeId);
-        line.classList.toggle("active", active);
+      for (let i = 0; i < pipelineNodes.length - 1; i += 1) {
+        document.getElementById(`edge-${i}`).classList.toggle("active", i < stageIndex);
+      }
+      stageJson.textContent = JSON.stringify(output, null, 2);
+      calcJson.textContent = JSON.stringify({
+        acv_multiplier: scored.acvMul,
+        previous_score: scenario.previousScore,
+        raw_total: scored.rawTotal,
+        clamped_score: scored.finalScore,
+        tier: scored.currentTier,
+        delta_score: scored.delta,
+        is_new_risk: scored.isNewRisk,
+        is_escalation: scored.escalation,
+        contributions: scored.rows
+      }, null, 2);
+      metricScore.textContent = scored.finalScore.toFixed(1);
+      metricTier.textContent = scored.currentTier;
+      metricDelta.textContent = `${scored.delta > 0 ? "+" : ""}${scored.delta.toFixed(1)}`;
+      metricEsc.textContent = scored.escalation ? "Yes" : "No";
+      gateRow.innerHTML = "";
+      gates.forEach((gate) => {
+        const chip = document.createElement("span");
+        const fired = stageIndex >= gate.stage;
+        chip.className = "chip";
+        chip.textContent = `${gate.id} ${fired ? "PASS" : "WAIT"}`;
+        chip.style.borderColor = fired ? "#10b981" : "#5a5a5a";
+        gateRow.appendChild(chip);
       });
-
-      const avg = Math.round(confidenceTotal / nodes.length);
-      document.getElementById("metricConfidence").textContent = `${avg}%`;
-      document.getElementById("metricLatency").textContent = `${snapshot.latency}ms`;
-      document.getElementById("metricHealthy").textContent = `${healthyCount}/${nodes.length}`;
-      document.getElementById("metricAlert").textContent = snapshot.alert;
-      eventText.textContent = snapshot.note;
+      mappingBody.innerHTML = "";
+      scored.rows.forEach((row) => {
+        const signal = scenario.detectedSignals.find((s) => s.signal_id === row.signal_id);
+        const tr = document.createElement("tr");
+        tr.innerHTML = `<td>${row.signal_id}<br /><span style="color:#9f9f9f">${row.signal_name}</span></td><td>${row.weight}</td><td>${row.classification}</td><td>${row.playbook_id}<br /><span style="color:#9f9f9f">${row.playbook_name}</span></td><td>${row.priority}</td><td>${signal.recommended_action}</td>`;
+        mappingBody.appendChild(tr);
+      });
     }
 
-    let tick = 0;
+    let currentStage = 0;
     let timer = null;
-
-    function nextTick() {
-      tick = (tick + 1) % snapshots.length;
-      timelineInput.value = String(tick);
-      applySnapshot(tick);
-    }
-
-    function stopPlayback() {
-      if (timer) {
-        window.clearInterval(timer);
-        timer = null;
-      }
-      playPauseBtn.textContent = "Play";
-    }
-
-    function startPlayback() {
-      stopPlayback();
-      timer = window.setInterval(nextTick, 1200);
-      playPauseBtn.textContent = "Pause";
-    }
-
-    function jitterSnapshot() {
-      const random = snapshots.map((snap) => {
-        const clone = structuredClone(snap);
-        nodes.forEach((node) => {
-          const delta = (Math.random() - 0.5) * 0.16;
-          const current = clone.confidence[node.id];
-          clone.confidence[node.id] = Math.max(0.35, Math.min(0.99, current + delta));
-
-          if (clone.confidence[node.id] < 0.56) {
-            clone.states[node.id] = "error";
-          } else if (clone.confidence[node.id] < 0.78) {
-            clone.states[node.id] = "warn";
-          } else {
-            clone.states[node.id] = "active";
-          }
-        });
-
-        return clone;
-      });
-
-      random.forEach((updated, i) => {
-        snapshots[i] = updated;
-      });
-
-      applySnapshot(tick);
-    }
-
-    playPauseBtn.addEventListener("click", () => {
-      if (timer) {
-        stopPlayback();
-      } else {
-        startPlayback();
-      }
-    });
-
-    stepBtn.addEventListener("click", () => {
-      stopPlayback();
-      nextTick();
-    });
-
-    jitterBtn.addEventListener("click", () => {
-      stopPlayback();
-      jitterSnapshot();
-    });
-
-    timelineInput.addEventListener("input", (event) => {
-      stopPlayback();
-      tick = Number(event.target.value);
-      applySnapshot(tick);
-    });
+    const stopPlayback = () => { if (timer) { window.clearInterval(timer); timer = null; } playPauseBtn.textContent = "Play"; };
+    const startPlayback = () => { stopPlayback(); timer = window.setInterval(() => { currentStage = (currentStage + 1) % 5; timeline.value = String(currentStage); applyStage(currentStage, Number(scenarioSelect.value)); }, 1300); playPauseBtn.textContent = "Pause"; };
+    playPauseBtn.addEventListener("click", () => { if (timer) stopPlayback(); else startPlayback(); });
+    stepBtn.addEventListener("click", () => { stopPlayback(); currentStage = (currentStage + 1) % 5; timeline.value = String(currentStage); applyStage(currentStage, Number(scenarioSelect.value)); });
+    timeline.addEventListener("input", (event) => { stopPlayback(); currentStage = Number(event.target.value); applyStage(currentStage, Number(scenarioSelect.value)); });
+    scenarioSelect.addEventListener("change", () => { stopPlayback(); currentStage = 0; timeline.value = "0"; applyStage(currentStage, Number(scenarioSelect.value)); });
 
     renderGraph();
-    applySnapshot(0);
+    applyStage(0, 0);
   </script>
 </body>
-
 </html>
