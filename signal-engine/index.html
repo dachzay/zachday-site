@@ -198,11 +198,11 @@
     <main>
       <section class="hero">
         <h1>Signal Engine</h1>
-        <p>A simple flow view: ingest signals, transform context, score priority, and trigger response tracks. This keeps the v1 clarity while carrying key v2 logic.</p>
+        <p>Why this exists: teams usually find risk too late. This system creates earlier clarity so people can act while there is still time to change outcomes.</p>
       </section>
 
       <section class="section">
-        <h2>Flow View</h2>
+        <h2>Narrative View</h2>
         <div class="lab">
           <div class="lab-head">
             <div class="controls">
@@ -216,7 +216,7 @@
             </div>
             <div class="timeline-wrap">
               <input id="timeline" type="range" min="0" max="4" value="0" step="1" aria-label="Pipeline stage" />
-              <span class="tick-label" id="tickLabel">Stage 1/5</span>
+              <span class="tick-label" id="tickLabel">Beat 1/5</span>
             </div>
           </div>
 
@@ -233,12 +233,12 @@
               </div>
 
               <div class="panel">
-                <h3>Current Snapshot</h3>
+                <h3>Story Beat</h3>
                 <ul id="snapshotList"></ul>
               </div>
 
               <div class="panel">
-                <h3>Applied Gates</h3>
+                <h3>Confidence Checks</h3>
                 <div class="chip-row" id="gateRow"></div>
               </div>
             </aside>
@@ -247,36 +247,45 @@
       </section>
 
       <section class="section">
-        <h2>V2 Context, Simplified</h2>
+        <h2>Why It Matters</h2>
         <div class="cards">
           <div class="card">
-            <h3>Ingestion Model</h3>
-            <p>Multi-source events normalize into one envelope: source group, entity key, time, payload, and confidence.</p>
+            <h3>The Cost of Being Late</h3>
+            <p>Most teams discover trouble when options are already limited. At that point, every response is more expensive and less effective.</p>
           </div>
           <div class="card">
-            <h3>Scoring Model</h3>
-            <p>Weighted signals are adjusted by recency and frequency, then clamped to a 0-100 priority score.</p>
+            <h3>The Shift This Enables</h3>
+            <p>Instead of waiting for one obvious red flag, we assemble weak signals into a shared picture early enough to influence the story.</p>
           </div>
           <div class="card">
-            <h3>Response Model</h3>
-            <p>Detected patterns map to response tracks with clear owner and urgency, triggered by tier thresholds.</p>
+            <h3>The Outcome We Want</h3>
+            <p>Fewer surprise escalations, better prioritization, and calmer execution because decisions are made from patterns, not panic.</p>
           </div>
         </div>
       </section>
 
       <section class="section">
-        <h2>Scoring Formula</h2>
-        <div class="formula">
-          <code>priority_score = MIN(100, SUM(weight * recency_decay * frequency_boost * value_multiplier))</code><br />
-          <code>recency_decay = e^(-0.03 * days_since_seen)</code><br />
-          <code>frequency_boost = 1 + log2(occurrences) * 0.1</code>
+        <h2>Decision Story</h2>
+        <div class="cards">
+          <div class="card">
+            <h3>1. Listen Early</h3>
+            <p>Signals are collected continuously so weak movement is visible before it becomes obvious.</p>
+          </div>
+          <div class="card">
+            <h3>2. Build Shared Meaning</h3>
+            <p>Context and checks reduce noise so teams align on what actually matters now.</p>
+          </div>
+          <div class="card">
+            <h3>3. Move With Intent</h3>
+            <p>Response tracks focus action on highest-leverage interventions while there is still room to recover.</p>
+          </div>
         </div>
       </section>
     </main>
 
     <footer>
       <span>(c) <span id="year"></span> Zach Day</span>
-      <span>Signal Engine v1 shell with v2 context</span>
+      <span>Signal Engine narrative view</span>
     </footer>
   </div>
 
@@ -288,14 +297,14 @@
     window.addEventListener("scroll", toggleHeader, { passive: true });
 
     const nodes = [
-      { id: "ingest", label: "INGEST", sub: "Normalize events", x: 35, y: 108 },
-      { id: "detect", label: "DETECT", sub: "Pattern matching", x: 205, y: 108 },
-      { id: "enrich", label: "ENRICH", sub: "Context + checks", x: 375, y: 108 },
-      { id: "score", label: "SCORE", sub: "Priority model", x: 545, y: 108 },
-      { id: "respond", label: "RESPOND", sub: "Response track", x: 715, y: 108 }
+      { id: "listen", label: "LISTEN", sub: "Capture weak signals", x: 35, y: 108 },
+      { id: "interpret", label: "INTERPRET", sub: "Find patterns", x: 205, y: 108 },
+      { id: "contextualize", label: "CONTEXTUALIZE", sub: "Add situation", x: 375, y: 108 },
+      { id: "prioritize", label: "PRIORITIZE", sub: "Set urgency", x: 545, y: 108 },
+      { id: "act", label: "ACT", sub: "Trigger response", x: 715, y: 108 }
     ];
 
-    const gates = ["GATE-A1", "GATE-B2", "GATE-C3", "GATE-D4", "GATE-E6"];
+    const gates = ["Input Check", "Pattern Check", "Context Check", "Priority Check", "Action Check"];
 
     const scenarios = [
       {
@@ -305,9 +314,9 @@
           { name: "Narrative pressure", w: 68, days: 4, occ: 2 }
         ],
         notes: [
-          "Intent-like signals moved up this week.",
-          "Two high-confidence patterns were confirmed.",
-          "Response track: proactive value alignment."
+          "Small behavior shifts appeared before any obvious incident.",
+          "Patterns suggested pressure was rising, not random noise.",
+          "Early outreach created room to reset the path."
         ]
       },
       {
@@ -317,9 +326,9 @@
           { name: "Capacity reduction", w: 66, days: 1, occ: 2 }
         ],
         notes: [
-          "Leadership context changed rapidly.",
-          "Coverage needs a re-map across decision paths.",
-          "Response track: stakeholder reset + scope stabilization."
+          "A key relationship changed and confidence dropped quickly.",
+          "The team re-mapped who matters and why.",
+          "A focused reset prevented drift from becoming loss."
         ]
       },
       {
@@ -329,9 +338,9 @@
           { name: "Satisfaction decline", w: 72, days: 3, occ: 1 }
         ],
         notes: [
-          "Execution friction increased across two feeds.",
-          "Priority score rose into elevated range.",
-          "Response track: recovery loop with tight milestones."
+          "Multiple friction signals appeared at the same time.",
+          "Urgency increased from monitor to elevated.",
+          "A tight recovery loop created a credible path forward."
         ]
       }
     ];
@@ -413,7 +422,7 @@
 
     function applyStage(stageIndex, scenarioIndex) {
       const c = computeScenario(scenarioIndex);
-      tickLabel.textContent = `Stage ${stageIndex + 1}/5`;
+      tickLabel.textContent = `Beat ${stageIndex + 1}/5`;
 
       nodes.forEach((_, i) => {
         const node = document.getElementById(`node-${i}`);
