@@ -9,109 +9,275 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <title>Signal Engine - Pattern View</title>
   <style>
-    :root { --bg:#090909; --panel:#141414; --text:#e8eaf0; --muted:#a0a0a0; --border:#2a2a2a; --accent:#10b981; --warn:#f59e0b; --radius:12px; }
-    * { box-sizing:border-box; }
-    body { margin:0; font-family:"Inter", "Segoe UI", system-ui, sans-serif; background:radial-gradient(920px 540px at 8% -10%, rgba(16,185,129,.16), transparent 62%), var(--bg); color:var(--text); }
-    .container { width:min(1100px,92vw); margin:0 auto; padding:32px 0 72px; }
-    header { position:sticky; top:0; z-index:10; display:flex; justify-content:space-between; align-items:center; padding:14px 0 18px; background:rgba(9,9,9,.78); border-bottom:1px solid transparent; }
-    header.scrolled { border-color:var(--border); }
-    .brand { display:flex; align-items:center; gap:10px; font-weight:600; font-size:14px; color:var(--text); }
-    .dot { width:8px; height:8px; border-radius:999px; background:var(--accent); box-shadow:0 0 10px rgba(16,185,129,.6); }
-    nav a { color:var(--muted); text-decoration:none; margin-left:16px; font-size:14px; }
-    nav a:hover { color:var(--text); }
-    .back-home { border:1px solid var(--border); border-radius:999px; padding:6px 12px; font-size:12px; color:var(--text); text-decoration:none; margin-right:8px; }
-    .hero h1 { margin:10px 0 8px; font-size:clamp(32px,4.7vw,56px); line-height:1.05; }
-    .hero p { margin:0; color:var(--muted); max-width:72ch; }
-    .section { margin-top:26px; }
-    .section h2 { margin:0 0 12px; font-size:12px; text-transform:uppercase; letter-spacing:1px; color:var(--muted); }
-    .lab,.panel,.card,.stage,.table-wrap,.formula { border:1px solid var(--border); border-radius:var(--radius); background:var(--panel); }
-    .lab { overflow:hidden; }
-    .lab-head { display:grid; grid-template-columns:1fr auto; gap:12px; padding:12px; border-bottom:1px solid var(--border); }
-    .controls { display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
-    .btn,select { border:1px solid var(--border); background:#111; color:var(--text); border-radius:10px; padding:8px 12px; font-size:13px; }
-    .btn { cursor:pointer; }
-    .timeline-wrap { display:flex; align-items:center; gap:10px; min-width:270px; }
-    .timeline-wrap input { width:210px; accent-color:var(--accent); }
-    .tick-label { font-size:12px; color:var(--muted); min-width:84px; text-align:right; }
-    .lab-grid { display:grid; grid-template-columns:1.5fr 1fr; }
-    .graph-pane { border-right:1px solid var(--border); padding:12px; }
-    .graph-shell { border:1px solid #262626; border-radius:10px; background:#0f0f0f; overflow:hidden; }
-    #pipelineGraph { display:block; width:100%; height:auto; }
-    .edge { stroke:#363636; stroke-width:2.5; }
-    .edge.active { stroke:var(--accent); }
-    .node-box { fill:#151515; stroke:#383838; stroke-width:1.5; }
-    .node.complete .node-box { stroke:var(--accent); fill:#102019; }
-    .node.active .node-box { stroke:#2de0a2; fill:#13261e; }
-    .node.pending .node-box { stroke:#474747; fill:#151515; }
-    .node.warn .node-box { stroke:var(--warn); fill:#2a2211; }
-    .node-title { fill:#f0f0f0; font-size:12px; font-weight:600; }
-    .node-meta { fill:#a0a0a0; font-size:10px; }
-    .side-pane { padding:12px; display:flex; flex-direction:column; gap:10px; }
-    .metric-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
-    .metric { border:1px solid var(--border); border-radius:10px; padding:10px; background:#171717; }
-    .metric strong { display:block; font-size:18px; }
-    .metric span { color:var(--muted); font-size:12px; }
-    .panel { padding:10px; }
-    .panel h3 { margin:0 0 8px; font-size:12px; text-transform:uppercase; color:var(--muted); }
-    pre { margin:0; background:#0f0f0f; border:1px solid #272727; border-radius:10px; padding:10px; overflow:auto; font-size:11px; color:#d9d9d9; max-height:250px; }
-    .chip-row { display:flex; flex-wrap:wrap; gap:8px; }
-    .chip { border:1px solid var(--border); border-radius:999px; padding:4px 9px; font-size:11px; color:#d5d5d5; background:#121212; }
-    .cards { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; }
-    .card { padding:12px; }
-    .card h3 { margin:0 0 6px; font-size:14px; }
-    .card p { margin:0; color:var(--muted); font-size:13px; }
-    .contract-grid { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:10px; }
-    .stage { padding:10px; }
-    .stage h3 { margin:0 0 5px; font-size:12px; text-transform:uppercase; }
-    .stage p { margin:0; color:var(--muted); font-size:12px; line-height:1.45; }
-    .formula { padding:12px; font-size:13px; }
-    .table-wrap { overflow-x:auto; }
-    table { width:100%; border-collapse:collapse; font-size:13px; min-width:760px; }
-    th,td { border-bottom:1px solid #282828; padding:9px 10px; text-align:left; vertical-align:top; }
-    th { color:var(--muted); font-size:11px; text-transform:uppercase; background:#111; }
-    footer { margin-top:50px; border-top:1px solid var(--border); padding-top:22px; color:var(--muted); font-size:13px; display:flex; justify-content:space-between; flex-wrap:wrap; }
-    @media (max-width:980px){ .lab-head{grid-template-columns:1fr;} .lab-grid{grid-template-columns:1fr;} .graph-pane{border-right:none;border-bottom:1px solid var(--border);} .cards{grid-template-columns:1fr;} .contract-grid{grid-template-columns:repeat(2,minmax(0,1fr));} }
-    @media (max-width:720px){ .container{padding:22px 0 58px;} header{flex-direction:column;align-items:flex-start;gap:10px;} nav a{margin-left:10px;} .contract-grid,.metric-grid{grid-template-columns:1fr;} }
+    :root {
+      --bg: #0a0a0a;
+      --panel: #151515;
+      --text: #e8eaf0;
+      --muted: #a0a0a0;
+      --border: #2a2a2a;
+      --accent: #10b981;
+      --warn: #f59e0b;
+      --bad: #ef4444;
+      --radius: 12px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Inter", "Segoe UI", system-ui, sans-serif;
+      color: var(--text);
+      background: radial-gradient(920px 520px at 10% -12%, rgba(16,185,129,.16), transparent 62%), var(--bg);
+      line-height: 1.45;
+    }
+
+    .container {
+      width: min(1040px, 92vw);
+      margin: 0 auto;
+      padding: 30px 0 72px;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 12;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 0 18px;
+      border-bottom: 1px solid transparent;
+      background: rgba(10,10,10,.78);
+      backdrop-filter: blur(9px);
+    }
+
+    header.scrolled { border-color: var(--border); }
+
+    .brand { display: flex; align-items: center; gap: 10px; color: var(--text); font-size: 14px; font-weight: 600; }
+    .dot { width: 8px; height: 8px; border-radius: 999px; background: var(--accent); box-shadow: 0 0 9px rgba(16,185,129,.6); }
+
+    nav a { color: var(--muted); text-decoration: none; margin-left: 14px; font-size: 14px; }
+    nav a:hover { color: var(--text); }
+
+    .back-home {
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 6px 12px;
+      color: var(--text);
+      font-size: 12px;
+      margin-right: 8px;
+    }
+
+    .hero h1 {
+      margin: 8px 0 8px;
+      font-size: clamp(32px, 4.6vw, 54px);
+      line-height: 1.04;
+      letter-spacing: -1px;
+    }
+
+    .hero p { margin: 0; color: var(--muted); max-width: 68ch; }
+
+    .section { margin-top: 26px; }
+    .section h2 { margin: 0 0 12px; font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
+
+    .lab {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--panel);
+      overflow: hidden;
+    }
+
+    .lab-head {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      padding: 12px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(255,255,255,.01);
+    }
+
+    .controls { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+    .btn, select {
+      border: 1px solid var(--border);
+      background: #111;
+      color: var(--text);
+      border-radius: 10px;
+      padding: 8px 12px;
+      font-size: 13px;
+    }
+
+    .btn { cursor: pointer; }
+
+    .timeline-wrap { display: flex; align-items: center; gap: 10px; min-width: 280px; }
+    .timeline-wrap input { width: 220px; accent-color: var(--accent); }
+    .tick-label { color: var(--muted); font-size: 12px; min-width: 74px; text-align: right; }
+
+    .lab-body {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+    }
+
+    .graph-pane { padding: 12px; border-right: 1px solid var(--border); }
+    .graph-shell { border: 1px solid #272727; border-radius: 10px; background: #101010; overflow: hidden; }
+    #flowGraph { display: block; width: 100%; height: auto; }
+
+    .edge { stroke: #3b3b3b; stroke-width: 2.5; }
+    .edge.active { stroke: var(--accent); }
+    .node-box { fill: #171717; stroke: #3a3a3a; stroke-width: 1.5; }
+    .node.done .node-box { stroke: var(--accent); fill: #12231a; }
+    .node.active .node-box { stroke: #2add9e; fill: #173224; }
+    .node-title { fill: #f0f0f0; font-size: 12px; font-weight: 600; }
+    .node-sub { fill: #a5a5a5; font-size: 10px; }
+
+    .side-pane { padding: 12px; display: flex; flex-direction: column; gap: 10px; }
+    .metric-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+    .metric { border: 1px solid var(--border); border-radius: 10px; padding: 9px; background: rgba(255,255,255,.02); }
+    .metric strong { display: block; font-size: 17px; line-height: 1.15; }
+    .metric span { color: var(--muted); font-size: 11px; }
+
+    .panel { border: 1px solid var(--border); border-radius: 10px; padding: 10px; background: rgba(255,255,255,.02); }
+    .panel h3 { margin: 0 0 8px; color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: .8px; }
+    .panel ul { margin: 0; padding-left: 18px; }
+    .panel li { margin-bottom: 6px; font-size: 13px; color: #d3d3d3; }
+
+    .chip-row { display: flex; flex-wrap: wrap; gap: 8px; }
+    .chip { border: 1px solid var(--border); border-radius: 999px; padding: 4px 9px; font-size: 11px; color: #d9d9d9; background: #121212; }
+
+    .cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+    .card { border: 1px solid var(--border); border-radius: 10px; padding: 12px; background: var(--panel); }
+    .card h3 { margin: 0 0 7px; font-size: 14px; }
+    .card p { margin: 0; color: var(--muted); font-size: 13px; }
+
+    .formula {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px;
+      background: #111;
+      font-size: 13px;
+      overflow-x: auto;
+    }
+
+    footer {
+      margin-top: 50px;
+      border-top: 1px solid var(--border);
+      padding-top: 22px;
+      color: var(--muted);
+      font-size: 13px;
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 980px) {
+      .lab-head { grid-template-columns: 1fr; }
+      .lab-body { grid-template-columns: 1fr; }
+      .graph-pane { border-right: none; border-bottom: 1px solid var(--border); }
+      .cards { grid-template-columns: 1fr; }
+      .metric-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 720px) {
+      .container { padding: 22px 0 56px; }
+      header { flex-direction: column; align-items: flex-start; gap: 10px; }
+      nav a { margin-left: 10px; }
+    }
   </style>
 </head>
 <body>
   <div class="container">
     <header>
       <a href="../index.html" style="text-decoration:none;"><div class="brand"><span class="dot" title="Project"></span><span>Zach Day</span></div></a>
-      <nav><a class="back-home" href="../index.html">Back to Home</a><a href="../index.html#projects">Projects</a><a href="../index.html#about">About</a><a href="../index.html#contact">Contact</a></nav>
+      <nav>
+        <a class="back-home" href="../index.html">Back to Home</a>
+        <a href="../index.html#projects">Projects</a>
+        <a href="../index.html#about">About</a>
+        <a href="../index.html#contact">Contact</a>
+      </nav>
     </header>
+
     <main>
-      <section class="hero"><h1>Signal Engine</h1><p>Pattern view: abstracted event flow showing how signals become priority states and response tracks.</p></section>
-      <section class="section"><h2>Pattern Pipeline</h2><div class="lab"><div class="lab-head"><div class="controls"><select id="scenarioSelect" aria-label="Scenario"><option value="0">Pattern A: Demand Shift</option><option value="1">Pattern B: Stakeholder Change</option><option value="2">Pattern C: Value Risk</option></select><button class="btn" id="playPauseBtn" type="button">Play</button><button class="btn" id="stepBtn" type="button">Step</button></div><div class="timeline-wrap"><input id="timeline" type="range" min="0" max="4" value="0" step="1" aria-label="Pipeline stage" /><span class="tick-label" id="tickLabel">Stage 1/5</span></div></div><div class="lab-grid"><div class="graph-pane"><div class="graph-shell"><svg id="pipelineGraph" viewBox="0 0 980 330" role="img" aria-label="Signal engine pipeline"></svg></div></div><aside class="side-pane"><div class="metric-grid"><div class="metric"><strong id="metricScore">0</strong><span>Priority Score</span></div><div class="metric"><strong id="metricTier">HEALTHY</strong><span>Priority Tier</span></div><div class="metric"><strong id="metricDelta">0</strong><span>Score Delta</span></div><div class="metric"><strong id="metricEsc">No</strong><span>Escalation</span></div></div><div class="panel"><h3>Stage Output</h3><pre id="stageJson">Loading...</pre></div><div class="panel"><h3>Gate Status</h3><div class="chip-row" id="gateRow"></div></div></aside></div></div></section>
+      <section class="hero">
+        <h1>Signal Engine</h1>
+        <p>A simple flow view: ingest signals, transform context, score priority, and trigger response tracks. This keeps the v1 clarity while carrying key v2 logic.</p>
+      </section>
+
       <section class="section">
-        <h2>Ingestion Surface</h2>
+        <h2>Flow View</h2>
+        <div class="lab">
+          <div class="lab-head">
+            <div class="controls">
+              <select id="scenarioSelect" aria-label="Scenario">
+                <option value="0">Pattern A: Demand Shift</option>
+                <option value="1">Pattern B: Stakeholder Change</option>
+                <option value="2">Pattern C: Value Risk</option>
+              </select>
+              <button class="btn" id="playPauseBtn" type="button">Play</button>
+              <button class="btn" id="stepBtn" type="button">Step</button>
+            </div>
+            <div class="timeline-wrap">
+              <input id="timeline" type="range" min="0" max="4" value="0" step="1" aria-label="Pipeline stage" />
+              <span class="tick-label" id="tickLabel">Stage 1/5</span>
+            </div>
+          </div>
+
+          <div class="lab-body">
+            <div class="graph-pane">
+              <div class="graph-shell"><svg id="flowGraph" viewBox="0 0 920 300" role="img" aria-label="Signal flow"></svg></div>
+            </div>
+
+            <aside class="side-pane">
+              <div class="metric-grid">
+                <div class="metric"><strong id="metricScore">0</strong><span>Priority Score</span></div>
+                <div class="metric"><strong id="metricTier">Monitor</strong><span>Tier</span></div>
+                <div class="metric"><strong id="metricEsc">No</strong><span>Escalation</span></div>
+              </div>
+
+              <div class="panel">
+                <h3>Current Snapshot</h3>
+                <ul id="snapshotList"></ul>
+              </div>
+
+              <div class="panel">
+                <h3>Applied Gates</h3>
+                <div class="chip-row" id="gateRow"></div>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>V2 Context, Simplified</h2>
         <div class="cards">
-          <div class="card"><h3>Universal Event Envelope</h3><p>Normalized fields: event_key, event_time, source_group, entity_key, entity_type, payload_blob, metadata.confidence.</p></div>
-          <div class="card"><h3>Source Groups</h3><div class="chip-row"><span class="chip">CRM Feed</span><span class="chip">Conversation Feed</span><span class="chip">Intent Feed</span><span class="chip">Usage Feed</span><span class="chip">Survey Feed</span><span class="chip">Finance Feed</span><span class="chip">External Feed</span></div></div>
-          <div class="card"><h3>Signal Dictionary Contract</h3><p>Schema keys used in pipeline: pattern_id, category, weight, class, review_required, detection_mode.</p></div>
+          <div class="card">
+            <h3>Ingestion Model</h3>
+            <p>Multi-source events normalize into one envelope: source group, entity key, time, payload, and confidence.</p>
+          </div>
+          <div class="card">
+            <h3>Scoring Model</h3>
+            <p>Weighted signals are adjusted by recency and frequency, then clamped to a 0-100 priority score.</p>
+          </div>
+          <div class="card">
+            <h3>Response Model</h3>
+            <p>Detected patterns map to response tracks with clear owner and urgency, triggered by tier thresholds.</p>
+          </div>
         </div>
       </section>
-      <section class="section">
-        <h2>Transform Contract</h2>
-        <div class="contract-grid">
-          <div class="stage"><h3>Ingest</h3><p>Normalize source payloads into Event Envelope.<br />Halt: missing entity_key or event_time (GATE-A1).</p></div>
-          <div class="stage"><h3>Detect</h3><p>Match rules to assign pattern_candidates and class labels.<br />Warn: priority event with zero matches (GATE-B2).</p></div>
-          <div class="stage"><h3>Enrich</h3><p>Join entity context and apply review windows for passive patterns.<br />Expire pending patterns after timeout (GATE-C3).</p></div>
-          <div class="stage"><h3>Score</h3><p>Compute weighted contributions + clamp [0,100].<br />Halt: math bounds or cross-feed consistency checks (GATE-D4, GATE-D5).</p></div>
-          <div class="stage"><h3>Persist</h3><p>Write audit history, update current state, emit notification for elevated tiers.<br />Retry + fail log on persistence failure (GATE-E6).</p></div>
-        </div>
-      </section>
+
       <section class="section">
         <h2>Scoring Formula</h2>
-        <div class="formula"><code>RISK_SCORE = MIN(100, SUM(signal_weight * recency_decay * acv_multiplier * frequency_boost))</code><br /><code>recency_decay = e^(-0.03 * days_since_detection)</code><br /><code>frequency_boost = 1 + LOG2(occurrence_count) * 0.1</code></div>
-        <div class="panel" style="margin-top:10px;"><h3>Current Calculation</h3><pre id="calcJson">Loading...</pre></div>
-      </section>
-      <section class="section">
-        <h2>Pattern To Response Mapping</h2>
-        <div class="table-wrap"><table><thead><tr><th>Pattern</th><th>Weight</th><th>Class</th><th>Response Track</th><th>Priority</th><th>Recommended Action</th></tr></thead><tbody id="mappingBody"></tbody></table></div>
+        <div class="formula">
+          <code>priority_score = MIN(100, SUM(weight * recency_decay * frequency_boost * value_multiplier))</code><br />
+          <code>recency_decay = e^(-0.03 * days_since_seen)</code><br />
+          <code>frequency_boost = 1 + log2(occurrences) * 0.1</code>
+        </div>
       </section>
     </main>
-    <footer><span>(c) <span id="year"></span> Zach Day</span><span>Signal Engine pattern view (abstracted)</span></footer>
+
+    <footer>
+      <span>(c) <span id="year"></span> Zach Day</span>
+      <span>Signal Engine v1 shell with v2 context</span>
+    </footer>
   </div>
 
   <script>
@@ -121,244 +287,205 @@
     toggleHeader();
     window.addEventListener("scroll", toggleHeader, { passive: true });
 
-    const stageLabels = ["Event Envelope", "Pattern Candidates", "Context Join", "Priority Scoring", "State Write"];
-    const pipelineNodes = [
-      { label: "INGEST", meta: "Envelope + required field checks", x: 50, y: 120 },
-      { label: "DETECT", meta: "Rule matching + candidate signals", x: 230, y: 120 },
-      { label: "ENRICH", meta: "Entity context + validation", x: 410, y: 120 },
-      { label: "SCORE", meta: "Weighted priority + escalation", x: 590, y: 120 },
-      { label: "PERSIST", meta: "History store + current state", x: 770, y: 120 }
+    const nodes = [
+      { id: "ingest", label: "INGEST", sub: "Normalize events", x: 35, y: 108 },
+      { id: "detect", label: "DETECT", sub: "Pattern matching", x: 205, y: 108 },
+      { id: "enrich", label: "ENRICH", sub: "Context + checks", x: 375, y: 108 },
+      { id: "score", label: "SCORE", sub: "Priority model", x: 545, y: 108 },
+      { id: "respond", label: "RESPOND", sub: "Response track", x: 715, y: 108 }
     ];
-    const gates = [
-      { id: "GATE-A1", stage: 0, type: "BLOCKING" },
-      { id: "GATE-B2", stage: 1, type: "WARNING" },
-      { id: "GATE-C3", stage: 2, type: "WARNING" },
-      { id: "GATE-D4", stage: 3, type: "BLOCKING" },
-      { id: "GATE-E6", stage: 4, type: "CRITICAL" }
-    ];
+
+    const gates = ["GATE-A1", "GATE-B2", "GATE-C3", "GATE-D4", "GATE-E6"];
+
     const scenarios = [
       {
-        previousScore: 31,
-        acv: 1000000,
-        envelope: {
-          event_key: "evt-A-01",
-          event_time: "2026-02-10T13:21:00Z",
-          source_group: "Intent Feed",
-          entity_key: "entity-101",
-          entity_label: "Entity A",
-          entity_type: "ENTITY",
-          payload_blob: { topic: "Category trend shift", intensity: "HIGH", mention_count: 4 },
-          metadata: { confidence: 0.9, context_attached: true }
-        },
-        detectedSignals: [
-          { signal_id: "PAT-A1", signal_name: "Demand shift indicator", weight: 70, classification: "ACTIVE", days_since_detection: 2, occurrence_count: 4, source_system: "Feed-A", playbook_id: "RESP-1", playbook_name: "Demand Response", priority: "HIGH", recommended_action: "Run a proactive value check and align next-step narrative." },
-          { signal_id: "PAT-A2", signal_name: "Narrative pressure signal", weight: 68, classification: "ACTIVE", days_since_detection: 4, occurrence_count: 2, source_system: "Feed-B", playbook_id: "RESP-2", playbook_name: "Narrative Response", priority: "HIGH", recommended_action: "Prepare differentiator proof points for stakeholder review." }
+        base: 30,
+        signals: [
+          { name: "Demand shift", w: 70, days: 2, occ: 4 },
+          { name: "Narrative pressure", w: 68, days: 4, occ: 2 }
         ],
-        enrich: { segment: "Tier 1", baseline_value: "High", state: "WATCH", validation_status: "PASS", stakeholders: ["Primary Sponsor", "Ops Lead"] }
+        notes: [
+          "Intent-like signals moved up this week.",
+          "Two high-confidence patterns were confirmed.",
+          "Response track: proactive value alignment."
+        ]
       },
       {
-        previousScore: 26,
-        acv: 650000,
-        envelope: {
-          event_key: "evt-B-03",
-          event_time: "2026-02-10T10:05:00Z",
-          source_group: "External Feed",
-          entity_key: "entity-204",
-          entity_label: "Entity B",
-          entity_type: "ENTITY",
-          payload_blob: { trigger_type: "Leadership change", severity: "HIGH", signals: 2 },
-          metadata: { confidence: 0.86, context_attached: true }
-        },
-        detectedSignals: [
-          { signal_id: "PAT-B1", signal_name: "Stakeholder turnover signal", weight: 62, classification: "ACTIVE", days_since_detection: 1, occurrence_count: 1, source_system: "Feed-C", playbook_id: "RESP-3", playbook_name: "Stakeholder Reset", priority: "HIGH", recommended_action: "Re-map decision paths and reset stakeholder alignment." },
-          { signal_id: "PAT-B2", signal_name: "Capacity reduction signal", weight: 66, classification: "ACTIVE", days_since_detection: 1, occurrence_count: 2, source_system: "Feed-C", playbook_id: "RESP-4", playbook_name: "Capacity Stabilization", priority: "HIGH", recommended_action: "Shift plan to efficiency-first outcomes and preserve critical scope." }
+        base: 25,
+        signals: [
+          { name: "Stakeholder turnover", w: 62, days: 1, occ: 1 },
+          { name: "Capacity reduction", w: 66, days: 1, occ: 2 }
         ],
-        enrich: { segment: "Tier 2", baseline_value: "Medium", state: "WATCH", validation_status: "PASS", stakeholders: ["Interim Owner", "Budget Contact"] }
+        notes: [
+          "Leadership context changed rapidly.",
+          "Coverage needs a re-map across decision paths.",
+          "Response track: stakeholder reset + scope stabilization."
+        ]
       },
       {
-        previousScore: 45,
-        acv: 250000,
-        envelope: {
-          event_key: "evt-C-07",
-          event_time: "2026-02-10T09:40:00Z",
-          source_group: "Finance Feed",
-          entity_key: "entity-318",
-          entity_label: "Entity C",
-          entity_type: "ENTITY",
-          payload_blob: { status: "Delayed", trend: "Negative", signal_strength: "HIGH" },
-          metadata: { confidence: 0.92, context_attached: true }
-        },
-        detectedSignals: [
-          { signal_id: "PAT-C1", signal_name: "Commitment delay signal", weight: 64, classification: "ACTIVE", days_since_detection: 0, occurrence_count: 3, source_system: "Feed-D", playbook_id: "RESP-5", playbook_name: "Commitment Review", priority: "MEDIUM", recommended_action: "Validate root cause and align mitigation checkpoints." },
-          { signal_id: "PAT-C2", signal_name: "Satisfaction decline signal", weight: 72, classification: "ACTIVE", days_since_detection: 3, occurrence_count: 1, source_system: "Feed-E", playbook_id: "RESP-6", playbook_name: "Satisfaction Recovery", priority: "HIGH", recommended_action: "Open recovery loop and define measurable turnaround targets." }
+        base: 44,
+        signals: [
+          { name: "Commitment delays", w: 64, days: 0, occ: 3 },
+          { name: "Satisfaction decline", w: 72, days: 3, occ: 1 }
         ],
-        enrich: { segment: "Tier 3", baseline_value: "Medium", state: "AT_RISK", validation_status: "PASS", stakeholders: ["Operations Contact", "Finance Contact"] }
+        notes: [
+          "Execution friction increased across two feeds.",
+          "Priority score rose into elevated range.",
+          "Response track: recovery loop with tight milestones."
+        ]
       }
     ];
 
-    const stageJson = document.getElementById("stageJson");
-    const calcJson = document.getElementById("calcJson");
-    const mappingBody = document.getElementById("mappingBody");
-    const gateRow = document.getElementById("gateRow");
-    const metricScore = document.getElementById("metricScore");
-    const metricTier = document.getElementById("metricTier");
-    const metricDelta = document.getElementById("metricDelta");
-    const metricEsc = document.getElementById("metricEsc");
+    const graph = document.getElementById("flowGraph");
     const timeline = document.getElementById("timeline");
     const tickLabel = document.getElementById("tickLabel");
+    const scenarioSelect = document.getElementById("scenarioSelect");
     const playPauseBtn = document.getElementById("playPauseBtn");
     const stepBtn = document.getElementById("stepBtn");
-    const scenarioSelect = document.getElementById("scenarioSelect");
-    const graph = document.getElementById("pipelineGraph");
+    const metricScore = document.getElementById("metricScore");
+    const metricTier = document.getElementById("metricTier");
+    const metricEsc = document.getElementById("metricEsc");
+    const snapshotList = document.getElementById("snapshotList");
+    const gateRow = document.getElementById("gateRow");
 
-    const recencyDecay = (days) => Math.exp(-0.03 * days);
-    const acvMultiplier = (acv) => (acv >= 1000000 ? 1.3 : acv >= 500000 ? 1.15 : acv >= 100000 ? 1.0 : 0.85);
-    const frequencyBoost = (count) => 1 + Math.log2(Math.max(1, count)) * 0.1;
-    const tierFromScore = (score) => (score <= 20 ? "HEALTHY" : score <= 40 ? "MONITOR" : score <= 60 ? "ELEVATED" : score <= 80 ? "HIGH" : "CRITICAL");
-    const tierRank = (tier) => ["HEALTHY", "MONITOR", "ELEVATED", "HIGH", "CRITICAL"].indexOf(tier);
+    const recency = (d) => Math.exp(-0.03 * d);
+    const freq = (n) => 1 + Math.log2(Math.max(1, n)) * 0.1;
+    const tier = (s) => (s <= 20 ? "Healthy" : s <= 40 ? "Monitor" : s <= 60 ? "Elevated" : s <= 80 ? "High" : "Critical");
 
-    function scoreScenario(scenario) {
-      const acvMul = acvMultiplier(scenario.acv);
-      const rows = scenario.detectedSignals.map((signal) => {
-        const rec = recencyDecay(signal.days_since_detection);
-        const freq = frequencyBoost(signal.occurrence_count);
-        const contribution = signal.weight * rec * acvMul * freq;
-        return {
-          signal_id: signal.signal_id,
-          signal_name: signal.signal_name,
-          weight: signal.weight,
-          recency_decay: Number(rec.toFixed(3)),
-          frequency_boost: Number(freq.toFixed(3)),
-          acv_multiplier: acvMul,
-          weighted_contribution: Number(contribution.toFixed(2)),
-          playbook_id: signal.playbook_id,
-          playbook_name: signal.playbook_name,
-          recommended_action: signal.recommended_action,
-          classification: signal.classification,
-          priority: signal.priority
-        };
-      });
-      const rawTotal = rows.reduce((sum, row) => sum + row.weighted_contribution, 0);
-      const finalScore = Math.min(100, Number(rawTotal.toFixed(2)));
-      const currentTier = tierFromScore(finalScore);
-      const previousTier = tierFromScore(scenario.previousScore);
-      const delta = Number((finalScore - scenario.previousScore).toFixed(2));
-      const hasCriticalNew = scenario.detectedSignals.some((signal) => signal.weight >= 75);
-      const escalation = tierRank(currentTier) - tierRank(previousTier) >= 2 || delta >= 25 || hasCriticalNew;
-      const isNewRisk = ["HEALTHY", "MONITOR"].includes(previousTier) && ["ELEVATED", "HIGH", "CRITICAL"].includes(currentTier);
-      return { rows, finalScore, rawTotal, currentTier, previousTier, delta, escalation, isNewRisk, acvMul };
-    }
-
-    function stageOutput(scenario, scored, stageIndex) {
-      if (stageIndex === 0) return { stage: "INGEST", label: stageLabels[0], output: scenario.envelope };
-      if (stageIndex === 1) return { stage: "DETECT", label: stageLabels[1], output: { event_key: scenario.envelope.event_key, pattern_candidates: scenario.detectedSignals.map((s) => s.signal_id), detections: scenario.detectedSignals.map((s) => ({ pattern_id: s.signal_id, pattern_name: s.signal_name, class: s.classification, source_group: s.source_system })) } };
-      if (stageIndex === 2) return { stage: "ENRICH", label: stageLabels[2], output: { entity_key: scenario.envelope.entity_key, entity_label: scenario.envelope.entity_label, context: scenario.enrich, passive_review: "No unreviewed passive patterns in this scenario" } };
-      if (stageIndex === 3) return { stage: "SCORE", label: stageLabels[3], output: { previous_priority_score: scenario.previousScore, current_priority_score: scored.finalScore, priority_tier: scored.currentTier, previous_tier: scored.previousTier, delta_score: scored.delta, is_new_risk: scored.isNewRisk, is_escalation: scored.escalation, detected_patterns: scored.rows } };
-      return { stage: "PERSIST", label: stageLabels[4], output: { writes: [{ target: "HISTORY_STORE", mode: "INSERT", status: "SUCCESS" }, { target: "CURRENT_STATE_STORE", mode: "UPSERT", status: "SUCCESS" }, { target: "RUN_AUDIT_LOG", mode: "INSERT", status: "SUCCESS" }], notification: tierRank(scored.currentTier) >= tierRank("ELEVATED") ? "Response notification queued" : "No notification required" } };
+    function computeScenario(idx) {
+      const s = scenarios[idx];
+      const contributions = s.signals.map((x) => x.w * recency(x.days) * freq(x.occ) * 1.0);
+      const total = Math.min(100, Number(contributions.reduce((a, b) => a + b, 0).toFixed(1)));
+      const delta = Number((total - s.base).toFixed(1));
+      return { total, delta, tier: tier(total), escalated: delta >= 20 || total >= 61 };
     }
 
     function renderGraph() {
       graph.innerHTML = "";
       const edgeLayer = document.createElementNS("http://www.w3.org/2000/svg", "g");
       graph.appendChild(edgeLayer);
-      for (let i = 0; i < pipelineNodes.length - 1; i += 1) {
-        const from = pipelineNodes[i];
-        const to = pipelineNodes[i + 1];
+
+      for (let i = 0; i < nodes.length - 1; i += 1) {
+        const a = nodes[i];
+        const b = nodes[i + 1];
         const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
-        line.setAttribute("x1", from.x + 140);
-        line.setAttribute("y1", from.y + 34);
-        line.setAttribute("x2", to.x);
-        line.setAttribute("y2", to.y + 34);
+        line.setAttribute("x1", a.x + 140);
+        line.setAttribute("y1", a.y + 30);
+        line.setAttribute("x2", b.x);
+        line.setAttribute("y2", b.y + 30);
         line.setAttribute("class", "edge");
         line.setAttribute("id", `edge-${i}`);
         edgeLayer.appendChild(line);
       }
+
       const nodeLayer = document.createElementNS("http://www.w3.org/2000/svg", "g");
       graph.appendChild(nodeLayer);
-      pipelineNodes.forEach((node, index) => {
-        const group = document.createElementNS("http://www.w3.org/2000/svg", "g");
-        group.setAttribute("class", "node pending");
-        group.setAttribute("id", `node-${index}`);
-        group.setAttribute("transform", `translate(${node.x}, ${node.y})`);
+      nodes.forEach((node, i) => {
+        const g = document.createElementNS("http://www.w3.org/2000/svg", "g");
+        g.setAttribute("class", "node");
+        g.setAttribute("id", `node-${i}`);
+        g.setAttribute("transform", `translate(${node.x},${node.y})`);
+
         const box = document.createElementNS("http://www.w3.org/2000/svg", "rect");
         box.setAttribute("class", "node-box");
         box.setAttribute("width", "140");
-        box.setAttribute("height", "68");
-        box.setAttribute("rx", "12");
-        group.appendChild(box);
-        const title = document.createElementNS("http://www.w3.org/2000/svg", "text");
-        title.setAttribute("x", "10");
-        title.setAttribute("y", "23");
-        title.setAttribute("class", "node-title");
-        title.textContent = node.label;
-        group.appendChild(title);
-        const meta = document.createElementNS("http://www.w3.org/2000/svg", "text");
-        meta.setAttribute("x", "10");
-        meta.setAttribute("y", "41");
-        meta.setAttribute("class", "node-meta");
-        meta.textContent = node.meta;
-        group.appendChild(meta);
-        nodeLayer.appendChild(group);
+        box.setAttribute("height", "60");
+        box.setAttribute("rx", "10");
+        g.appendChild(box);
+
+        const t1 = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        t1.setAttribute("x", "10");
+        t1.setAttribute("y", "23");
+        t1.setAttribute("class", "node-title");
+        t1.textContent = node.label;
+        g.appendChild(t1);
+
+        const t2 = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        t2.setAttribute("x", "10");
+        t2.setAttribute("y", "41");
+        t2.setAttribute("class", "node-sub");
+        t2.textContent = node.sub;
+        g.appendChild(t2);
+
+        nodeLayer.appendChild(g);
       });
     }
 
     function applyStage(stageIndex, scenarioIndex) {
-      const scenario = scenarios[scenarioIndex];
-      const scored = scoreScenario(scenario);
-      const output = stageOutput(scenario, scored, stageIndex);
+      const c = computeScenario(scenarioIndex);
       tickLabel.textContent = `Stage ${stageIndex + 1}/5`;
-      pipelineNodes.forEach((_, index) => {
-        const node = document.getElementById(`node-${index}`);
-        node.classList.remove("pending", "active", "complete", "warn");
-        if (index < stageIndex) node.classList.add("complete");
-        else if (index === stageIndex) node.classList.add(scored.escalation && stageIndex >= 3 ? "warn" : "active");
-        else node.classList.add("pending");
+
+      nodes.forEach((_, i) => {
+        const node = document.getElementById(`node-${i}`);
+        node.classList.remove("done", "active");
+        if (i < stageIndex) node.classList.add("done");
+        if (i === stageIndex) node.classList.add("active");
       });
-      for (let i = 0; i < pipelineNodes.length - 1; i += 1) {
+
+      for (let i = 0; i < nodes.length - 1; i += 1) {
         document.getElementById(`edge-${i}`).classList.toggle("active", i < stageIndex);
       }
-      stageJson.textContent = JSON.stringify(output, null, 2);
-      calcJson.textContent = JSON.stringify({
-        acv_multiplier: scored.acvMul,
-        previous_score: scenario.previousScore,
-        raw_total: scored.rawTotal,
-        clamped_score: scored.finalScore,
-        tier: scored.currentTier,
-        delta_score: scored.delta,
-        is_new_risk: scored.isNewRisk,
-        is_escalation: scored.escalation,
-        contributions: scored.rows
-      }, null, 2);
-      metricScore.textContent = scored.finalScore.toFixed(1);
-      metricTier.textContent = scored.currentTier;
-      metricDelta.textContent = `${scored.delta > 0 ? "+" : ""}${scored.delta.toFixed(1)}`;
-      metricEsc.textContent = scored.escalation ? "Yes" : "No";
-      gateRow.innerHTML = "";
-      gates.forEach((gate) => {
-        const chip = document.createElement("span");
-        const fired = stageIndex >= gate.stage;
-        chip.className = "chip";
-        chip.textContent = `${gate.id} ${fired ? "PASS" : "WAIT"}`;
-        chip.style.borderColor = fired ? "#10b981" : "#5a5a5a";
-        gateRow.appendChild(chip);
+
+      metricScore.textContent = c.total.toFixed(1);
+      metricTier.textContent = c.tier;
+      metricEsc.textContent = c.escalated ? "Yes" : "No";
+
+      snapshotList.innerHTML = "";
+      scenarios[scenarioIndex].notes.forEach((n) => {
+        const li = document.createElement("li");
+        li.textContent = n;
+        snapshotList.appendChild(li);
       });
-      mappingBody.innerHTML = "";
-      scored.rows.forEach((row) => {
-        const signal = scenario.detectedSignals.find((s) => s.signal_id === row.signal_id);
-        const tr = document.createElement("tr");
-        tr.innerHTML = `<td>${row.signal_id}<br /><span style="color:#9f9f9f">${row.signal_name}</span></td><td>${row.weight}</td><td>${row.classification}</td><td>${row.playbook_id}<br /><span style="color:#9f9f9f">${row.playbook_name}</span></td><td>${row.priority}</td><td>${signal.recommended_action}</td>`;
-        mappingBody.appendChild(tr);
+
+      gateRow.innerHTML = "";
+      gates.forEach((g, i) => {
+        const chip = document.createElement("span");
+        chip.className = "chip";
+        chip.textContent = `${g} ${stageIndex >= i ? "PASS" : "WAIT"}`;
+        chip.style.borderColor = stageIndex >= i ? "#10b981" : "#4f4f4f";
+        gateRow.appendChild(chip);
       });
     }
 
-    let currentStage = 0;
+    let stage = 0;
     let timer = null;
-    const stopPlayback = () => { if (timer) { window.clearInterval(timer); timer = null; } playPauseBtn.textContent = "Play"; };
-    const startPlayback = () => { stopPlayback(); timer = window.setInterval(() => { currentStage = (currentStage + 1) % 5; timeline.value = String(currentStage); applyStage(currentStage, Number(scenarioSelect.value)); }, 1300); playPauseBtn.textContent = "Pause"; };
-    playPauseBtn.addEventListener("click", () => { if (timer) stopPlayback(); else startPlayback(); });
-    stepBtn.addEventListener("click", () => { stopPlayback(); currentStage = (currentStage + 1) % 5; timeline.value = String(currentStage); applyStage(currentStage, Number(scenarioSelect.value)); });
-    timeline.addEventListener("input", (event) => { stopPlayback(); currentStage = Number(event.target.value); applyStage(currentStage, Number(scenarioSelect.value)); });
-    scenarioSelect.addEventListener("change", () => { stopPlayback(); currentStage = 0; timeline.value = "0"; applyStage(currentStage, Number(scenarioSelect.value)); });
+
+    function stop() {
+      if (timer) {
+        window.clearInterval(timer);
+        timer = null;
+      }
+      playPauseBtn.textContent = "Play";
+    }
+
+    function play() {
+      stop();
+      timer = window.setInterval(() => {
+        stage = (stage + 1) % 5;
+        timeline.value = String(stage);
+        applyStage(stage, Number(scenarioSelect.value));
+      }, 1200);
+      playPauseBtn.textContent = "Pause";
+    }
+
+    playPauseBtn.addEventListener("click", () => (timer ? stop() : play()));
+    stepBtn.addEventListener("click", () => {
+      stop();
+      stage = (stage + 1) % 5;
+      timeline.value = String(stage);
+      applyStage(stage, Number(scenarioSelect.value));
+    });
+    timeline.addEventListener("input", (e) => {
+      stop();
+      stage = Number(e.target.value);
+      applyStage(stage, Number(scenarioSelect.value));
+    });
+    scenarioSelect.addEventListener("change", () => {
+      stop();
+      stage = 0;
+      timeline.value = "0";
+      applyStage(stage, Number(scenarioSelect.value));
+    });
 
     renderGraph();
     applyStage(0, 0);
