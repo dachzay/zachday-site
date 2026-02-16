@@ -57,6 +57,10 @@
 
     nav a { color: var(--muted); text-decoration: none; margin-left: 14px; font-size: 14px; }
     nav a:hover { color: var(--text); }
+    a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible, .back-home:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
 
     .back-home {
       border: 1px solid var(--border);
@@ -189,9 +193,9 @@
       <a href="../index.html" style="text-decoration:none;"><div class="brand"><span class="dot" title="Project"></span><span>Zach Day</span></div></a>
       <nav>
         <a class="back-home" href="../index.html">Back to Home</a>
-        <a href="../index.html#projects">Projects</a>
-        <a href="../index.html#about">About</a>
-        <a href="../index.html#contact">Contact</a>
+        <a href="../index.html#services">Services</a>
+        <a href="../index.html#proof">Proof</a>
+        <a href="/services/#contact-form" data-track-event="cta_book_intro_nav">Book Intro</a>
       </nav>
     </header>
 
@@ -499,5 +503,6 @@
     renderGraph();
     applyStage(0, 0);
   </script>
+  <script src="/shared/js/tracking.js"></script>
 </body>
 </html>

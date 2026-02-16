@@ -568,9 +568,9 @@
         <span>Zach Day</span>
       </a>
       <nav>
-        <a href="#services">Services</a>
-        <a href="#proof">Proof</a>
-        <a href="#contact">Contact</a>
+        <a href="#services" data-track-event="nav_services_home">Services</a>
+        <a href="#proof" data-track-event="nav_proof_home">Proof</a>
+        <a href="/services/#contact-form" data-track-event="cta_book_intro_nav_home">Book Intro</a>
       </nav>
     </header>
 
@@ -583,9 +583,9 @@
             <p>I help local teams automate repetitive work, speed up operations, and deploy practical AI workflows without adding unnecessary complexity.</p>
             <p>Every engagement is scoped around measurable outcomes and real constraints in your current team.</p>
             <div class="cta">
-              <a class="btn primary" href="#lead-form">Book Intro</a>
-              <a class="btn secondary" href="#proof">See Proof</a>
-              <a class="btn secondary" href="./services/index.html">Full Services Page</a>
+              <a class="btn primary" href="#lead-form" data-track-event="cta_book_intro_hero_home">Book Intro</a>
+              <a class="btn secondary" href="#proof" data-track-event="cta_see_proof_hero_home">See Proof</a>
+              <a class="btn secondary" href="./services/index.html" data-track-event="cta_full_services_hero_home">Full Services Page</a>
             </div>
             <ul class="quick-points">
               <li>Built for local owner-led and operator-led businesses.</li>
@@ -714,6 +714,8 @@
   </div>
 
   <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+  <script src="/shared/js/tracking.js"></script>
+  <script src="/shared/js/lead-form.js"></script>
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
 
@@ -736,81 +738,15 @@
     setPresenceDot();
     window.addEventListener("online", setPresenceDot);
     window.addEventListener("offline", setPresenceDot);
-
-    const form = document.getElementById("consult-form");
-    const note = document.getElementById("form-note");
-    const submitButton = form.querySelector("button[type='submit']");
-    const turnstileContainer = document.getElementById("turnstile-container");
-    const turnstileSiteKey = (document.querySelector('meta[name="turnstile-site-key"]')?.content || "").trim();
-    const hasTurnstileSiteKey = turnstileSiteKey && turnstileSiteKey !== "REPLACE_WITH_TURNSTILE_SITE_KEY";
-    let turnstileWidgetId = null;
-
-    if (hasTurnstileSiteKey && turnstileContainer) {
-      turnstileContainer.classList.remove("hidden");
-      const renderTurnstile = () => {
-        if (window.turnstile && typeof window.turnstile.render === "function") {
-          turnstileWidgetId = window.turnstile.render(turnstileContainer, {
-            sitekey: turnstileSiteKey,
-            theme: "dark",
-          });
-          return;
-        }
-        window.setTimeout(renderTurnstile, 150);
-      };
-      renderTurnstile();
+    if (window.ZachSite && typeof window.ZachSite.initLeadForm === "function") {
+      window.ZachSite.initLeadForm({
+        formId: "consult-form",
+        noteId: "form-note",
+        turnstileContainerId: "turnstile-container",
+        fallbackEmail: "day.zachc@gmail.com",
+        eventContext: "home",
+      });
     }
-
-    form.addEventListener("submit", async (event) => {
-      event.preventDefault();
-      const name = document.getElementById("name").value.trim();
-      const email = document.getElementById("email").value.trim();
-      const employeeBand = document.getElementById("employee_band").value;
-      const website = document.getElementById("website").value.trim();
-      const turnstileField = document.querySelector("input[name='cf-turnstile-response']");
-      const turnstileToken = turnstileField ? turnstileField.value : "";
-
-      if (hasTurnstileSiteKey && !turnstileToken) {
-        note.textContent = "Please complete the spam check and submit again.";
-        return;
-      }
-
-      submitButton.disabled = true;
-      note.textContent = "Submitting...";
-
-      try {
-        const response = await fetch("/api/leads", {
-          method: "POST",
-          headers: {
-            "content-type": "application/json",
-          },
-          body: JSON.stringify({
-            name,
-            email,
-            employee_band: employeeBand,
-            source_path: window.location.pathname,
-            website,
-            turnstile_token: turnstileToken,
-          }),
-        });
-
-        const result = await response.json().catch(() => ({}));
-        if (response.ok && result.ok) {
-          note.textContent = "Thanks. Your request was sent successfully.";
-          form.reset();
-          if (hasTurnstileSiteKey && turnstileWidgetId !== null && window.turnstile && typeof window.turnstile.reset === "function") {
-            window.turnstile.reset(turnstileWidgetId);
-          }
-        } else if (response.status === 429) {
-          note.textContent = "Too many attempts. Please try again shortly.";
-        } else {
-          note.textContent = result.error || "Could not submit right now. Please email day.zachc@gmail.com.";
-        }
-      } catch {
-        note.textContent = "Could not submit right now. Please email day.zachc@gmail.com.";
-      } finally {
-        submitButton.disabled = false;
-      }
-    });
   </script>
 </body>
 
