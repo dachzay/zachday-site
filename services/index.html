@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <title>AI Consulting Services in Chicago | Zach Day</title>
+  <meta name="description" content="Chicago AI consulting for local businesses: readiness audits, workflow automation, and practical team training." />
+  <meta name="robots" content="index, follow" />
+  <style>
+    :root {
+      --bg: #0b1115;
+      --panel: #111a20;
+      --text: #e9eef2;
+      --muted: #98a8b3;
+      --border: #22323d;
+      --accent: #16c47f;
+      --accent-dark: #0ea86b;
+      --radius: 12px;
+      --shadow: 0 14px 30px rgba(0, 0, 0, 0.34);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--text);
+      font-family: "Inter", "SF Pro Text", "Segoe UI", system-ui, -apple-system, sans-serif;
+      line-height: 1.55;
+      background:
+        radial-gradient(900px 500px at 8% -20%, rgba(22, 196, 127, 0.22), transparent 60%),
+        radial-gradient(800px 420px at 100% 0%, rgba(84, 173, 255, 0.12), transparent 62%),
+        var(--bg);
+    }
+
+    .container {
+      width: min(1040px, 92vw);
+      margin: 0 auto;
+      padding: 42px 0 88px;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 15;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px 0;
+      background: rgba(11, 17, 21, 0.76);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s ease;
+    }
+
+    header.scrolled {
+      border-color: var(--border);
+    }
+
+    .brand {
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 600;
+      letter-spacing: -0.2px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 10px rgba(22, 196, 127, 0.68);
+      animation: pulse 2.4s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%,
+      100% {
+        transform: scale(1);
+        opacity: 0.72;
+      }
+      50% {
+        transform: scale(1.5);
+        opacity: 1;
+      }
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    nav a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 14px;
+      border-bottom: 1px solid transparent;
+      transition: color 0.15s ease, border-color 0.15s ease;
+      padding-bottom: 2px;
+    }
+
+    nav a:hover {
+      color: var(--text);
+      border-color: var(--text);
+    }
+
+    main {
+      margin-top: 28px;
+    }
+
+    .hero {
+      margin: 0 0 44px;
+      padding: 20px 0 6px;
+    }
+
+    .eyebrow {
+      margin: 0 0 12px;
+      text-transform: uppercase;
+      letter-spacing: 1.3px;
+      color: var(--muted);
+      font-weight: 600;
+      font-size: 12px;
+    }
+
+    .hero h1 {
+      margin: 0 0 16px;
+      font-size: clamp(34px, 6vw, 56px);
+      letter-spacing: -1.1px;
+      line-height: 1.03;
+      max-width: 15ch;
+    }
+
+    .hero p {
+      margin: 0 0 12px;
+      color: var(--muted);
+      max-width: 65ch;
+      font-size: 18px;
+    }
+
+    .cta {
+      margin-top: 24px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 18px;
+      border-radius: 10px;
+      border: 1px solid transparent;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+      transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn.primary {
+      background: var(--accent);
+      color: #05110b;
+      border-color: var(--accent);
+    }
+
+    .btn.primary:hover {
+      background: var(--accent-dark);
+      border-color: var(--accent-dark);
+    }
+
+    .btn.secondary {
+      border-color: var(--border);
+      color: var(--text);
+    }
+
+    .btn.secondary:hover {
+      border-color: var(--muted);
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      margin-bottom: 56px;
+    }
+
+    .card {
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(17, 26, 32, 0.92), rgba(17, 26, 32, 0.75));
+      padding: 22px;
+      box-shadow: var(--shadow);
+    }
+
+    .card h2 {
+      margin: 0 0 10px;
+      font-size: 18px;
+      letter-spacing: -0.2px;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .section {
+      margin-top: 54px;
+    }
+
+    .section h2 {
+      margin: 0 0 16px;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: var(--muted);
+    }
+
+    .process {
+      margin: 0;
+      padding-left: 20px;
+      color: var(--muted);
+    }
+
+    .process li {
+      margin-bottom: 10px;
+    }
+
+    .coverage {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      background: rgba(17, 26, 32, 0.62);
+      color: var(--muted);
+    }
+
+    .coverage strong {
+      color: var(--text);
+    }
+
+    .form-wrap {
+      margin-top: 56px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: rgba(17, 26, 32, 0.88);
+      padding: 24px;
+      box-shadow: var(--shadow);
+      max-width: 640px;
+    }
+
+    .form-wrap h2 {
+      margin: 0 0 6px;
+      font-size: 22px;
+      letter-spacing: -0.4px;
+    }
+
+    .form-wrap p {
+      margin: 0 0 16px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    form {
+      display: grid;
+      gap: 14px;
+    }
+
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    input,
+    select {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: #0b1318;
+      color: var(--text);
+      padding: 10px 12px;
+      font-size: 14px;
+      transition: border-color 0.15s ease;
+    }
+
+    input:focus-visible,
+    select:focus-visible,
+    a:focus-visible,
+    button:focus-visible {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 2px rgba(22, 196, 127, 0.25);
+    }
+
+    button {
+      margin-top: 6px;
+      width: fit-content;
+      border: 1px solid var(--accent);
+      background: var(--accent);
+      color: #05110b;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 10px 16px;
+      cursor: pointer;
+      transition: background 0.15s ease, border-color 0.15s ease;
+    }
+
+    button:hover {
+      background: var(--accent-dark);
+      border-color: var(--accent-dark);
+    }
+
+    button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .form-note {
+      margin-top: 10px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .hp-field {
+      position: absolute;
+      left: -10000px;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+    }
+
+    footer {
+      margin-top: 74px;
+      border-top: 1px solid var(--border);
+      padding-top: 26px;
+      color: var(--muted);
+      font-size: 13px;
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 900px) {
+      .cards {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .container {
+        padding-top: 24px;
+      }
+
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .hero p {
+        font-size: 16px;
+      }
+    }
+  </style>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfessionalService",
+      "name": "Zach Day AI Consulting",
+      "serviceType": [
+        "AI readiness audit",
+        "Workflow automation",
+        "AI team training"
+      ],
+      "areaServed": {
+        "@type": "City",
+        "name": "Chicago"
+      }
+    }
+  </script>
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <a href="../index.html" class="brand">
+        <span class="dot" aria-hidden="true"></span>
+        <span>Zach Day</span>
+      </a>
+      <nav>
+        <a href="../index.html">Home</a>
+        <a href="../index.html#projects">Projects</a>
+        <a href="#contact-form">Book Intro</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <p class="eyebrow">Chicago AI Consulting</p>
+        <h1>Practical AI systems for Chicago businesses.</h1>
+        <p>I help local teams use AI to reduce manual work, improve response speed, and build repeatable operating systems that hold up under real workload.</p>
+        <p>No theory deck. Clear scope, fast pilots, and deployment you can actually run with your current team.</p>
+        <div class="cta">
+          <a class="btn primary" href="#contact-form">Request Intro</a>
+          <a class="btn secondary" href="../index.html#projects">See Proof of Work</a>
+        </div>
+      </section>
+
+      <section class="cards" aria-label="Core services">
+        <article class="card">
+          <h2>AI Readiness Audit</h2>
+          <p>Map your current workflows, identify high-friction points, and prioritize the first 2-3 AI use cases with clear ROI and owner assignment.</p>
+        </article>
+        <article class="card">
+          <h2>Workflow Automation Build</h2>
+          <p>Design and implement automations for repetitive tasks such as intake triage, follow-up generation, reporting, and internal knowledge retrieval.</p>
+        </article>
+        <article class="card">
+          <h2>Team Enablement</h2>
+          <p>Train your managers and operators on prompt workflows, guardrails, QA standards, and adoption habits so systems are used consistently.</p>
+        </article>
+      </section>
+
+      <section class="section">
+        <h2>Engagement Model</h2>
+        <ol class="process">
+          <li><strong>Week 1:</strong> Workflow discovery and baseline measurement.</li>
+          <li><strong>Week 2-3:</strong> Build and validate one high-value automation pilot.</li>
+          <li><strong>Week 4:</strong> Team handoff, SOPs, and a 90-day roadmap for expansion.</li>
+        </ol>
+      </section>
+
+      <section class="section">
+        <h2>Local Focus</h2>
+        <div class="coverage">
+          <p><strong>Primary market:</strong> Chicago, IL.</p>
+          <p><strong>Service fit:</strong> owner-led local businesses and growing operating teams that need practical AI implementation, not generic consulting.</p>
+        </div>
+      </section>
+
+      <section id="contact-form" class="form-wrap">
+        <h2>Start a Chicago AI Project</h2>
+        <p>Share these 3 details and I will follow up with next steps.</p>
+        <form id="lead-form">
+          <div class="hp-field" aria-hidden="true">
+            <label for="website">Website</label>
+            <input id="website" name="website" type="text" tabindex="-1" autocomplete="off" />
+          </div>
+          <div>
+            <label for="name">Name</label>
+            <input id="name" name="name" type="text" autocomplete="name" required />
+          </div>
+          <div>
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" autocomplete="email" required />
+          </div>
+          <div>
+            <label for="employee_band">Number of Employees</label>
+            <select id="employee_band" name="employee_band" required>
+              <option value="" selected disabled>Select a range</option>
+              <option value="0-5">0-5</option>
+              <option value="5-10">5-10</option>
+              <option value="11-25">11-25</option>
+              <option value="26-50">26-50</option>
+              <option value="51-100">51-100</option>
+              <option value="101-250">101-250</option>
+              <option value="251+">251+</option>
+            </select>
+          </div>
+          <button type="submit">Send Inquiry</button>
+        </form>
+        <p id="form-note" class="form-note">Your details are sent to a secured lead endpoint.</p>
+      </section>
+    </main>
+
+    <footer>
+      <span>(c) <span id="year"></span> Zach Day</span>
+      <span>Chicago AI consulting services</span>
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    const header = document.querySelector("header");
+    const toggleHeader = () => {
+      header.classList.toggle("scrolled", window.scrollY > 8);
+    };
+    toggleHeader();
+    window.addEventListener("scroll", toggleHeader, { passive: true });
+
+    const form = document.getElementById("lead-form");
+    const note = document.getElementById("form-note");
+    const submitButton = form.querySelector("button[type='submit']");
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const employeeBand = document.getElementById("employee_band").value;
+      const website = document.getElementById("website").value.trim();
+      const turnstileField = document.querySelector("input[name='cf-turnstile-response']");
+      const turnstileToken = turnstileField ? turnstileField.value : "";
+
+      submitButton.disabled = true;
+      note.textContent = "Submitting...";
+
+      try {
+        const response = await fetch("/api/leads", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify({
+            name,
+            email,
+            employee_band: employeeBand,
+            source_path: window.location.pathname,
+            website,
+            turnstile_token: turnstileToken,
+          }),
+        });
+
+        const result = await response.json().catch(() => ({}));
+        if (response.ok && result.ok) {
+          note.textContent = "Thanks. Your request was sent successfully.";
+          form.reset();
+        } else if (response.status === 429) {
+          note.textContent = "Too many attempts. Please try again shortly.";
+        } else {
+          note.textContent = result.error || "Could not submit right now. Please email day.zachc@gmail.com.";
+        }
+      } catch {
+        note.textContent = "Could not submit right now. Please email day.zachc@gmail.com.";
+      } finally {
+        submitButton.disabled = false;
+      }
+    });
+  </script>
+</body>
+
+</html>
