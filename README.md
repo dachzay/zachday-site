@@ -44,7 +44,8 @@ CREATE TABLE IF NOT EXISTS leads (
 Notes:
 - Form endpoints now POST JSON to `/api/leads` from `index.html` and `services/index.html`.
 - `ALLOW_SIMULATED_LEADS=true` can be used only for local simulation when no DB binding exists.
-- Google Sheets webhook setup guide: `docs/google_sheets_lead_webhook.md`.
+- Set Turnstile site key in both pages: `<meta name="turnstile-site-key" content="...">`.
+- Google Sheets webhook + automation guide: `docs/google_sheets_lead_webhook.md`.
 
 ## Deploy (one command)
 
