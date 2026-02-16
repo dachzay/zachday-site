@@ -1,2 +1,4 @@
 
 .wrangler/tmp/
+ops/backups/
+ops/secret-rotation.log

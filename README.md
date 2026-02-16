@@ -47,6 +47,27 @@ Notes:
 - Set Turnstile site key in both pages: `<meta name="turnstile-site-key" content="...">`.
 - Google Sheets webhook + automation guide: `docs/google_sheets_lead_webhook.md`.
 
+## Ops Maintenance
+
+Scripts:
+- `npm run ops:health`
+- `npm run ops:backup`
+- `npm run ops:rotate:webhook -- --apply`
+- `npm run ops:maintenance`
+- `npm run ops:backup -- --dry-run`
+
+Key env vars:
+- `LEADS_DB_NAME` (default: `LEADS-DB`)
+- `LEADS_BACKUP_DIR` (default: `ops/backups`)
+- `LEADS_BACKUP_RETENTION_DAYS` (default: `14`)
+- `LEADS_BACKUP_DRY_RUN` (`true` to test backup pipeline without Cloudflare)
+- `LEADS_HEALTHCHECK_URL` (default: `https://zachday.xyz/api/leads`)
+- `LEADS_HEALTH_SKIP_TLS_VERIFY` (`true` only when local cert chain is broken)
+- `CF_PAGES_PROJECT_NAME` (default: `zachday-site`)
+
+Runbook:
+- `docs/ops_maintenance.md`
+
 ## Deploy (one command)
 
 ```bash

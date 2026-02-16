@@ -1,10 +1,14 @@
 {
   "name": "website",
   "private": true,
-  "description": "Static site — zachday.xyz",
+  "description": "Static site - zachday.xyz",
   "scripts": {
     "dev": "npx wrangler pages dev . --port 8788",
-    "build": "echo No build step — static HTML/CSS",
-    "deploy": "node scripts/deploy.js"
+    "build": "echo No build step - static HTML/CSS",
+    "deploy": "node scripts/deploy.js",
+    "ops:health": "node scripts/ops/health-check.js",
+    "ops:backup": "node scripts/ops/backup-d1.js",
+    "ops:rotate:webhook": "node scripts/ops/rotate-webhook-secret.js",
+    "ops:maintenance": "npm run ops:health && npm run ops:backup"
   }
 }
