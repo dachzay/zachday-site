@@ -5,13 +5,23 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="turnstile-site-key" content="0x4AAAAAACeBeccH19qgiI1V" />
+  <meta name="gtm-id" content="" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <title>AI Consulting in Chicago | Zach Day</title>
-  <meta name="description" content="Chicago AI consulting for local businesses. Strategy, workflow automation, and practical implementation with clear outcomes." />
+  <meta name="description" content="AI consulting in Chicago for owner-led SMBs. Practical automation, clear implementation scope, and measurable operational outcomes." />
   <meta name="robots" content="index,follow" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="AI Consulting in Chicago | Zach Day" />
+  <meta property="og:description" content="AI consulting in Chicago for owner-led SMBs. Practical automation, clear implementation scope, and measurable operational outcomes." />
+  <meta property="og:url" content="https://zachday.xyz/" />
+  <meta property="og:image" content="https://zachday.xyz/favicon.svg" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="AI Consulting in Chicago | Zach Day" />
+  <meta name="twitter:description" content="AI consulting in Chicago for owner-led SMBs. Practical automation, clear implementation scope, and measurable operational outcomes." />
+  <meta name="twitter:image" content="https://zachday.xyz/favicon.svg" />
   <style>
     :root {
       --bg: #0a0a0a;
@@ -558,6 +568,7 @@
       }
     }
   </script>
+  <link rel="canonical" href="https://zachday.xyz/" />
 </head>
 
 <body>
@@ -569,7 +580,9 @@
       </a>
       <nav>
         <a href="#services" data-track-event="nav_services_home">Services</a>
-        <a href="#proof" data-track-event="nav_proof_home">Proof</a>
+        <a href="/case-studies/" data-track-event="nav_case_studies_home">Case Studies</a>
+        <a href="/process/" data-track-event="nav_process_home">Process</a>
+        <a href="/faq/" data-track-event="nav_faq_home">FAQ</a>
         <a href="/services/#contact-form" data-track-event="cta_book_intro_nav_home">Book Intro</a>
       </nav>
     </header>
@@ -580,17 +593,16 @@
           <div class="hero-copy">
             <p class="eyebrow">Chicago AI Consulting</p>
             <h1>AI consulting for Chicago businesses that need working systems.</h1>
-            <p>I help local teams automate repetitive work, speed up operations, and deploy practical AI workflows without adding unnecessary complexity.</p>
-            <p>Every engagement is scoped around measurable outcomes and real constraints in your current team.</p>
+            <p>I help owner-led SMB teams automate repetitive operations and ship practical AI workflows with clear scope, clear owners, and measurable outcomes.</p>
             <div class="cta">
               <a class="btn primary" href="#lead-form" data-track-event="cta_book_intro_hero_home">Book Intro</a>
-              <a class="btn secondary" href="#proof" data-track-event="cta_see_proof_hero_home">See Proof</a>
-              <a class="btn secondary" href="./services/index.html" data-track-event="cta_full_services_hero_home">Full Services Page</a>
+              <a class="btn secondary" href="/case-studies/" data-track-event="cta_case_studies_hero_home">Case Studies</a>
+              <a class="btn secondary" href="/services/" data-track-event="cta_full_services_hero_home">Full Services</a>
             </div>
             <ul class="quick-points">
-              <li>Built for local owner-led and operator-led businesses.</li>
+              <li>Built for owner-led SMB operators.</li>
               <li>Fast first pilot: discovery to deployment in weeks, not quarters.</li>
-              <li>Process, documentation, and handoff included.</li>
+              <li>Process, documentation, and handoff are included.</li>
             </ul>
           </div>
 
@@ -673,8 +685,26 @@
         </ol>
       </section>
 
+      <section class="section">
+        <h2>Deeper Narrative</h2>
+        <div class="grid">
+          <a href="/case-studies/" class="card service-card">
+            <h3>Case Studies</h3>
+            <p class="meta">Problem, implementation, timeline, and measurable outcomes for owner-led SMB engagements.</p>
+          </a>
+          <a href="/process/" class="card service-card">
+            <h3>Delivery Process</h3>
+            <p class="meta">How work moves from workflow diagnosis to pilot deployment, handoff, and expansion planning.</p>
+          </a>
+          <a href="/faq/" class="card service-card">
+            <h3>FAQ</h3>
+            <p class="meta">Clear answers on pricing model, expected timeline, readiness, and operating constraints.</p>
+          </a>
+        </div>
+      </section>
+
       <section id="proof" class="section">
-        <h2>Proof</h2>
+        <h2>Technical Proof</h2>
         <div class="grid">
           <a href="./martin/index.html" class="card proof-main">
             <h3>Martin</h3>
@@ -714,6 +744,7 @@
   </div>
 
   <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+  <script src="/shared/js/gtm-loader.js"></script>
   <script src="/shared/js/tracking.js"></script>
   <script src="/shared/js/lead-form.js"></script>
   <script>

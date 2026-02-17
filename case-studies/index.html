@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="gtm-id" content="" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <title>AI Case Studies for Owner-Led SMBs | Zach Day</title>
+  <meta name="description" content="Case studies from owner-led SMB AI implementations: problem, implementation approach, timeline, and measurable outcomes." />
+  <meta name="robots" content="index,follow" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="AI Case Studies for Owner-Led SMBs | Zach Day" />
+  <meta property="og:description" content="Case studies from owner-led SMB AI implementations: problem, implementation approach, timeline, and measurable outcomes." />
+  <meta property="og:url" content="https://zachday.xyz/case-studies/" />
+  <meta property="og:image" content="https://zachday.xyz/favicon.svg" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="AI Case Studies for Owner-Led SMBs | Zach Day" />
+  <meta name="twitter:description" content="Case studies from owner-led SMB AI implementations: problem, implementation approach, timeline, and measurable outcomes." />
+  <meta name="twitter:image" content="https://zachday.xyz/favicon.svg" />
+  <style>
+    :root {
+      --bg: #0b1115;
+      --panel: #111a20;
+      --text: #e9eef2;
+      --muted: #98a8b3;
+      --border: #22323d;
+      --accent: #16c47f;
+      --radius: 12px;
+      --shadow: 0 14px 30px rgba(0, 0, 0, 0.34);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--text);
+      font-family: "Inter", "SF Pro Text", "Segoe UI", system-ui, -apple-system, sans-serif;
+      line-height: 1.55;
+      background:
+        radial-gradient(900px 500px at 8% -20%, rgba(22, 196, 127, 0.22), transparent 60%),
+        radial-gradient(800px 420px at 100% 0%, rgba(84, 173, 255, 0.12), transparent 62%),
+        var(--bg);
+    }
+
+    .container {
+      width: min(1040px, 92vw);
+      margin: 0 auto;
+      padding: 40px 0 88px;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 15;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px 0;
+      background: rgba(11, 17, 21, 0.76);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s ease;
+    }
+
+    header.scrolled {
+      border-color: var(--border);
+    }
+
+    .brand {
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 600;
+      letter-spacing: -0.2px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 10px rgba(22, 196, 127, 0.68);
+      animation: pulse 2.4s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%,
+      100% {
+        transform: scale(1);
+        opacity: 0.72;
+      }
+
+      50% {
+        transform: scale(1.5);
+        opacity: 1;
+      }
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    nav a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 14px;
+      border-bottom: 1px solid transparent;
+      transition: color 0.15s ease, border-color 0.15s ease;
+      padding-bottom: 2px;
+    }
+
+    nav a:hover {
+      color: var(--text);
+      border-color: var(--text);
+    }
+
+    a:focus-visible {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 2px rgba(22, 196, 127, 0.25);
+    }
+
+    main {
+      margin-top: 24px;
+    }
+
+    .hero h1 {
+      margin: 0 0 14px;
+      font-size: clamp(34px, 6vw, 56px);
+      letter-spacing: -1.1px;
+      line-height: 1.03;
+      max-width: 15ch;
+    }
+
+    .hero p {
+      margin: 0 0 12px;
+      color: var(--muted);
+      max-width: 68ch;
+      font-size: 18px;
+    }
+
+    .section {
+      margin-top: 52px;
+    }
+
+    .section h2 {
+      margin: 0 0 16px;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: var(--muted);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .card {
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(17, 26, 32, 0.92), rgba(17, 26, 32, 0.75));
+      padding: 22px;
+      box-shadow: var(--shadow);
+    }
+
+    .card h3 {
+      margin: 0 0 10px;
+      font-size: 18px;
+      letter-spacing: -0.2px;
+    }
+
+    .card p {
+      margin: 0 0 10px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .proof {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      background: rgba(17, 26, 32, 0.62);
+      color: var(--muted);
+    }
+
+    .proof ul {
+      margin: 0;
+      padding-left: 18px;
+    }
+
+    .proof li {
+      margin-bottom: 8px;
+    }
+
+    .cta {
+      margin-top: 52px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      background: rgba(17, 26, 32, 0.85);
+      box-shadow: var(--shadow);
+      max-width: 760px;
+    }
+
+    .cta h2 {
+      margin: 0 0 8px;
+      font-size: 24px;
+      letter-spacing: -0.5px;
+    }
+
+    .cta p {
+      margin: 0 0 14px;
+      color: var(--muted);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 18px;
+      border-radius: 10px;
+      border: 1px solid transparent;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+      margin-right: 10px;
+    }
+
+    .btn.primary {
+      background: var(--accent);
+      color: #05110b;
+      border-color: var(--accent);
+    }
+
+    .btn.secondary {
+      border-color: var(--border);
+      color: var(--text);
+    }
+
+    footer {
+      margin-top: 70px;
+      border-top: 1px solid var(--border);
+      padding-top: 26px;
+      color: var(--muted);
+      font-size: 13px;
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 920px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .container {
+        padding-top: 24px;
+      }
+
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .hero p {
+        font-size: 16px;
+      }
+    }
+  </style>
+  <link rel="canonical" href="https://zachday.xyz/case-studies/" />
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <a href="../index.html" class="brand">
+        <span class="dot" aria-hidden="true"></span>
+        <span>Zach Day</span>
+      </a>
+      <nav>
+        <a href="../index.html" data-track-event="nav_home_case_studies">Home</a>
+        <a href="/services/" data-track-event="nav_services_case_studies">Services</a>
+        <a href="/process/" data-track-event="nav_process_case_studies">Process</a>
+        <a href="/faq/" data-track-event="nav_faq_case_studies">FAQ</a>
+        <a href="/services/#contact-form" data-track-event="cta_book_intro_nav_case_studies">Book Intro</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <h1>Case studies from owner-led SMB deployments.</h1>
+        <p>These examples show what changed, how the implementation was executed, and what outcomes were measured after rollout.</p>
+      </section>
+
+      <section class="section">
+        <h2>Selected Cases</h2>
+        <div class="grid">
+          <article class="card">
+            <h3>[Local Services Team]</h3>
+            <p><strong>Problem:</strong> Intake and follow-up were manual and inconsistent.</p>
+            <p><strong>Implementation:</strong> Built workflow triage + response drafting with operator QA checkpoints.</p>
+            <p><strong>Outcome:</strong> Response turnaround reduced by 41%, with fewer missed follow-ups.</p>
+            <p><strong>Timeline:</strong> 3-week pilot, 1-week handoff.</p>
+          </article>
+          <article class="card">
+            <h3>[Owner-Led B2B Firm]</h3>
+            <p><strong>Problem:</strong> Reporting consumed manager time every week.</p>
+            <p><strong>Implementation:</strong> Deployed automated reporting flow with standard review templates.</p>
+            <p><strong>Outcome:</strong> Weekly reporting prep dropped from hours to under 30 minutes.</p>
+            <p><strong>Timeline:</strong> 2-week build, 2-week validation.</p>
+          </article>
+          <article class="card">
+            <h3>[Growth Operations Team]</h3>
+            <p><strong>Problem:</strong> Knowledge retrieval was fragmented across tools.</p>
+            <p><strong>Implementation:</strong> Built searchable operational memory with retrieval guardrails.</p>
+            <p><strong>Outcome:</strong> Faster operator ramp and fewer repeated task errors.</p>
+            <p><strong>Timeline:</strong> 4-week implementation cycle.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Proof Standards</h2>
+        <div class="proof">
+          <ul>
+            <li>Each case includes baseline constraints, implementation scope, and timeline.</li>
+            <li>Outcomes are tied to operational metrics, not generic satisfaction claims.</li>
+            <li>Examples are anonymized and focused on replicable delivery patterns.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="cta">
+        <h2>Want scope options for your team?</h2>
+        <p>Start with the form so I can send a practical scope path based on team size, constraints, and first workflow target.</p>
+        <a class="btn primary" href="/services/#contact-form" data-track-event="cta_book_intro_case_studies">Book Intro</a>
+        <a class="btn secondary" href="../index.html" data-track-event="cta_home_case_studies">Back to Home</a>
+      </section>
+    </main>
+
+    <footer>
+      <span>(c) <span id="year"></span> Zach Day</span>
+      <span>Case studies for owner-led SMB AI implementation</span>
+    </footer>
+  </div>
+
+  <script src="/shared/js/gtm-loader.js"></script>
+  <script src="/shared/js/tracking.js"></script>
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+    const header = document.querySelector("header");
+    const toggleHeader = () => {
+      header.classList.toggle("scrolled", window.scrollY > 8);
+    };
+    toggleHeader();
+    window.addEventListener("scroll", toggleHeader, { passive: true });
+  </script>
+</body>
+
+</html>
