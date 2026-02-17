@@ -24,13 +24,13 @@
   <meta name="twitter:image" content="https://zachday.xyz/favicon.svg" />
   <style>
     :root {
-      --bg: #0b1115;
-      --panel: #111a20;
-      --text: #e9eef2;
-      --muted: #98a8b3;
-      --border: #22323d;
-      --accent: #16c47f;
-      --accent-dark: #0ea86b;
+      --bg: #0a0a0a;
+      --panel: #151515;
+      --text: #e8eaf0;
+      --muted: #a0a0a0;
+      --border: #2a2a2a;
+      --accent: #10b981;
+      --accent-dark: #0f9f72;
       --radius: 12px;
       --shadow: 0 14px 30px rgba(0, 0, 0, 0.34);
     }
@@ -48,9 +48,8 @@
       color: var(--text);
       font-family: "Inter", "SF Pro Text", "Segoe UI", system-ui, -apple-system, sans-serif;
       line-height: 1.55;
-      background:
-        radial-gradient(900px 500px at 8% -20%, rgba(22, 196, 127, 0.22), transparent 60%),
-        radial-gradient(800px 420px at 100% 0%, rgba(84, 173, 255, 0.12), transparent 62%),
+      background: radial-gradient(900px 520px at 15% -10%, rgba(16, 185, 129, 0.14), transparent 60%),
+        radial-gradient(700px 420px at 90% 0%, rgba(255, 255, 255, 0.06), transparent 65%),
         var(--bg);
     }
 
@@ -69,8 +68,8 @@
       justify-content: space-between;
       gap: 16px;
       padding: 14px 0;
-      background: rgba(11, 17, 21, 0.76);
-      backdrop-filter: blur(10px);
+      background: rgba(10, 10, 10, 0.74);
+      backdrop-filter: blur(12px);
       border-bottom: 1px solid transparent;
       transition: border-color 0.2s ease;
     }
@@ -218,7 +217,7 @@
     .card {
       border-radius: var(--radius);
       border: 1px solid var(--border);
-      background: linear-gradient(180deg, rgba(17, 26, 32, 0.92), rgba(17, 26, 32, 0.75));
+      background: var(--panel);
       padding: 22px;
       box-shadow: var(--shadow);
     }
@@ -261,7 +260,7 @@
       border: 1px solid var(--border);
       border-radius: var(--radius);
       padding: 20px;
-      background: rgba(17, 26, 32, 0.62);
+      background: rgba(255, 255, 255, 0.01);
       color: var(--muted);
     }
 
@@ -273,7 +272,7 @@
       margin-top: 56px;
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      background: rgba(17, 26, 32, 0.88);
+      background: rgba(21, 21, 21, 0.88);
       padding: 24px;
       box-shadow: var(--shadow);
       max-width: 640px;

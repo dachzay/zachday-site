@@ -23,12 +23,12 @@
   <meta name="twitter:image" content="https://zachday.xyz/favicon.svg" />
   <style>
     :root {
-      --bg: #0a0f13;
-      --panel: #141c22;
-      --text: #e7edf2;
-      --muted: #96a5af;
-      --border: #22313b;
-      --accent: #16c47f;
+      --bg: #0a0a0a;
+      --panel: #151515;
+      --text: #e8eaf0;
+      --muted: #a0a0a0;
+      --border: #2a2a2a;
+      --accent: #10b981;
       --radius: 12px;
       --shadow: 0 14px 30px rgba(0, 0, 0, 0.34);
     }
@@ -42,9 +42,8 @@
       color: var(--text);
       font-family: "Inter", "SF Pro Text", "Segoe UI", system-ui, -apple-system, sans-serif;
       line-height: 1.55;
-      background:
-        radial-gradient(900px 500px at 8% -20%, rgba(22, 196, 127, 0.22), transparent 60%),
-        radial-gradient(800px 420px at 100% 0%, rgba(84, 173, 255, 0.10), transparent 62%),
+      background: radial-gradient(900px 520px at 15% -10%, rgba(16, 185, 129, 0.14), transparent 60%),
+        radial-gradient(700px 420px at 90% 0%, rgba(255, 255, 255, 0.06), transparent 65%),
         var(--bg);
     }
 
@@ -63,7 +62,7 @@
       justify-content: space-between;
       gap: 16px;
       padding: 14px 0;
-      background: rgba(10, 15, 19, 0.78);
+      background: rgba(10, 10, 10, 0.74);
       backdrop-filter: blur(10px);
       border-bottom: 1px solid transparent;
       transition: border-color 0.2s ease;
@@ -172,7 +171,7 @@
     .card {
       border-radius: var(--radius);
       border: 1px solid var(--border);
-      background: linear-gradient(180deg, rgba(20, 28, 34, 0.92), rgba(20, 28, 34, 0.75));
+      background: var(--panel);
       padding: 22px;
       box-shadow: var(--shadow);
     }
@@ -193,7 +192,7 @@
       border: 1px solid var(--border);
       border-radius: var(--radius);
       padding: 20px;
-      background: rgba(20, 28, 34, 0.62);
+      background: rgba(255, 255, 255, 0.01);
       color: var(--muted);
     }
 
@@ -211,7 +210,7 @@
       border: 1px solid var(--border);
       border-radius: var(--radius);
       padding: 24px;
-      background: rgba(20, 28, 34, 0.85);
+      background: rgba(21, 21, 21, 0.85);
       box-shadow: var(--shadow);
       max-width: 760px;
     }
