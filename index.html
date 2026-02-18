@@ -38,7 +38,7 @@
         <a href="/case-studies/" data-track-event="nav_case_studies_home">Case Studies</a>
         <a href="/process/" data-track-event="nav_process_home">Process</a>
         <a href="/faq/" data-track-event="nav_faq_home">FAQ</a>
-        <a href="#direct-form" data-track-event="cta_book_intro_nav_home">Book Intro</a>
+        <a href="#lead-form" data-track-event="cta_book_intro_nav_home">Book Intro</a>
       </nav>
     </header>
 
@@ -49,40 +49,51 @@
             <p class="eyebrow fade-up">Chicago AI Consulting</p>
             <h1 class="fade-up delay-1">AI Systems For Operators Who Need Output This Quarter.</h1>
             <p class="page-lead fade-up delay-2">
-              I build production workflows for owner-led SMB teams, with a direct path from operational discovery to repeatable deployment.
-            </p>
-            <p class="page-lead fade-up delay-3">
-              <span class="kinetic-line">
-                <span class="kinetic-word" style="--i:1">Discovery</span>
-                <span class="kinetic-word" style="--i:2">to</span>
-                <span class="kinetic-word" style="--i:3">Deployment</span>
-                <span class="kinetic-word" style="--i:4">in</span>
-                <span class="kinetic-word" style="--i:5">Weeks.</span>
-              </span>
+              I help owner-led SMB teams replace manual ops with practical AI workflows that ship fast and hold up in production.
             </p>
             <div class="btn-row">
-              <a class="btn primary" href="#concierge-card" data-track-event="cta_scope_with_concierge_home">Scope With AI Concierge</a>
+              <a class="btn primary" href="#lead-form" data-track-event="cta_book_intro_hero_home">Book Intro</a>
               <a class="btn secondary" href="/case-studies/" data-track-event="cta_case_studies_hero_home">Case Studies</a>
               <a class="btn secondary" href="/services/" data-track-event="cta_full_services_hero_home">Full Services</a>
             </div>
-            <div class="ticker"><span>martin: intake parsed | bottleneck mapped | workflow routed | draft generated | QA passed | deployment package shipped</span></div>
-            <section class="hero-demo panel" data-hero-demo aria-label="Martin execution simulation">
-              <div class="terminal-head">
-                <span class="terminal-dot red" aria-hidden="true"></span>
-                <span class="terminal-dot yellow" aria-hidden="true"></span>
-                <span class="terminal-dot green" aria-hidden="true"></span>
-              </div>
-              <ul></ul>
-            </section>
+            <div class="ticker"><span>workflow focus: intake | routing | follow-up | reporting | QA | handoff</span></div>
           </div>
 
-          <aside class="hero-aside panel concierge" id="concierge-card">
-            <h2>AI Concierge</h2>
-            <p>Answer a few scoped questions. Get a practical implementation path matched to your current operating constraints.</p>
-            <div id="concierge"></div>
-            <div id="concierge-turnstile" class="turnstile-wrap hidden" aria-label="Spam protection"></div>
-            <p id="concierge-note" class="concierge-note">Or email <a href="mailto:day.zachc@gmail.com">day.zachc@gmail.com</a> for direct scope support.</p>
-            <p class="concierge-note"><a href="#direct-form">Use the direct form instead</a> if you prefer one-step intake.</p>
+          <aside class="hero-aside panel direct-form-wrap" id="lead-form" aria-label="Inquiry form">
+            <h2 style="margin-top:0">Start In 30 Seconds</h2>
+            <p class="page-lead" style="font-size:14px; margin-bottom:14px">
+              Share a few details and I will send practical scope options for your team.
+            </p>
+            <form id="consult-form">
+              <div class="hp-field" aria-hidden="true">
+                <label for="website">Website</label>
+                <input id="website" name="website" type="text" tabindex="-1" autocomplete="off" />
+              </div>
+              <div>
+                <label for="name">Name</label>
+                <input id="name" name="name" type="text" autocomplete="name" required />
+              </div>
+              <div>
+                <label for="email">Email</label>
+                <input id="email" name="email" type="email" autocomplete="email" required />
+              </div>
+              <div>
+                <label for="employee_band">Number of Employees</label>
+                <select id="employee_band" name="employee_band" required>
+                  <option value="" selected disabled>Select a range</option>
+                  <option value="0-5">0-5</option>
+                  <option value="5-10">5-10</option>
+                  <option value="11-25">11-25</option>
+                  <option value="26-50">26-50</option>
+                  <option value="51-100">51-100</option>
+                  <option value="101-250">101-250</option>
+                  <option value="251+">251+</option>
+                </select>
+              </div>
+              <div id="turnstile-container" class="turnstile-wrap hidden" aria-label="Spam protection"></div>
+              <button type="submit">Send Inquiry</button>
+            </form>
+            <p id="form-note" class="form-note">Your details are sent to a secured lead endpoint.</p>
           </aside>
         </div>
       </section>
@@ -96,57 +107,20 @@
         </div>
       </section>
 
-      <section class="section" id="direct-form">
-        <h2>Prefer A Direct Form?</h2>
-        <div class="panel direct-form-wrap">
-          <p class="page-lead">Use the same secured lead route if you want a faster intro without the guided scope flow.</p>
-          <form id="consult-form">
-            <div class="hp-field" aria-hidden="true">
-              <label for="website">Website</label>
-              <input id="website" name="website" type="text" tabindex="-1" autocomplete="off" />
-            </div>
-            <div>
-              <label for="name">Name</label>
-              <input id="name" name="name" type="text" autocomplete="name" required />
-            </div>
-            <div>
-              <label for="email">Email</label>
-              <input id="email" name="email" type="email" autocomplete="email" required />
-            </div>
-            <div>
-              <label for="employee_band">Number of Employees</label>
-              <select id="employee_band" name="employee_band" required>
-                <option value="" selected disabled>Select a range</option>
-                <option value="0-5">0-5</option>
-                <option value="5-10">5-10</option>
-                <option value="11-25">11-25</option>
-                <option value="26-50">26-50</option>
-                <option value="51-100">51-100</option>
-                <option value="101-250">101-250</option>
-                <option value="251+">251+</option>
-              </select>
-            </div>
-            <div id="turnstile-container" class="turnstile-wrap hidden" aria-label="Spam protection"></div>
-            <button type="submit">Send Inquiry</button>
-          </form>
-          <p id="form-note" class="form-note">Your details are sent to a secured lead endpoint.</p>
-        </div>
-      </section>
-
       <section class="section">
         <h2>Deeper Narrative</h2>
         <div class="grid-12">
           <a href="/case-studies/" class="card" style="grid-column: span 4" data-track-event="cta_case_studies_lower_home">
             <h3>Case Studies</h3>
-            <p>Before/after operational examples with implementation timeline and measurable outcomes.</p>
+            <p>Before/after examples with timeline and measurable outcomes.</p>
           </a>
           <a href="/process/" class="card" style="grid-column: span 4" data-track-event="cta_process_lower_home">
             <h3>Delivery Process</h3>
-            <p>Workflow diagnosis, pilot build, QA controls, handoff, and expansion planning.</p>
+            <p>How projects move from discovery to rollout and handoff.</p>
           </a>
           <a href="/faq/" class="card" style="grid-column: span 4" data-track-event="cta_faq_lower_home">
             <h3>FAQ</h3>
-            <p>Pricing model, expected timeline, team bandwidth, and readiness constraints.</p>
+            <p>Direct answers on pricing, timing, and readiness.</p>
           </a>
         </div>
       </section>
@@ -163,24 +137,12 @@
   <script src="/shared/js/tracking.js"></script>
   <script src="/shared/js/commercial-common.js"></script>
   <script src="/shared/js/lead-form.js"></script>
-  <script src="/shared/js/hero-demo.js"></script>
-  <script src="/shared/js/concierge.js"></script>
   <script>
     if (window.ZachSite && typeof window.ZachSite.initLeadForm === "function") {
       window.ZachSite.initLeadForm({
         formId: "consult-form",
         noteId: "form-note",
         turnstileContainerId: "turnstile-container",
-        fallbackEmail: "day.zachc@gmail.com",
-        eventContext: "home",
-      });
-    }
-
-    if (window.ZachSite && typeof window.ZachSite.initConcierge === "function") {
-      window.ZachSite.initConcierge({
-        rootId: "concierge",
-        noteId: "concierge-note",
-        turnstileContainerId: "concierge-turnstile",
         fallbackEmail: "day.zachc@gmail.com",
         eventContext: "home",
       });
