@@ -98,8 +98,12 @@ header.site-header.scrolled {
 .site-nav {
   display: flex;
   align-items: center;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: 14px;
+  white-space: nowrap;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
 }
 
 .site-nav a {
@@ -692,8 +696,12 @@ footer {
   }
 
   header.site-header {
-    flex-direction: column;
-    align-items: flex-start;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .site-nav {
+    max-width: 100%;
   }
 
   .hero p,

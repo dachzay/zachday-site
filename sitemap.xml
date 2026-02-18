@@ -73,6 +73,12 @@
     <loc>https://zachday.xyz/services/</loc>
   </url>
   <url>
+    <loc>https://zachday.xyz/privacy/</loc>
+  </url>
+  <url>
+    <loc>https://zachday.xyz/terms/</loc>
+  </url>
+  <url>
     <loc>https://zachday.xyz/signal-engine/</loc>
   </url>
 </urlset>
