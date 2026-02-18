@@ -8,7 +8,8 @@
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/shared/css/commercial-v2.css" />
   <title>AI Case Studies for Owner-Led SMBs | Zach Day</title>
   <meta name="description" content="Case studies from owner-led SMB AI implementations: problem, implementation approach, timeline, and measurable outcomes." />
   <meta name="robots" content="index,follow" />
@@ -21,283 +22,17 @@
   <meta name="twitter:title" content="AI Case Studies for Owner-Led SMBs | Zach Day" />
   <meta name="twitter:description" content="Case studies from owner-led SMB AI implementations: problem, implementation approach, timeline, and measurable outcomes." />
   <meta name="twitter:image" content="https://zachday.xyz/favicon.svg" />
-  <style>
-    :root {
-      --bg: #0a0a0a;
-      --panel: #151515;
-      --text: #e8eaf0;
-      --muted: #a0a0a0;
-      --border: #2a2a2a;
-      --accent: #10b981;
-      --radius: 12px;
-      --shadow: 0 14px 30px rgba(0, 0, 0, 0.34);
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      margin: 0;
-      color: var(--text);
-      font-family: "Inter", "SF Pro Text", "Segoe UI", system-ui, -apple-system, sans-serif;
-      line-height: 1.55;
-      background: radial-gradient(900px 520px at 15% -10%, rgba(16, 185, 129, 0.14), transparent 60%),
-        radial-gradient(700px 420px at 90% 0%, rgba(255, 255, 255, 0.06), transparent 65%),
-        var(--bg);
-    }
-
-    .container {
-      width: min(1040px, 92vw);
-      margin: 0 auto;
-      padding: 40px 0 88px;
-    }
-
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 15;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      padding: 14px 0;
-      background: rgba(10, 10, 10, 0.74);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid transparent;
-      transition: border-color 0.2s ease;
-    }
-
-    header.scrolled {
-      border-color: var(--border);
-    }
-
-    .brand {
-      color: var(--text);
-      text-decoration: none;
-      font-weight: 600;
-      letter-spacing: -0.2px;
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 999px;
-      background: var(--accent);
-      box-shadow: 0 0 10px rgba(22, 196, 127, 0.68);
-      animation: pulse 2.4s ease-in-out infinite;
-    }
-
-    @keyframes pulse {
-      0%,
-      100% {
-        transform: scale(1);
-        opacity: 0.72;
-      }
-
-      50% {
-        transform: scale(1.5);
-        opacity: 1;
-      }
-    }
-
-    nav {
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 14px;
-    }
-
-    nav a {
-      color: var(--muted);
-      text-decoration: none;
-      font-size: 14px;
-      border-bottom: 1px solid transparent;
-      transition: color 0.15s ease, border-color 0.15s ease;
-      padding-bottom: 2px;
-    }
-
-    nav a:hover {
-      color: var(--text);
-      border-color: var(--text);
-    }
-
-    a:focus-visible {
-      outline: none;
-      border-color: var(--accent);
-      box-shadow: 0 0 0 2px rgba(22, 196, 127, 0.25);
-    }
-
-    main {
-      margin-top: 24px;
-    }
-
-    .hero h1 {
-      margin: 0 0 14px;
-      font-size: clamp(34px, 6vw, 56px);
-      letter-spacing: -1.1px;
-      line-height: 1.03;
-      max-width: 15ch;
-    }
-
-    .hero p {
-      margin: 0 0 12px;
-      color: var(--muted);
-      max-width: 68ch;
-      font-size: 18px;
-    }
-
-    .section {
-      margin-top: 52px;
-    }
-
-    .section h2 {
-      margin: 0 0 16px;
-      font-size: 13px;
-      text-transform: uppercase;
-      letter-spacing: 1.2px;
-      color: var(--muted);
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 18px;
-    }
-
-    .card {
-      border-radius: var(--radius);
-      border: 1px solid var(--border);
-      background: var(--panel);
-      padding: 22px;
-      box-shadow: var(--shadow);
-    }
-
-    .card h3 {
-      margin: 0 0 10px;
-      font-size: 18px;
-      letter-spacing: -0.2px;
-    }
-
-    .card p {
-      margin: 0 0 10px;
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    .proof {
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 20px;
-      background: rgba(255, 255, 255, 0.01);
-      color: var(--muted);
-    }
-
-    .proof ul {
-      margin: 0;
-      padding-left: 18px;
-    }
-
-    .proof li {
-      margin-bottom: 8px;
-    }
-
-    .cta {
-      margin-top: 52px;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 24px;
-      background: rgba(21, 21, 21, 0.85);
-      box-shadow: var(--shadow);
-      max-width: 760px;
-    }
-
-    .cta h2 {
-      margin: 0 0 8px;
-      font-size: 24px;
-      letter-spacing: -0.5px;
-    }
-
-    .cta p {
-      margin: 0 0 14px;
-      color: var(--muted);
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 11px 18px;
-      border-radius: 10px;
-      border: 1px solid transparent;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 14px;
-      margin-right: 10px;
-    }
-
-    .btn.primary {
-      background: var(--accent);
-      color: #05110b;
-      border-color: var(--accent);
-    }
-
-    .btn.secondary {
-      border-color: var(--border);
-      color: var(--text);
-    }
-
-    footer {
-      margin-top: 70px;
-      border-top: 1px solid var(--border);
-      padding-top: 26px;
-      color: var(--muted);
-      font-size: 13px;
-      display: flex;
-      justify-content: space-between;
-      gap: 14px;
-      flex-wrap: wrap;
-    }
-
-    @media (max-width: 920px) {
-      .grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    @media (max-width: 700px) {
-      .container {
-        padding-top: 24px;
-      }
-
-      header {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .hero p {
-        font-size: 16px;
-      }
-    }
-  </style>
   <link rel="canonical" href="https://zachday.xyz/case-studies/" />
 </head>
 
 <body>
   <div class="container">
-    <header>
+    <header class="site-header">
       <a href="../index.html" class="brand">
         <span class="dot" aria-hidden="true"></span>
         <span>Zach Day</span>
       </a>
-      <nav>
+      <nav class="site-nav">
         <a href="../index.html" data-track-event="nav_home_case_studies">Home</a>
         <a href="/services/" data-track-event="nav_services_case_studies">Services</a>
         <a href="/process/" data-track-event="nav_process_case_studies">Process</a>
@@ -308,53 +43,91 @@
 
     <main>
       <section class="hero">
-        <h1>Case studies from owner-led SMB deployments.</h1>
-        <p>These examples show what changed, how the implementation was executed, and what outcomes were measured after rollout.</p>
+        <h1 class="page-title">Visual Proof From Owner-Led SMB Deployments.</h1>
+        <p class="page-lead">Each card captures the before state, implementation shape, and measurable outcome after rollout.</p>
+        <div class="ticker"><span>proof standard: baseline metric | scoped pilot | qa checkpoint | post-launch delta | handoff readiness</span></div>
       </section>
 
       <section class="section">
         <h2>Selected Cases</h2>
-        <div class="grid">
-          <article class="card">
+        <div class="case-grid">
+          <article class="card case-card wide">
             <h3>[Local Services Team]</h3>
-            <p><strong>Problem:</strong> Intake and follow-up were manual and inconsistent.</p>
-            <p><strong>Implementation:</strong> Built workflow triage + response drafting with operator QA checkpoints.</p>
-            <p><strong>Outcome:</strong> Response turnaround reduced by 41%, with fewer missed follow-ups.</p>
-            <p><strong>Timeline:</strong> 3-week pilot, 1-week handoff.</p>
+            <p>Manual intake and follow-up created delays and missed response windows.</p>
+            <div class="case-visuals">
+              <div class="visual before"><span>Before: Messy Spreadsheet</span></div>
+              <div class="visual after"><span>After: Clean Dashboard</span></div>
+            </div>
+            <div class="metric-strip">
+              <div class="metric"><span class="value">-41%</span><span class="label">Response Time</span></div>
+              <div class="metric"><span class="value">3wk</span><span class="label">Pilot Build</span></div>
+              <div class="metric"><span class="value">1wk</span><span class="label">Handoff</span></div>
+            </div>
+            <div class="chip-row">
+              <span class="chip">Triage Routing</span>
+              <span class="chip">Response Drafting</span>
+              <span class="chip">QA Checkpoints</span>
+            </div>
           </article>
-          <article class="card">
+
+          <article class="card case-card">
             <h3>[Owner-Led B2B Firm]</h3>
-            <p><strong>Problem:</strong> Reporting consumed manager time every week.</p>
-            <p><strong>Implementation:</strong> Deployed automated reporting flow with standard review templates.</p>
-            <p><strong>Outcome:</strong> Weekly reporting prep dropped from hours to under 30 minutes.</p>
-            <p><strong>Timeline:</strong> 2-week build, 2-week validation.</p>
+            <p>Weekly reporting consumed manager bandwidth and delayed decision cycles.</p>
+            <div class="case-visuals">
+              <div class="visual before"><span>Before: Manual Exports</span></div>
+              <div class="visual after"><span>After: Structured Reports</span></div>
+            </div>
+            <div class="metric-strip">
+              <div class="metric"><span class="value">&lt;30m</span><span class="label">Weekly Prep</span></div>
+              <div class="metric"><span class="value">2wk</span><span class="label">Build</span></div>
+              <div class="metric"><span class="value">2wk</span><span class="label">Validation</span></div>
+            </div>
+            <div class="chip-row">
+              <span class="chip">Auto Reporting</span>
+              <span class="chip">Manager Templates</span>
+            </div>
           </article>
-          <article class="card">
+
+          <article class="card case-card">
             <h3>[Growth Operations Team]</h3>
-            <p><strong>Problem:</strong> Knowledge retrieval was fragmented across tools.</p>
-            <p><strong>Implementation:</strong> Built searchable operational memory with retrieval guardrails.</p>
-            <p><strong>Outcome:</strong> Faster operator ramp and fewer repeated task errors.</p>
-            <p><strong>Timeline:</strong> 4-week implementation cycle.</p>
+            <p>Knowledge retrieval was fragmented across docs, inboxes, and disconnected tools.</p>
+            <div class="case-visuals">
+              <div class="visual before"><span>Before: Scattered Docs</span></div>
+              <div class="visual after"><span>After: Searchable Memory</span></div>
+            </div>
+            <div class="metric-strip">
+              <div class="metric"><span class="value">4wk</span><span class="label">Implementation</span></div>
+              <div class="metric"><span class="value">Faster</span><span class="label">Operator Ramp</span></div>
+              <div class="metric"><span class="value">Fewer</span><span class="label">Repeat Errors</span></div>
+            </div>
+            <div class="chip-row">
+              <span class="chip">RAG</span>
+              <span class="chip">Guardrails</span>
+            </div>
           </article>
         </div>
       </section>
 
       <section class="section">
         <h2>Proof Standards</h2>
-        <div class="proof">
+        <div class="panel" style="padding:18px">
           <ul>
-            <li>Each case includes baseline constraints, implementation scope, and timeline.</li>
-            <li>Outcomes are tied to operational metrics, not generic satisfaction claims.</li>
-            <li>Examples are anonymized and focused on replicable delivery patterns.</li>
+            <li>Each case documents baseline constraints, pilot scope, and timeline.</li>
+            <li>Outcomes are tied to operating metrics, not generic satisfaction claims.</li>
+            <li>Examples are anonymized and focused on replicable patterns.</li>
           </ul>
         </div>
       </section>
 
-      <section class="cta">
-        <h2>Want scope options for your team?</h2>
-        <p>Start with the form so I can send a practical scope path based on team size, constraints, and first workflow target.</p>
-        <a class="btn primary" href="/services/#contact-form" data-track-event="cta_book_intro_case_studies">Book Intro</a>
-        <a class="btn secondary" href="../index.html" data-track-event="cta_home_case_studies">Back to Home</a>
+      <section class="section">
+        <div class="panel" style="padding:22px; max-width:760px">
+          <h2 style="margin-top:0">Want scope options for your team?</h2>
+          <p class="page-lead">Use the services form and I will send a practical scope path based on team size, constraints, and first workflow target.</p>
+          <div class="btn-row">
+            <a class="btn primary" href="/services/#contact-form" data-track-event="cta_book_intro_case_studies">Book Intro</a>
+            <a class="btn secondary" href="../index.html" data-track-event="cta_home_case_studies">Back to Home</a>
+          </div>
+        </div>
       </section>
     </main>
 
@@ -366,15 +139,7 @@
 
   <script src="/shared/js/gtm-loader.js"></script>
   <script src="/shared/js/tracking.js"></script>
-  <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
-    const header = document.querySelector("header");
-    const toggleHeader = () => {
-      header.classList.toggle("scrolled", window.scrollY > 8);
-    };
-    toggleHeader();
-    window.addEventListener("scroll", toggleHeader, { passive: true });
-  </script>
+  <script src="/shared/js/commercial-common.js"></script>
 </body>
 
 </html>

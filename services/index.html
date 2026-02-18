@@ -9,7 +9,8 @@
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/shared/css/commercial-v2.css" />
   <title>AI Consulting Services in Chicago | Zach Day</title>
   <meta name="description" content="Chicago AI consulting services for owner-led SMBs: readiness audits, workflow automation builds, and team enablement with clear delivery scope." />
   <meta name="robots" content="index,follow" />
@@ -22,416 +23,17 @@
   <meta name="twitter:title" content="AI Consulting Services in Chicago | Zach Day" />
   <meta name="twitter:description" content="Chicago AI consulting services for owner-led SMBs: readiness audits, workflow automation builds, and team enablement with clear delivery scope." />
   <meta name="twitter:image" content="https://zachday.xyz/favicon.svg" />
-  <style>
-    :root {
-      --bg: #0a0a0a;
-      --panel: #151515;
-      --text: #e8eaf0;
-      --muted: #a0a0a0;
-      --border: #2a2a2a;
-      --accent: #10b981;
-      --accent-dark: #0f9f72;
-      --radius: 12px;
-      --shadow: 0 14px 30px rgba(0, 0, 0, 0.34);
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      margin: 0;
-      color: var(--text);
-      font-family: "Inter", "SF Pro Text", "Segoe UI", system-ui, -apple-system, sans-serif;
-      line-height: 1.55;
-      background: radial-gradient(900px 520px at 15% -10%, rgba(16, 185, 129, 0.14), transparent 60%),
-        radial-gradient(700px 420px at 90% 0%, rgba(255, 255, 255, 0.06), transparent 65%),
-        var(--bg);
-    }
-
-    .container {
-      width: min(1040px, 92vw);
-      margin: 0 auto;
-      padding: 42px 0 88px;
-    }
-
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 15;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      padding: 14px 0;
-      background: rgba(10, 10, 10, 0.74);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid transparent;
-      transition: border-color 0.2s ease;
-    }
-
-    header.scrolled {
-      border-color: var(--border);
-    }
-
-    .brand {
-      color: var(--text);
-      text-decoration: none;
-      font-weight: 600;
-      letter-spacing: -0.2px;
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 999px;
-      background: var(--accent);
-      box-shadow: 0 0 10px rgba(22, 196, 127, 0.68);
-      animation: pulse 2.4s ease-in-out infinite;
-    }
-
-    @keyframes pulse {
-      0%,
-      100% {
-        transform: scale(1);
-        opacity: 0.72;
-      }
-      50% {
-        transform: scale(1.5);
-        opacity: 1;
-      }
-    }
-
-    nav {
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 14px;
-    }
-
-    nav a {
-      color: var(--muted);
-      text-decoration: none;
-      font-size: 14px;
-      border-bottom: 1px solid transparent;
-      transition: color 0.15s ease, border-color 0.15s ease;
-      padding-bottom: 2px;
-    }
-
-    nav a:hover {
-      color: var(--text);
-      border-color: var(--text);
-    }
-
-    main {
-      margin-top: 28px;
-    }
-
-    .hero {
-      margin: 0 0 44px;
-      padding: 20px 0 6px;
-    }
-
-    .eyebrow {
-      margin: 0 0 12px;
-      text-transform: uppercase;
-      letter-spacing: 1.3px;
-      color: var(--muted);
-      font-weight: 600;
-      font-size: 12px;
-    }
-
-    .hero h1 {
-      margin: 0 0 16px;
-      font-size: clamp(34px, 6vw, 56px);
-      letter-spacing: -1.1px;
-      line-height: 1.03;
-      max-width: 15ch;
-    }
-
-    .hero p {
-      margin: 0 0 12px;
-      color: var(--muted);
-      max-width: 65ch;
-      font-size: 18px;
-    }
-
-    .cta {
-      margin-top: 24px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 11px 18px;
-      border-radius: 10px;
-      border: 1px solid transparent;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 14px;
-      transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease;
-    }
-
-    .btn:hover {
-      transform: translateY(-1px);
-    }
-
-    .btn.primary {
-      background: var(--accent);
-      color: #05110b;
-      border-color: var(--accent);
-    }
-
-    .btn.primary:hover {
-      background: var(--accent-dark);
-      border-color: var(--accent-dark);
-    }
-
-    .btn.secondary {
-      border-color: var(--border);
-      color: var(--text);
-    }
-
-    .btn.secondary:hover {
-      border-color: var(--muted);
-    }
-
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 18px;
-      margin-bottom: 56px;
-    }
-
-    .card {
-      border-radius: var(--radius);
-      border: 1px solid var(--border);
-      background: var(--panel);
-      padding: 22px;
-      box-shadow: var(--shadow);
-    }
-
-    .card h2 {
-      margin: 0 0 10px;
-      font-size: 18px;
-      letter-spacing: -0.2px;
-    }
-
-    .card p {
-      margin: 0;
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    .section {
-      margin-top: 54px;
-    }
-
-    .section h2 {
-      margin: 0 0 16px;
-      font-size: 13px;
-      text-transform: uppercase;
-      letter-spacing: 1.2px;
-      color: var(--muted);
-    }
-
-    .process {
-      margin: 0;
-      padding-left: 20px;
-      color: var(--muted);
-    }
-
-    .process li {
-      margin-bottom: 10px;
-    }
-
-    .coverage {
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 20px;
-      background: rgba(255, 255, 255, 0.01);
-      color: var(--muted);
-    }
-
-    .coverage strong {
-      color: var(--text);
-    }
-
-    .form-wrap {
-      margin-top: 56px;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      background: rgba(21, 21, 21, 0.88);
-      padding: 24px;
-      box-shadow: var(--shadow);
-      max-width: 640px;
-    }
-
-    .form-wrap h2 {
-      margin: 0 0 6px;
-      font-size: 22px;
-      letter-spacing: -0.4px;
-    }
-
-    .form-wrap p {
-      margin: 0 0 16px;
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    form {
-      display: grid;
-      gap: 14px;
-    }
-
-    label {
-      display: block;
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--text);
-      margin-bottom: 6px;
-    }
-
-    input,
-    select {
-      width: 100%;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      background: #0b1318;
-      color: var(--text);
-      padding: 10px 12px;
-      font-size: 14px;
-      transition: border-color 0.15s ease;
-    }
-
-    input:focus-visible,
-    select:focus-visible,
-    a:focus-visible,
-    button:focus-visible {
-      outline: none;
-      border-color: var(--accent);
-      box-shadow: 0 0 0 2px rgba(22, 196, 127, 0.25);
-    }
-
-    button {
-      margin-top: 6px;
-      width: fit-content;
-      border: 1px solid var(--accent);
-      background: var(--accent);
-      color: #05110b;
-      border-radius: 10px;
-      font-size: 14px;
-      font-weight: 600;
-      padding: 10px 16px;
-      cursor: pointer;
-      transition: background 0.15s ease, border-color 0.15s ease;
-    }
-
-    button:hover {
-      background: var(--accent-dark);
-      border-color: var(--accent-dark);
-    }
-
-    button:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-    }
-
-    .form-note {
-      margin-top: 10px;
-      font-size: 12px;
-      color: var(--muted);
-    }
-
-    .turnstile-wrap {
-      margin-top: 4px;
-      min-height: 70px;
-    }
-
-    .turnstile-wrap.hidden {
-      display: none;
-      min-height: 0;
-    }
-
-    .hp-field {
-      position: absolute;
-      left: -10000px;
-      width: 1px;
-      height: 1px;
-      overflow: hidden;
-    }
-
-    footer {
-      margin-top: 74px;
-      border-top: 1px solid var(--border);
-      padding-top: 26px;
-      color: var(--muted);
-      font-size: 13px;
-      display: flex;
-      justify-content: space-between;
-      gap: 14px;
-      flex-wrap: wrap;
-    }
-
-    @media (max-width: 900px) {
-      .cards {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    @media (max-width: 700px) {
-      .container {
-        padding-top: 24px;
-      }
-
-      header {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .hero p {
-        font-size: 16px;
-      }
-    }
-  </style>
-  <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "ProfessionalService",
-      "name": "Zach Day AI Consulting",
-      "serviceType": [
-        "AI readiness audit",
-        "Workflow automation",
-        "AI team training"
-      ],
-      "areaServed": {
-        "@type": "City",
-        "name": "Chicago"
-      }
-    }
-  </script>
   <link rel="canonical" href="https://zachday.xyz/services/" />
 </head>
 
 <body>
   <div class="container">
-    <header>
+    <header class="site-header">
       <a href="../index.html" class="brand">
         <span class="dot" aria-hidden="true"></span>
         <span>Zach Day</span>
       </a>
-      <nav>
+      <nav class="site-nav">
         <a href="../index.html" data-track-event="nav_home_services_page">Home</a>
         <a href="/case-studies/" data-track-event="nav_case_studies_services_page">Case Studies</a>
         <a href="/process/" data-track-event="nav_process_services_page">Process</a>
@@ -443,103 +45,92 @@
     <main>
       <section class="hero">
         <p class="eyebrow">Chicago AI Consulting</p>
-        <h1>Service packages for owner-led SMB teams.</h1>
-        <p>This page is the detailed scope view: what gets delivered, who each package is for, and how work is sequenced from baseline to handoff.</p>
-        <p>Use this to qualify fit before submitting an intro request.</p>
-        <div class="cta">
+        <h1 class="page-title">Service Packages For Teams Ready To Implement.</h1>
+        <p class="page-lead">
+          <span class="kinetic-line">
+            <span class="kinetic-word" style="--i:1">Discovery</span>
+            <span class="kinetic-word" style="--i:2">to</span>
+            <span class="kinetic-word" style="--i:3">Deployment</span>
+            <span class="kinetic-word" style="--i:4">in</span>
+            <span class="kinetic-word" style="--i:5">Weeks.</span>
+          </span>
+        </p>
+        <p class="page-lead">This is the detailed scope page: what gets delivered, who each package is for, and how work is sequenced from baseline to handoff.</p>
+        <div class="btn-row">
           <a class="btn primary" href="#contact-form" data-track-event="cta_book_intro_hero_services">Request Intro</a>
           <a class="btn secondary" href="/case-studies/" data-track-event="cta_case_studies_hero_services">See Case Studies</a>
           <a class="btn secondary" href="/process/" data-track-event="cta_process_hero_services">See Delivery Process</a>
         </div>
+        <div class="proof-ribbon">
+          <code>$ martin run services.scope --market chicago --mode pilot</code>
+          <span class="proof-stat">10+ systems shipped</span>
+        </div>
       </section>
 
-      <section class="cards" aria-label="Core services">
-        <article class="card">
-          <h2>AI Readiness Audit</h2>
-          <p>Map current workflows, identify operational bottlenecks, and prioritize the first 2-3 implementation candidates with owner assignment and measurable baseline metrics.</p>
-        </article>
-        <article class="card">
-          <h2>Workflow Automation Build</h2>
-          <p>Design and deploy one high-impact automation pilot with validation checkpoints, operational SOPs, and adoption criteria for daily team usage.</p>
-        </article>
-        <article class="card">
-          <h2>Team Enablement</h2>
-          <p>Train owner and operator roles on prompt workflows, quality guardrails, escalation paths, and weekly operating cadence so delivery stays reliable after handoff.</p>
-        </article>
+      <section class="section">
+        <h2>Core Services</h2>
+        <div class="grid-12">
+          <article class="card" style="grid-column: span 4">
+            <h3>AI Readiness Audit</h3>
+            <p>Map current workflows, bottlenecks, and first 2-3 implementation candidates with owners and baseline metrics.</p>
+          </article>
+          <article class="card" style="grid-column: span 4">
+            <h3>Workflow Automation Build</h3>
+            <p>Design and deploy one high-impact automation pilot with validation checkpoints and production SOPs.</p>
+          </article>
+          <article class="card" style="grid-column: span 4">
+            <h3>Team Enablement</h3>
+            <p>Train owner and operator roles on guardrails, escalation paths, and weekly execution cadence.</p>
+          </article>
+        </div>
       </section>
 
       <section class="section">
         <h2>Engagement Model</h2>
-        <ol class="process">
-          <li><strong>Week 1:</strong> Workflow discovery and baseline measurement.</li>
-          <li><strong>Week 2-3:</strong> Build and validate one high-value automation pilot.</li>
-          <li><strong>Week 4:</strong> Team handoff, SOPs, and a 90-day roadmap for expansion.</li>
-        </ol>
-      </section>
-
-      <section class="section">
-        <h2>Fit and Scope Guardrails</h2>
-        <div class="coverage">
-          <p><strong>Primary market:</strong> Chicago, IL.</p>
-          <p><strong>Best fit:</strong> owner-led SMB teams with repeatable manual workflows and a clear operator who can own rollout.</p>
-          <p><strong>Not a fit right now:</strong> teams looking for strategy-only decks without implementation capacity.</p>
+        <div class="panel" style="padding:18px">
+          <ol>
+            <li><strong>Week 1:</strong> Workflow discovery and baseline measurement.</li>
+            <li><strong>Week 2-3:</strong> Build and validate one high-value automation pilot.</li>
+            <li><strong>Week 4:</strong> Team handoff, SOPs, and a 90-day expansion roadmap.</li>
+          </ol>
         </div>
       </section>
 
-      <section class="section">
-        <h2>Before You Submit</h2>
-        <div class="cards">
-          <article class="card">
-            <h2>Review Delivery Stages</h2>
-            <p>See how work is sequenced from diagnosis through handoff in the full process page.</p>
-            <p><a href="/process/">Open Process</a></p>
-          </article>
-          <article class="card">
-            <h2>Review Common Constraints</h2>
-            <p>Check pricing, timeline, readiness, and data handling answers in the FAQ.</p>
-            <p><a href="/faq/">Open FAQ</a></p>
-          </article>
-          <article class="card">
-            <h2>Review Outcomes</h2>
-            <p>Read measurable examples with implementation details and deployment timelines.</p>
-            <p><a href="/case-studies/">Open Case Studies</a></p>
-          </article>
+      <section class="section" id="contact-form">
+        <h2>Start A Chicago AI Project</h2>
+        <div class="panel direct-form-wrap">
+          <p class="page-lead">Share these 3 details and I will follow up with practical next steps.</p>
+          <form id="lead-form">
+            <div class="hp-field" aria-hidden="true">
+              <label for="website">Website</label>
+              <input id="website" name="website" type="text" tabindex="-1" autocomplete="off" />
+            </div>
+            <div>
+              <label for="name">Name</label>
+              <input id="name" name="name" type="text" autocomplete="name" required />
+            </div>
+            <div>
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" autocomplete="email" required />
+            </div>
+            <div>
+              <label for="employee_band">Number of Employees</label>
+              <select id="employee_band" name="employee_band" required>
+                <option value="" selected disabled>Select a range</option>
+                <option value="0-5">0-5</option>
+                <option value="5-10">5-10</option>
+                <option value="11-25">11-25</option>
+                <option value="26-50">26-50</option>
+                <option value="51-100">51-100</option>
+                <option value="101-250">101-250</option>
+                <option value="251+">251+</option>
+              </select>
+            </div>
+            <div id="turnstile-container" class="turnstile-wrap hidden" aria-label="Spam protection"></div>
+            <button type="submit">Send Inquiry</button>
+          </form>
+          <p id="form-note" class="form-note">Your details are sent to a secured lead endpoint.</p>
         </div>
-      </section>
-
-      <section id="contact-form" class="form-wrap">
-        <h2>Start a Chicago AI Project</h2>
-        <p>Share these 3 details and I will follow up with next steps.</p>
-        <form id="lead-form">
-          <div class="hp-field" aria-hidden="true">
-            <label for="website">Website</label>
-            <input id="website" name="website" type="text" tabindex="-1" autocomplete="off" />
-          </div>
-          <div>
-            <label for="name">Name</label>
-            <input id="name" name="name" type="text" autocomplete="name" required />
-          </div>
-          <div>
-            <label for="email">Email</label>
-            <input id="email" name="email" type="email" autocomplete="email" required />
-          </div>
-          <div>
-            <label for="employee_band">Number of Employees</label>
-            <select id="employee_band" name="employee_band" required>
-              <option value="" selected disabled>Select a range</option>
-              <option value="0-5">0-5</option>
-              <option value="5-10">5-10</option>
-              <option value="11-25">11-25</option>
-              <option value="26-50">26-50</option>
-              <option value="51-100">51-100</option>
-              <option value="101-250">101-250</option>
-              <option value="251+">251+</option>
-            </select>
-          </div>
-          <div id="turnstile-container" class="turnstile-wrap hidden" aria-label="Spam protection"></div>
-          <button type="submit">Send Inquiry</button>
-        </form>
-        <p id="form-note" class="form-note">Your details are sent to a secured lead endpoint.</p>
       </section>
     </main>
 
@@ -552,29 +143,9 @@
   <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
   <script src="/shared/js/gtm-loader.js"></script>
   <script src="/shared/js/tracking.js"></script>
+  <script src="/shared/js/commercial-common.js"></script>
   <script src="/shared/js/lead-form.js"></script>
   <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
-
-    const header = document.querySelector("header");
-    const toggleHeader = () => {
-      header.classList.toggle("scrolled", window.scrollY > 8);
-    };
-    toggleHeader();
-    window.addEventListener("scroll", toggleHeader, { passive: true });
-    const dots = document.querySelectorAll(".dot");
-    const setPresenceDot = () => {
-      const online = navigator.onLine;
-      dots.forEach((dot) => {
-        dot.style.background = online ? "var(--accent)" : "#ef4444";
-        dot.style.boxShadow = online ? "0 0 10px rgba(22, 196, 127, 0.68)" : "0 0 10px rgba(239, 68, 68, 0.6)";
-        dot.title = online ? "Online" : "Offline";
-      });
-    };
-    setPresenceDot();
-    window.addEventListener("online", setPresenceDot);
-    window.addEventListener("offline", setPresenceDot);
-
     if (window.ZachSite && typeof window.ZachSite.initLeadForm === "function") {
       window.ZachSite.initLeadForm({
         formId: "lead-form",

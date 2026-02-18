@@ -8,7 +8,8 @@
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/shared/css/commercial-v2.css" />
   <title>AI Implementation Process for SMB Teams | Zach Day</title>
   <meta name="description" content="See the delivery process for owner-led SMB AI implementations: diagnosis, pilot build, validation, handoff, and expansion planning." />
   <meta name="robots" content="index,follow" />
@@ -21,279 +22,17 @@
   <meta name="twitter:title" content="AI Implementation Process for SMB Teams | Zach Day" />
   <meta name="twitter:description" content="See the delivery process for owner-led SMB AI implementations: diagnosis, pilot build, validation, handoff, and expansion planning." />
   <meta name="twitter:image" content="https://zachday.xyz/favicon.svg" />
-  <style>
-    :root {
-      --bg: #0a0a0a;
-      --panel: #151515;
-      --text: #e8eaf0;
-      --muted: #a0a0a0;
-      --border: #2a2a2a;
-      --accent: #10b981;
-      --radius: 12px;
-      --shadow: 0 14px 30px rgba(0, 0, 0, 0.34);
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      color: var(--text);
-      font-family: "Inter", "SF Pro Text", "Segoe UI", system-ui, -apple-system, sans-serif;
-      line-height: 1.55;
-      background: radial-gradient(900px 520px at 15% -10%, rgba(16, 185, 129, 0.14), transparent 60%),
-        radial-gradient(700px 420px at 90% 0%, rgba(255, 255, 255, 0.06), transparent 65%),
-        var(--bg);
-    }
-
-    .container {
-      width: min(1040px, 92vw);
-      margin: 0 auto;
-      padding: 40px 0 88px;
-    }
-
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 15;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      padding: 14px 0;
-      background: rgba(10, 10, 10, 0.74);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid transparent;
-      transition: border-color 0.2s ease;
-    }
-
-    header.scrolled {
-      border-color: var(--border);
-    }
-
-    .brand {
-      color: var(--text);
-      text-decoration: none;
-      font-weight: 600;
-      letter-spacing: -0.2px;
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 999px;
-      background: var(--accent);
-      box-shadow: 0 0 10px rgba(22, 196, 127, 0.68);
-      animation: pulse 2.4s ease-in-out infinite;
-    }
-
-    @keyframes pulse {
-      0%,
-      100% {
-        transform: scale(1);
-        opacity: 0.72;
-      }
-
-      50% {
-        transform: scale(1.5);
-        opacity: 1;
-      }
-    }
-
-    nav {
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 14px;
-    }
-
-    nav a {
-      color: var(--muted);
-      text-decoration: none;
-      font-size: 14px;
-      border-bottom: 1px solid transparent;
-      transition: color 0.15s ease, border-color 0.15s ease;
-      padding-bottom: 2px;
-    }
-
-    nav a:hover {
-      color: var(--text);
-      border-color: var(--text);
-    }
-
-    a:focus-visible {
-      outline: none;
-      border-color: var(--accent);
-      box-shadow: 0 0 0 2px rgba(22, 196, 127, 0.25);
-    }
-
-    main {
-      margin-top: 24px;
-    }
-
-    .hero h1 {
-      margin: 0 0 14px;
-      font-size: clamp(34px, 6vw, 56px);
-      letter-spacing: -1.1px;
-      line-height: 1.03;
-      max-width: 16ch;
-    }
-
-    .hero p {
-      margin: 0 0 12px;
-      color: var(--muted);
-      max-width: 68ch;
-      font-size: 18px;
-    }
-
-    .section {
-      margin-top: 52px;
-    }
-
-    .section h2 {
-      margin: 0 0 16px;
-      font-size: 13px;
-      text-transform: uppercase;
-      letter-spacing: 1.2px;
-      color: var(--muted);
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 18px;
-    }
-
-    .card {
-      border-radius: var(--radius);
-      border: 1px solid var(--border);
-      background: var(--panel);
-      padding: 22px;
-      box-shadow: var(--shadow);
-    }
-
-    .card h3 {
-      margin: 0 0 8px;
-      font-size: 18px;
-      letter-spacing: -0.2px;
-    }
-
-    .card p {
-      margin: 0;
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    .list-wrap {
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 20px;
-      background: rgba(255, 255, 255, 0.01);
-      color: var(--muted);
-    }
-
-    .list-wrap ul {
-      margin: 0;
-      padding-left: 18px;
-    }
-
-    .list-wrap li {
-      margin-bottom: 8px;
-    }
-
-    .cta {
-      margin-top: 52px;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 24px;
-      background: rgba(21, 21, 21, 0.85);
-      box-shadow: var(--shadow);
-      max-width: 760px;
-    }
-
-    .cta h2 {
-      margin: 0 0 8px;
-      font-size: 24px;
-      letter-spacing: -0.5px;
-    }
-
-    .cta p {
-      margin: 0 0 14px;
-      color: var(--muted);
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 11px 18px;
-      border-radius: 10px;
-      border: 1px solid transparent;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 14px;
-      margin-right: 10px;
-    }
-
-    .btn.primary {
-      background: var(--accent);
-      color: #05110b;
-      border-color: var(--accent);
-    }
-
-    .btn.secondary {
-      border-color: var(--border);
-      color: var(--text);
-    }
-
-    footer {
-      margin-top: 70px;
-      border-top: 1px solid var(--border);
-      padding-top: 26px;
-      color: var(--muted);
-      font-size: 13px;
-      display: flex;
-      justify-content: space-between;
-      gap: 14px;
-      flex-wrap: wrap;
-    }
-
-    @media (max-width: 920px) {
-      .grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    @media (max-width: 700px) {
-      .container {
-        padding-top: 24px;
-      }
-
-      header {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .hero p {
-        font-size: 16px;
-      }
-    }
-  </style>
   <link rel="canonical" href="https://zachday.xyz/process/" />
 </head>
 
 <body>
   <div class="container">
-    <header>
+    <header class="site-header">
       <a href="../index.html" class="brand">
         <span class="dot" aria-hidden="true"></span>
         <span>Zach Day</span>
       </a>
-      <nav>
+      <nav class="site-nav">
         <a href="../index.html" data-track-event="nav_home_process">Home</a>
         <a href="/services/" data-track-event="nav_services_process">Services</a>
         <a href="/case-studies/" data-track-event="nav_case_studies_process">Case Studies</a>
@@ -304,71 +43,53 @@
 
     <main>
       <section class="hero">
-        <h1>How delivery works from first workflow to handoff.</h1>
-        <p>This process is built for owner-led SMB teams that need implementation support, not strategy-only output.</p>
+        <h1 class="page-title">How Delivery Moves From Workflow Chaos To Controlled Output.</h1>
+        <p class="page-lead">
+          <span class="kinetic-line">
+            <span class="kinetic-word" style="--i:1">Discovery</span>
+            <span class="kinetic-word" style="--i:2">to</span>
+            <span class="kinetic-word" style="--i:3">Deployment</span>
+            <span class="kinetic-word" style="--i:4">in</span>
+            <span class="kinetic-word" style="--i:5">Weeks.</span>
+          </span>
+        </p>
+        <p class="page-lead">Built for owner-led SMB teams that need implementation support, not strategy-only output.</p>
+        <div class="proof-ribbon">
+          <code>$ martin audit process --phase pilot --checks validation,handoff</code>
+          <span class="proof-stat">4-week pilot cycle</span>
+        </div>
       </section>
 
       <section class="section">
         <h2>Engagement Stages</h2>
-        <div class="grid">
-          <article class="card">
-            <h3>1. Diagnose</h3>
-            <p>Map existing workflow steps, constraints, and ownership, then establish baseline metrics for change tracking.</p>
-          </article>
-          <article class="card">
-            <h3>2. Build Pilot</h3>
-            <p>Implement one high-impact automation with scoped inputs/outputs, QA checkpoints, and operator validation.</p>
-          </article>
-          <article class="card">
-            <h3>3. Validate</h3>
-            <p>Run in production cadence, compare against baseline, and patch failure points before expanding scope.</p>
-          </article>
-          <article class="card">
-            <h3>4. Handoff</h3>
-            <p>Deliver SOPs, runbooks, and role-specific operating guidance with a 90-day expansion plan.</p>
-          </article>
+        <div class="grid-12">
+          <article class="card" style="grid-column: span 6"><h3>1. Diagnose</h3><p>Map workflow steps, constraints, ownership, and baseline metrics.</p></article>
+          <article class="card" style="grid-column: span 6"><h3>2. Build Pilot</h3><p>Implement one high-impact automation with scoped inputs, outputs, and QA checkpoints.</p></article>
+          <article class="card" style="grid-column: span 6"><h3>3. Validate</h3><p>Run against baseline, fix failure points, and lock stable production behavior.</p></article>
+          <article class="card" style="grid-column: span 6"><h3>4. Handoff</h3><p>Deliver SOPs, runbooks, and a 90-day expansion plan with named owners.</p></article>
         </div>
       </section>
 
       <section class="section">
-        <h2>Timeline and Responsibilities</h2>
-        <div class="list-wrap">
+        <h2>Timeline And Responsibilities</h2>
+        <div class="panel" style="padding:18px">
           <ul>
-            <li><strong>Typical pilot cycle:</strong> 3 to 4 weeks from workflow diagnosis to operator handoff.</li>
-            <li><strong>Your team:</strong> One owner, one operator, and access to required process/data systems.</li>
-            <li><strong>My side:</strong> Workflow design, implementation, validation framework, documentation, and training.</li>
+            <li><strong>Typical pilot cycle:</strong> 3-4 weeks from diagnosis to handoff.</li>
+            <li><strong>Your team:</strong> one owner, one operator, and system access.</li>
+            <li><strong>My side:</strong> design, implementation, validation framework, and enablement.</li>
           </ul>
         </div>
       </section>
 
       <section class="section">
-        <h2>Deliverables and Risk Controls</h2>
-        <div class="list-wrap">
-          <ul>
-            <li>Workflow map, pilot scope document, and owner assignment.</li>
-            <li>Production-ready automation flow with QA checkpoints.</li>
-            <li>Failure logging, correction loop, and explicit guardrails for repeatability.</li>
-            <li>Operator SOPs and weekly review cadence.</li>
-          </ul>
+        <div class="panel" style="padding:22px; max-width:760px">
+          <h2 style="margin-top:0">Ready to scope your first pilot?</h2>
+          <p class="page-lead">Use the services form and I will send practical next-step options based on team size and workflow constraints.</p>
+          <div class="btn-row">
+            <a class="btn primary" href="/services/#contact-form" data-track-event="cta_book_intro_process">Book Intro</a>
+            <a class="btn secondary" href="../index.html" data-track-event="cta_home_process">Back to Home</a>
+          </div>
         </div>
-      </section>
-
-      <section class="section">
-        <h2>Fit and Non-Fit</h2>
-        <div class="list-wrap">
-          <ul>
-            <li><strong>Best fit:</strong> owner-led SMB teams with repeatable manual tasks and readiness to implement.</li>
-            <li><strong>Not a fit:</strong> teams looking only for exploratory strategy decks without execution ownership.</li>
-            <li><strong>Before you submit:</strong> review common constraints in the <a href="/faq/">FAQ</a> and outcomes in <a href="/case-studies/">Case Studies</a>.</li>
-          </ul>
-        </div>
-      </section>
-
-      <section class="cta">
-        <h2>Ready to scope your first pilot?</h2>
-        <p>Use the services form and I will send practical next-step options based on your team size and current workflow constraints.</p>
-        <a class="btn primary" href="/services/#contact-form" data-track-event="cta_book_intro_process">Book Intro</a>
-        <a class="btn secondary" href="../index.html" data-track-event="cta_home_process">Back to Home</a>
       </section>
     </main>
 
@@ -380,15 +101,7 @@
 
   <script src="/shared/js/gtm-loader.js"></script>
   <script src="/shared/js/tracking.js"></script>
-  <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
-    const header = document.querySelector("header");
-    const toggleHeader = () => {
-      header.classList.toggle("scrolled", window.scrollY > 8);
-    };
-    toggleHeader();
-    window.addEventListener("scroll", toggleHeader, { passive: true });
-  </script>
+  <script src="/shared/js/commercial-common.js"></script>
 </body>
 
 </html>

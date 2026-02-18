@@ -8,7 +8,8 @@
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/shared/css/commercial-v2.css" />
   <title>AI Consulting FAQ for Owner-Led SMBs | Zach Day</title>
   <meta name="description" content="FAQ for owner-led SMB AI consulting engagements: pricing model, timeline, team bandwidth, readiness, and data/privacy expectations." />
   <meta name="robots" content="index,follow" />
@@ -21,242 +22,17 @@
   <meta name="twitter:title" content="AI Consulting FAQ for Owner-Led SMBs | Zach Day" />
   <meta name="twitter:description" content="FAQ for owner-led SMB AI consulting engagements: pricing model, timeline, team bandwidth, readiness, and data/privacy expectations." />
   <meta name="twitter:image" content="https://zachday.xyz/favicon.svg" />
-  <style>
-    :root {
-      --bg: #0a0a0a;
-      --panel: #151515;
-      --text: #e8eaf0;
-      --muted: #a0a0a0;
-      --border: #2a2a2a;
-      --accent: #10b981;
-      --radius: 12px;
-      --shadow: 0 14px 30px rgba(0, 0, 0, 0.34);
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      color: var(--text);
-      font-family: "Inter", "SF Pro Text", "Segoe UI", system-ui, -apple-system, sans-serif;
-      line-height: 1.55;
-      background: radial-gradient(900px 520px at 15% -10%, rgba(16, 185, 129, 0.14), transparent 60%),
-        radial-gradient(700px 420px at 90% 0%, rgba(255, 255, 255, 0.06), transparent 65%),
-        var(--bg);
-    }
-
-    .container {
-      width: min(960px, 92vw);
-      margin: 0 auto;
-      padding: 40px 0 88px;
-    }
-
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 15;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      padding: 14px 0;
-      background: rgba(10, 10, 10, 0.74);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid transparent;
-      transition: border-color 0.2s ease;
-    }
-
-    header.scrolled {
-      border-color: var(--border);
-    }
-
-    .brand {
-      color: var(--text);
-      text-decoration: none;
-      font-weight: 600;
-      letter-spacing: -0.2px;
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 999px;
-      background: var(--accent);
-      box-shadow: 0 0 10px rgba(22, 196, 127, 0.68);
-      animation: pulse 2.4s ease-in-out infinite;
-    }
-
-    @keyframes pulse {
-      0%,
-      100% {
-        transform: scale(1);
-        opacity: 0.72;
-      }
-
-      50% {
-        transform: scale(1.5);
-        opacity: 1;
-      }
-    }
-
-    nav {
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 14px;
-    }
-
-    nav a {
-      color: var(--muted);
-      text-decoration: none;
-      font-size: 14px;
-      border-bottom: 1px solid transparent;
-      transition: color 0.15s ease, border-color 0.15s ease;
-      padding-bottom: 2px;
-    }
-
-    nav a:hover {
-      color: var(--text);
-      border-color: var(--text);
-    }
-
-    a:focus-visible {
-      outline: none;
-      border-color: var(--accent);
-      box-shadow: 0 0 0 2px rgba(22, 196, 127, 0.25);
-    }
-
-    main {
-      margin-top: 24px;
-    }
-
-    .hero h1 {
-      margin: 0 0 14px;
-      font-size: clamp(34px, 6vw, 56px);
-      letter-spacing: -1.1px;
-      line-height: 1.03;
-      max-width: 15ch;
-    }
-
-    .hero p {
-      margin: 0 0 12px;
-      color: var(--muted);
-      max-width: 68ch;
-      font-size: 18px;
-    }
-
-    .section {
-      margin-top: 44px;
-    }
-
-    .faq-item {
-      border-radius: var(--radius);
-      border: 1px solid var(--border);
-      background: var(--panel);
-      padding: 22px;
-      box-shadow: var(--shadow);
-      margin-bottom: 14px;
-    }
-
-    .faq-item h2 {
-      margin: 0 0 8px;
-      font-size: 20px;
-      letter-spacing: -0.2px;
-    }
-
-    .faq-item p {
-      margin: 0;
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    .cta {
-      margin-top: 52px;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 24px;
-      background: rgba(21, 21, 21, 0.85);
-      box-shadow: var(--shadow);
-    }
-
-    .cta h2 {
-      margin: 0 0 8px;
-      font-size: 24px;
-      letter-spacing: -0.5px;
-    }
-
-    .cta p {
-      margin: 0 0 14px;
-      color: var(--muted);
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 11px 18px;
-      border-radius: 10px;
-      border: 1px solid transparent;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 14px;
-      margin-right: 10px;
-    }
-
-    .btn.primary {
-      background: var(--accent);
-      color: #05110b;
-      border-color: var(--accent);
-    }
-
-    .btn.secondary {
-      border-color: var(--border);
-      color: var(--text);
-    }
-
-    footer {
-      margin-top: 70px;
-      border-top: 1px solid var(--border);
-      padding-top: 26px;
-      color: var(--muted);
-      font-size: 13px;
-      display: flex;
-      justify-content: space-between;
-      gap: 14px;
-      flex-wrap: wrap;
-    }
-
-    @media (max-width: 700px) {
-      .container {
-        padding-top: 24px;
-      }
-
-      header {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .hero p {
-        font-size: 16px;
-      }
-    }
-  </style>
   <link rel="canonical" href="https://zachday.xyz/faq/" />
 </head>
 
 <body>
   <div class="container">
-    <header>
+    <header class="site-header">
       <a href="../index.html" class="brand">
         <span class="dot" aria-hidden="true"></span>
         <span>Zach Day</span>
       </a>
-      <nav>
+      <nav class="site-nav">
         <a href="../index.html" data-track-event="nav_home_faq">Home</a>
         <a href="/services/" data-track-event="nav_services_faq">Services</a>
         <a href="/case-studies/" data-track-event="nav_case_studies_faq">Case Studies</a>
@@ -267,42 +43,40 @@
 
     <main>
       <section class="hero">
-        <h1>FAQ for owner-led SMB AI implementation.</h1>
-        <p>These are the most common questions before submitting a scope request.</p>
+        <h1 class="page-title">FAQ For Owner-Led SMB AI Implementation.</h1>
+        <p class="page-lead">
+          <span class="kinetic-line">
+            <span class="kinetic-word" style="--i:1">Discovery</span>
+            <span class="kinetic-word" style="--i:2">to</span>
+            <span class="kinetic-word" style="--i:3">Deployment</span>
+            <span class="kinetic-word" style="--i:4">in</span>
+            <span class="kinetic-word" style="--i:5">Weeks.</span>
+          </span>
+        </p>
+        <p class="page-lead">These are the most common operating and scope questions before teams submit an intro request.</p>
+        <div class="proof-ribbon">
+          <code>$ martin review faq --audience smb_operators --mode practical</code>
+          <span class="proof-stat">3-4 week pilot</span>
+        </div>
       </section>
 
       <section class="section">
-        <article class="faq-item">
-          <h2>How is pricing structured?</h2>
-          <p>Pricing is scoped to implementation complexity and pilot boundaries, not generic strategy retainers. Intro calls are used to define workflow scope, timeline, and delivery requirements before final quoting.</p>
-        </article>
-
-        <article class="faq-item">
-          <h2>How long does a first pilot usually take?</h2>
-          <p>Most owner-led SMB pilots run 3 to 4 weeks from diagnosis to handoff. The exact timeline depends on workflow complexity, system access, and review availability from your team.</p>
-        </article>
-
-        <article class="faq-item">
-          <h2>What bandwidth does my team need to provide?</h2>
-          <p>At minimum: one owner for decisions, one operator for workflow validation, and consistent access to the systems involved in the pilot. Without named ownership, rollout quality declines.</p>
-        </article>
-
-        <article class="faq-item">
-          <h2>How do you handle data and privacy?</h2>
-          <p>Only the data required for scoped workflows is used. Validation checkpoints and explicit guardrails are applied to reduce unreliable outputs. Sensitive customer and internal details are not published in proof materials.</p>
-        </article>
-
-        <article class="faq-item">
-          <h2>Will this work for my business size?</h2>
-          <p>Best fit is owner-led SMB teams with recurring manual workflows and willingness to implement operating changes. If your team is still deciding whether to execute at all, start with constraints review on the <a href="/process/">Process page</a> first.</p>
-        </article>
+        <article class="card"><h3>How is pricing structured?</h3><p>Pricing is scoped to implementation complexity and pilot boundaries, not generic strategy retainers.</p></article>
+        <article class="card" style="margin-top:12px"><h3>How long does a first pilot usually take?</h3><p>Most pilots run 3 to 4 weeks from diagnosis to handoff, depending on workflow complexity and access.</p></article>
+        <article class="card" style="margin-top:12px"><h3>What team bandwidth is required?</h3><p>At minimum: one owner, one operator, and predictable access to systems involved in the pilot.</p></article>
+        <article class="card" style="margin-top:12px"><h3>How do you handle data and privacy?</h3><p>Only workflow-required data is used. Validation checkpoints and explicit guardrails reduce unreliable output.</p></article>
+        <article class="card" style="margin-top:12px"><h3>Will this work for my business size?</h3><p>Best fit is owner-led SMB teams with recurring manual workflows and clear implementation ownership.</p></article>
       </section>
 
-      <section class="cta">
-        <h2>Ready to start with your first workflow?</h2>
-        <p>Use the services form and I will follow up with practical scope options tailored to your team and current operating constraints.</p>
-        <a class="btn primary" href="/services/#contact-form" data-track-event="cta_book_intro_faq">Book Intro</a>
-        <a class="btn secondary" href="../index.html" data-track-event="cta_home_faq">Back to Home</a>
+      <section class="section">
+        <div class="panel" style="padding:22px">
+          <h2 style="margin-top:0">Ready to start with your first workflow?</h2>
+          <p class="page-lead">Use the services form and I will follow up with practical scope options tailored to your team.</p>
+          <div class="btn-row">
+            <a class="btn primary" href="/services/#contact-form" data-track-event="cta_book_intro_faq">Book Intro</a>
+            <a class="btn secondary" href="../index.html" data-track-event="cta_home_faq">Back to Home</a>
+          </div>
+        </div>
       </section>
     </main>
 
@@ -314,15 +88,7 @@
 
   <script src="/shared/js/gtm-loader.js"></script>
   <script src="/shared/js/tracking.js"></script>
-  <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
-    const header = document.querySelector("header");
-    const toggleHeader = () => {
-      header.classList.toggle("scrolled", window.scrollY > 8);
-    };
-    toggleHeader();
-    window.addEventListener("scroll", toggleHeader, { passive: true });
-  </script>
+  <script src="/shared/js/commercial-common.js"></script>
 </body>
 
 </html>

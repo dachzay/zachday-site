@@ -9,7 +9,8 @@
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/shared/css/commercial-v2.css" />
   <title>AI Consulting in Chicago | Zach Day</title>
   <meta name="description" content="AI consulting in Chicago for owner-led SMBs. Practical automation, clear implementation scope, and measurable operational outcomes." />
   <meta name="robots" content="index,follow" />
@@ -22,568 +23,22 @@
   <meta name="twitter:title" content="AI Consulting in Chicago | Zach Day" />
   <meta name="twitter:description" content="AI consulting in Chicago for owner-led SMBs. Practical automation, clear implementation scope, and measurable operational outcomes." />
   <meta name="twitter:image" content="https://zachday.xyz/favicon.svg" />
-  <style>
-    :root {
-      --bg: #0a0a0a;
-      --panel: #151515;
-      --text: #e8eaf0;
-      --muted: #a0a0a0;
-      --border: #2a2a2a;
-      --accent: #10b981;
-      --shadow: 0 12px 28px rgba(0, 0, 0, 0.45);
-      --radius: 12px;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      margin: 0;
-      font-family: "Inter", "SF Pro Text", "Segoe UI", system-ui, -apple-system, sans-serif;
-      color: var(--text);
-      line-height: 1.5;
-      background: radial-gradient(900px 520px at 15% -10%, rgba(16, 185, 129, 0.14), transparent 60%),
-        radial-gradient(700px 420px at 90% 0%, rgba(255, 255, 255, 0.06), transparent 65%),
-        var(--bg);
-    }
-
-    a {
-      color: var(--text);
-      text-decoration-color: var(--border);
-    }
-
-    .container {
-      width: min(1040px, 92vw);
-      margin: 0 auto;
-      padding: 42px 0 92px;
-    }
-
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 20;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      padding: 14px 0 18px;
-      background: rgba(10, 10, 10, 0.74);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid transparent;
-      transition: border-color 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    header.scrolled {
-      border-color: var(--border);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.34);
-    }
-
-    .brand {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      color: var(--text);
-      text-decoration: none;
-      font-size: 15px;
-      font-weight: 600;
-      letter-spacing: -0.2px;
-    }
-
-    .dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 999px;
-      background: var(--accent);
-      box-shadow: 0 0 10px rgba(16, 185, 129, 0.6);
-      animation: pulse 2.4s ease-in-out infinite;
-    }
-
-    @keyframes pulse {
-      0%,
-      100% {
-        transform: scale(1);
-        opacity: 0.7;
-      }
-
-      50% {
-        transform: scale(1.6);
-        opacity: 1;
-      }
-    }
-
-    nav a {
-      color: var(--muted);
-      text-decoration: none;
-      margin-left: 20px;
-      font-size: 14px;
-      font-weight: 500;
-      border-bottom: 1px solid transparent;
-      transition: color 0.15s ease, border-color 0.15s ease;
-      padding-bottom: 2px;
-    }
-
-    nav a:hover {
-      color: var(--text);
-      border-color: var(--text);
-    }
-
-    main {
-      margin-top: 20px;
-    }
-
-    .hero {
-      padding: 24px 0 14px;
-    }
-
-    .hero-grid {
-      display: grid;
-      grid-template-columns: repeat(12, minmax(0, 1fr));
-      gap: 24px;
-      align-items: start;
-    }
-
-    .hero-copy {
-      grid-column: span 7;
-    }
-
-    .eyebrow {
-      margin: 0 0 12px;
-      font-size: 12px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 1.2px;
-      color: var(--muted);
-    }
-
-    .hero h1 {
-      margin: 0 0 16px;
-      font-size: clamp(34px, 5.8vw, 56px);
-      line-height: 1.03;
-      letter-spacing: -1px;
-      max-width: 14ch;
-    }
-
-    .hero p {
-      margin: 0 0 12px;
-      color: var(--muted);
-      font-size: 18px;
-      max-width: 60ch;
-      line-height: 1.6;
-    }
-
-    .cta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin: 22px 0 18px;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      border-radius: 10px;
-      border: 1px solid transparent;
-      padding: 11px 18px;
-      text-decoration: none;
-      font-size: 14px;
-      font-weight: 600;
-      transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease;
-    }
-
-    .btn:hover {
-      transform: translateY(-1px);
-    }
-
-    .btn.primary {
-      background: #ffffff;
-      border-color: #ffffff;
-      color: #000000;
-    }
-
-    .btn.primary:hover {
-      background: #e5e5e5;
-      border-color: #e5e5e5;
-    }
-
-    .btn.secondary {
-      background: transparent;
-      border-color: var(--border);
-      color: var(--text);
-    }
-
-    .btn.secondary:hover {
-      border-color: var(--muted);
-    }
-
-    .quick-points {
-      margin: 0;
-      padding-left: 18px;
-      color: var(--muted);
-    }
-
-    .quick-points li {
-      margin-bottom: 8px;
-    }
-
-    .lead-card {
-      grid-column: span 5;
-      border: 1px solid var(--border);
-      background: linear-gradient(180deg, rgba(21, 21, 21, 0.95), rgba(15, 15, 15, 0.82));
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 22px;
-    }
-
-    .lead-card h2 {
-      margin: 0 0 8px;
-      font-size: 24px;
-      letter-spacing: -0.4px;
-    }
-
-    .lead-card p {
-      margin: 0 0 14px;
-      color: var(--muted);
-      font-size: 14px;
-      line-height: 1.5;
-    }
-
-    form {
-      display: grid;
-      gap: 12px;
-    }
-
-    label {
-      display: block;
-      margin-bottom: 6px;
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--text);
-    }
-
-    input,
-    select {
-      width: 100%;
-      padding: 10px 12px;
-      border-radius: 10px;
-      border: 1px solid var(--border);
-      background: #0f0f0f;
-      color: var(--text);
-      font-size: 14px;
-      transition: border-color 0.15s ease;
-    }
-
-    button {
-      margin-top: 6px;
-      width: fit-content;
-      background: var(--accent);
-      color: #05130e;
-      border: 1px solid var(--accent);
-      border-radius: 10px;
-      padding: 10px 16px;
-      font-size: 14px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: filter 0.15s ease;
-    }
-
-    button:hover {
-      filter: brightness(0.95);
-    }
-
-    button:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-    }
-
-    input:focus-visible,
-    select:focus-visible,
-    a:focus-visible,
-    button:focus-visible {
-      outline: none;
-      border-color: var(--accent);
-      box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.25);
-    }
-
-    .form-note {
-      margin-top: 10px;
-      color: var(--muted);
-      font-size: 12px;
-    }
-
-    .turnstile-wrap {
-      margin-top: 4px;
-      min-height: 70px;
-    }
-
-    .turnstile-wrap.hidden {
-      display: none;
-      min-height: 0;
-    }
-
-    .hp-field {
-      position: absolute;
-      left: -10000px;
-      width: 1px;
-      height: 1px;
-      overflow: hidden;
-    }
-
-    .impact-grid {
-      margin-top: 26px;
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 14px;
-    }
-
-    .impact-item {
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      background: rgba(255, 255, 255, 0.01);
-      padding: 16px;
-      text-align: center;
-    }
-
-    .impact-value {
-      display: block;
-      font-size: 28px;
-      font-weight: 700;
-      margin-bottom: 2px;
-    }
-
-    .impact-label {
-      display: block;
-      font-size: 12px;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      font-weight: 600;
-    }
-
-    .section {
-      margin-top: 56px;
-    }
-
-    .section h2 {
-      margin: 0 0 20px;
-      font-size: 13px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: var(--muted);
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(12, minmax(0, 1fr));
-      gap: 18px;
-    }
-
-    .card {
-      display: block;
-      text-decoration: none;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      background: var(--panel);
-      padding: 22px;
-      transition: border-color 0.2s ease, transform 0.2s ease, background 0.2s ease;
-    }
-
-    .card:hover {
-      border-color: #3a3a3a;
-      background: rgba(255, 255, 255, 0.02);
-      transform: translateY(-2px);
-    }
-
-    .card h3 {
-      margin: 0 0 10px;
-      font-size: 18px;
-      letter-spacing: -0.2px;
-    }
-
-    .meta {
-      margin: 0;
-      color: var(--muted);
-      font-size: 14px;
-      line-height: 1.55;
-    }
-
-    .service-card {
-      grid-column: span 4;
-    }
-
-    .proof-main {
-      grid-column: span 12;
-    }
-
-    .proof-mini {
-      grid-column: span 4;
-    }
-
-    .pillrow {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 14px;
-    }
-
-    .pill {
-      font-size: 12px;
-      color: var(--text);
-      border: 1px solid var(--border);
-      border-radius: 999px;
-      padding: 4px 10px;
-    }
-
-    .process {
-      margin: 0;
-      padding-left: 20px;
-      color: var(--muted);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding-top: 18px;
-      padding-bottom: 12px;
-      padding-right: 20px;
-      background: rgba(255, 255, 255, 0.01);
-    }
-
-    .process li {
-      margin-bottom: 10px;
-      line-height: 1.6;
-    }
-
-    .contact {
-      margin: 70px auto 30px;
-      text-align: center;
-      max-width: 760px;
-    }
-
-    .contact h2 {
-      margin: 0 0 10px;
-      font-size: 28px;
-      letter-spacing: -0.5px;
-    }
-
-    .contact p {
-      margin: 0 0 16px;
-      color: var(--muted);
-      font-size: 15px;
-    }
-
-    .contact-text {
-      font-size: 14px;
-      color: var(--muted);
-    }
-
-    .contact-text a {
-      color: var(--text);
-      text-decoration: none;
-      border-bottom: 1px solid transparent;
-    }
-
-    .contact-text a:hover {
-      border-bottom-color: var(--text);
-    }
-
-    footer {
-      margin-top: 56px;
-      border-top: 1px solid var(--border);
-      padding-top: 26px;
-      display: flex;
-      justify-content: space-between;
-      gap: 14px;
-      flex-wrap: wrap;
-      color: var(--muted);
-      font-size: 13px;
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      html {
-        scroll-behavior: auto;
-      }
-
-      * {
-        animation: none !important;
-        transition: none !important;
-      }
-    }
-
-    @media (max-width: 900px) {
-      .hero-copy,
-      .lead-card {
-        grid-column: span 12;
-      }
-
-      .service-card,
-      .proof-mini {
-        grid-column: span 6;
-      }
-
-      nav a {
-        margin-left: 14px;
-      }
-    }
-
-    @media (max-width: 720px) {
-      .container {
-        padding: 24px 0 64px;
-      }
-
-      header {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .hero p {
-        font-size: 16px;
-      }
-
-      .impact-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .service-card,
-      .proof-mini {
-        grid-column: span 12;
-      }
-    }
-  </style>
-  <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "ProfessionalService",
-      "name": "Zach Day AI Consulting",
-      "serviceType": [
-        "AI readiness and strategy",
-        "Workflow automation",
-        "Team enablement"
-      ],
-      "areaServed": {
-        "@type": "City",
-        "name": "Chicago"
-      }
-    }
-  </script>
   <link rel="canonical" href="https://zachday.xyz/" />
 </head>
 
 <body>
   <div class="container">
-    <header>
+    <header class="site-header">
       <a href="./" class="brand">
         <span class="dot" title="Currently building"></span>
         <span>Zach Day</span>
       </a>
-      <nav>
+      <nav class="site-nav">
         <a href="#services" data-track-event="nav_services_home">Services</a>
         <a href="/case-studies/" data-track-event="nav_case_studies_home">Case Studies</a>
         <a href="/process/" data-track-event="nav_process_home">Process</a>
         <a href="/faq/" data-track-event="nav_faq_home">FAQ</a>
-        <a href="/services/#contact-form" data-track-event="cta_book_intro_nav_home">Book Intro</a>
+        <a href="#direct-form" data-track-event="cta_book_intro_nav_home">Book Intro</a>
       </nav>
     </header>
 
@@ -591,149 +46,109 @@
       <section class="hero" id="services">
         <div class="hero-grid">
           <div class="hero-copy">
-            <p class="eyebrow">Chicago AI Consulting</p>
-            <h1>AI consulting for Chicago businesses that need working systems.</h1>
-            <p>I help owner-led SMB teams automate repetitive operations and ship practical AI workflows with clear scope, clear owners, and measurable outcomes.</p>
-            <div class="cta">
-              <a class="btn primary" href="#lead-form" data-track-event="cta_book_intro_hero_home">Book Intro</a>
+            <p class="eyebrow fade-up">Chicago AI Consulting</p>
+            <h1 class="fade-up delay-1">AI Systems For Operators Who Need Output This Quarter.</h1>
+            <p class="page-lead fade-up delay-2">
+              I build production workflows for owner-led SMB teams, with a direct path from operational discovery to repeatable deployment.
+            </p>
+            <p class="page-lead fade-up delay-3">
+              <span class="kinetic-line">
+                <span class="kinetic-word" style="--i:1">Discovery</span>
+                <span class="kinetic-word" style="--i:2">to</span>
+                <span class="kinetic-word" style="--i:3">Deployment</span>
+                <span class="kinetic-word" style="--i:4">in</span>
+                <span class="kinetic-word" style="--i:5">Weeks.</span>
+              </span>
+            </p>
+            <div class="btn-row">
+              <a class="btn primary" href="#concierge-card" data-track-event="cta_scope_with_concierge_home">Scope With AI Concierge</a>
               <a class="btn secondary" href="/case-studies/" data-track-event="cta_case_studies_hero_home">Case Studies</a>
               <a class="btn secondary" href="/services/" data-track-event="cta_full_services_hero_home">Full Services</a>
             </div>
-            <ul class="quick-points">
-              <li>Built for owner-led SMB operators.</li>
-              <li>Fast first pilot: discovery to deployment in weeks, not quarters.</li>
-              <li>Process, documentation, and handoff are included.</li>
-            </ul>
+            <div class="ticker"><span>martin: intake parsed | bottleneck mapped | workflow routed | draft generated | QA passed | deployment package shipped</span></div>
+            <section class="hero-demo panel" data-hero-demo aria-label="Martin execution simulation">
+              <div class="terminal-head">
+                <span class="terminal-dot red" aria-hidden="true"></span>
+                <span class="terminal-dot yellow" aria-hidden="true"></span>
+                <span class="terminal-dot green" aria-hidden="true"></span>
+              </div>
+              <ul></ul>
+            </section>
           </div>
 
-          <section id="lead-form" class="lead-card" aria-label="Inquiry form">
-            <h2>Start in 30 seconds</h2>
-            <p>Share your details and I will follow up with scope options for your team.</p>
-            <form id="consult-form">
-              <div class="hp-field" aria-hidden="true">
-                <label for="website">Website</label>
-                <input id="website" name="website" type="text" tabindex="-1" autocomplete="off" />
-              </div>
-              <div>
-                <label for="name">Name</label>
-                <input id="name" name="name" type="text" autocomplete="name" required />
-              </div>
-              <div>
-                <label for="email">Email</label>
-                <input id="email" name="email" type="email" autocomplete="email" required />
-              </div>
-              <div>
-                <label for="employee_band">Number of Employees</label>
-                <select id="employee_band" name="employee_band" required>
-                  <option value="" selected disabled>Select a range</option>
-                  <option value="0-5">0-5</option>
-                  <option value="5-10">5-10</option>
-                  <option value="11-25">11-25</option>
-                  <option value="26-50">26-50</option>
-                  <option value="51-100">51-100</option>
-                  <option value="101-250">101-250</option>
-                  <option value="251+">251+</option>
-                </select>
-              </div>
-              <div id="turnstile-container" class="turnstile-wrap hidden" aria-label="Spam protection"></div>
-              <button type="submit">Send Inquiry</button>
-            </form>
-            <p id="form-note" class="form-note">Your details are sent to a secured lead endpoint.</p>
-          </section>
-        </div>
-      </section>
-
-      <section class="impact-grid" aria-label="Business outcomes">
-        <div class="impact-item">
-          <span class="impact-value">17</span>
-          <span class="impact-label">Automated Plays</span>
-        </div>
-        <div class="impact-item">
-          <span class="impact-value">10+</span>
-          <span class="impact-label">Systems Shipped</span>
-        </div>
-        <div class="impact-item">
-          <span class="impact-value">50+</span>
-          <span class="impact-label">Production Deployments</span>
+          <aside class="hero-aside panel concierge" id="concierge-card">
+            <h2>AI Concierge</h2>
+            <p>Answer a few scoped questions. Get a practical implementation path matched to your current operating constraints.</p>
+            <div id="concierge"></div>
+            <div id="concierge-turnstile" class="turnstile-wrap hidden" aria-label="Spam protection"></div>
+            <p id="concierge-note" class="concierge-note">Or email <a href="mailto:day.zachc@gmail.com">day.zachc@gmail.com</a> for direct scope support.</p>
+            <p class="concierge-note"><a href="#direct-form">Use the direct form instead</a> if you prefer one-step intake.</p>
+          </aside>
         </div>
       </section>
 
       <section class="section">
-        <h2>Service Packages</h2>
-        <div class="grid">
-          <article class="card service-card">
-            <h3>AI Readiness and Roadmap</h3>
-            <p class="meta">Assess current workflows, identify the highest-value use cases, and build a practical implementation roadmap your team can execute.</p>
-          </article>
-          <article class="card service-card">
-            <h3>Workflow Automation Build</h3>
-            <p class="meta">Design and deploy automation for repetitive operational tasks, including intake, follow-up, internal reporting, and knowledge retrieval.</p>
-          </article>
-          <article class="card service-card">
-            <h3>Team Enablement</h3>
-            <p class="meta">Train operators and managers on prompt workflows, quality guardrails, and adoption standards so systems are used consistently.</p>
-          </article>
+        <h2>Delivery Metrics</h2>
+        <div class="metric-strip">
+          <div class="metric"><span class="value">17</span><span class="label">Automated Plays</span></div>
+          <div class="metric"><span class="value">10+</span><span class="label">Systems Shipped</span></div>
+          <div class="metric"><span class="value">50+</span><span class="label">Production Deployments</span></div>
         </div>
       </section>
 
-      <section class="section">
-        <h2>How Engagement Works</h2>
-        <ol class="process">
-          <li><strong>Week 1:</strong> Discovery, workflow mapping, and baseline metrics.</li>
-          <li><strong>Week 2-3:</strong> Build one high-impact pilot and validate results.</li>
-          <li><strong>Week 4:</strong> Document, train, and hand off a 90-day expansion plan.</li>
-        </ol>
+      <section class="section" id="direct-form">
+        <h2>Prefer A Direct Form?</h2>
+        <div class="panel direct-form-wrap">
+          <p class="page-lead">Use the same secured lead route if you want a faster intro without the guided scope flow.</p>
+          <form id="consult-form">
+            <div class="hp-field" aria-hidden="true">
+              <label for="website">Website</label>
+              <input id="website" name="website" type="text" tabindex="-1" autocomplete="off" />
+            </div>
+            <div>
+              <label for="name">Name</label>
+              <input id="name" name="name" type="text" autocomplete="name" required />
+            </div>
+            <div>
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" autocomplete="email" required />
+            </div>
+            <div>
+              <label for="employee_band">Number of Employees</label>
+              <select id="employee_band" name="employee_band" required>
+                <option value="" selected disabled>Select a range</option>
+                <option value="0-5">0-5</option>
+                <option value="5-10">5-10</option>
+                <option value="11-25">11-25</option>
+                <option value="26-50">26-50</option>
+                <option value="51-100">51-100</option>
+                <option value="101-250">101-250</option>
+                <option value="251+">251+</option>
+              </select>
+            </div>
+            <div id="turnstile-container" class="turnstile-wrap hidden" aria-label="Spam protection"></div>
+            <button type="submit">Send Inquiry</button>
+          </form>
+          <p id="form-note" class="form-note">Your details are sent to a secured lead endpoint.</p>
+        </div>
       </section>
 
       <section class="section">
         <h2>Deeper Narrative</h2>
-        <div class="grid">
-          <a href="/case-studies/" class="card service-card">
+        <div class="grid-12">
+          <a href="/case-studies/" class="card" style="grid-column: span 4" data-track-event="cta_case_studies_lower_home">
             <h3>Case Studies</h3>
-            <p class="meta">Problem, implementation, timeline, and measurable outcomes for owner-led SMB engagements.</p>
+            <p>Before/after operational examples with implementation timeline and measurable outcomes.</p>
           </a>
-          <a href="/process/" class="card service-card">
+          <a href="/process/" class="card" style="grid-column: span 4" data-track-event="cta_process_lower_home">
             <h3>Delivery Process</h3>
-            <p class="meta">How work moves from workflow diagnosis to pilot deployment, handoff, and expansion planning.</p>
+            <p>Workflow diagnosis, pilot build, QA controls, handoff, and expansion planning.</p>
           </a>
-          <a href="/faq/" class="card service-card">
+          <a href="/faq/" class="card" style="grid-column: span 4" data-track-event="cta_faq_lower_home">
             <h3>FAQ</h3>
-            <p class="meta">Clear answers on pricing model, expected timeline, readiness, and operating constraints.</p>
+            <p>Pricing model, expected timeline, team bandwidth, and readiness constraints.</p>
           </a>
         </div>
-      </section>
-
-      <section id="proof" class="section">
-        <h2>Technical Proof</h2>
-        <div class="grid">
-          <a href="./martin/index.html" class="card proof-main">
-            <h3>Martin</h3>
-            <p class="meta">Execution layer for turning intent into repeatable action across account workflows, validation logic, and operational memory.</p>
-            <div class="pillrow">
-              <span class="pill">Agents</span>
-              <span class="pill">Workflow</span>
-              <span class="pill">RAG</span>
-            </div>
-          </a>
-          <a href="./micro-app-factory/index.html" class="card proof-mini">
-            <h3>Micro-App Factory</h3>
-            <p class="meta">Reusable front-end and deployment patterns for shipping focused workflow tools quickly.</p>
-          </a>
-          <a href="./signal-engine/index.html" class="card proof-mini">
-            <h3>Signal Engine</h3>
-            <p class="meta">Event-to-signal pipeline used to monitor account health and trigger targeted actions.</p>
-          </a>
-          <a href="./personal-os/index.html" class="card proof-mini">
-            <h3>Personal OS</h3>
-            <p class="meta">Operating model for turning raw ideas into documented, testable, production-ready systems.</p>
-          </a>
-        </div>
-      </section>
-
-      <section id="contact" class="contact">
-        <h2>Ready to scope an AI project in Chicago?</h2>
-        <p>Use the form above and I will send next-step options based on your team size and goals.</p>
-        <p class="contact-text"><a href="mailto:day.zachc@gmail.com">day.zachc@gmail.com</a> / <a href="https://x.com/dachzay" target="_blank" rel="noopener noreferrer">@dachzay</a></p>
       </section>
     </main>
 
@@ -746,34 +161,26 @@
   <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
   <script src="/shared/js/gtm-loader.js"></script>
   <script src="/shared/js/tracking.js"></script>
+  <script src="/shared/js/commercial-common.js"></script>
   <script src="/shared/js/lead-form.js"></script>
+  <script src="/shared/js/hero-demo.js"></script>
+  <script src="/shared/js/concierge.js"></script>
   <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
-
-    const header = document.querySelector("header");
-    const toggleHeader = () => {
-      header.classList.toggle("scrolled", window.scrollY > 8);
-    };
-    toggleHeader();
-    window.addEventListener("scroll", toggleHeader, { passive: true });
-
-    const dots = document.querySelectorAll(".dot");
-    const setPresenceDot = () => {
-      const online = navigator.onLine;
-      dots.forEach((dot) => {
-        dot.style.background = online ? "var(--accent)" : "#ef4444";
-        dot.style.boxShadow = online ? "0 0 10px rgba(16, 185, 129, 0.6)" : "0 0 10px rgba(239, 68, 68, 0.6)";
-        dot.title = online ? "Online" : "Offline";
-      });
-    };
-    setPresenceDot();
-    window.addEventListener("online", setPresenceDot);
-    window.addEventListener("offline", setPresenceDot);
     if (window.ZachSite && typeof window.ZachSite.initLeadForm === "function") {
       window.ZachSite.initLeadForm({
         formId: "consult-form",
         noteId: "form-note",
         turnstileContainerId: "turnstile-container",
+        fallbackEmail: "day.zachc@gmail.com",
+        eventContext: "home",
+      });
+    }
+
+    if (window.ZachSite && typeof window.ZachSite.initConcierge === "function") {
+      window.ZachSite.initConcierge({
+        rootId: "concierge",
+        noteId: "concierge-note",
+        turnstileContainerId: "concierge-turnstile",
         fallbackEmail: "day.zachc@gmail.com",
         eventContext: "home",
       });
