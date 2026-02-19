@@ -2,3 +2,7 @@
 .wrangler/tmp/
 ops/backups/
 ops/secret-rotation.log
+
+inbox-router/.env
+inbox-router/logs/
+inbox-router/data/

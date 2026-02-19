@@ -1,149 +1,216 @@
-# Website Handoff (Monolith)
+# Website Handoff (Commercial V2 + Concierge Scope Intake)
 
-Date: 2026-02-09
+Date: 2026-02-18
 Repo: `zachday-site`
 Primary Branch: `main`
-Deployment: Cloudflare Pages via `npm run deploy`
+Remote: `origin` -> `https://github.com/dachzay/zachday-site.git`
+Deployment: Cloudflare Pages (production from `main`)
 
-## 1) Current Intent and Product Framing
+## 1) Current Product Direction
 
-The site has shifted from action-oriented UX to interpretive showcase UX.
+The commercial funnel has been upgraded to a "Level Up" release across the 5 commercial pages with stronger visual proof and a guided AI scoping path.
 
-Core intent:
-- Present Zach's judgment, taste, and execution philosophy through artifacts.
-- Optimize for interpretation clarity, not user conversion.
+Current intent:
+- Capture qualified inbound consulting opportunities.
+- Demonstrate execution capability above the fold (functional proof, not only claims).
+- Route high-intent visitors through guided scope intake or direct lead form.
+- Keep static-site architecture (HTML/CSS/JS + Cloudflare Pages Functions + D1).
 
-Non-goals:
-- No onboarding flows.
-- No funnels or "start here" patterns.
-- No directive CTA language that tells users what to do.
+Current non-goals:
+- No JS framework migration.
+- No CMS introduction.
+- No freeform LLM chat in v1 concierge (guided deterministic flow only).
 
-## 2) Recent Release Scope
+## 2) What Changed Since The Last Handoff
 
-This pass implemented a full interpretive content layer without changing layout architecture.
+### Major release (2026-02-18)
+- Commercial visual system refreshed across:
+  - `/`
+  - `/services/`
+  - `/case-studies/`
+  - `/process/`
+  - `/faq/`
+- Shared style/system introduced: `shared/css/commercial-v2.css`.
+- Shared header/year/presence behavior introduced: `shared/js/commercial-common.js`.
+- Homepage hero demo introduced: `shared/js/hero-demo.js`.
+- Guided AI concierge introduced: `shared/js/concierge.js`.
+- New backend endpoint introduced: `functions/api/concierge-scope.js`.
+- D1 migration added for `concierge_scopes`: `ops/migrations/2026-02-18-add-concierge-scopes.sql`.
+- GA4/GTM tracking documentation updated for concierge and hero demo.
+- Concierge API contract documented in `docs/concierge_scope_api.md`.
 
-Implemented:
-- Home framing sentence to set interpretive expectations.
-- Pilot and then full-pass "Why this matters" statements across flagship pages.
-- Martin section pages now include concise "Interpretive Evidence" bullets.
-- Martin overview includes a "Key Exhibits" curation block.
-- Live social feed section configured to X timeline with 1-post limit.
-- Global visual system retained (dark theme, sticky header behavior, card interactions).
+### Previous release context (2026-02-16)
+- Services-first homepage pivot.
+- `/api/leads` hardened and Turnstile-enabled lead forms.
+- Ops scripts for health checks/backup/webhook secret rotation.
 
-## 3) Files Updated in the Full Pass
+## 3) Latest Relevant Commits
 
-Primary content pass:
-- `martin/index.html`
-- `martin/origin/index.html`
-- `martin/system/index.html`
-- `martin/plays/index.html`
-- `martin/innovations/index.html`
-- `martin/metrics/index.html`
-- `martin/standards/index.html`
-- `micro-app-factory/index.html`
-- `signal-engine/index.html`
-- `personal-os/index.html`
+- `a944e03` (2026-02-18): commercial v2 rollout + concierge API + migration + docs
+- `880ccfc` (2026-02-16): lead form + ops script/docs updates
+- `3f50672` (2026-02-16): Turnstile enabled on lead forms + docs
+- `1a4fc87` (2026-02-16): services-first refactor + secure `/api/leads`
+- `492d51e` (2026-02-10): signal-engine narrative refactor
 
-Supporting home/feed and prior UX updates already in main:
-- `index.html`
+## 4) Current Site Map
 
-## 4) Deployed Commits (Relevant)
+Commercial pages (in scope for V2):
+- `/index.html` (hero demo + AI concierge + direct lead form)
+- `/services/index.html` (services + proof ribbon + direct lead form)
+- `/case-studies/index.html` (bento proof cards with before/after visuals)
+- `/process/index.html` (delivery model + proof ribbon)
+- `/faq/index.html` (FAQ + proof ribbon)
 
-- `601f0a3`: remove wrangler temp files and ignore `.wrangler/tmp/`
-- `c7d9358`: add interpretive framing pass across project pages
+Project/proof pages (still live):
+- `/martin/*`
+- `/micro-app-factory/`
+- `/signal-engine/`
+- `/personal-os/`
 
-Status:
-- `main` pushed to `origin/main`
-- `npm run deploy` executed successfully after latest push
-- Cloudflare Pages expected to auto-publish from repo integration
+Backend/API:
+- `/api/leads` via `functions/api/leads.js`
+- `/api/concierge-scope` via `functions/api/concierge-scope.js`
 
-## 5) Content System Now in Place
+## 5) Lead + Concierge Capture Architecture
 
-### Home page
-- Hero includes a global framing sentence:
-  - site should be read as artifacts for interpretation, not instruction.
-- "Writing" renamed to "Live Feed".
-- X embed active for `@dachzay` with `data-tweet-limit="1"`.
+### A) Lead form path (`/api/leads`)
+Front-end forms:
+- `index.html` form id: `consult-form`
+- `services/index.html` form id: `lead-form`
 
-### Martin overview
-- Includes project-level curatorial line:
-  - "Why this matters" statement under hero.
-- Includes "Key Exhibits" links to core Martin sections.
+Shared fields:
+- `name`, `email`, `employee_band`, `website` (honeypot), `source_path`, `turnstile_token`
 
-### Martin section pages
-The following pages now include interpretive framing blocks:
-- Origin
-- System
-- Plays
-- Innovations
-- Metrics
-- Standards
+### B) Concierge path (`/api/concierge-scope`)
+Front-end module:
+- `shared/js/concierge.js`
+- finite-state guided flow:
+  1. `business_type`
+  2. `primary_bottleneck`
+  3. `current_tools`
+  4. `timeline`
+  5. `budget_band`
+  6. `contact` (`name`, `email`, `employee_band`, optional `notes`)
 
-Pattern used:
-- 1 short "Why this matters" sentence near hero.
-- 1 concise "Interpretive Evidence" list tied to the section's role.
+Concierge payload includes:
+- `session_id`, `source_path`
+- contact + scope fields
+- `transcript` array (`role: user|assistant`, `text`)
+- `turnstile_token`
 
-### Non-Martin project pages
-- `micro-app-factory/index.html`
-- `signal-engine/index.html`
-- `personal-os/index.html`
+### C) Security/validation patterns
+Both endpoints enforce:
+- JSON content type
+- request size limits
+- same-origin checks
+- field normalization/validation
+- optional Turnstile verification when `TURNSTILE_SECRET` is present
+- optional rate limiting (`LEADS_RATE_LIMITER`; concierge also supports `CONCIERGE_RATE_LIMITER`)
 
-Each includes one short curatorial statement to clarify why the artifact exists in Zach's body of work.
+## 6) Data Layer / D1 Schema
 
-## 6) UX/Interaction Baseline
+Existing table:
+- `leads`
 
-Shared baseline currently active across pages:
-- Dark token set and minimalist visual language.
-- Sticky translucent header with scroll-state border (`header.scrolled`).
-- Pulsing green status dot in brand.
-- Card hover lift + shine effect.
-- Global link color override to avoid browser default blue links.
-- "Back to Home" wayfinding on subpages.
+New table:
+- `concierge_scopes` (via migration)
 
-## 7) Known Constraints and Risks
+Migration file:
+- `ops/migrations/2026-02-18-add-concierge-scopes.sql`
 
-1. X timeline freshness
-- X embed can cache and may appear stale.
-- Current mitigation: `data-tweet-limit="1"`.
-- If strict "latest" accuracy is required, embed a specific tweet URL or use API-backed rendering.
+Apply command:
+```powershell
+npx wrangler d1 execute LEADS-DB --remote --file .\ops\migrations\2026-02-18-add-concierge-scopes.sql
+```
 
-2. Inline CSS duplication
-- Many pages carry duplicated style blocks.
-- This is workable now but increases maintenance cost.
-- Future refactor option: extract shared CSS into a single static stylesheet.
+## 7) Runtime Configuration
 
-3. Content consistency across deeper Martin child pages
-- Full interpretive pass was applied to main Martin section hubs.
-- Some deep child pages can still be further aligned if desired.
+Required:
+- `LEADS_DB` (D1 binding)
 
-## 8) Operational Commands
+Recommended:
+- `TURNSTILE_SECRET`
+- `LEADS_RATE_LIMITER`
+- `CONCIERGE_RATE_LIMITER` (optional; falls back to `LEADS_RATE_LIMITER`)
 
-Local preview:
-- `npm run dev`
+Optional forwarding:
+- `GOOGLE_SHEETS_WEBHOOK_URL` or `LEADS_WEBHOOK_URL`
+- `LEADS_WEBHOOK_SECRET`
 
-Deploy:
-- `npm run deploy`
+Testing fallback only:
+- `ALLOW_SIMULATED_LEADS=true`
 
-Git push:
-- `git push origin main`
+## 8) Tracking / Analytics
 
-## 9) Suggested Next Iteration (Optional)
+Tracking docs:
+- `docs/ga4_gtm_setup.md`
 
-If continuing this direction, next practical increment:
-1. Add the same interpretive micro-pattern to deep Martin child pages.
-2. Standardize section-level evidence phrasing for tighter editorial voice.
-3. Replace placeholder contact links on home with live links.
-4. Consolidate duplicated CSS into shared static file.
+New emitted events:
+- `concierge_open`
+- `concierge_step_complete`
+- `concierge_submit_attempt`
+- `concierge_submit_success`
+- `concierge_submit_error`
+- `hero_demo_start`
+- `hero_demo_complete`
 
-## 10) Quick Audit Checklist for Future Agent
+Existing lead events remain:
+- `lead_form_start`
+- `lead_form_submit_attempt`
+- `lead_form_submit_success`
+- `lead_form_submit_error`
 
-- Verify each section keeps interpretation-over-instruction tone.
-- Verify no page reintroduces onboarding/funnel language.
-- Verify each flagship page has exactly one curatorial sentence.
-- Verify evidence bullets stay concise and non-promotional.
-- Verify X embed still renders and honors post limit.
-- Verify no accidental `.wrangler/tmp` tracking in git.
+## 9) Ops Automation
 
-## 11) Handoff Summary
+NPM scripts:
+- `npm run ops:health`
+- `npm run ops:backup`
+- `npm run ops:rotate:webhook -- --apply`
+- `npm run ops:maintenance`
 
-This site is now positioned as an interpretive portfolio layer, not a guided product tour. The current release establishes consistent curatorial framing across home, Martin section hubs, and supporting project pages, and is deployed from `main`.
+Script files:
+- `scripts/ops/health-check.js`
+- `scripts/ops/backup-d1.js`
+- `scripts/ops/rotate-webhook-secret.js`
+
+## 10) Current Risks / Constraints
+
+1. Deploy script stages too broadly
+- `npm run deploy` uses `git add -A`.
+- It can commit unrelated local files (already observed once).
+
+2. GTM not enabled by default
+- Commercial pages still have `<meta name="gtm-id" content="">`.
+- Analytics events emit to dataLayer, but GTM loading requires setting the real ID.
+
+3. Wrangler local warning
+- `wrangler pages dev` warns no explicit `compatibility_date` set.
+- Non-blocking but should be set in Wrangler config for consistency.
+
+4. Cloudflare auth requirement for non-interactive commands
+- D1 migration/backup commands need `CLOUDFLARE_API_TOKEN` in non-interactive environments.
+
+## 11) Validation Snapshot (2026-02-18)
+
+Completed checks:
+- `node --check functions/api/concierge-scope.js` (pass)
+- `node --check shared/js/concierge.js` (pass)
+- `npm run ops:health` (pass)
+- local smoke:
+  - `GET /`, `/services/`, `/case-studies/`, `/process/`, `/faq/` -> `200`
+  - `OPTIONS /api/leads` -> `204`
+  - `OPTIONS /api/concierge-scope` -> `204`
+  - invalid concierge POST returns `422` as expected
+
+## 12) Quick Checklist For Next Agent
+
+- Confirm D1 migration applied in target environment.
+- Confirm concierge submissions persist into `concierge_scopes`.
+- Confirm lead forms still persist into `leads`.
+- If webhook enabled, confirm `event_type: concierge_scope` payload reaches destination.
+- Set real GTM ID and validate all new event mappings in GTM Preview + GA4 DebugView.
+- Decide whether to harden deploy flow to avoid `git add -A` surprises.
+
+## 13) Handoff Summary
+
+As of 2026-02-18, the commercial funnel is upgraded to a shared V2 system with kinetic typography, hero execution proof, visual bento case studies, and guided AI concierge scoping backed by a new Pages Function and D1 table migration.
