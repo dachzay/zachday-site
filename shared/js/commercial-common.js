@@ -1,4 +1,42 @@
 (() => {
+  function normalizePath(path) {
+    if (!path || path === "/index.html") {
+      return "/";
+    }
+
+    const cleaned = path.replace(/\/+$/, "");
+    return cleaned || "/";
+  }
+
+  function initNavState() {
+    const nav = document.querySelector(".site-nav");
+    if (!nav) {
+      return;
+    }
+
+    const currentPath = normalizePath(window.location.pathname);
+    const links = nav.querySelectorAll("a[href]");
+
+    links.forEach((link) => {
+      link.removeAttribute("aria-current");
+      const href = link.getAttribute("href");
+      if (!href || href.startsWith("#") || href.includes("#")) {
+        return;
+      }
+
+      let targetPath = "";
+      try {
+        targetPath = normalizePath(new URL(href, window.location.origin).pathname);
+      } catch {
+        return;
+      }
+
+      if (targetPath === currentPath) {
+        link.setAttribute("aria-current", "page");
+      }
+    });
+  }
+
   function initHeader() {
     const header = document.querySelector(".site-header");
     if (!header) {
@@ -43,6 +81,7 @@
 
   document.addEventListener("DOMContentLoaded", () => {
     initHeader();
+    initNavState();
     initYear();
     initPresenceDots();
   });

@@ -121,6 +121,18 @@ header.site-header.scrolled {
   border-color: var(--text);
 }
 
+.site-nav a:focus-visible {
+  outline: 2px solid rgba(44, 200, 161, 0.7);
+  outline-offset: 2px;
+  color: var(--text);
+}
+
+.site-nav a[aria-current="page"] {
+  color: var(--text);
+  border-color: transparent;
+  background: rgba(255, 255, 255, 0.12);
+}
+
 main {
   margin-top: 20px;
 }
@@ -522,14 +534,15 @@ form select {
 @media (min-width: 931px) {
   .site-nav {
     overflow: visible;
-    padding: 6px;
+    padding: 6px 8px;
     border: 1px solid var(--border);
     border-radius: 999px;
     background: rgba(16, 23, 34, 0.76);
+    gap: 8px;
   }
 
   .site-nav a {
-    padding: 7px 11px;
+    padding: 7px 10px;
     border-radius: 999px;
     border-bottom: none;
   }
@@ -539,8 +552,34 @@ form select {
     background: rgba(255, 255, 255, 0.08);
   }
 
+  .site-nav a[aria-current="page"] {
+    background: rgba(44, 200, 161, 0.2);
+    box-shadow: inset 0 0 0 1px rgba(44, 200, 161, 0.35);
+  }
+
   .hero-copy {
     padding: 8px 12px 0 0;
+  }
+
+  .home-page .hero {
+    margin-top: 20px;
+  }
+
+  .home-page .hero-copy {
+    grid-column: span 8;
+    padding-right: 18px;
+  }
+
+  .home-page .hero-aside {
+    grid-column: span 4;
+  }
+
+  .home-page .btn-row {
+    margin: 10px 0 10px;
+  }
+
+  .home-page .ticker {
+    margin-top: 12px;
   }
 
   .hero-aside {
@@ -763,6 +802,12 @@ footer {
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
+
+  .fade-up {
+    opacity: 1;
+    transform: none;
+    animation: none !important;
+  }
 
   * {
     animation: none !important;
