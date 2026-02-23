@@ -4,11 +4,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="gtm-id" content="" />
+  <meta name="gtm-id" content="GTM-W45LRZM5" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <meta name="theme-color" content="#0b0f14" />
+  <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+  <noscript><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" /></noscript>
   <link rel="stylesheet" href="/shared/css/commercial-v2.css" />
   <title>AI Implementation Process for SMB Teams | Zach Day</title>
   <meta name="description" content="See the delivery process for owner-led SMB AI implementations: diagnosis, pilot build, validation, handoff, and expansion planning." />
@@ -23,9 +26,20 @@
   <meta name="twitter:description" content="See the delivery process for owner-led SMB AI implementations: diagnosis, pilot build, validation, handoff, and expansion planning." />
   <meta name="twitter:image" content="https://zachday.xyz/favicon.svg" />
   <link rel="canonical" href="https://zachday.xyz/process/" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://zachday.xyz/" },
+      { "@type": "ListItem", "position": 2, "name": "Process", "item": "https://zachday.xyz/process/" }
+    ]
+  }
+  </script>
 </head>
 
 <body>
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W45LRZM5" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="container">
     <header class="site-header">
       <a href="../index.html" class="brand">
@@ -61,10 +75,22 @@
       <section class="section">
         <h2>Engagement Stages</h2>
         <div class="grid-12">
-          <article class="card" style="grid-column: span 6"><h3>1. Diagnose</h3><p>Map workflow steps, constraints, ownership, and baseline metrics.</p></article>
-          <article class="card" style="grid-column: span 6"><h3>2. Build Pilot</h3><p>Implement one high-impact automation with scoped inputs, outputs, and QA checkpoints.</p></article>
-          <article class="card" style="grid-column: span 6"><h3>3. Validate</h3><p>Run against baseline, fix failure points, and lock stable production behavior.</p></article>
-          <article class="card" style="grid-column: span 6"><h3>4. Handoff</h3><p>Deliver SOPs, runbooks, and a 90-day expansion plan with named owners.</p></article>
+          <article class="card" style="grid-column: span 6">
+            <h3>1. Diagnose</h3>
+            <p>Map workflow steps, constraints, ownership, and baseline metrics. This starts with a structured walkthrough of the target workflow from trigger to completion. We document every manual touchpoint, data source, decision branch, and handoff. The output is a workflow map with quantified bottlenecks and 2-3 ranked automation candidates with expected ROI estimates. Deliverables: workflow map, bottleneck analysis, automation candidate ranking, baseline metric snapshot.</p>
+          </article>
+          <article class="card" style="grid-column: span 6">
+            <h3>2. Build Pilot</h3>
+            <p>Implement one high-impact automation with scoped inputs, outputs, and QA checkpoints. The highest-ranked candidate from diagnosis becomes the pilot. We define exact inputs, expected outputs, validation rules, and failure handling before writing any code. Build runs in 1-2 week sprints with daily progress updates. Every pilot includes at least 3 QA checkpoints where the team validates output against real production scenarios. Deliverables: working automation, validation test results, edge case documentation.</p>
+          </article>
+          <article class="card" style="grid-column: span 6">
+            <h3>3. Validate</h3>
+            <p>Run against baseline, fix failure points, and lock stable production behavior. The pilot runs on live data alongside the existing manual process for 3-5 days. We compare automated output to manual baselines, flag discrepancies, and fix failure modes in real time. Validation ends when the system matches or exceeds baseline quality for 3 consecutive days. Deliverables: validation report, failure log with fixes, production-readiness checklist.</p>
+          </article>
+          <article class="card" style="grid-column: span 6">
+            <h3>4. Handoff</h3>
+            <p>Deliver SOPs, runbooks, and a 90-day expansion plan with named owners. Handoff includes operator training on the new workflow, documented escalation paths for when the system encounters edge cases, and a weekly execution cadence for monitoring output quality. The 90-day expansion plan identifies the next 2-3 automation candidates with estimated timelines. Deliverables: SOPs, operator runbooks, escalation procedures, 90-day expansion roadmap.</p>
+          </article>
         </div>
       </section>
 
@@ -80,12 +106,25 @@
       </section>
 
       <section class="section">
+        <h2>Success Criteria</h2>
+        <div class="panel" style="padding:18px">
+          <ul>
+            <li><strong>Measurable baseline:</strong> Every pilot starts with a quantified before-state so outcomes are provable, not anecdotal.</li>
+            <li><strong>Production-grade output:</strong> The automation handles real data, real edge cases, and real failure modes — not demo scenarios.</li>
+            <li><strong>Team ownership:</strong> At handoff, your team operates the system independently with documented runbooks and escalation paths.</li>
+            <li><strong>Clear expansion path:</strong> The 90-day roadmap identifies what to automate next, so momentum continues after the pilot.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="section">
         <div class="panel" style="padding:22px; max-width:760px">
           <h2 style="margin-top:0">Ready to scope your first pilot?</h2>
           <p class="page-lead">Use the services form and I will send practical next-step options based on team size and workflow constraints.</p>
           <div class="btn-row">
             <a class="btn primary" href="/services/#contact-form" data-track-event="cta_book_intro_process">Book Intro</a>
             <a class="btn secondary" href="../index.html" data-track-event="cta_home_process">Back to Home</a>
+            <a class="btn secondary" href="/case-studies/" data-track-event="cta_case_studies_process">See Case Studies</a>
           </div>
         </div>
       </section>
@@ -97,9 +136,9 @@
     </footer>
   </div>
 
-  <script src="/shared/js/gtm-loader.js"></script>
-  <script src="/shared/js/tracking.js"></script>
-  <script src="/shared/js/commercial-common.js"></script>
+  <script src="/shared/js/gtm-loader.js" defer></script>
+  <script src="/shared/js/tracking.js" defer></script>
+  <script src="/shared/js/commercial-common.js" defer></script>
 </body>
 
 </html>

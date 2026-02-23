@@ -5,11 +5,15 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="turnstile-site-key" content="0x4AAAAAACeBeccH19qgiI1V" />
-  <meta name="gtm-id" content="" />
+  <meta name="gtm-id" content="GTM-W45LRZM5" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <meta name="theme-color" content="#0b0f14" />
+  <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+  <link rel="preconnect" href="https://challenges.cloudflare.com" crossorigin />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+  <noscript><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" /></noscript>
   <link rel="stylesheet" href="/shared/css/commercial-v2.css" />
   <title>AI Consulting Services in Chicago | Zach Day</title>
   <meta name="description" content="Chicago AI consulting services for owner-led SMBs: readiness audits, workflow automation builds, and team enablement with clear delivery scope." />
@@ -24,9 +28,63 @@
   <meta name="twitter:description" content="Chicago AI consulting services for owner-led SMBs: readiness audits, workflow automation builds, and team enablement with clear delivery scope." />
   <meta name="twitter:image" content="https://zachday.xyz/favicon.svg" />
   <link rel="canonical" href="https://zachday.xyz/services/" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "provider": {
+      "@type": "ProfessionalService",
+      "name": "Zach Day",
+      "url": "https://zachday.xyz/"
+    },
+    "serviceType": "AI Consulting",
+    "areaServed": { "@type": "City", "name": "Chicago" },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "AI Consulting Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "AI Readiness Audit",
+            "description": "Map current workflows, bottlenecks, and first 2-3 implementation candidates with owners and baseline metrics."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Workflow Automation Build",
+            "description": "Design and deploy one high-impact automation pilot with validation checkpoints and production SOPs."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Team Enablement",
+            "description": "Train owner and operator roles on guardrails, escalation paths, and weekly execution cadence."
+          }
+        }
+      ]
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://zachday.xyz/" },
+      { "@type": "ListItem", "position": 2, "name": "Services", "item": "https://zachday.xyz/services/" }
+    ]
+  }
+  </script>
 </head>
 
 <body>
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W45LRZM5" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="container">
     <header class="site-header">
       <a href="../index.html" class="brand">
@@ -142,20 +200,22 @@
   </div>
 
   <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
-  <script src="/shared/js/gtm-loader.js"></script>
-  <script src="/shared/js/tracking.js"></script>
-  <script src="/shared/js/commercial-common.js"></script>
-  <script src="/shared/js/lead-form.js"></script>
+  <script src="/shared/js/gtm-loader.js" defer></script>
+  <script src="/shared/js/tracking.js" defer></script>
+  <script src="/shared/js/commercial-common.js" defer></script>
+  <script src="/shared/js/lead-form.js" defer></script>
   <script>
-    if (window.ZachSite && typeof window.ZachSite.initLeadForm === "function") {
-      window.ZachSite.initLeadForm({
-        formId: "lead-form",
-        noteId: "form-note",
-        turnstileContainerId: "turnstile-container",
-        fallbackEmail: "day.zachc@gmail.com",
-        eventContext: "services",
-      });
-    }
+    document.addEventListener("DOMContentLoaded", function() {
+      if (window.ZachSite && typeof window.ZachSite.initLeadForm === "function") {
+        window.ZachSite.initLeadForm({
+          formId: "lead-form",
+          noteId: "form-note",
+          turnstileContainerId: "turnstile-container",
+          fallbackEmail: "day.zachc@gmail.com",
+          eventContext: "services",
+        });
+      }
+    });
   </script>
 </body>
 

@@ -3,10 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="gtm-id" content="GTM-W45LRZM5" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <meta name="theme-color" content="#0a0a0a" />
+  <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" /></noscript>
   <title>Signal Engine - Pattern View</title>
   <style>
     :root {
@@ -191,6 +195,7 @@
   <link rel="canonical" href="https://zachday.xyz/signal-engine/" />
 </head>
 <body>
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W45LRZM5" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="container">
     <header>
       <a href="../index.html" style="text-decoration:none;"><div class="brand"><span class="dot" title="Project"></span><span>Zach Day</span></div></a>
@@ -259,14 +264,17 @@
           <div class="card">
             <h3>The Cost of Being Late</h3>
             <p>Most teams discover trouble when options are already limited. At that point, every response is more expensive and less effective.</p>
+            <p>In operational environments, late detection means the response is reactive — more expensive, more disruptive, and less effective. A signal detected 2 weeks earlier creates options. The same signal detected 2 weeks later creates obligations.</p>
           </div>
           <div class="card">
             <h3>The Shift This Enables</h3>
             <p>Instead of waiting for one obvious red flag, we assemble weak signals into a shared picture early enough to influence the story.</p>
+            <p>Traditional monitoring waits for thresholds to break. Signal detection assembles patterns from multiple weak indicators before any single metric crosses a threshold. The shift is from alarm-based to pattern-based awareness.</p>
           </div>
           <div class="card">
             <h3>The Outcome We Want</h3>
             <p>Fewer surprise escalations, better prioritization, and calmer execution because decisions are made from patterns, not panic.</p>
+            <p>Teams that operate from patterns instead of panic make faster, calmer decisions. Escalation rates drop because issues are addressed before they compound. The operating rhythm shifts from firefighting to intentional response.</p>
           </div>
         </div>
       </section>
@@ -277,14 +285,35 @@
           <div class="card">
             <h3>1. Listen Early</h3>
             <p>Signals are collected continuously so weak movement is visible before it becomes obvious.</p>
+            <p>Signal sources include behavioral shifts, engagement changes, timing anomalies, and communication pattern breaks. Each source has a recency weight and frequency multiplier to separate genuine movement from statistical noise.</p>
           </div>
           <div class="card">
             <h3>2. Build Shared Meaning</h3>
             <p>Context and checks reduce noise so teams align on what actually matters now.</p>
+            <p>Context includes stakeholder relationships, historical patterns, and environmental factors. Confidence checks at each stage prevent premature escalation — a signal must pass input validation, pattern matching, and context verification before it influences priority scores.</p>
           </div>
           <div class="card">
             <h3>3. Move With Intent</h3>
             <p>Response tracks focus action on highest-leverage interventions while there is still room to recover.</p>
+            <p>Response tracks are pre-defined action paths tied to signal tiers. A Monitor-level signal triggers passive observation. An Elevated signal triggers active investigation. A Critical signal triggers immediate intervention with named owners and deadlines.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Signal Types</h2>
+        <div class="cards">
+          <div class="card">
+            <h3>Behavioral Signals</h3>
+            <p>Changes in usage patterns, engagement frequency, or response timing that indicate shifting priorities or emerging friction before any explicit communication occurs.</p>
+          </div>
+          <div class="card">
+            <h3>Structural Signals</h3>
+            <p>Organizational changes like stakeholder turnover, team restructuring, or budget shifts that alter the operating context and create new risk or opportunity vectors.</p>
+          </div>
+          <div class="card">
+            <h3>Temporal Signals</h3>
+            <p>Deadline proximity, commitment delays, and cadence breaks that indicate whether execution is tracking to plan or drifting toward missed targets.</p>
           </div>
         </div>
       </section>
@@ -506,6 +535,7 @@
     renderGraph();
     applyStage(0, 0);
   </script>
-  <script src="/shared/js/tracking.js"></script>
+  <script src="/shared/js/gtm-loader.js" defer></script>
+  <script src="/shared/js/tracking.js" defer></script>
 </body>
 </html>

@@ -4,11 +4,15 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="gtm-id" content="GTM-W45LRZM5" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     
+  <meta name="theme-color" content="#0a0a0a" />
+  <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" /></noscript>
   <title>Personal OS - Zach Day</title>
     <meta name="description" content="My system for turning messy ideas into weekly execution and feedback loops." />
     <style>
@@ -484,6 +488,7 @@
 </head>
 
 <body>
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W45LRZM5" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="container">
         <header>
             <a href="../index.html" style="text-decoration: none;">
@@ -516,18 +521,90 @@
         </ul>
       </section>
 <section class="section">
-                <h2>About this project</h2>
-                <div class="grid">
-                    <div style="grid-column: span 12;">
-                        <p class="meta" style="font-size: 16px;">
-                            A system-first approach to productivity over willpower.
-                        </p>
-                        <p class="meta" style="font-size: 16px;">
-                            Weekly review, clear priorities, and a narrow execution loop.
-                        </p>
-                    </div>
-                </div>
-            </section>
+  <h2>About this project</h2>
+  <div class="grid">
+    <div style="grid-column: span 12;">
+      <p class="meta" style="font-size: 16px;">
+        A system-first approach to productivity over willpower. Most productivity methods fail because they depend on motivation. This system assumes motivation is unreliable and designs around that constraint.
+      </p>
+      <p class="meta" style="font-size: 16px;">
+        Weekly review, clear priorities, and a narrow execution loop. Every week resets with a structured review that forces clarity on what actually matters versus what feels urgent.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <h2>System Architecture</h2>
+  <div class="grid">
+    <div class="card" style="grid-column: span 6;">
+      <h3>Capture Layer</h3>
+      <p class="meta">Ideas, tasks, and inputs funnel into a single inbox regardless of source. No categorization at capture — that happens during review. The goal is zero friction between thought and record.</p>
+    </div>
+    <div class="card" style="grid-column: span 6;">
+      <h3>Processing Layer</h3>
+      <p class="meta">Weekly review transforms raw inputs into prioritized actions. Each item gets one of three dispositions: execute this week, defer with a trigger date, or archive. Nothing stays ambiguous.</p>
+    </div>
+    <div class="card" style="grid-column: span 6;">
+      <h3>Execution Layer</h3>
+      <p class="meta">Daily work pulls from a short list of 3-5 actions. No multitasking, no priority shuffling mid-day. The constraint is intentional — fewer commitments means higher completion rate and better output quality.</p>
+    </div>
+    <div class="card" style="grid-column: span 6;">
+      <h3>Feedback Layer</h3>
+      <p class="meta">End-of-week review measures completion rate, identifies friction patterns, and adjusts the system. This is where the operating system improves itself — not through inspiration, but through data.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <h2>Weekly Review Process</h2>
+  <div class="grid">
+    <div style="grid-column: span 12;">
+      <p class="meta" style="font-size: 16px;">
+        The weekly review is the core ritual. It runs every Sunday for 45-60 minutes and follows a fixed sequence: clear inbox, review active projects, assess completion rates, identify blockers, and set next week's priorities. The review is non-negotiable — skipping it degrades the entire system within 2 weeks.
+      </p>
+      <p class="meta" style="font-size: 16px;">
+        The output is a single page: 3-5 priorities for the week, each with a concrete definition of done. If a priority can't be defined in one sentence, it gets decomposed until it can. Ambiguity is the primary enemy of execution.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <h2>Tools and Constraints</h2>
+  <div class="outcomes-grid">
+    <div class="outcome-card">
+      <div class="outcome-value">1</div>
+      <div class="outcome-label">Single capture tool — everything enters through one channel</div>
+    </div>
+    <div class="outcome-card">
+      <div class="outcome-value">3-5</div>
+      <div class="outcome-label">Weekly priorities — enough to move forward, few enough to finish</div>
+    </div>
+    <div class="outcome-card">
+      <div class="outcome-value">45m</div>
+      <div class="outcome-label">Weekly review duration — structured to prevent overthinking</div>
+    </div>
+    <div class="outcome-card">
+      <div class="outcome-value">0</div>
+      <div class="outcome-label">Open loops — every item has a next action or is archived</div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <h2>Outcomes</h2>
+  <div class="grid">
+    <div style="grid-column: span 12;">
+      <p class="meta" style="font-size: 16px;">
+        Running this system for 18+ months has produced measurable changes: weekly completion rate averages 85-90%, down from ~50% with ad-hoc planning. Context-switching dropped because daily execution pulls from a pre-decided list. The biggest outcome is compounding — small consistent execution builds more than sporadic intensity.
+      </p>
+      <p class="meta" style="font-size: 16px;">
+        This discipline directly feeds the consulting work. The same principles — narrow scope, measurable baselines, structured reviews, iterative improvement — apply to client AI implementations. The Personal OS is the proof that systems beat willpower at any scale.
+      </p>
+    </div>
+  </div>
+</section>
         </main>
 
         <footer>
@@ -557,7 +634,8 @@
     window.addEventListener("online", setPresenceDot);
     window.addEventListener("offline", setPresenceDot);
     </script>
-  <script src="/shared/js/tracking.js"></script>
+  <script src="/shared/js/gtm-loader.js" defer></script>
+  <script src="/shared/js/tracking.js" defer></script>
 </body>
 
 </html>

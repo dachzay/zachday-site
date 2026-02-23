@@ -5,11 +5,15 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="turnstile-site-key" content="0x4AAAAAACeBeccH19qgiI1V" />
-  <meta name="gtm-id" content="" />
+  <meta name="gtm-id" content="GTM-W45LRZM5" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <meta name="theme-color" content="#0b0f14" />
+  <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+  <link rel="preconnect" href="https://challenges.cloudflare.com" crossorigin />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+  <noscript><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" /></noscript>
   <link rel="stylesheet" href="/shared/css/commercial-v2.css" />
   <title>AI Consulting in Chicago | Zach Day</title>
   <meta name="description" content="AI consulting in Chicago for owner-led SMBs. Practical automation, clear implementation scope, and measurable operational outcomes." />
@@ -24,9 +28,35 @@
   <meta name="twitter:description" content="AI consulting in Chicago for owner-led SMBs. Practical automation, clear implementation scope, and measurable operational outcomes." />
   <meta name="twitter:image" content="https://zachday.xyz/favicon.svg" />
   <link rel="canonical" href="https://zachday.xyz/" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "Zach Day",
+    "description": "AI consulting in Chicago for owner-led SMBs. Practical automation, clear implementation scope, and measurable operational outcomes.",
+    "url": "https://zachday.xyz/",
+    "email": "day.zachc@gmail.com",
+    "areaServed": {
+      "@type": "City",
+      "name": "Chicago"
+    },
+    "serviceType": ["AI Readiness Audit", "Workflow Automation Build", "Team Enablement"],
+    "priceRange": "$$",
+    "knowsAbout": ["Artificial Intelligence", "Workflow Automation", "SMB Operations", "AI Implementation"]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Zach Day",
+    "url": "https://zachday.xyz/"
+  }
+  </script>
 </head>
 
 <body class="home-page">
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W45LRZM5" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="container">
     <header class="site-header">
       <a href="./" class="brand">
@@ -134,20 +164,22 @@
   </div>
 
   <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
-  <script src="/shared/js/gtm-loader.js"></script>
-  <script src="/shared/js/tracking.js"></script>
-  <script src="/shared/js/commercial-common.js"></script>
-  <script src="/shared/js/lead-form.js"></script>
+  <script src="/shared/js/gtm-loader.js" defer></script>
+  <script src="/shared/js/tracking.js" defer></script>
+  <script src="/shared/js/commercial-common.js" defer></script>
+  <script src="/shared/js/lead-form.js" defer></script>
   <script>
-    if (window.ZachSite && typeof window.ZachSite.initLeadForm === "function") {
-      window.ZachSite.initLeadForm({
-        formId: "consult-form",
-        noteId: "form-note",
-        turnstileContainerId: "turnstile-container",
-        fallbackEmail: "day.zachc@gmail.com",
-        eventContext: "home",
-      });
-    }
+    document.addEventListener("DOMContentLoaded", function() {
+      if (window.ZachSite && typeof window.ZachSite.initLeadForm === "function") {
+        window.ZachSite.initLeadForm({
+          formId: "consult-form",
+          noteId: "form-note",
+          turnstileContainerId: "turnstile-container",
+          fallbackEmail: "day.zachc@gmail.com",
+          eventContext: "home",
+        });
+      }
+    });
   </script>
 </body>
 
