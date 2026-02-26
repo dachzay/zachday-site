@@ -130,7 +130,7 @@ header.site-header.scrolled {
 .site-nav a[aria-current="page"] {
   color: var(--text);
   border-color: transparent;
-  background: rgba(255, 255, 255, 0.12);
+  background: transparent;
 }
 
 main {
