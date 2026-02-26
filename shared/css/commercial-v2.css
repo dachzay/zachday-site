@@ -131,6 +131,7 @@ header.site-header.scrolled {
   color: var(--text);
   border-color: transparent;
   background: transparent;
+  box-shadow: none;
 }
 
 main {
@@ -553,8 +554,8 @@ form select {
   }
 
   .site-nav a[aria-current="page"] {
-    background: rgba(44, 200, 161, 0.2);
-    box-shadow: inset 0 0 0 1px rgba(44, 200, 161, 0.35);
+    background: transparent;
+    box-shadow: none;
   }
 
   .hero-copy {
@@ -784,6 +785,14 @@ footer {
 
   .site-nav {
     max-width: 100%;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    overflow: visible;
+    row-gap: 8px;
+  }
+
+  .site-nav a {
+    padding: 4px 0;
   }
 
   .hero p,
